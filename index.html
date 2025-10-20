@@ -1,494 +1,193 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>USDT Transfer USDT</title>
-<style>
-  /* Simple modern dark theme */
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-  :root{
-    --bg:#041021; --panel:#071527; --accent:#00d4ff; --accent2:#7c3aed; --muted:#9bb0bf;
-  }
-  *{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
-  html,body{height:100%;margin:0;background:
-    radial-gradient(900px 400px at 10% 10%, rgba(0,212,255,0.03), transparent),
-    linear-gradient(180deg,#020614 0%, #041427 100%); color:#e8f7ff;}
-  .container{max-width:1200px;margin:20px auto;padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); border:1px solid rgba(255,255,255,0.02);}
-  header{display:flex;gap:12px;align-items:center}
-  .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#021026}
-  h1{margin:0;font-size:20px}
-  .subtitle{color:var(--muted);font-size:13px;margin-top:6px}
-  .watermark{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-18deg);font-size:72px;opacity:0.06;color:#ff5b5b;pointer-events:none;font-weight:800;z-index:1}
-  .warning{margin-top:12px;padding:10px;border-radius:8px;background:linear-gradient(90deg, rgba(255,0,0,0.05), rgba(255,255,255,0.006));color:#ffdede;border:1px solid rgba(255,0,0,0.06);font-weight:700}
-  .grid{display:grid;grid-template-columns:1fr 420px;gap:14px;margin-top:14px}
-  .card{background:var(--panel);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
-  .label{font-size:12px;color:var(--muted);margin-bottom:6px}
-  .value{font-weight:700;font-size:15px;color:#dff6ff}
-  .big{font-size:28px}
-  .progress{height:18px;background:rgba(255,255,255,0.03);border-radius:10px;overflow:hidden}
-  .bar{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width 0.6s linear}
-  .console{height:460px;overflow:auto;background:linear-gradient(180deg, rgba(0,0,0,0.12), rgba(255,255,255,0.01));padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.02);font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;color:#cfefff;font-size:13px}
-  .entry{padding:6px;border-radius:6px;margin-bottom:8px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);display:flex;gap:10px;align-items:flex-start}
-  .entry .time{width:84px;color:var(--muted);font-size:12px}
-  .entry .tag{min-width:86px;background:linear-gradient(180deg,var(--accent),var(--accent2));color:#021026;padding:6px;border-radius:6px;font-weight:800;text-align:center;font-size:12px}
-  .entry .txt{flex:1}
-  .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-  .btn{padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--muted);cursor:pointer;font-weight:700}
-  .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#021024;border:none}
-  .small{font-size:13px;padding:6px 8px}
-  .toolbar{display:flex;gap:8px;align-items:center;margin-bottom:8px}
-  .input{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02);padding:8px;border-radius:8px;color:#e8f9ff;font-weight:600;font-size:13px}
-  .muted{color:var(--muted);font-size:13px}
-  footer{margin-top:8px;text-align:right;color:var(--muted);font-size:12px}
-  @media (max-width:980px){.grid{grid-template-columns:1fr}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MetaFlash USDT - Professional Flash USDT Platform</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top, #0b0b10, #050506);
+      color: #fff;
+      overflow-x: hidden;
+    }
+    header {
+      backdrop-filter: blur(10px);
+      background: rgba(10,10,10,0.8);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .logo span {
+      background: linear-gradient(90deg,#00c6ff,#6a00ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    nav a {
+      margin-left: 20px;
+      color: #aaa;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color .3s;
+    }
+    nav a:hover { color: #fff; }
+
+    .hero {
+      text-align: center;
+      padding: 6rem 1rem;
+      background: linear-gradient(135deg, #0d0d15 0%, #121226 100%);
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(90deg,#6a00ff,#00c6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p { color: #aaa; max-width: 600px; margin: 1rem auto; }
+    .btn {
+      background: linear-gradient(90deg,#6a00ff,#00c6ff);
+      border: none;
+      color: #fff;
+      padding: 0.9rem 1.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .btn:hover { transform: scale(1.05); }
+
+    .section {
+      padding: 4rem 1rem;
+      max-width: 1100px;
+      margin: auto;
+    }
+    .section h2 {
+      text-align: center;
+      background: linear-gradient(90deg,#6a00ff,#00c6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      text-align: center;
+      padding: 2rem 1rem;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px rgba(106,0,255,0.3);
+    }
+    .card img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #0a0a0a;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    footer p { color: #888; font-size: 0.9rem; }
+    footer span { color: #00c6ff; }
+
+    .payments img {
+      width: 60px;
+      margin: 0.5rem;
+      filter: drop-shadow(0 0 4px rgba(106,0,255,0.5));
+    }
+  </style>
 </head>
 <body>
-  <div class="watermark">USDT SENDER | MR. PD.</div>
+  <header>
+    <div class="logo">Meta<span>Flash</span> USDT</div>
+    <nav>
+      <a href="#networks">Networks</a>
+      <a href="#wallets">Wallets</a>
+      <a href="#payments">Payments</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-  <div class="container" role="main" aria-labelledby="title">
-    <header>
-      <div class="logo">USDT</div>
-      <div>
-        <h1 id="title">USDT Transfer |ERC-20|TRC-20|BEP-20|</h1>
-        <div class="subtitle">Client-side only. <strong>Caution. Your funds may be lost.</strong> USDT lost on the network cannot be recovered..</div>
-      </div>
-    </header>
+  <section class="hero">
+    <h1>FAST • SECURE • TRUSTED</h1>
+    <p>The next generation Flash USDT platform — powered by blockchain technology for instant and secure transactions.</p>
+    <button class="btn">Start Now</button>
+  </section>
 
-    <div class="warning card" role="alert">
-      IMPORTANT: Do not close until the transmission is completed. Keep verbose logs off for performance.
-    </div>
-
+  <section id="networks" class="section">
+    <h2>Supported Networks</h2>
     <div class="grid">
-      <!-- Left: main -->
-      <div>
-        <div class="card">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div>
-              <div class="label">Recipient</div>
-              <div class="value">0x84991F596c91191Cbb0287c81f7F88bb63413F69</div>
-            </div>
-            <div style="text-align:right">
-              <div class="label">Starting Balance</div>
-              <div class="big" id="balanceDisplay">2,000,000 USDT</div>
-            </div>
-          </div>
-
-          <hr style="margin:10px 0;border:none;height:1px;background:rgba(255,255,255,0.02)">
-
-          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-            <div>
-              <div class="label">Progress (24 hours)</div>
-              <div class="progress"><div class="bar" id="mainBar"></div></div>
-            </div>
-            <div style="margin-left:auto;text-align:right">
-              <div class="muted" id="percentLabel">0%</div>
-              <div class="muted" id="timeLabel">Elapsed 00:00:00 • Remaining 24:00:00</div>
-            </div>
-          </div>
-
-          <div style="height:12px"></div>
-          <div class="toolbar">
-            <div class="controls">
-              <button class="btn primary" id="startBtn">Start</button>
-              <button class="btn" id="pauseBtn" disabled>Pause</button>
-              <button class="btn" id="resumeBtn" disabled>Resume</button>
-              <button class="btn" id="resetBtn" disabled>Reset</button>
-            </div>
-
-            <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
-              <label class="muted">Speed</label>
-              <select id="speed" class="input small">
-                <option value="1">1x (24 hours)</option>
-                <option value="10">10x (2.4 hours)</option>
-                <option value="60" selected>60x (24 minutes)</option>
-                <option value="3600">3600x (24 seconds)</option>
-              </select>
-
-              <label style="margin-left:8px" class="muted">Verbose logging</label>
-              <input type="checkbox" id="verbose" title="Log every 1 USDT transfer (very heavy)">
-
-              <button class="btn small" id="clearConsole">Clear Console</button>
-            </div>
-          </div>
-
-          <div style="height:12px"></div>
-
-          <div class="label">Network Visual (decorative)</div>
-          <div style="height:140px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01),transparent);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
-            <canvas id="networkCanvas" width="800" height="140" style="width:100%;height:100%"></canvas>
-          </div>
-        </div>
-
-        <div style="height:12px"></div>
-
-        <div class="card">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div class="label">Developer Console</div>
-            <div style="display:flex;gap:8px;align-items:center">
-              <input id="filterInput" class="input" style="width:240px" placeholder="Filter (pending, confirmed, tx...)" />
-              <button class="btn small" id="downloadLogs">Download Logs (JSON)</button>
-            </div>
-          </div>
-
-          <div class="console" id="console" aria-live="polite"></div>
-        </div>
+      <div class="card">
+        <img src="https://cryptologos.cc/logos/tron-trx-logo.png" alt="TRC20" />
+        <h3>TRC20 Network</h3>
+        <p>Fast and low-fee transactions on the TRON blockchain.</p>
       </div>
-
-      <!-- Right column -->
-      <div>
-        <div class="card">
-          <div class="label">Transaction Summary</div>
-          <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
-            <div><div class="label">Total Starting Amount</div><div class="value">2,000,000 USDT</div></div>
-            <div><div class="label">Total Sent</div><div class="value" id="sentCount">0 USDT</div></div>
-            <div><div class="label">Remaining</div><div class="value" id="remainingCount">2,000,000 USDT</div></div>
-            <div><div class="label">Recent TX (latest)</div><div class="value" id="latestTx">—</div></div>
-            <div><div class="label">Confirmed (sim)</div><div class="value" id="confirmedCount">0</div></div>
-            <div style="height:8px"></div>
-            <div class="label">Detailed View (last 20 tx)</div>
-            <div style="background:rgba(255,255,255,0.02);padding:10px;border-radius:8px;height:220px;overflow:auto;font-family:ui-monospace,monospace" id="detailBox">
-              <small class="muted">No transactions yet</small>
-            </div>
-          </div>
-        </div>
-
-        <div style="height:12px"></div>
-
-        <div class="card">
-          <div class="label">Options</div>
-          <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
-            <label class="muted">Auto-scroll console</label>
-            <input type="checkbox" id="autoScroll" checked>
-            <label class="muted">Show watermark</label>
-            <input type="checkbox" id="showWM" checked>
-            <label class="muted">Verbose warning</label>
-            <small class="muted">Verbose mode will attempt to append every single 1 USDT transfer into the console. This may slow or crash your browser with millions of lines.</small>
-          </div>
-        </div>
-
-        <footer>TRC-20 Sender USDT</footer>
+      <div class="card">
+        <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="ERC20" />
+        <h3>ERC20 Network</h3>
+        <p>Secure transactions via the Ethereum blockchain.</p>
+      </div>
+      <div class="card">
+        <img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.png" alt="BEP20" />
+        <h3>BEP20 Network</h3>
+        <p>Cost-effective transfers on Binance Smart Chain.</p>
+      </div>
+      <div class="card">
+        <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="BTC" />
+        <h3>Bitcoin Network</h3>
+        <p>The original blockchain network for crypto transactions.</p>
       </div>
     </div>
-  </div>
+  </section>
 
-<script>
-/* Simulator logic
-   - 24h timeline (86400 seconds)
-   - total amount: 2,000,000 USDT
-   - each unit transferred: 1 USDT
-   - logs per 1 USDT optionally (verbose)
-   - TX objects created for each 1 USDT (but we keep only lastN in memory for UI)
-*/
+  <section id="wallets" class="section">
+    <h2>Wallets & Exchanges</h2>
+    <div class="grid">
+      <div class="card"><img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Trust_Wallet_logo.png"/><p>Trust Wallet</p></div>
+      <div class="card"><img src="https://cryptologos.cc/logos/metamask-fox-logo.png"/><p>MetaMask</p></div>
+      <div class="card"><img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.png"/><p>Binance</p></div>
+      <div class="card"><img src="https://cryptologos.cc/logos/coinbase-coin-logo.png"/><p>Coinbase</p></div>
+    </div>
+  </section>
 
-const TOTAL_SECONDS = 24 * 3600; // 86400
-const TOTAL_UNITS = 2000000; // 2,000,000 USDT (units of 1 USDT)
-const REQUIRED_CONFIRMS = 3; // simulated confirmations per tx
-const MAX_DETAIL_KEEP = 200; // keep last N tx in detail pane
-const MAX_CONSOLE_BATCH = 1000; // cap how many console lines appended per tick in non-verbose mode
-const consoleEl = document.getElementById('console');
-const mainBar = document.getElementById('mainBar');
-const percentLabel = document.getElementById('percentLabel');
-const timeLabel = document.getElementById('timeLabel');
-const balanceDisplay = document.getElementById('balanceDisplay');
-const sentCountEl = document.getElementById('sentCount');
-const remainingCountEl = document.getElementById('remainingCount');
-const latestTxEl = document.getElementById('latestTx');
-const confirmedCountEl = document.getElementById('confirmedCount');
-const detailBox = document.getElementById('detailBox');
+  <section id="payments" class="section">
+    <h2>Payment Methods</h2>
+    <div class="payments" style="text-align:center;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="Visa">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Mastercard-logo.png" alt="MasterCard">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Binance_Logo.svg" alt="Binance Pay">
+      <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" alt="USDT">
+      <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="Ethereum">
+    </div>
+  </section>
 
-let speedSelect = document.getElementById('speed');
-let verboseCheckbox = document.getElementById('verbose');
-let autoScrollCheckbox = document.getElementById('autoScroll');
-let showWM = document.getElementById('showWM');
-
-let startTime = null;
-let elapsedBefore = 0;
-let tickHandle = null;
-let paused = false;
-let transferredUnits = 0; // how many 1 USDT units transferred
-let confirmedUnits = 0;
-let pendingTxs = []; // queue of pending txs (store small objects)
-let lastDetail = []; // last N txs for detail pane
-let logs = []; // for download
-
-// helpers
-function formatHMS(s){
-  s = Math.max(0, Math.floor(s));
-  const h = String(Math.floor(s/3600)).padStart(2,'0');
-  const m = String(Math.floor((s%3600)/60)).padStart(2,'0');
-  const sec = String(s%60).padStart(2,'0');
-  return `${h}:${m}:${sec}`;
-}
-function nowTime(){
-  return new Date().toLocaleTimeString();
-}
-function rndHex(len=8){
-  const hex='0123456789abcdef'; let r='0x';
-  for(let i=0;i<len;i++) r+=hex[Math.floor(Math.random()*16)];
-  return r;
-}
-function appendConsole(tag, text, data=null){
-  // check filter
-  const q = document.getElementById('filterInput').value.trim().toLowerCase();
-  const entry = document.createElement('div');
-  entry.className = 'entry';
-  entry.innerHTML = `<div class="time">${nowTime()}</div><div class="tag">${tag}</div><div class="txt"><div style="font-weight:700">${escapeHtml(text)}</div>${data?`<pre style="margin-top:6px;color:#a7e9ff">${escapeHtml(JSON.stringify(data))}</pre>`:''}</div>`;
-  // filtering applied when rendering; prepend for recency
-  consoleEl.prepend(entry);
-  // keep logs for download (lightweight): push key info only
-  logs.push({t:Date.now(), tag, text, data});
-  // auto scroll (scrollTop = 0 because we prepend)
-  if(autoScrollCheckbox.checked){
-    consoleEl.scrollTop = 0;
-  }
-}
-function escapeHtml(s){ return (''+s).replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
-
-// compute elapsed secs
-function getElapsedSecs(){
-  if(!startTime) return elapsedBefore;
-  const now = Date.now();
-  const chosenSpeed = Number(speedSelect.value) || 1;
-  const elapsedMs = (now - startTime) * chosenSpeed;
-  return Math.floor(elapsedBefore + elapsedMs/1000);
-}
-
-// generate simulated transfers according to progress (safe approach)
-function updateTransfers(){
-  const elapsed = getElapsedSecs();
-  const percent = Math.min(100, (elapsed / TOTAL_SECONDS) * 100);
-  const targetTransferred = Math.min(TOTAL_UNITS, Math.floor((percent/100) * TOTAL_UNITS));
-  const toGenerate = targetTransferred - transferredUnits;
-  if(toGenerate <= 0) return;
-  // generate in batches to avoid freeze
-  const verbose = verboseCheckbox.checked;
-  const safeBatch = verbose ? Math.min(toGenerate, 5000) : Math.min(toGenerate, MAX_CONSOLE_BATCH);
-  // generate `safeBatch` transfers now
-  for(let i=0;i<safeBatch;i++){
-    const unitIndex = transferredUnits + 1; // 1-based
-    const txHash = rndHex(16) + rndHex(16); // ~64 hex-ish
-    const txObj = {
-      unit: unitIndex,
-      txHash,
-      status: 'pending',
-      createdAt: Date.now(),
-      block: null,
-      confirmations: 0
-    };
-    pendingTxs.push(txObj);
-    transferredUnits++;
-    // log: Broadcasted
-    const msg = `1 USDT transferred (unit #${unitIndex}) — broadcasted, awaiting confirmations`;
-    // If verbose enabled: log each transfer; else group periodically
-    if(verbose){
-      appendConsole('TX', msg, {tx: txHash, to: '0x8499…13F69', amount: '1 USDT'});
-    } else {
-      // in non-verbose mode, periodically show grouped message every 10 or when batch done
-      if(unitIndex % 10 === 0 || i === safeBatch - 1) {
-        appendConsole('BATCH', `${unitIndex} units processed so far (simulated).`, {lastTx: txHash, totalSent: transferredUnits});
-      }
-    }
-    // keep detailBox limited
-    lastDetail.unshift({tx: txObj, time: new Date().toLocaleString()});
-    if(lastDetail.length > MAX_DETAIL_KEEP) lastDetail.pop();
-    // update top-right summary
-    document.getElementById('latestTx').textContent = txHash;
-  }
-  // update UI counters
-  sentCountEl.textContent = transferredUnits.toLocaleString() + ' USDT';
-  remainingCountEl.textContent = (TOTAL_UNITS - transferredUnits).toLocaleString() + ' USDT';
-}
-
-// simulate confirmations: as overall percent grows, some pending txs receive confirmations
-function processConfirmations(){
-  if(pendingTxs.length === 0) return;
-  // decide how many to progress to confirmation based on overall progress
-  const elapsed = getElapsedSecs();
-  const percent = Math.min(100, (elapsed / TOTAL_SECONDS) * 100);
-  // as percent grows, more confirmations happen; compute target confirmed units
-  const totalShouldBeConfirmed = Math.floor((percent/100) * TOTAL_UNITS); // naive mapping
-  // but we can't confirm more than transferredUnits
-  const targetConfirmed = Math.min(transferredUnits, totalShouldBeConfirmed);
-  const toConfirm = targetConfirmed - confirmedUnits;
-  if(toConfirm <= 0) return;
-  // Confirm `toConfirm` pending txs in FIFO (simulate older ones confirming first)
-  const confirmBatch = Math.min(toConfirm, pendingTxs.length);
-  for(let i=0;i<confirmBatch;i++){
-    const tx = pendingTxs.shift();
-    tx.status = 'confirmed';
-    tx.confirmations = REQUIRED_CONFIRMS;
-    tx.block = 17000000 + Math.floor(Math.random()*10000);
-    confirmedUnits++;
-    // log confirmation
-    appendConsole('CONFIRM', `1 USDT (unit #${tx.unit}) — confirmed (${REQUIRED_CONFIRMS}/${REQUIRED_CONFIRMS})`, {tx: tx.txHash, block: tx.block, confirms: tx.confirmations});
-    // update detail box & counters
-    lastDetail.unshift({tx, time: new Date().toLocaleString()});
-    if(lastDetail.length > MAX_DETAIL_KEEP) lastDetail.pop();
-  }
-  confirmedCountEl.textContent = confirmedUnits.toLocaleString() + ' confirmed units';
-}
-
-// main tick: update progress bar, generate transfers, confirm txs, update UI
-function tick(){
-  try{
-    const elapsed = getElapsedSecs();
-    const percent = Math.min(100, (elapsed / TOTAL_SECONDS) * 100);
-    mainBar.style.width = percent + '%';
-    percentLabel.textContent = Math.floor(percent) + '%';
-    timeLabel.textContent = `Elapsed ${formatHMS(elapsed)} • Remaining ${formatHMS(Math.max(0, TOTAL_SECONDS - elapsed))}`;
-    updateTransfers();
-    processConfirmations();
-    // update small UI elements
-    balanceDisplay.textContent = (TOTAL_UNITS - transferredUnits).toLocaleString() + ' USDT';
-    // refresh detail box
-    refreshDetailBox();
-    // finish
-    if(percent >= 100){
-      clearInterval(tickHandle); tickHandle = null;
-      appendConsole('SIM', 'Simulation completed (24h simulated). Final state available.', {transferredUnits, confirmedUnits});
-      document.getElementById('startBtn').disabled = false;
-      document.getElementById('pauseBtn').disabled = true;
-      document.getElementById('resumeBtn').disabled = true;
-      document.getElementById('resetBtn').disabled = false;
-    }
-  }catch(e){
-    appendConsole('ERROR', 'Tick error: ' + e.message);
-  }
-}
-
-function refreshDetailBox(){
-  if(lastDetail.length === 0){
-    detailBox.innerHTML = '<small class="muted">No transactions yet</small>';
-    return;
-  }
-  const html = lastDetail.slice(0, 20).map(item=>{
-    const tx = item.tx;
-    return `<div style="margin-bottom:8px"><strong>${tx.txHash}</strong> • unit#${tx.unit} • ${tx.status} ${tx.confirmations?`• ${tx.confirmations} confirms` : ''} <div style="color:var(--muted);font-size:12px">${item.time}</div></div>`;
-  }).join('');
-  detailBox.innerHTML = html;
-}
-
-// controls
-document.getElementById('startBtn').addEventListener('click', ()=>{
-  if(tickHandle) return;
-  const chosenSpeed = Number(speedSelect.value) || 1;
-  startTime = Date.now();
-  elapsedBefore = 0;
-  transferredUnits = 0;
-  confirmedUnits = 0;
-  pendingTxs = [];
-  lastDetail = [];
-  logs = [];
-  consoleEl.innerHTML = '';
-  appendConsole('SYS', `Simulation started — 24-hour timeline (speed=${chosenSpeed}x). Total units: ${TOTAL_UNITS.toLocaleString()}`);
-  // enable/disable buttons
-  document.getElementById('startBtn').disabled = true;
-  document.getElementById('pauseBtn').disabled = false;
-  document.getElementById('resumeBtn').disabled = true;
-  document.getElementById('resetBtn').disabled = false;
-  // start ticking more frequently so logs feel alive (every 1s)
-  tickHandle = setInterval(tick, 1000);
-});
-document.getElementById('pauseBtn').addEventListener('click', ()=>{
-  if(!tickHandle) return;
-  // compute elapsed and stop
-  elapsedBefore = getElapsedSecs();
-  clearInterval(tickHandle); tickHandle = null;
-  appendConsole('SYS', 'Simulation paused by user', {elapsed:elapsedBefore});
-  document.getElementById('pauseBtn').disabled = true;
-  document.getElementById('resumeBtn').disabled = false;
-});
-document.getElementById('resumeBtn').addEventListener('click', ()=>{
-  if(tickHandle) return;
-  startTime = Date.now();
-  // resume ticking
-  tickHandle = setInterval(tick, 1000);
-  appendConsole('SYS', 'Simulation resumed', {elapsedBefore});
-  document.getElementById('pauseBtn').disabled = false;
-  document.getElementById('resumeBtn').disabled = true;
-});
-document.getElementById('resetBtn').addEventListener('click', ()=>{
-  if(tickHandle){ clearInterval(tickHandle); tickHandle=null; }
-  startTime = null; elapsedBefore = 0; transferredUnits = 0; confirmedUnits = 0; pendingTxs=[]; lastDetail=[]; logs=[];
-  mainBar.style.width = '0%';
-  percentLabel.textContent = '0%';
-  timeLabel.textContent = 'Elapsed 00:00:00 • Remaining 24:00:00';
-  balanceDisplay.textContent = '2,000,000 USDT';
-  sentCountEl.textContent = '0 USDT';
-  remainingCountEl.textContent = '2,000,000 USDT';
-  latestTxEl.textContent = '—';
-  confirmedCountEl.textContent = '0';
-  detailBox.innerHTML = '<small class="muted">No transactions yet</small>';
-  consoleEl.innerHTML = '';
-  appendConsole('SYS', 'Simulation reset');
-  document.getElementById('startBtn').disabled = false;
-  document.getElementById('pauseBtn').disabled = true;
-  document.getElementById('resumeBtn').disabled = true;
-  document.getElementById('resetBtn').disabled = true;
-});
-
-// clear console
-document.getElementById('clearConsole').addEventListener('click', ()=>{ consoleEl.innerHTML=''; appendConsole('SYS', 'Console cleared');});
-
-// filter input
-document.getElementById('filterInput').addEventListener('input', ()=>{
-  const q = document.getElementById('filterInput').value.trim().toLowerCase();
-  const entries = consoleEl.querySelectorAll('.entry');
-  entries.forEach(en=> {
-    const txt = en.textContent.toLowerCase();
-    en.style.display = q === '' || txt.includes(q) ? '' : 'none';
-  });
-});
-
-// download logs
-document.getElementById('downloadLogs').addEventListener('click', ()=>{
-  const blob = new Blob([JSON.stringify(logs)], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href=url; a.download='sim_logs.json'; a.click(); URL.revokeObjectURL(url);
-});
-
-// watermark toggle
-showWM.addEventListener('change', (e)=>{ document.querySelector('.watermark').style.display = e.target.checked ? 'block' : 'none'; });
-
-// very small network canvas animation (decorative)
-(function initCanvas(){
-  const canvas = document.getElementById('networkCanvas');
-  const ctx = canvas.getContext('2d');
-  const w = canvas.width = canvas.clientWidth * devicePixelRatio;
-  const h = canvas.height = canvas.clientHeight * devicePixelRatio;
-  const nodes = [...Array(22)].map(()=>({x: Math.random()*w, y: Math.random()*h, r: Math.random()*2+1.2, vx:(Math.random()-0.5)*0.4, vy:(Math.random()-0.5)*0.4}));
-  function anim(){
-    ctx.clearRect(0,0,w,h);
-    // lines
-    for(let i=0;i<nodes.length;i++){
-      for(let j=i+1;j<nodes.length;j++){
-        const dx = nodes[i].x-nodes[j].x, dy=nodes[i].y-nodes[j].y;
-        const d = Math.sqrt(dx*dx+dy*dy);
-        if(d<120){
-          ctx.globalAlpha = 0.08*(1 - d/120);
-          ctx.strokeStyle = '#00d4ff';
-          ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke();
-        }
-      }
-    }
-    // nodes
-    nodes.forEach(n=>{
-      ctx.globalAlpha = 0.95;
-      ctx.fillStyle = '#00d4ff';
-      ctx.beginPath(); ctx.arc(n.x,n.y,n.r,0,Math.PI*2); ctx.fill();
-      n.x += n.vx; n.y += n.vy;
-      if(n.x<0||n.x>w) n.vx*=-1;
-      if(n.y<0||n.y>h) n.vy*=-1;
-    });
-    requestAnimationFrame(anim);
-  }
-  anim();
-})();
-
-appendConsole('SYS', 'The USDT sender is installed. Before starting, adjust the speed and Verbose mode. Verbose mode can be slow; use with caution. Sending may be canceled. It may not receive network confirmation..');
-
-</script>
+  <footer id="contact">
+    <p>© 2025 <span>MetaFlash USDT</span> — All rights reserved.</p>
+    <p>Secure & Encrypted Transactions | Contact: support@metaflashusdt.com</p>
+  </footer>
 </body>
 </html>
