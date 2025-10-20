@@ -914,7 +914,8 @@
 </style>
 
 
-      <div class="badges" style="margin-top:18px">
+      <!-- ===== PAYMENT BADGES (UPGRADED) ===== -->
+      <div class="badges payment-badges">
         <span class="badge">Invoice / Link</span>
         <span class="badge">QR Pay</span>
         <span class="badge">Wallet Transfer</span>
@@ -923,18 +924,120 @@
   </section>
 
   <!-- ===== FOOTER ===== -->
-  <footer>
+  <footer class="footer">
+    <div class="footer-led"></div>
     <div class="wrap">
-      <div>© <span id="y"></span> <strong>FLASH USDT</strong> — All rights reserved.</div>
-      <div class="muted">Secure & Encrypted • Contact: support@flashusdt.com</div>
+      <div class="footer-content">
+        <img src="assets/USDT-2.png" alt="FLASH USDT Logo" class="footer-logo" />
+        <p class="footer-text">© <span id="y"></span> <strong>FLASH USDT</strong> — All rights reserved.</p>
+        <p class="muted">Secure • Encrypted • support@flashusdt.com</p>
+      </div>
     </div>
   </footer>
 
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
+
+<style>
+/* ===== PAYMENT BADGES (ENHANCED STYLE) ===== */
+.payment-badges {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.payment-badges .badge {
+  background: linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: .3px;
+  transition: all .3s ease;
+  box-shadow: 0 0 12px rgba(0,240,255,0.1);
+  backdrop-filter: blur(10px);
+}
+.payment-badges .badge:hover {
+  border-color: rgba(0,240,255,0.6);
+  background: linear-gradient(90deg,#00f0ff,#5b2cff,#ff4b9f);
+  box-shadow: 0 0 22px rgba(0,240,255,0.35);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  position: relative;
+  padding: 60px 20px 50px;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  background: linear-gradient(180deg, rgba(10,10,25,0.7), rgba(5,8,20,0.95));
+  overflow: hidden;
+}
+
+.footer-led {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100%;
+  height: 3px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, #00f0ff, #5b2cff, #ff4b9f, #16d18a, #00f0ff);
+  background-size: 300% 100%;
+  animation: ledShift 8s linear infinite;
+  filter: blur(1px);
+  opacity: 0.9;
+}
+
+@keyframes ledShift {
+  0% {background-position: 0% 50%;}
+  100% {background-position: 200% 50%;}
+}
+
+.footer-content {
+  position: relative;
+  z-index: 2;
+  color: #c9cde0;
+}
+
+.footer-logo {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  margin: 0 auto 14px;
+  opacity: .95;
+  filter: drop-shadow(0 0 10px rgba(0,240,255,.3));
+}
+
+.footer-text {
+  font-size: 15px;
+  margin: 6px 0;
+  font-weight: 600;
+  color: #f2f5ff;
+}
+
+.footer .muted {
+  color: #9aa3bd;
+  font-size: 13.5px;
+  letter-spacing: .2px;
+}
+
+/* 📱 Mobile */
+@media (max-width:640px){
+  .footer { padding: 50px 20px; }
+  .footer-logo { width: 46px; height: 46px; }
+  .footer-text { font-size: 14px; }
+  .footer .muted { font-size: 12.5px; }
+}
+</style>
+
 </body>
 </html>
+
 
 
 
