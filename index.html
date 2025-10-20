@@ -1,116 +1,392 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MetaFlash USDT — Rainbow Enhanced</title>
-<link rel="icon" type="image/png" href="assets/USDT-2.png">
-<style>
-:root{
-  --bg1:#030615;--bg2:#0b1130;
-  --text:#eef3ff;--muted:#9aa0c2;
-  --cyan:#00f0ff;--violet:#5b2cff;--rose:#ff4b9f;--lime:#16d18a;--amber:#ffcc4d;
-  --border:rgba(255,255,255,.12);
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  font-family:"Poppins",sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(1200px 600px at 20% -10%,rgba(0,240,255,.12),transparent 60%),
-    radial-gradient(1000px 500px at 85% 0%,rgba(91,44,255,.14),transparent 55%),
-    linear-gradient(180deg,var(--bg1),var(--bg2) 60%,var(--bg1));
-  overflow-x:hidden;
-  animation:fadeInBody 1.5s ease;
-}
-@keyframes fadeInBody{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MetaFlash USDT — Fast • Secure • Trusted</title>
+  <meta name="description" content="MetaFlash USDT — multi-chain flash USDT platform with TRC20, ERC20, BEP20 and BTC support. Fast, secure and reliable." />
+  <link rel="icon" type="image/png" href="assets/USDT-2.png" />
+  <style>
+    /* ===== THEME ===== */
+    :root{
+      --bg1:#030615; --bg2:#0b1130; --bg3:#0f153d;
+      --text:#eef3ff; --muted:#9aa0c2;
+      --cyan:#00f0ff; --violet:#5b2cff; --rose:#ff4b9f; --lime:#16d18a; --amber:#ffcc4d;
+      --glass:rgba(255,255,255,.06); --border:rgba(255,255,255,.12);
+      --panel:#121932; --panel2:#0f1730;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 10% -10%, rgba(0,240,255,.14) 0%, transparent 55%),
+        radial-gradient(900px 500px at 90% 0%, rgba(91,44,255,.20) 0%, transparent 60%),
+        linear-gradient(180deg,var(--bg1),var(--bg2) 50%,var(--bg3));
+      overflow-x:hidden;
+      animation:fadeBody 1s ease;
+    }
+    @keyframes fadeBody{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
 
-header{position:sticky;top:0;background:rgba(10,15,40,.75);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);z-index:20}
-.nav{max-width:1200px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
-.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.4px}
-.logo img{width:36px;height:36px}
-.logo span{background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;color:transparent}
-nav a{color:var(--muted);text-decoration:none;margin-left:18px;font-weight:600;transition:.3s}
-nav a:hover{color:var(--cyan)}
+    /* ===== HEADER ===== */
+    header{
+      position:sticky; top:0; z-index:50;
+      background:rgba(10,15,40,.75); backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{
+      max-width:1200px; margin:0 auto; padding:14px 20px;
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.4px}
+    .brand img{width:36px; height:36px; border-radius:8px}
+    .brand span{background:linear-gradient(90deg,var(--cyan),var(--violet)); -webkit-background-clip:text; background-clip:text; color:transparent}
+    .menu{display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+    .menu a{color:var(--muted); font-weight:600; opacity:.9}
+    .menu a:hover{color:var(--cyan)}
+    .btn{
+      display:inline-block; padding:10px 14px; border-radius:12px; font-weight:700;
+      background:linear-gradient(90deg,var(--cyan),var(--violet)); color:#001018;
+      color:#fff; box-shadow:0 10px 22px rgba(0,0,0,.25); transition:transform .2s,opacity .2s;
+    }
+    .btn:hover{transform:translateY(-2px); opacity:.95}
+    .mobile-hide{display:block}
+    @media (max-width:768px){ .mobile-hide{display:none} }
 
-.hero{padding:100px 20px;text-align:center;position:relative;overflow:hidden}
-.hero h1{
-  font-size:clamp(38px,6vw,64px);
-  background:linear-gradient(90deg,var(--cyan),var(--violet),var(--rose));
-  -webkit-background-clip:text;color:transparent;
-  text-shadow:0 0 30px rgba(0,240,255,.3);
-  animation:slideInDown 1.2s ease;
-}
-.hero p{color:var(--muted);max-width:740px;margin:12px auto;font-size:18px;animation:fadeIn 1.8s ease}
-@keyframes fadeIn{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
-@keyframes slideInDown{0%{opacity:0;transform:translateY(-30px)}100%{opacity:1;transform:translateY(0)}}
+    /* ===== HERO ===== */
+    .hero{
+      padding:88px 20px 56px; text-align:center; position:relative; z-index:1;
+    }
+    .hero h1{
+      margin:0;
+      font-size:clamp(34px,6vw,64px);
+      background:linear-gradient(90deg,var(--cyan),var(--violet),var(--rose));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      text-shadow:0 0 28px rgba(0,240,255,.28);
+      animation:slideIn .9s ease both;
+    }
+    .hero p{max-width:780px; margin:12px auto 0; color:var(--muted); font-size:18px; line-height:1.65}
+    @keyframes slideIn{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
+    .badges{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:14px}
+    .badge{
+      padding:8px 12px; border-radius:999px;
+      border:1px solid var(--border); background:rgba(255,255,255,.05); font-weight:700; font-size:13px
+    }
 
-/* Rainbow border effect */
-.card{
-  position:relative;
-  background:rgba(255,255,255,.05);
-  border-radius:18px;
-  padding:24px;
-  backdrop-filter:blur(16px);
-  overflow:hidden;
-  transition:.3s;
-  animation:fadeIn 1.2s ease forwards;
-}
-.card::before{
-  content:"";
-  position:absolute;inset:-2px;
-  background:conic-gradient(from 0deg, var(--cyan), var(--violet), var(--rose), var(--lime), var(--amber), var(--cyan));
-  animation:spin 5s linear infinite;
-  border-radius:inherit;
-  z-index:0;
-}
-.card::after{
-  content:"";
-  position:absolute;inset:2px;
-  background:rgba(15,15,30,.9);
-  border-radius:inherit;
-  z-index:1;
-}
-.card > *{position:relative;z-index:2}
-.card:hover{transform:translateY(-8px) scale(1.02)}
-@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+    /* ===== RAINBOW CARD (for all blocks) ===== */
+    .card{
+      position:relative; border-radius:18px; padding:22px; overflow:hidden;
+      background:var(--glass); border:1px solid var(--border); backdrop-filter:blur(16px);
+      transition:.3s; will-change:transform, box-shadow, border-color;
+    }
+    .card::before{
+      content:""; position:absolute; inset:-2px; border-radius:inherit; z-index:0;
+      background:conic-gradient(from 0deg, var(--cyan), var(--violet), var(--rose), var(--lime), var(--amber), var(--cyan));
+      animation:spin 6s linear infinite;
+    }
+    .card::after{
+      content:""; position:absolute; inset:2px; border-radius:inherit; z-index:1;
+      background:linear-gradient(145deg, rgba(255,255,255,.06), rgba(255,255,255,.04));
+      box-shadow: inset 0 0 1px rgba(255,255,255,.08);
+    }
+    .card > *{position:relative; z-index:2}
+    .card:hover{transform:translateY(-6px); border-color:rgba(0,240,255,.45); box-shadow:0 24px 60px rgba(0,240,255,.14)}
+    @keyframes spin{to{transform:rotate(360deg)}}
 
-/* Fade-in grid animation */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;max-width:1200px;margin:40px auto;padding:0 20px}
-.grid .card{animation-delay:var(--delay)}
+    /* ===== SECTIONS ===== */
+    section{padding:56px 20px}
+    .wrap{max-width:1200px; margin:0 auto}
+    .title{
+      text-align:center; margin:0 0 10px; font-size:clamp(26px,3.5vw,36px);
+      background:linear-gradient(90deg,var(--cyan),var(--violet)); -webkit-background-clip:text; color:transparent;
+    }
+    .sub{color:var(--muted); text-align:center; max-width:860px; margin:0 auto 24px}
 
-footer{text-align:center;padding:50px 20px;border-top:1px solid var(--border);color:var(--muted)}
-</style>
+    .grid{display:grid; gap:22px}
+    .g-4{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+    .g-3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    .g-logos{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+
+    .icon{width:58px; height:58px; border-radius:16px; display:grid; place-items:center; margin-bottom:10px;
+      background:linear-gradient(135deg, rgba(0,240,255,.18), rgba(91,44,255,.18)); border:1px solid var(--border)}
+    .icon img{width:32px; height:32px; object-fit:contain}
+    .icon svg{width:32px; height:32px; fill:var(--cyan)}
+
+    /* product cards */
+    .product{text-align:center; padding:28px}
+    .product img{width:78px; height:78px; margin:0 auto 10px; filter:drop-shadow(0 0 10px rgba(0,240,255,.35))}
+    .product h3{margin:6px 0 6px}
+    .product .btn{margin-top:10px}
+
+    /* logo tiles */
+    .logo-tile{height:96px; display:flex; align-items:center; justify-content:center; background:var(--panel2); border-radius:14px; border:1px solid var(--border)}
+    .logo-tile img{max-height:56px; max-width:150px; object-fit:contain}
+
+    footer{padding:36px 20px; border-top:1px solid var(--border); color:#a9b1c6; text-align:center}
+
+    /* Mobile tweaks */
+    @media (max-width:640px){
+      .menu{display:none}
+      .product img{width:66px; height:66px}
+      .icon{width:54px;height:54px}
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <div class="nav">
-    <div class="logo">
-      <img src="assets/USDT-2.png"><span>MetaFlash</span> USDT
+  <!-- ===== NAV ===== -->
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <img src="assets/logo.png" alt="MetaFlash Logo">
+        <div><span>MetaFlash</span> USDT</div>
+      </div>
+      <nav class="menu">
+        <a href="#products">Products</a>
+        <a href="#why">Why</a>
+        <a href="#usecases">Use Cases</a>
+        <a href="#networks">Networks</a>
+        <a href="#wallets">Wallets</a>
+        <a href="#payments">Payments</a>
+      </nav>
+      <a class="btn mobile-hide" href="#products">Get Started</a>
     </div>
-    <nav>
-      <a href="#products">Products</a>
-      <a href="#about">About</a>
-    </nav>
-  </div>
-</header>
+  </header>
 
-<section class="hero">
-  <h1>Technological • Animated • Rainbow Enhanced</h1>
-  <p>The new MetaFlash experience brings glowing rainbow glass cards and seamless animations.</p>
-</section>
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <h1>FAST • SECURE • TRUSTED</h1>
+    <p>The next-gen Flash USDT experience. Multi-network support (TRC20, ERC20, BEP20, BTC) with instant settlement and enterprise-grade security.</p>
+    <div class="badges">
+      <span class="badge">TRC20</span>
+      <span class="badge">ERC20</span>
+      <span class="badge">BEP20</span>
+      <span class="badge">BTC</span>
+    </div>
+  </section>
 
-<section class="grid">
-  <div class="card" style="--delay:0s"><h3>TRC20</h3><p>Lightning fast on TRON network.</p></div>
-  <div class="card" style="--delay:.2s"><h3>ERC20</h3><p>High security via Ethereum.</p></div>
-  <div class="card" style="--delay:.4s"><h3>BEP20</h3><p>Cost-effective Binance Smart Chain transfers.</p></div>
-  <div class="card" style="--delay:.6s"><h3>BTC</h3><p>Verified transactions on Bitcoin blockchain.</p></div>
-</section>
+  <!-- ===== PRODUCTS (TOP) ===== -->
+  <section id="products">
+    <div class="wrap">
+      <h2 class="title">Our Products</h2>
+      <p class="sub">Choose a network to explore animated packages and plans.</p>
+      <div class="grid g-4">
+        <article class="card product">
+          <img src="assets/trc20.png" alt="TRC20">
+          <h3>TRC-20</h3>
+          <p class="sub" style="margin:8px auto 0">Ultra low fees & fast finality on TRON.</p>
+          <a class="btn" href="trc20.html">View Plans</a>
+        </article>
+        <article class="card product">
+          <img src="assets/erc20.png" alt="ERC20">
+          <h3>ERC-20</h3>
+          <p class="sub" style="margin:8px auto 0">Ethereum-grade security and reliability.</p>
+          <a class="btn" href="erc20.html">View Plans</a>
+        </article>
+        <article class="card product">
+          <img src="assets/bep20.png" alt="BEP20">
+          <h3>BEP-20</h3>
+          <p class="sub" style="margin:8px auto 0">Cost-effective transfers on BSC.</p>
+          <a class="btn" href="bep20.html">View Plans</a>
+        </article>
+        <article class="card product">
+          <img src="assets/btc.png" alt="BTC">
+          <h3>Bitcoin (BTC)</h3>
+          <p class="sub" style="margin:8px auto 0">Transparent, verified settlements.</p>
+          <a class="btn" href="btc.html">View Plans</a>
+        </article>
+      </div>
+    </div>
+  </section>
 
-<footer>© <span id="y"></span> MetaFlash USDT</footer>
-<script>
-document.getElementById('y').textContent=new Date().getFullYear();
-</script>
+  <!-- ===== WHY CHOOSE ===== -->
+  <section id="why">
+    <div class="wrap">
+      <h2 class="title">Why Choose <span style="-webkit-background-clip:text;background:linear-gradient(90deg,var(--cyan),var(--violet));color:transparent">MetaFlash USDT</span></h2>
+      <p class="sub">Our platform provides flexible, fast and reliable services for 4 different Blockchain networks.</p>
+
+      <div class="grid g-3">
+        <!-- Lightning Fast (custom SVG) -->
+        <article class="card">
+          <div class="icon">
+            <!-- You asked for this lightning path -->
+            <svg viewBox="0 0 24 24">
+              <path d="M13 2 3 14h9l-1 8 10-12H12l1-8z"/>
+            </svg>
+          </div>
+          <h3>Lightning Fast</h3>
+          <p>Experience instant transactions with our optimized processing system.</p>
+        </article>
+
+        <!-- Security (custom SVG) -->
+        <article class="card">
+          <div class="icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <h3>Security</h3>
+          <p>We provide the best security for ourselves and our customers.</p>
+        </article>
+
+        <article class="card">
+          <div class="icon"><img src="assets/trc20.png" alt="Multi Network"></div>
+          <h3>Multi-Network Support</h3>
+          <p>Trade across TRC20, ERC20, BEP20 and Bitcoin networks seamlessly.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== USE CASES ===== -->
+  <section id="usecases">
+    <div class="wrap">
+      <h2 class="title">Use Cases & <span style="-webkit-background-clip:text;background:linear-gradient(90deg,var(--cyan),var(--violet));color:transparent">Applications</span></h2>
+      <p class="sub">MetaFlash USDT is versatile and can be integrated into various platforms and services.</p>
+
+      <div class="grid g-3">
+        <article class="card">
+          <div class="icon"><img src="assets/binance.png" alt="Trading"></div>
+          <h3>Forex & Crypto Trading</h3>
+          <p>High-speed settlements for exchanges and brokers.</p>
+        </article>
+        <article class="card">
+          <div class="icon"><img src="assets/mexc.png" alt="Gaming"></div>
+          <h3>Online Gaming & Betting</h3>
+          <p>Instant deposits/withdrawals without card chargebacks.</p>
+        </article>
+        <article class="card">
+          <div class="icon"><img src="assets/okx.png" alt="Casino"></div>
+          <h3>Virtual Casinos</h3>
+          <p>Frictionless chip top-ups and cash-outs.</p>
+        </article>
+        <article class="card">
+          <div class="icon"><img src="assets/coinbase.png" alt="Payments"></div>
+          <h3>Crypto Payments</h3>
+          <p>Accept USDT worldwide with fixed fee structure.</p>
+        </article>
+        <article class="card">
+          <div class="icon"><img src="assets/exodus.png" alt="Credit"></div>
+          <h3>Credit Solutions</h3>
+          <p>Programmatic disbursement & repayments.</p>
+        </article>
+        <article class="card">
+          <div class="icon"><img src="assets/tronlink.png" alt="E-commerce"></div>
+          <h3>E-Commerce Integration</h3>
+          <p>USDT checkout via QR or wallet connect.</p>
+        </article>
+        <article class="card">
+          <div class="icon"><img src="assets/trust.png" alt="Remittance"></div>
+          <h3>Cross-Border Transfers</h3>
+          <p>Fast remittances with transparent routing.</p>
+        </article>
+        <article class="card">
+          <div class="icon"><img src="assets/metamask.png" alt="Invest"></div>
+          <h3>Investment Platforms</h3>
+          <p>Flexible on/off-ramp for users and funds.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SUPPORTED NETWORKS ===== -->
+  <section id="networks">
+    <div class="wrap">
+      <h2 class="title">Supported Networks</h2>
+      <p class="sub">Native USDT support across TRON, Ethereum, BSC and Bitcoin.</p>
+
+      <div class="grid g-4">
+        <article class="card" style="text-align:center">
+          <div class="icon"><img src="assets/trc20.png" alt="TRC20"></div>
+          <h3>TRC-20</h3>
+          <p class="sub">TRON network — ultra-low fees</p>
+        </article>
+        <article class="card" style="text-align:center">
+          <div class="icon"><img src="assets/erc20.png" alt="ERC20"></div>
+          <h3>ERC-20</h3>
+          <p class="sub">Ethereum security & tooling</p>
+        </article>
+        <article class="card" style="text-align:center">
+          <div class="icon"><img src="assets/bep20.png" alt="BEP20"></div>
+          <h3>BEP-20</h3>
+          <p class="sub">Binance Smart Chain economy</p>
+        </article>
+        <article class="card" style="text-align:center">
+          <div class="icon"><img src="assets/btc.png" alt="BTC"></div>
+          <h3>Bitcoin (BTC)</h3>
+          <p class="sub">Original blockchain settlement</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WALLETS & EXCHANGES ===== -->
+  <section id="wallets">
+    <div class="wrap">
+      <h2 class="title">Wallets & Exchanges</h2>
+      <div class="grid g-logos">
+        <div class="logo-tile"><img src="assets/trust.png" alt="Trust Wallet"></div>
+        <div class="logo-tile"><img src="assets/metamask.png" alt="MetaMask"></div>
+        <div class="logo-tile"><img src="assets/okx.png" alt="OKX"></div>
+        <div class="logo-tile"><img src="assets/mexc.png" alt="MEXC"></div>
+        <div class="logo-tile"><img src="assets/exodus.png" alt="Exodus"></div>
+        <div class="logo-tile"><img src="assets/coinbase.png" alt="Coinbase"></div>
+        <div class="logo-tile"><img src="assets/tronlink.png" alt="TronLink"></div>
+        <div class="logo-tile"><img src="assets/binance.png" alt="Binance"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PAYMENT METHODS ===== -->
+  <section id="payments">
+    <div class="wrap">
+      <h2 class="title">Payment Methods</h2>
+      <p class="sub">Choose the most convenient way to pay or receive USDT.</p>
+
+      <div class="grid g-4">
+        <article class="card" style="text-align:center">
+          <div class="icon"><img src="assets/binance.png" alt="Binance Pay"></div>
+          <h3>Binance Pay</h3>
+          <p class="sub">Send & receive via Binance Pay with QR.</p>
+        </article>
+        <article class="card" style="text-align:center">
+          <div class="icon"><img src="assets/trc20.png" alt="TRC20"></div>
+          <h3>TRC20</h3>
+          <p class="sub">Ultra low fees on TRON network.</p>
+        </article>
+        <article class="card" style="text-align:center">
+          <div class="icon"><img src="assets/erc20.png" alt="ERC20"></div>
+          <h3>ERC20</h3>
+          <p class="sub">Highest security via Ethereum.</p>
+        </article>
+        <article class="card" style="text-align:center">
+          <div class="icon"><img src="assets/bep20.png" alt="BEP20"></div>
+          <h3>BEP20</h3>
+          <p class="sub">Cost-effective transfers on BSC.</p>
+        </article>
+      </div>
+
+      <div class="badges" style="margin-top:18px">
+        <span class="badge">Invoice / Link</span>
+        <span class="badge">QR Pay</span>
+        <span class="badge">Wallet Transfer</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="wrap">
+      <div>© <span id="y"></span> <strong>MetaFlash USDT</strong> — All rights reserved.</div>
+      <div class="muted">Secure & Encrypted • Contact: support@metaflashusdt.com</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
