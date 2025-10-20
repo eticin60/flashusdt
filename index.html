@@ -624,34 +624,109 @@
 }
 </style>
 
-  <!-- ===== PAYMENT METHODS ===== -->
-  <section id="payments">
-    <div class="wrap">
-      <h2 class="title">Payment Methods</h2>
-      <p class="sub">Choose the most convenient way to pay or receive USDT.</p>
+<!-- ===== PAYMENT METHODS (UPDATED TO MATCH WALLETS STYLE) ===== -->
+<section id="payments">
+  <div class="wrap">
+    <h2 class="title">Payment Methods</h2>
+    <p class="sub">Choose the most convenient way to pay or receive USDT quickly and securely.</p>
 
-      <div class="grid g-4">
-        <article class="card" style="text-align:center">
-          <div class="icon"><img src="assets/binance.png" alt="Binance Pay"></div>
-          <h3>Binance Pay</h3>
-          <p class="sub">Send & receive via Binance Pay with QR.</p>
-        </article>
-        <article class="card" style="text-align:center">
-          <div class="icon"><img src="assets/trc20.png" alt="TRC20"></div>
-          <h3>TRC20</h3>
-          <p class="sub">Ultra low fees on TRON network.</p>
-        </article>
-        <article class="card" style="text-align:center">
-          <div class="icon"><img src="assets/erc20.png" alt="ERC20"></div>
-          <h3>ERC20</h3>
-          <p class="sub">Highest security via Ethereum.</p>
-        </article>
-        <article class="card" style="text-align:center">
-          <div class="icon"><img src="assets/bep20.png" alt="BEP20"></div>
-          <h3>BEP20</h3>
-          <p class="sub">Cost-effective transfers on BSC.</p>
-        </article>
+    <div class="wallet-grid">
+      <div class="wallet">
+        <img src="assets/binance.png" alt="Binance Pay">
+        <span>Binance Pay</span>
       </div>
+      <div class="wallet">
+        <img src="assets/trc20.png" alt="TRC20">
+        <span>TRC-20</span>
+      </div>
+      <div class="wallet">
+        <img src="assets/erc20.png" alt="ERC20">
+        <span>ERC-20</span>
+      </div>
+      <div class="wallet">
+        <img src="assets/bep20.png" alt="BEP20">
+        <span>BEP-20</span>
+      </div>
+      <div class="wallet">
+        <img src="assets/btc.png" alt="Bitcoin">
+        <span>Bitcoin</span>
+      </div>
+      <div class="wallet">
+        <img src="assets/trust.png" alt="Trust Wallet">
+        <span>Trust Wallet</span>
+      </div>
+      <div class="wallet">
+        <img src="assets/metamask.png" alt="MetaMask">
+        <span>MetaMask</span>
+      </div>
+      <div class="wallet">
+        <img src="assets/okx.png" alt="OKX">
+        <span>OKX Pay</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* ===== PAYMENT METHODS STYLE (same as wallets) ===== */
+#payments {
+  margin-top: 80px;
+  text-align: center;
+}
+
+#wallets .title,
+#payments .title {
+  background: linear-gradient(90deg,#00f0ff,#5b2cff);
+  -webkit-background-clip:text;
+  color: transparent;
+}
+
+.wallet-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 36px;
+}
+.wallet {
+  width: 100px;
+  height: 110px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform .3s ease, box-shadow .3s ease;
+  backdrop-filter: blur(12px);
+}
+.wallet:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 14px rgba(0,240,255,.25);
+}
+.wallet img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+.wallet span {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  opacity: 0.9;
+}
+
+/* 📱 Mobile Optimization */
+@media (max-width:640px){
+  .wallet-grid {gap:18px;}
+  .wallet {width:90px;height:100px;}
+  .wallet img{width:36px;height:36px;}
+  .wallet span{font-size:12px;}
+}
+</style>
+
 
       <div class="badges" style="margin-top:18px">
         <span class="badge">Invoice / Link</span>
@@ -674,6 +749,7 @@
   </script>
 </body>
 </html>
+
 
 
 
