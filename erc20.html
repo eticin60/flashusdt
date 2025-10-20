@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MetaFlash USDT — ERC20 Plans</title>
+  <meta name="description" content="MetaFlash USDT ERC20 packages — reliable and secure plans for Ethereum-based USDT transfers." />
+  <link rel="icon" type="image/png" href="assets/USDT-2.png" />
+  <style>
+    :root{
+      --bg1:#0d0d1b; --bg2:#11142a; --bg3:#1a1e3c;
+      --text:#eef3ff; --muted:#9fa8d6;
+      --cyan:#00d8ff; --violet:#8a2cff; --lime:#16d18a; --amber:#f5b53f;
+      --border:rgba(255,255,255,.12); --glass:rgba(255,255,255,.06);
+    }
+    *{box-sizing:border-box;margin:0}
+    body{
+      font-family:"Poppins",sans-serif;
+      background:radial-gradient(1200px 700px at 10% -10%,rgba(0,216,255,.14),transparent 55%),
+                 radial-gradient(900px 500px at 90% 0,rgba(138,44,255,.22),transparent 60%),
+                 linear-gradient(180deg,var(--bg1),var(--bg2) 50%,var(--bg3));
+      color:var(--text);overflow-x:hidden;
+    }
+    header{position:sticky;top:0;background:rgba(10,15,40,.75);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);z-index:10}
+    .nav{max-width:1200px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800}
+    .brand img{width:34px;height:34px}
+    .brand span{background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;color:transparent}
+    .menu a{color:var(--muted);margin-left:18px;text-decoration:none;font-weight:600}
+    .menu a:hover{color:var(--cyan)}
+    .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+    .hero{text-align:center;padding:70px 0 30px}
+    .hero h1{font-size:clamp(32px,6vw,56px);background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;color:transparent;text-shadow:0 0 20px rgba(0,216,255,.3)}
+    .hero p{max-width:740px;margin:12px auto;color:var(--muted);font-size:18px}
+    .net-banner{margin:26px auto 0;display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.05)}
+    .net-banner img{width:22px;height:22px}
+    .plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:30px}
+    .card{background:var(--glass);border:1px solid var(--border);border-radius:18px;padding:22px;backdrop-filter:blur(12px);transition:.25s}
+    .card:hover{transform:translateY(-6px);border-color:var(--cyan);box-shadow:0 0 40px rgba(0,216,255,.18)}
+    .card h3{margin:8px 0 4px}
+    .price{font-size:26px;font-weight:700;margin:8px 0}
+    .feat{margin:10px 0 18px;color:var(--muted);font-size:14px}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;font-weight:700;background:linear-gradient(90deg,var(--cyan),var(--violet));color:#fff;text-decoration:none;transition:.25s}
+    .btn:hover{opacity:.85}
+    footer{text-align:center;padding:50px 20px;border-top:1px solid var(--border);color:var(--muted)}
+  </style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <div class="brand"><img src="assets/USDT-2.png"><span>MetaFlash</span> USDT</div>
+    <nav class="menu"><a href="index.html">Home</a><a href="#plans">Plans</a></nav>
+  </div>
+</header>
+
+<section class="hero wrap">
+  <h1>ERC-20 Plans</h1>
+  <p>High-security Ethereum network packages with maximum reliability for your USDT transfers.</p>
+  <div class="net-banner"><img src="assets/erc20.png"><span>ERC-20</span></div>
+</section>
+
+<section id="plans" class="wrap">
+  <div class="plans">
+    <div class="card"><h3>Starter</h3><div class="price">$99</div><div class="feat">Up to 1000 USDT • Basic Support</div><a class="btn" href="#">Buy Now</a></div>
+    <div class="card"><h3>Standard</h3><div class="price">$249</div><div class="feat">Up to 5000 USDT • Priority Queue</div><a class="btn" href="#">Buy Now</a></div>
+    <div class="card"><h3>Pro</h3><div class="price">$499</div><div class="feat">Up to 25,000 USDT • Dedicated Pipeline</div><a class="btn" href="#">Buy Now</a></div>
+    <div class="card"><h3>Advanced</h3><div class="price">$999</div><div class="feat">Up to 100,000 USDT • 24/7 Support</div><a class="btn" href="#">Buy Now</a></div>
+    <div class="card"><h3>Premium</h3><div class="price">$1999</div><div class="feat">Up to 250,000 USDT • VIP Channel</div><a class="btn" href="#">Buy Now</a></div>
+    <div class="card"><h3>Enterprise</h3><div class="price">Custom</div><div class="feat">Unlimited volume • SLA contract</div><a class="btn" href="#">Contact Sales</a></div>
+  </div>
+</section>
+
+<footer>© <span id="y"></span> MetaFlash USDT — ERC20</footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body>
+</html>
