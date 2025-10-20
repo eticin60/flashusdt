@@ -323,51 +323,104 @@
     </div>
   </section>
 
-  <!-- ===== WHY CHOOSE ===== -->
-  <section id="why">
-    <div class="wrap">
-      <h2 class="title">Why Choose FLASH USDT</h2>
-      <p class="sub">Our platform provides flexible, fast and reliable services for 4 different Blockchain networks.</p>
+<!-- ===== WHY CHOOSE (UPDATED) ===== -->
+<section id="why">
+  <div class="wrap">
+    <h2 class="title">Why Choose FLASH USDT</h2>
+    <p class="sub">Our platform provides flexible, fast, and secure services across four major blockchain networks.</p>
 
-      <div class="grid g-3">
-        <!-- Lightning Fast (custom SVG) -->
-        <article class="card">
-          <div class="icon">
-            <!-- You asked for this lightning path -->
-            <svg viewBox="0 0 24 24">
-              <path d="M13 2 3 14h9l-1 8 10-12H12l1-8z"/>
-            </svg>
-          </div>
-          <h3>Lightning Fast</h3>
-          <p>Experience instant transactions with our optimized processing system.</p>
-        </article>
+    <div class="wallet-grid">
 
-        <!-- Security (custom SVG) -->
-        <article class="card">
-          <div class="icon">
-            <svg viewBox="0 0 24 24">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-          </div>
-          <h3>Security</h3>
-          <p>We provide the best security for ourselves and our customers.</p>
-        </article>
-
-      <article class="card">
-        <div class="icon">
-          <!-- Ağ sembolü SVG (modern bağlantı görünümü) -->
-          <svg viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="3" fill="currentColor"/>
-            <path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1M5.6 18.4l2.1-2.1m8.6-8.6 2.1-2.1"
-              stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-          </svg>
-        </div>
-        <h3>Multi-Network Support</h3>
-        <p>Trade across TRC20, ERC20, BEP20 and Bitcoin networks seamlessly.</p>
-      </article>
+      <!-- Lightning Fast -->
+      <div class="wallet">
+        <svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="#00f0ff" stroke-width="2">
+          <path d="M13 2 3 14h9l-1 8 10-12H12l1-8z" stroke-linejoin="round" stroke-linecap="round"/>
+        </svg>
+        <span>Lightning Fast</span>
       </div>
+
+      <!-- Security -->
+      <div class="wallet">
+        <svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="#5b2cff" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-linejoin="round"/>
+        </svg>
+        <span>Security</span>
+      </div>
+
+      <!-- Multi-Network Support -->
+      <div class="wallet">
+        <svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="#16d18a" stroke-width="2">
+          <circle cx="12" cy="12" r="3" fill="#16d18a"/>
+          <path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1M5.6 18.4l2.1-2.1m8.6-8.6 2.1-2.1"
+            stroke-linecap="round" fill="none"/>
+        </svg>
+        <span>Multi-Network</span>
+      </div>
+
     </div>
-  </section>
+  </div>
+</section>
+
+<style>
+/* ===== WHY CHOOSE FLASH USDT (same grid system) ===== */
+#why {
+  margin-top: 80px;
+  text-align: center;
+}
+
+#why .title {
+  background: linear-gradient(90deg,#00f0ff,#5b2cff);
+  -webkit-background-clip:text;
+  color: transparent;
+}
+
+.wallet-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 36px;
+}
+
+.wallet {
+  width: 110px;
+  height: 110px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform .3s ease, box-shadow .3s ease;
+  backdrop-filter: blur(12px);
+}
+
+.wallet:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 14px rgba(0,240,255,.25);
+}
+
+.wallet svg {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.wallet span {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  opacity: 0.9;
+}
+
+/* 📱 Mobile optimization */
+@media (max-width:640px){
+  .wallet-grid {gap:18px;}
+  .wallet {width:90px;height:100px;}
+  .wallet svg{width:32px;height:32px;}
+  .wallet span{font-size:12px;}
+}
+</style>
 
   <!-- ===== NETWORKS & WALLETS (MINIMAL) ===== -->
 <section id="networks">
@@ -764,6 +817,7 @@
   </script>
 </body>
 </html>
+
 
 
 
