@@ -31,6 +31,48 @@
     a{color:inherit;text-decoration:none}
     img{display:block;max-width:100%}
 
+    /* ==== LED BORDER EFFECT for Combined Section ==== */
+#networks {
+  position: relative;
+  border-radius: 22px;
+  margin: 60px auto;
+  padding: 60px 0;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+#networks::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px; /* LED kalınlığı */
+  background: linear-gradient(135deg,
+    #00f0ff,
+    #5b2cff,
+    #ff4b9f,
+    #ffcc4d,
+    #16d18a,
+    #00f0ff);
+  mask: 
+    linear-gradient(#000 0 0) content-box, 
+    linear-gradient(#000 0 0);
+  -webkit-mask: 
+    linear-gradient(#000 0 0) content-box, 
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  filter: blur(2px);
+  animation: borderShift 6s linear infinite;
+  opacity: 0.85;
+}
+
+@keyframes borderShift {
+  0% {background-position: 0% 50%;}
+  100% {background-position: 200% 50%;}
+}
+
+
     /* ===== HEADER ===== */
     header{
       position:sticky; top:0; z-index:50;
@@ -474,6 +516,7 @@
   </script>
 </body>
 </html>
+
 
 
 
