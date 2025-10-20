@@ -969,13 +969,13 @@
   transform: translateY(-2px);
 }
 
-/* ===== FOOTER ===== */
+/* ===== FOOTER (MATCHED TO PAGE BACKGROUND) ===== */
 .footer {
   position: relative;
   padding: 60px 20px 50px;
   text-align: center;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  background: linear-gradient(180deg, rgba(10,10,25,0.7), rgba(5,8,20,0.95));
+  border-top: 1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(180deg, var(--bg2) 0%, var(--bg3) 100%);
   overflow: hidden;
 }
 
@@ -1001,7 +1001,7 @@
 .footer-content {
   position: relative;
   z-index: 2;
-  color: #c9cde0;
+  color: #d5d9f5;
 }
 
 .footer-logo {
@@ -1026,7 +1026,6 @@
   letter-spacing: .2px;
 }
 
-/* 📱 Mobile */
 @media (max-width:640px){
   .footer { padding: 50px 20px; }
   .footer-logo { width: 46px; height: 46px; }
@@ -1037,6 +1036,7 @@
 
 </body>
 </html>
+
 
 
 
