@@ -4,353 +4,139 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MetaFlash USDT — TRC20 Plans</title>
-  <meta name="description" content="MetaFlash USDT TRC20 plans — six visually rich, animated packages with fast settlement and secure delivery." />
+  <meta name="description" content="MetaFlash USDT TRC20 packages — fast and cost-efficient plans on the TRON network." />
   <link rel="icon" type="image/png" href="assets/USDT-2.png" />
   <style>
     :root{
-      --bg1:#030615; --bg2:#0b1130; --bg3:#0f153d;
-      --text:#eef3ff; --muted:#a9b1d6;
-      --cyan:#00f0ff; --violet:#6a3cff; --lime:#16d18a; --amber:#f5b53f; --rose:#ff5b7f;
-      --glass:rgba(255,255,255,.06); --border:rgba(255,255,255,.12);
-      --card:#121932; --card2:#0f1730;
+      --bg1:#030615;--bg2:#0b1130;--bg3:#0f153d;
+      --text:#eef3ff;--muted:#9aa0c2;
+      --cyan:#00f0ff;--violet:#5b2cff;--rose:#ff4b9f;--lime:#16d18a;--amber:#ffcc4d;
+      --border:rgba(255,255,255,.12);
     }
     *{box-sizing:border-box}
     html,body{margin:0}
     body{
-      font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family:"Poppins",sans-serif;
       color:var(--text);
       background:
-        radial-gradient(1200px 700px at 10% -10%, rgba(0,240,255,.14) 0%, transparent 55%),
-        radial-gradient(900px 500px at 90% 0%, rgba(106,60,255,.22) 0%, transparent 60%),
+        radial-gradient(1200px 700px at 10% -10%,rgba(0,240,255,.14),transparent 55%),
+        radial-gradient(900px 500px at 90% 0,rgba(91,44,255,.20),transparent 60%),
         linear-gradient(180deg,var(--bg1),var(--bg2) 50%,var(--bg3));
       overflow-x:hidden;
+      animation:fadeInBody 1s ease;
     }
-
-    /* Floating neon blobs */
-    .blob{position:fixed;inset:auto auto -120px -120px;width:360px;height:360px;
-      background:radial-gradient(circle at 30% 30%, rgba(0,240,255,.25), transparent 60%),
-                 radial-gradient(circle at 70% 70%, rgba(106,60,255,.22), transparent 60%);
-      filter:blur(40px);opacity:.35;z-index:0;animation:float 12s ease-in-out infinite}
-    .blob.b2{left:auto;right:-140px;bottom:-140px;animation-duration:14s}
-    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-30px)}}
+    @keyframes fadeInBody{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
     header{
-      position:sticky;top:0;z-index:10;
-      background:rgba(10,15,40,.75); backdrop-filter:blur(14px);
+      position:sticky;top:0;z-index:50;
+      background:rgba(10,15,40,.75);backdrop-filter:blur(16px);
       border-bottom:1px solid var(--border);
     }
-    .nav{max-width:1200px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
+    .nav{max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
     .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.4px}
-    .brand img{width:34px;height:34px}
-    .brand span{background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .brand img{width:36px;height:36px}
+    .brand span{background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;color:transparent}
     .menu a{color:var(--muted);text-decoration:none;margin-left:18px;font-weight:600}
     .menu a:hover{color:var(--cyan)}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;font-weight:700;background:linear-gradient(90deg,var(--cyan),var(--violet));color:#fff;text-decoration:none;transition:.3s}
+    .btn:hover{opacity:.85;transform:translateY(-2px)}
+
+    .hero{text-align:center;padding:80px 20px 40px}
+    .hero h1{
+      font-size:clamp(32px,6vw,56px);
+      background:linear-gradient(90deg,var(--cyan),var(--violet),var(--rose));
+      -webkit-background-clip:text;color:transparent;
+      text-shadow:0 0 25px rgba(0,240,255,.25);
+    }
+    .hero p{max-width:700px;margin:12px auto;color:var(--muted);font-size:18px}
+    .net-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.06);margin-top:12px}
+    .net-badge img{width:26px;height:26px}
 
     .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
-    .hero{padding:70px 0 30px;text-align:center;position:relative;z-index:1}
-    .hero h1{
-      margin:0;
-      font-size:clamp(32px,6vw,56px);
-      background:linear-gradient(90deg,var(--cyan),var(--violet));
-      -webkit-background-clip:text;background-clip:text;color:transparent;
-      text-shadow:0 0 24px rgba(0,240,255,.25);
-    }
-    .hero p{max-width:760px;margin:12px auto 0;color:var(--muted);font-size:18px;line-height:1.65}
+    .grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:40px}
 
-    .net-banner{
-      margin:26px auto 0; display:inline-flex; align-items:center; gap:10px;
-      padding:10px 14px; border:1px solid var(--border); border-radius:999px;
-      background:rgba(255,255,255,.05)
-    }
-    .net-banner img{width:22px;height:22px}
-    .net-banner .badge{font-weight:700;letter-spacing:.4px}
-
-    .section{padding:56px 0;position:relative;z-index:1}
-    .title{
-      text-align:center;margin:0 0 18px;
-      font-size:clamp(24px,3.2vw,34px);
-      background:linear-gradient(90deg,var(--cyan),var(--violet));
-      -webkit-background-clip:text;background-clip:text;color:transparent;
-    }
-    .sub{color:var(--muted);text-align:center;max-width:860px;margin:0 auto 8px}
-
-    /* Plans grid */
-    .plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:28px}
+    /* ===== LED BAR CARD EFFECT ===== */
     .card{
-      background:linear-gradient(160deg, rgba(255,255,255,.06), rgba(255,255,255,.04));
-      border:1px solid var(--border); border-radius:18px; padding:22px;
-      box-shadow:0 18px 50px rgba(0,0,0,.35), inset 0 0 1px rgba(255,255,255,.08);
-      backdrop-filter: blur(14px);
-      transition:transform .25s, box-shadow .25s, border-color .25s;
-      position:relative; overflow:hidden;
+      position:relative;padding:24px;border-radius:20px;overflow:hidden;text-align:center;
+      background:rgba(255,255,255,.04);backdrop-filter:blur(14px);border:1px solid var(--border);
+      transition:.3s;
     }
-    .card:hover{
-      transform:translateY(-6px);
-      border-color:rgba(0,240,255,.4);
-      box-shadow:0 22px 60px rgba(0,240,255,.12);
+    .card::before{
+      content:"";position:absolute;inset:-3px;border-radius:inherit;
+      background:conic-gradient(from 0deg,var(--cyan),var(--violet),var(--rose),var(--lime),var(--amber),var(--cyan));
+      filter:blur(12px);opacity:0.9;animation:spin 8s linear infinite;z-index:0;
     }
-    .tag{
-      position:absolute; top:14px; right:14px;
-      padding:6px 10px; border-radius:999px; font-size:12px; font-weight:700;
-      background:rgba(0,240,255,.12); color:#bffaff; border:1px solid rgba(0,240,255,.25)
+    .card::after{
+      content:"";position:absolute;inset:0;border-radius:inherit;background:rgba(10,10,25,.88);z-index:1;
+      backdrop-filter:blur(12px);
     }
-    .card h3{margin:6px 0 2px;font-size:20px}
-    .price{display:flex;align-items:end;gap:6px;margin:10px 0 8px}
-    .price-big{font-size:32px;font-weight:800}
-    .price-cur{opacity:.85}
-    .meta{color:var(--muted);font-size:13px}
-    .feat{margin:14px 0 16px;display:grid;gap:8px}
-    .feat div{display:flex;align-items:center;gap:8px}
-    .feat svg{width:18px;height:18px;fill:#7afff7}
-    .buy{
-      display:flex;gap:10px;flex-wrap:wrap
-    }
-    .btn{
-      appearance:none; border:none; cursor:pointer;
-      padding:10px 14px; border-radius:12px; font-weight:700; letter-spacing:.2px;
-      background:linear-gradient(90deg,var(--cyan),var(--violet)); color:#081018;
-      color:#fff; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
-      box-shadow:0 10px 24px rgba(0,0,0,.25); transition:transform .2s, opacity .2s;
-    }
-    .btn:hover{transform:translateY(-2px);opacity:.95}
-    .btn-outline{
-      background:transparent;border:1px solid var(--border);color:var(--text)
-    }
-    .btn-outline:hover{border-color:var(--cyan)}
+    .card>*{position:relative;z-index:2}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,240,255,.1)}
 
-    /* Info sections */
-    .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-top:26px}
-    .info{
-      background:var(--card2); border:1px solid var(--border); border-radius:16px; padding:20px;
-    }
-    .info h4{margin:0 0 6px}
-    .info p{margin:0;color:var(--muted);font-size:14.5px}
-    .icon64{width:64px;height:64px;border-radius:16px;display:grid;place-items:center;margin-bottom:8px;
-      background:linear-gradient(135deg, rgba(0,240,255,.14), rgba(106,60,255,.14)); border:1px solid var(--border)}
-    .icon64 svg{width:32px;height:32px;fill:var(--cyan)}
-    .icon64 img{width:32px;height:32px;object-fit:contain}
-
-    footer{padding:40px 20px;border-top:1px solid var(--border);color:var(--muted);text-align:center;margin-top:40px}
-
-    @media (max-width:640px){
-      .nav{padding:14px 16px}
-      .menu{display:none}
-    }
+    .price{font-size:28px;font-weight:700;margin:10px 0;color:var(--cyan)}
+    .feat{color:var(--muted);font-size:14px;margin-bottom:14px}
+    .card h3{margin:8px 0;font-size:20px}
+    footer{text-align:center;padding:40px 20px;border-top:1px solid var(--border);color:var(--muted)}
   </style>
 </head>
 <body>
-  <!-- floating neon shapes -->
-  <div class="blob"></div><div class="blob b2"></div>
 
-  <header>
-    <div class="nav">
-      <div class="brand">
-        <img src="assets/USDT-2.png" alt="MetaFlash Logo">
-        <span>MetaFlash</span>&nbsp;USDT
-      </div>
-      <nav class="menu">
-        <a href="index.html">Home</a>
-        <a href="#plans">Plans</a>
-        <a href="#why">Why</a>
-        <a href="#faq">FAQ</a>
-      </nav>
-    </div>
-  </header>
+<header>
+  <div class="nav">
+    <div class="brand"><img src="assets/USDT-2.png"><span>MetaFlash</span> USDT</div>
+    <nav class="menu"><a href="index.html">Home</a><a href="#plans">Plans</a></nav>
+  </div>
+</header>
 
-  <section class="hero wrap">
-    <h1>TRC-20 Plans</h1>
-    <p>Ultra-low fees and lightning-fast finality on TRON network. Choose one of the animated packages tailored for different needs.</p>
-    <div class="net-banner">
-      <img src="assets/trc20.png" alt="TRC20">
-      <span class="badge">TRC-20</span>
-    </div>
-  </section>
+<section class="hero">
+  <h1>TRC-20 Plans</h1>
+  <p>Lightning-fast USDT transfers on the TRON network. Low fees, instant settlements, high performance.</p>
+  <div class="net-badge"><img src="assets/trc20.png"><span>TRON Network</span></div>
+</section>
 
-  <!-- PLANS -->
-  <section id="plans" class="section wrap">
-    <h2 class="title">Choose Your Package</h2>
-    <p class="sub">Six visually rich plans — all with fast settlement & secure delivery. Buttons open a dedicated page.</p>
+<section class="wrap" id="plans">
+  <div class="grid">
+    <article class="card">
+      <h3>Starter</h3>
+      <div class="price">$49</div>
+      <div class="feat">Up to 1,000 USDT • 1% fee</div>
+      <a class="btn" href="#">Buy Now</a>
+    </article>
+    <article class="card">
+      <h3>Standard</h3>
+      <div class="price">$199</div>
+      <div class="feat">Up to 5,000 USDT • 0.8% fee</div>
+      <a class="btn" href="#">Buy Now</a>
+    </article>
+    <article class="card">
+      <h3>Pro</h3>
+      <div class="price">$499</div>
+      <div class="feat">Up to 20,000 USDT • 0.5% fee</div>
+      <a class="btn" href="#">Buy Now</a>
+    </article>
+    <article class="card">
+      <h3>Advanced</h3>
+      <div class="price">$999</div>
+      <div class="feat">Up to 100,000 USDT • 0.3% fee</div>
+      <a class="btn" href="#">Buy Now</a>
+    </article>
+    <article class="card">
+      <h3>Premium</h3>
+      <div class="price">$1,999</div>
+      <div class="feat">Up to 500,000 USDT • VIP Support</div>
+      <a class="btn" href="#">Buy Now</a>
+    </article>
+    <article class="card">
+      <h3>Enterprise</h3>
+      <div class="price">Custom</div>
+      <div class="feat">Unlimited volume • SLA Contract</div>
+      <a class="btn" href="#">Contact Sales</a>
+    </article>
+  </div>
+</section>
 
-    <div class="plans">
-
-      <!-- 1. Starter -->
-      <article class="card">
-        <span class="tag">Popular</span>
-        <h3>Starter</h3>
-        <div class="price">
-          <span class="price-big">$49</span><span class="price-cur">/ one-time</span>
-        </div>
-        <div class="meta">Great for quick tests and micro transfers</div>
-        <div class="feat">
-          <div>
-            <svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5 2-2 3 3 9-9z"/></svg>
-            Up to 500 USDT
-          </div>
-          <div>
-            <svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5 2-2 3 3 9-9z"/></svg>
-            Near-instant settlement
-          </div>
-          <div>
-            <svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5 2-2 3 3 9-9z"/></svg>
-            Basic support
-          </div>
-        </div>
-        <div class="buy">
-          <a class="btn" href="trc20-starter.html" target="_blank">Buy Now</a>
-          <a class="btn btn-outline" href="index.html">Back Home</a>
-        </div>
-      </article>
-
-      <!-- 2. Basic -->
-      <article class="card">
-        <h3>Basic</h3>
-        <div class="price">
-          <span class="price-big">$99</span><span class="price-cur">/ one-time</span>
-        </div>
-        <div class="meta">Small merchants and hobby projects</div>
-        <div class="feat">
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5 2-2 3 3 9-9z"/></svg>Up to 2,000 USDT</div>
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5 2-2 3 3 9-9z"/></svg>Fast confirmation</div>
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5 2-2 3 3 9-9z"/></svg>Email support</div>
-        </div>
-        <div class="buy">
-          <a class="btn" href="trc20-basic.html" target="_blank">Buy Now</a>
-          <a class="btn btn-outline" href="index.html">Back Home</a>
-        </div>
-      </article>
-
-      <!-- 3. Standard -->
-      <article class="card">
-        <span class="tag" style="background:rgba(22,209,138,.14);color:#b5ffe5;border-color:rgba(22,209,138,.25)">Value</span>
-        <h3>Standard</h3>
-        <div class="price">
-          <span class="price-big">$249</span><span class="price-cur">/ one-time</span>
-        </div>
-        <div class="meta">Growing projects and active traders</div>
-        <div class="feat">
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5 2-2 3 3 9-9z"/></svg>Up to 10,000 USDT</div>
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5 2-2 3 3 9-9z"/></svg>Priority pipeline</div>
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5 2-2 3 3 9-9z"/></svg>Chat support</div>
-        </div>
-        <div class="buy">
-          <a class="btn" href="trc20-standard.html" target="_blank">Buy Now</a>
-          <a class="btn btn-outline" href="index.html">Back Home</a>
-        </div>
-      </article>
-
-      <!-- 4. Pro -->
-      <article class="card">
-        <h3>Pro</h3>
-        <div class="price">
-          <span class="price-big">$499</span><span class="price-cur">/ one-time</span>
-        </div>
-        <div class="meta">SMEs and frequent settlements</div>
-        <div class="feat">
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5 2-2 3 3 9-9z"/></svg>Up to 30,000 USDT</div>
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5 2-2 3 3 9-9z"/></svg>VIP route</div>
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5 2-2 3 3 9-9z"/></svg>Account manager</div>
-        </div>
-        <div class="buy">
-          <a class="btn" href="trc20-pro.html" target="_blank">Buy Now</a>
-          <a class="btn btn-outline" href="index.html">Back Home</a>
-        </div>
-      </article>
-
-      <!-- 5. Premium -->
-      <article class="card">
-        <span class="tag" style="background:rgba(245,181,63,.16);color:#ffe9bd;border-color:rgba(245,181,63,.28)">Best Seller</span>
-        <h3>Premium</h3>
-        <div class="price">
-          <span class="price-big">$999</span><span class="price-cur">/ one-time</span>
-        </div>
-        <div class="meta">High-volume operations</div>
-        <div class="feat">
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5 2-2 3 3 9-9z"/></svg>Up to 100,000 USDT</div>
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5 2-2 3 3 9-9z"/></svg>Priority + redundancy</div>
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5 2-2 3 3 9-9z"/></svg>24/7 support</div>
-        </div>
-        <div class="buy">
-          <a class="btn" href="trc20-premium.html" target="_blank">Buy Now</a>
-          <a class="btn btn-outline" href="index.html">Back Home</a>
-        </div>
-      </article>
-
-      <!-- 6. Enterprise -->
-      <article class="card">
-        <h3>Enterprise</h3>
-        <div class="price">
-          <span class="price-big">Custom</span><span class="price-cur">/ SLA</span>
-        </div>
-        <div class="meta">Enterprises & payment providers</div>
-        <div class="feat">
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5 2-2 3 3 9-9z"/></svg>Unlimited tiers</div>
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5 2-2 3 3 9-9z"/></svg>Dedicated infra</div>
-          <div><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5 2-2 3 3 9-9z"/></svg>24/7 priority SLA</div>
-        </div>
-        <div class="buy">
-          <a class="btn" href="trc20-enterprise.html" target="_blank">Contact Sales</a>
-          <a class="btn btn-outline" href="index.html">Back Home</a>
-        </div>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- WHY / INFO -->
-  <section id="why" class="section wrap">
-    <h2 class="title">Why TRC-20 on MetaFlash</h2>
-    <p class="sub">Optimized routes, layered security and multi-wallet compatibility.</p>
-    <div class="info-grid">
-      <div class="info">
-        <div class="icon64">
-          <!-- lightning -->
-          <svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12H12l1-8z"/></svg>
-        </div>
-        <h4>Lightning Fast</h4>
-        <p>Near-instant confirmations with optimized pipelines and low fees.</p>
-      </div>
-      <div class="info">
-        <div class="icon64">
-          <!-- shield -->
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <h4>Security First</h4>
-        <p>Layered protection and integrity checks at each step.</p>
-      </div>
-      <div class="info">
-        <div class="icon64">
-          <img src="assets/trust.png" alt="Wallets">
-        </div>
-        <h4>Wallet Friendly</h4>
-        <p>Works with Trust Wallet, TronLink and more — easy onboarding.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="faq" class="section wrap">
-    <h2 class="title">FAQ</h2>
-    <div class="info-grid">
-      <div class="info">
-        <h4>What happens when I click “Buy Now”?</h4>
-        <p>You’ll be taken to a dedicated plan page (e.g. <code>trc20-standard.html</code>) to proceed.</p>
-      </div>
-      <div class="info">
-        <h4>Can I upgrade later?</h4>
-        <p>Yes, you can switch plans any time and only pay the difference.</p>
-      </div>
-      <div class="info">
-        <h4>Do you support other networks?</h4>
-        <p>Absolutely — ERC-20, BEP-20 and BTC have their own product pages.</p>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    © <span id="y"></span> MetaFlash USDT — TRC-20 • <a href="index.html" style="color:#bdefff;text-decoration:none">Back to Home</a>
-  </footer>
-
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
+<footer>© <span id="y"></span> MetaFlash USDT — TRC20</footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
 </body>
 </html>
