@@ -4,221 +4,220 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MetaFlash USDT — Fast • Secure • Trusted</title>
-  <meta name="description" content="MetaFlash USDT — multi-chain flash USDT platform with TRC20, ERC20, BEP20 and BTC support. Fast, secure and reliable." />
+  <meta name="description" content="MetaFlash USDT — Official multi-chain flash USDT platform with TRC20, ERC20, BEP20 and BTC support." />
   <link rel="icon" type="image/png" href="assets/USDT-2.png" />
   <style>
-    /* ====== MetaFlash USDT — Minimal Neon Theme (no external libs) ====== */
-    :root{
-      --bg:#0a0a0f;--bg-2:#0f1020;--card:#161826;--card-2:#1b1f33;
-      --text:#e9edf5;--muted:#96a0b5;--primary:#6a00ff;--cyan:#00c6ff;--green:#16d18a;
-      --border:rgba(255,255,255,.08);
+    /* ====== GLOBAL THEME ====== */
+    :root {
+      --bg1: #020314;
+      --bg2: #0a0f2c;
+      --accent1: #00f0ff;
+      --accent2: #5b2cff;
+      --text: #ffffff;
+      --muted: #9aa0c2;
+      --glass: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.12);
     }
-    *{box-sizing:border-box}
-    html,body{margin:0;height:100%}
-    body{
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:
-        radial-gradient(1200px 600px at 20% -10%, rgba(0,198,255,.12) 0%, transparent 60%),
-        radial-gradient(1000px 500px at 85% 0%, rgba(106,0,255,.14) 0%, transparent 55%),
-        linear-gradient(180deg, var(--bg), var(--bg-2) 60%, var(--bg));
-      color:var(--text);
-      letter-spacing:.2px;
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Poppins", sans-serif;
+      background: radial-gradient(1200px 800px at 20% -10%, rgba(0,255,255,0.1) 0%, transparent 60%),
+                  radial-gradient(1000px 600px at 85% 0%, rgba(91,44,255,0.2) 0%, transparent 55%),
+                  linear-gradient(180deg, var(--bg1), var(--bg2) 60%, var(--bg1));
+      color: var(--text);
+      overflow-x: hidden;
     }
-    a{color:inherit;text-decoration:none}
-    .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
-    header{
-      position:sticky;top:0;z-index:50;
-      backdrop-filter:saturate(1.2) blur(10px);
-      background:rgba(10,10,15,.65); border-bottom:1px solid var(--border);
+
+    header {
+      position: fixed;
+      top: 0; width: 100%;
+      background: rgba(10,15,40,0.75);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
     }
-    .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
-    .brand{font-weight:800;letter-spacing:.5px}
-    .brand span{background:linear-gradient(90deg,var(--primary),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
-    .menu a{opacity:.8;margin-left:18px;font-weight:600}
-    .menu a:hover{opacity:1}
-    .btn{
-      display:inline-block;padding:12px 18px;border-radius:12px;font-weight:700;
-      background:linear-gradient(90deg,var(--primary),var(--cyan));color:#fff;box-shadow:0 6px 22px rgba(0,0,0,.25);
-      transform:translateZ(0);transition:transform .2s ease}
-    .btn:hover{transform:translateY(-2px)}
-    .hero{padding:84px 0 60px;text-align:center}
-    .hero h1{
-      margin:0 0 14px;
-      font-size:clamp(32px,5vw,56px);line-height:1.1;
-      background:linear-gradient(90deg,var(--primary),var(--cyan));
-      -webkit-background-clip:text;background-clip:text;color:transparent;
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 48px;
+      max-width: 1200px; margin: 0 auto;
     }
-    .hero p{margin:0 auto 26px;max-width:720px;color:var(--muted);font-size:clamp(15px,2.2vw,18px)}
-    .glass{
-      background:linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.04));
-      border:1px solid var(--border);border-radius:18px;
-      box-shadow:0 20px 60px rgba(0,0,0,.35), inset 0 0 1px rgba(255,255,255,.08);
+    .logo { display:flex; align-items:center; gap:10px; font-weight:700; font-size:20px; letter-spacing:1px; }
+    .logo img { height:40px; width:40px; }
+    .logo span { background:linear-gradient(90deg,var(--accent1),var(--accent2)); -webkit-background-clip:text; color:transparent; }
+    nav a {
+      margin-left: 24px; color: var(--muted); text-decoration: none; font-weight:500; transition: 0.3s;
     }
-    section{padding:64px 0}
-    h2.title{margin:0 0 28px;text-align:center;font-size:clamp(26px,3.5vw,36px)}
-    h2.title .accent{background:linear-gradient(90deg,var(--cyan),var(--primary));-webkit-background-clip:text;background-clip:text;color:transparent}
-    .sub{text-align:center;color:var(--muted);max-width:850px;margin:0 auto 28px}
-    .grid{display:grid;gap:20px}
-    .g-3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-    .g-4{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-    .card{padding:22px;border-radius:16px;border:1px solid var(--border);background:var(--card)}
-    .card:hover{transform:translateY(-4px);transition:.25s;box-shadow:0 24px 50px rgba(0,0,0,.35)}
-    .card h3{margin:12px 0 6px;font-size:18px}
-    .card p{margin:0;color:var(--muted);font-size:14.5px}
-    .icon{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;margin:4px 0 6px;background:rgba(106,0,255,.18)}
-    .icon img{width:32px;height:32px;object-fit:contain}
-    .center{text-align:center}
-    .logo-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
-    .logo-item{padding:18px;border:1px solid var(--border);border-radius:14px;background:var(--card-2);display:flex;align-items:center;justify-content:center;height:92px}
-    .logo-item img{max-height:56px;max-width:140px;object-fit:contain;image-rendering:auto}
-    /* badges */
-    .badges{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px}
-    .badge{padding:8px 12px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.04);font-weight:700;font-size:13px}
-    footer{padding:34px 0;border-top:1px solid var(--border);color:#a9b1c6;text-align:center}
-    .muted{color:var(--muted)}
-    @media (max-width:640px){.menu{display:none}}
+    nav a:hover { color: var(--accent1); }
+
+    .hero {
+      margin-top: 120px;
+      text-align: center;
+      padding: 100px 20px 60px;
+    }
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 64px);
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text; color: transparent;
+      text-shadow: 0 0 18px rgba(91,44,255,0.4);
+    }
+    .hero p {
+      max-width: 700px; margin: 16px auto; color: var(--muted);
+      font-size: 18px; line-height: 1.6;
+    }
+
+    /* ===== PRODUCTS ===== */
+    .products {
+      padding: 80px 20px;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 34px; margin-bottom: 20px;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip:text; color: transparent;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+      gap: 24px; margin-top: 30px;
+    }
+    .product-card {
+      border: 1px solid var(--border);
+      background: var(--glass);
+      border-radius: 18px;
+      text-align: center;
+      padding: 30px 20px;
+      backdrop-filter: blur(20px);
+      transition: all .3s ease;
+      cursor: pointer;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 30px rgba(91,44,255,0.35);
+      border-color: var(--accent1);
+    }
+    .product-card img {
+      width: 80px; height: 80px; margin-bottom: 12px;
+      filter: drop-shadow(0 0 10px rgba(0,255,255,0.4));
+    }
+    .product-card h3 {
+      margin: 6px 0; font-size: 20px;
+    }
+    .product-card a {
+      display:inline-block;
+      margin-top: 14px;
+      padding: 10px 18px;
+      background: linear-gradient(90deg,var(--accent1),var(--accent2));
+      color: #fff;
+      border-radius: 10px;
+      font-weight:600;
+      text-decoration: none;
+      transition:.3s;
+    }
+    .product-card a:hover { opacity: .8; }
+
+    /* ====== WHY CHOOSE ===== */
+    .why { padding: 80px 20px; max-width:1200px; margin:0 auto; }
+    .why-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:24px;
+      margin-top:40px;
+    }
+    .why-card {
+      background: var(--glass);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:26px;
+      backdrop-filter:blur(16px);
+      text-align:center;
+      transition:.3s;
+    }
+    .why-card:hover { transform:translateY(-5px); border-color:var(--accent1); box-shadow:0 0 20px rgba(0,255,255,0.2);}
+    .why-card img, .why-card svg { width:60px;height:60px;margin-bottom:12px;fill:var(--accent1);}
+    .why-card h3 { margin-bottom:10px; }
+    .why-card p { color:var(--muted);font-size:15px; }
+
+    /* ====== FOOTER ===== */
+    footer { text-align:center; padding:60px 20px; border-top:1px solid var(--border); color:var(--muted);}
   </style>
 </head>
+
 <body>
-  <!-- ====== NAV ====== -->
   <header>
-    <div class="wrap nav">
-      <div class="brand">Meta<span>Flash</span> USDT</div>
-      <nav class="menu">
-        <a href="#why">Why</a>
+    <div class="nav">
+      <div class="logo">
+        <img src="assets/logo.png" alt="MetaFlash Logo">
+        <span>MetaFlash</span> USDT
+      </div>
+      <nav>
+        <a href="#products">Products</a>
+        <a href="#why">Why Choose</a>
         <a href="#usecases">Use Cases</a>
-        <a href="#networks">Networks</a>
-        <a href="#wallets">Wallets</a>
         <a href="#payments">Payments</a>
       </nav>
-      <a class="btn" href="#payments">Get Started</a>
     </div>
   </header>
 
-  <!-- ====== HERO ====== -->
-  <section class="hero wrap">
-    <h1>FAST • SECURE • TRUSTED</h1>
-    <p>The next-gen Flash USDT experience. Multi-network support (TRC20, ERC20, BEP20, BTC) with instant settlement and enterprise-grade security.</p>
-    <div class="badges">
-      <span class="badge">TRC20</span>
-      <span class="badge">ERC20</span>
-      <span class="badge">BEP20</span>
-      <span class="badge">BTC</span>
+  <section class="hero">
+    <h1>Powering the Future of Flash USDT</h1>
+    <p>MetaFlash USDT connects global users with lightning-fast transactions across multiple blockchain networks — all in one advanced, secure platform.</p>
+  </section>
+
+  <section id="products" class="products">
+    <h2 class="section-title">Our Products</h2>
+    <div class="product-grid">
+      <div class="product-card" onclick="location.href='trc20.html'">
+        <img src="assets/trc20.png" alt="TRC20">
+        <h3>TRC-20</h3>
+        <a href="trc20.html">View Plans</a>
+      </div>
+      <div class="product-card" onclick="location.href='erc20.html'">
+        <img src="assets/erc20.png" alt="ERC20">
+        <h3>ERC-20</h3>
+        <a href="erc20.html">View Plans</a>
+      </div>
+      <div class="product-card" onclick="location.href='bep20.html'">
+        <img src="assets/bep20.png" alt="BEP20">
+        <h3>BEP-20</h3>
+        <a href="bep20.html">View Plans</a>
+      </div>
+      <div class="product-card" onclick="location.href='btc.html'">
+        <img src="assets/btc.png" alt="BTC">
+        <h3>Bitcoin (BTC)</h3>
+        <a href="btc.html">View Plans</a>
+      </div>
     </div>
   </section>
 
-  <!-- ====== WHY CHOOSE ====== -->
-  <section id="why" class="wrap">
-    <h2 class="title">Why Choose <span class="accent">MetaFlash USDT</span></h2>
-    <p class="sub">Our platform provides flexible, fast and reliable services for 4 different Blockchain networks.</p>
-
-    <div class="grid g-3">
-      <div class="card glass">
-        <div class="icon"><img src="assets/e2e0a04a-8fad-4c0f-ad41-d5d309c652ca.png" alt="Lightning"/></div>
+  <section id="why" class="why">
+    <h2 class="section-title">Why Choose MetaFlash USDT</h2>
+    <div class="why-grid">
+      <div class="why-card">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12H12l1-8z"/></svg>
         <h3>Lightning Fast</h3>
-        <p>Experience instant transactions with our optimized processing system.</p>
+        <p>Instant execution powered by optimized transaction pipelines.</p>
       </div>
-      <div class="card glass">
-        <div class="icon"><img src="assets/2020fbe3-0306-4025-be83-c6e6bf65fde5.png" alt="Shield"/></div>
+      <div class="why-card">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         <h3>Security</h3>
-        <p>We provide the best security for ourselves and our customers.</p>
+        <p>Top-grade encryption ensures maximum protection for your assets.</p>
       </div>
-      <div class="card glass">
-        <div class="icon"><img src="assets/trc20.png" alt="Multi Network"/></div>
-        <h3>Multi-Network Support</h3>
-        <p>Trade across TRC20, ERC20, BEP20 and Bitcoin networks seamlessly.</p>
+      <div class="why-card">
+        <img src="assets/trust.png" alt="Multi-network">
+        <h3>Multi-Network</h3>
+        <p>Operate seamlessly on TRC20, ERC20, BEP20 and Bitcoin simultaneously.</p>
       </div>
-    </div>
-  </section>
-
-  <!-- ====== USE CASES ====== -->
-  <section id="usecases" class="wrap">
-    <h2 class="title">Use Cases & <span class="accent">Applications</span></h2>
-    <p class="sub">MetaFlash USDT is versatile and can be integrated into various platforms and services.</p>
-
-    <div class="grid g-3">
-      <div class="card"><h3>Forex & Crypto Trading</h3><p>High-speed settlements for exchanges and brokers.</p></div>
-      <div class="card"><h3>Online Gaming & Betting</h3><p>Instant deposits/withdrawals without card chargebacks.</p></div>
-      <div class="card"><h3>Virtual Casinos</h3><p>Frictionless chip top-ups and cash-outs.</p></div>
-      <div class="card"><h3>Crypto Payments</h3><p>Accept USDT worldwide with fixed fee structure.</p></div>
-      <div class="card"><h3>Credit Solutions</h3><p>Programmatic disbursement & repayments.</p></div>
-      <div class="card"><h3>E-Commerce Integration</h3><p>USDT checkout via QR or wallet connect.</p></div>
-      <div class="card"><h3>Cross-Border Transfers</h3><p>Fast remittances with transparent routing.</p></div>
-      <div class="card"><h3>Investment Platforms</h3><p>Flexible on/off-ramp for users and funds.</p></div>
-    </div>
-  </section>
-
-  <!-- ====== NETWORKS ====== -->
-  <section id="networks" class="wrap">
-    <h2 class="title">Supported <span class="accent">Networks</span></h2>
-    <div class="logo-grid">
-      <div class="logo-item"><img src="assets/trc20.png" alt="TRC20"></div>
-      <div class="logo-item"><img src="assets/erc20.png" alt="ERC20"></div>
-      <div class="logo-item"><img src="assets/bep20.png" alt="BEP20"></div>
-      <div class="logo-item"><img src="assets/btc.png" alt="Bitcoin"></div>
-    </div>
-    <p class="center muted" style="margin-top:10px">Native USDT support across TRON, Ethereum, BSC and Bitcoin.</p>
-  </section>
-
-  <!-- ====== WALLETS / EXCHANGES ====== -->
-  <section id="wallets" class="wrap">
-    <h2 class="title">Wallets & <span class="accent">Exchanges</span></h2>
-    <div class="logo-grid">
-      <div class="logo-item"><img src="assets/trust.png" alt="Trust Wallet"></div>
-      <div class="logo-item"><img src="assets/metamask.png" alt="MetaMask"></div>
-      <div class="logo-item"><img src="assets/okx.png" alt="OKX"></div>
-      <div class="logo-item"><img src="assets/mexc.png" alt="MEXC"></div>
-      <div class="logo-item"><img src="assets/exodus.png" alt="Exodus"></div>
-      <div class="logo-item"><img src="assets/coinbase.png" alt="Coinbase"></div>
-      <div class="logo-item"><img src="assets/tronlink.png" alt="TronLink"></div>
-    </div>
-  </section>
-
-  <!-- ====== PAYMENTS ====== -->
-  <section id="payments" class="wrap">
-    <h2 class="title">Payment <span class="accent">Methods</span></h2>
-    <p class="sub">Choose the most convenient way to pay or receive USDT.</p>
-
-    <div class="grid g-4">
-      <div class="card">
-        <div class="icon"><img src="assets/binance.png" alt="Binance Pay"></div>
-        <h3>Binance Pay</h3>
-        <p>Send & receive via Binance Pay with QR.</p>
-      </div>
-      <div class="card">
-        <div class="icon"><img src="assets/trc20.png" alt="TRC20"></div>
-        <h3>TRC20</h3>
-        <p>Ultra low fees on TRON network.</p>
-      </div>
-      <div class="card">
-        <div class="icon"><img src="assets/erc20.png" alt="ERC20"></div>
-        <h3>ERC20</h3>
-        <p>Highest security via Ethereum.</p>
-      </div>
-      <div class="card">
-        <div class="icon"><img src="assets/bep20.png" alt="BEP20"></div>
-        <h3>BEP20</h3>
-        <p>Cost-effective transfers on BSC.</p>
-      </div>
-    </div>
-
-    <div class="badges" style="margin-top:18px">
-      <span class="badge">Invoice / Link</span>
-      <span class="badge">QR Pay</span>
-      <span class="badge">Wallet Transfer</span>
     </div>
   </section>
 
   <footer>
-    <div class="wrap">
-      <div>© <span id="y"></span> <strong>MetaFlash USDT</strong> — All rights reserved.</div>
-      <div class="muted">Secure & Encrypted • Contact: support@metaflashusdt.com</div>
-    </div>
+    <p>© <span id="y"></span> MetaFlash USDT — All Rights Reserved</p>
   </footer>
 
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>
-</html>
-
+</htm
