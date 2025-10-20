@@ -1,223 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MetaFlash USDT — Fast • Secure • Trusted</title>
-  <meta name="description" content="MetaFlash USDT — Official multi-chain flash USDT platform with TRC20, ERC20, BEP20 and BTC support." />
-  <link rel="icon" type="image/png" href="assets/USDT-2.png" />
-  <style>
-    /* ====== GLOBAL THEME ====== */
-    :root {
-      --bg1: #020314;
-      --bg2: #0a0f2c;
-      --accent1: #00f0ff;
-      --accent2: #5b2cff;
-      --text: #ffffff;
-      --muted: #9aa0c2;
-      --glass: rgba(255,255,255,0.06);
-      --border: rgba(255,255,255,0.12);
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MetaFlash USDT — Rainbow Enhanced</title>
+<link rel="icon" type="image/png" href="assets/USDT-2.png">
+<style>
+:root{
+  --bg1:#030615;--bg2:#0b1130;
+  --text:#eef3ff;--muted:#9aa0c2;
+  --cyan:#00f0ff;--violet:#5b2cff;--rose:#ff4b9f;--lime:#16d18a;--amber:#ffcc4d;
+  --border:rgba(255,255,255,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:"Poppins",sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(1200px 600px at 20% -10%,rgba(0,240,255,.12),transparent 60%),
+    radial-gradient(1000px 500px at 85% 0%,rgba(91,44,255,.14),transparent 55%),
+    linear-gradient(180deg,var(--bg1),var(--bg2) 60%,var(--bg1));
+  overflow-x:hidden;
+  animation:fadeInBody 1.5s ease;
+}
+@keyframes fadeInBody{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: "Poppins", sans-serif;
-      background: radial-gradient(1200px 800px at 20% -10%, rgba(0,255,255,0.1) 0%, transparent 60%),
-                  radial-gradient(1000px 600px at 85% 0%, rgba(91,44,255,0.2) 0%, transparent 55%),
-                  linear-gradient(180deg, var(--bg1), var(--bg2) 60%, var(--bg1));
-      color: var(--text);
-      overflow-x: hidden;
-    }
+header{position:sticky;top:0;background:rgba(10,15,40,.75);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);z-index:20}
+.nav{max-width:1200px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.4px}
+.logo img{width:36px;height:36px}
+.logo span{background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;color:transparent}
+nav a{color:var(--muted);text-decoration:none;margin-left:18px;font-weight:600;transition:.3s}
+nav a:hover{color:var(--cyan)}
 
-    header {
-      position: fixed;
-      top: 0; width: 100%;
-      background: rgba(10,15,40,0.75);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      z-index: 100;
-    }
-    .nav {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 48px;
-      max-width: 1200px; margin: 0 auto;
-    }
-    .logo { display:flex; align-items:center; gap:10px; font-weight:700; font-size:20px; letter-spacing:1px; }
-    .logo img { height:40px; width:40px; }
-    .logo span { background:linear-gradient(90deg,var(--accent1),var(--accent2)); -webkit-background-clip:text; color:transparent; }
-    nav a {
-      margin-left: 24px; color: var(--muted); text-decoration: none; font-weight:500; transition: 0.3s;
-    }
-    nav a:hover { color: var(--accent1); }
+.hero{padding:100px 20px;text-align:center;position:relative;overflow:hidden}
+.hero h1{
+  font-size:clamp(38px,6vw,64px);
+  background:linear-gradient(90deg,var(--cyan),var(--violet),var(--rose));
+  -webkit-background-clip:text;color:transparent;
+  text-shadow:0 0 30px rgba(0,240,255,.3);
+  animation:slideInDown 1.2s ease;
+}
+.hero p{color:var(--muted);max-width:740px;margin:12px auto;font-size:18px;animation:fadeIn 1.8s ease}
+@keyframes fadeIn{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes slideInDown{0%{opacity:0;transform:translateY(-30px)}100%{opacity:1;transform:translateY(0)}}
 
-    .hero {
-      margin-top: 120px;
-      text-align: center;
-      padding: 100px 20px 60px;
-    }
-    .hero h1 {
-      font-size: clamp(36px, 6vw, 64px);
-      background: linear-gradient(90deg, var(--accent1), var(--accent2));
-      -webkit-background-clip: text; color: transparent;
-      text-shadow: 0 0 18px rgba(91,44,255,0.4);
-    }
-    .hero p {
-      max-width: 700px; margin: 16px auto; color: var(--muted);
-      font-size: 18px; line-height: 1.6;
-    }
+/* Rainbow border effect */
+.card{
+  position:relative;
+  background:rgba(255,255,255,.05);
+  border-radius:18px;
+  padding:24px;
+  backdrop-filter:blur(16px);
+  overflow:hidden;
+  transition:.3s;
+  animation:fadeIn 1.2s ease forwards;
+}
+.card::before{
+  content:"";
+  position:absolute;inset:-2px;
+  background:conic-gradient(from 0deg, var(--cyan), var(--violet), var(--rose), var(--lime), var(--amber), var(--cyan));
+  animation:spin 5s linear infinite;
+  border-radius:inherit;
+  z-index:0;
+}
+.card::after{
+  content:"";
+  position:absolute;inset:2px;
+  background:rgba(15,15,30,.9);
+  border-radius:inherit;
+  z-index:1;
+}
+.card > *{position:relative;z-index:2}
+.card:hover{transform:translateY(-8px) scale(1.02)}
+@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
 
-    /* ===== PRODUCTS ===== */
-    .products {
-      padding: 80px 20px;
-      max-width: 1200px; margin: 0 auto;
-    }
-    .section-title {
-      text-align: center;
-      font-size: 34px; margin-bottom: 20px;
-      background: linear-gradient(90deg, var(--accent1), var(--accent2));
-      -webkit-background-clip:text; color: transparent;
-    }
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-      gap: 24px; margin-top: 30px;
-    }
-    .product-card {
-      border: 1px solid var(--border);
-      background: var(--glass);
-      border-radius: 18px;
-      text-align: center;
-      padding: 30px 20px;
-      backdrop-filter: blur(20px);
-      transition: all .3s ease;
-      cursor: pointer;
-    }
-    .product-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 0 30px rgba(91,44,255,0.35);
-      border-color: var(--accent1);
-    }
-    .product-card img {
-      width: 80px; height: 80px; margin-bottom: 12px;
-      filter: drop-shadow(0 0 10px rgba(0,255,255,0.4));
-    }
-    .product-card h3 {
-      margin: 6px 0; font-size: 20px;
-    }
-    .product-card a {
-      display:inline-block;
-      margin-top: 14px;
-      padding: 10px 18px;
-      background: linear-gradient(90deg,var(--accent1),var(--accent2));
-      color: #fff;
-      border-radius: 10px;
-      font-weight:600;
-      text-decoration: none;
-      transition:.3s;
-    }
-    .product-card a:hover { opacity: .8; }
+/* Fade-in grid animation */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;max-width:1200px;margin:40px auto;padding:0 20px}
+.grid .card{animation-delay:var(--delay)}
 
-    /* ====== WHY CHOOSE ===== */
-    .why { padding: 80px 20px; max-width:1200px; margin:0 auto; }
-    .why-grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-      gap:24px;
-      margin-top:40px;
-    }
-    .why-card {
-      background: var(--glass);
-      border:1px solid var(--border);
-      border-radius:20px;
-      padding:26px;
-      backdrop-filter:blur(16px);
-      text-align:center;
-      transition:.3s;
-    }
-    .why-card:hover { transform:translateY(-5px); border-color:var(--accent1); box-shadow:0 0 20px rgba(0,255,255,0.2);}
-    .why-card img, .why-card svg { width:60px;height:60px;margin-bottom:12px;fill:var(--accent1);}
-    .why-card h3 { margin-bottom:10px; }
-    .why-card p { color:var(--muted);font-size:15px; }
-
-    /* ====== FOOTER ===== */
-    footer { text-align:center; padding:60px 20px; border-top:1px solid var(--border); color:var(--muted);}
-  </style>
+footer{text-align:center;padding:50px 20px;border-top:1px solid var(--border);color:var(--muted)}
+</style>
 </head>
-
 <body>
-  <header>
-    <div class="nav">
-      <div class="logo">
-        <img src="assets/logo.png" alt="MetaFlash Logo">
-        <span>MetaFlash</span> USDT
-      </div>
-      <nav>
-        <a href="#products">Products</a>
-        <a href="#why">Why Choose</a>
-        <a href="#usecases">Use Cases</a>
-        <a href="#payments">Payments</a>
-      </nav>
+
+<header>
+  <div class="nav">
+    <div class="logo">
+      <img src="assets/USDT-2.png"><span>MetaFlash</span> USDT
     </div>
-  </header>
+    <nav>
+      <a href="#products">Products</a>
+      <a href="#about">About</a>
+    </nav>
+  </div>
+</header>
 
-  <section class="hero">
-    <h1>Powering the Future of Flash USDT</h1>
-    <p>MetaFlash USDT connects global users with lightning-fast transactions across multiple blockchain networks — all in one advanced, secure platform.</p>
-  </section>
+<section class="hero">
+  <h1>Technological • Animated • Rainbow Enhanced</h1>
+  <p>The new MetaFlash experience brings glowing rainbow glass cards and seamless animations.</p>
+</section>
 
-  <section id="products" class="products">
-    <h2 class="section-title">Our Products</h2>
-    <div class="product-grid">
-      <div class="product-card" onclick="location.href='trc20.html'">
-        <img src="assets/trc20.png" alt="TRC20">
-        <h3>TRC-20</h3>
-        <a href="trc20.html">View Plans</a>
-      </div>
-      <div class="product-card" onclick="location.href='erc20.html'">
-        <img src="assets/erc20.png" alt="ERC20">
-        <h3>ERC-20</h3>
-        <a href="erc20.html">View Plans</a>
-      </div>
-      <div class="product-card" onclick="location.href='bep20.html'">
-        <img src="assets/bep20.png" alt="BEP20">
-        <h3>BEP-20</h3>
-        <a href="bep20.html">View Plans</a>
-      </div>
-      <div class="product-card" onclick="location.href='btc.html'">
-        <img src="assets/btc.png" alt="BTC">
-        <h3>Bitcoin (BTC)</h3>
-        <a href="btc.html">View Plans</a>
-      </div>
-    </div>
-  </section>
+<section class="grid">
+  <div class="card" style="--delay:0s"><h3>TRC20</h3><p>Lightning fast on TRON network.</p></div>
+  <div class="card" style="--delay:.2s"><h3>ERC20</h3><p>High security via Ethereum.</p></div>
+  <div class="card" style="--delay:.4s"><h3>BEP20</h3><p>Cost-effective Binance Smart Chain transfers.</p></div>
+  <div class="card" style="--delay:.6s"><h3>BTC</h3><p>Verified transactions on Bitcoin blockchain.</p></div>
+</section>
 
-  <section id="why" class="why">
-    <h2 class="section-title">Why Choose MetaFlash USDT</h2>
-    <div class="why-grid">
-      <div class="why-card">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12H12l1-8z"/></svg>
-        <h3>Lightning Fast</h3>
-        <p>Instant execution powered by optimized transaction pipelines.</p>
-      </div>
-      <div class="why-card">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        <h3>Security</h3>
-        <p>Top-grade encryption ensures maximum protection for your assets.</p>
-      </div>
-      <div class="why-card">
-        <img src="assets/trust.png" alt="Multi-network">
-        <h3>Multi-Network</h3>
-        <p>Operate seamlessly on TRC20, ERC20, BEP20 and Bitcoin simultaneously.</p>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <p>© <span id="y"></span> MetaFlash USDT — All Rights Reserved</p>
-  </footer>
-
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
+<footer>© <span id="y"></span> MetaFlash USDT</footer>
+<script>
+document.getElementById('y').textContent=new Date().getFullYear();
+</script>
 </body>
-</htm
+</html>
