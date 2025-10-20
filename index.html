@@ -314,7 +314,7 @@
   height: 800px;
   background: radial-gradient(circle, rgba(0,240,255,0.25), rgba(91,44,255,0.18), transparent 70%);
   animation: pulseGlow 6s ease-in-out infinite alternate;
-  filter: blur(80px);
+  filter: blur(40px);
   z-index: 0;
 }
 
@@ -333,11 +333,16 @@
   background: linear-gradient(90deg, #00f0ff, #5b2cff, #ff4b9f, #16d18a);
   background-size: 300% 300%;
   -webkit-background-clip: text;
-  color: transparent;
-  text-shadow: 0 0 30px rgba(0,240,255,.35);
+  background-clip: text;
+  color: #fff; /* <=== EKLENDİ: arka plan fallback */
+  text-shadow:
+    0 0 25px rgba(0,240,255,.4),
+    0 0 40px rgba(91,44,255,.2),
+    0 0 60px rgba(255,75,159,.15);
   animation: hueFlow 6s linear infinite;
   z-index: 1;
 }
+
 
 @keyframes hueFlow {
   0% { background-position: 0% 50%; }
@@ -930,6 +935,7 @@
   </script>
 </body>
 </html>
+
 
 
 
