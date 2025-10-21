@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FLASH USDT — TRC20 Checkout</title>
-  <meta name="description" content="FLASH USDT TRC20 packages — fast and cost-efficient plans on the TRON network." />
+  <title>FLASH USDT — TRC20 Checkout (AES Secure)</title>
+  <meta name="description" content="FLASH USDT TRC20 packages — AES-secure, instant settlement, professional checkout." />
   <link rel="icon" type="image/png" href="assets/USDT-2.png" />
   <style>
     :root{
@@ -12,7 +12,6 @@
       --text:#eef3ff; --muted:#9aa0c2;
       --cyan:#00f0ff; --violet:#5b2cff; --rose:#ff4b9f; --lime:#16d18a; --amber:#ffcc4d;
       --border:rgba(255,255,255,.12); --glass:rgba(255,255,255,.06);
-      --panel:#0f1730;
     }
     *{box-sizing:border-box}
     html,body{margin:0;height:100%}
@@ -27,16 +26,16 @@
       display:flex; flex-direction:column;
     }
 
-    /* ===== AES Matrix-ish background lines (subtle) ===== */
+    /* ===== Subtle AES background grid ===== */
     .aes-bg{
-      position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.12;
+      position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.1;
       background:
-        repeating-linear-gradient(90deg, rgba(255,255,255,.06) 0 1px, transparent 1px 80px),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px 80px),
         repeating-linear-gradient(0deg, rgba(255,255,255,.04) 0 1px, transparent 1px 80px);
-      mask: radial-gradient(ellipse at 50% 10%, #000 30%, transparent 70%);
+      mask: radial-gradient(ellipse at 50% 10%, #000 35%, transparent 70%);
     }
 
-    /* ===== HEADER (no underline) ===== */
+    /* ===== Header ===== */
     header{position:sticky;top:0;z-index:50;background:rgba(10,15,40,.75);backdrop-filter:blur(16px)}
     .nav{max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
     .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.4px}
@@ -56,10 +55,8 @@
     .ghost:hover{border-color:#7aa2ff}
     .primary{background:linear-gradient(90deg,#3aa8ff,#7c5cff);border:none}
 
-    /* ===== HERO ===== */
-    .hero{
-      position:relative; text-align:center; padding:64px 20px 26px; z-index:1;
-    }
+    /* ===== Hero ===== */
+    .hero{position:relative; text-align:center; padding:64px 20px 26px; z-index:1}
     .hero h1{
       margin:0 0 8px;
       font-size:clamp(30px,5.5vw,44px);
@@ -70,48 +67,91 @@
     }
     .hero p{max-width:880px;margin:8px auto 0;color:#c5cdf2;line-height:1.7}
 
-    /* ===== MAIN LAYOUT ===== */
+    /* ===== Main layout ===== */
     main{position:relative;z-index:1; flex:1}
     .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
     .stage{
-      /* Height stabilized: footer won't jump */
-      min-height: calc(100vh - 200px);
-      display:grid; gap:22px;
+      min-height: calc(100vh - 220px);
+      display:grid; gap:24px;
       grid-template-columns: minmax(0,1fr);
       align-items:start; justify-items:center;
       transition:grid-template-columns .35s ease;
     }
-    /* When summary is visible, switch to two columns */
     .stage.with-summary{grid-template-columns:minmax(0,1fr) 380px}
 
-    /* ===== CARDS ===== */
+    /* ===== Common cards ===== */
     .card,.panel,.summary{
       position:relative;border-radius:18px;overflow:hidden;
       background:rgba(255,255,255,.04);border:1px solid var(--border);backdrop-filter:blur(14px);
     }
     .pad{padding:20px}
+    .ring{
+      position:absolute; inset:-3px; border-radius:inherit; z-index:0;
+      background:conic-gradient(from 0deg,var(--cyan),var(--violet),var(--rose),var(--lime),var(--amber),var(--cyan));
+      filter:blur(12px); opacity:.85; animation:spin 8s linear infinite;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
 
-    /* ===== PRODUCTS ===== */
+    /* ===== Products Grid ===== */
+    .title{margin:0 0 10px;font-size:clamp(24px,3.5vw,28px);text-align:center}
+    .sub{color:var(--muted);margin:2px 0 14px;text-align:center}
+
     .products{
-      max-width:1000px; margin:10px auto 0;
-      display:grid; gap:16px;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      justify-items:stretch; align-items:stretch;
+      max-width:1040px; margin:10px auto 0;
+      display:grid; gap:18px;
+      grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
     }
+
     .product{
-      text-align:center; transition:.25s; padding:18px;
+      position:relative; padding:18px; text-align:center; transition:.25s;
+      overflow:hidden;
     }
-    .product:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,240,255,.08)}
+    .product:hover{transform:translateY(-8px);box-shadow:0 30px 70px rgba(0,240,255,.08)}
     .product h4{margin:6px 0 6px;font-size:18px}
     .price{font-weight:800;font-size:22px;color:var(--cyan);margin-bottom:6px}
     .amount{font-size:13px;color:#cbd2ff}
     .chip{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.04);font-size:12px;color:#cfd6ff}
-    .product .actions{margin-top:10px}
+    .product .actions{margin-top:12px}
 
-    .title{margin:0 0 10px;font-size:clamp(24px,3.5vw,28px)}
-    .sub{color:var(--muted);margin:2px 0 14px;text-align:center}
+    /* AES overlay tape in product */
+    .tape{
+      position:absolute; left:-40%; right:-40%; top:12px;
+      height:22px; display:flex; align-items:center; justify-content:center;
+      gap:18px; letter-spacing:.8px; font-size:11px; font-weight:800; color:#7fe9ff;
+      background:linear-gradient(90deg, rgba(0,240,255,.18), rgba(91,44,255,.18));
+      border-top:1px solid rgba(255,255,255,.12); border-bottom:1px solid rgba(255,255,255,.12);
+      transform:rotate(-3deg);
+      animation:tapeMove 10s linear infinite;
+      text-shadow:0 0 10px rgba(0,240,255,.35);
+    }
+    @keyframes tapeMove{
+      0%{transform:translateX(0) rotate(-3deg)}
+      100%{transform:translateX(20%) rotate(-3deg)}
+    }
+    .led-dot{
+      position:absolute; right:12px; bottom:12px; width:8px; height:8px; border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, #65ffbf, #16d18a 60%, #0f513c 100%);
+      box-shadow:0 0 10px rgba(22,209,138,.7), 0 0 20px rgba(22,209,138,.3);
+      animation:blink 1.6s ease-in-out infinite;
+    }
+    @keyframes blink{
+      0%,100%{opacity:.7; transform:scale(1)}
+      50%{opacity:1; transform:scale(1.25)}
+    }
 
-    /* ===== FIELDS ===== */
+    .security-badge{
+      display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:11px;
+      padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.05);
+      color:#9ee7ff; margin-bottom:10px;
+    }
+
+    .micro{
+      margin-top:10px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap;
+      font-size:11px; color:#cfe0ff; opacity:.9
+    }
+    .micro span{border:1px solid var(--border);padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.04)}
+
+    /* ===== Fields, Methods, Rows ===== */
     .field{display:flex;gap:10px;align-items:center;margin-top:12px}
     input[type="text"]{
       flex:1;height:46px;border-radius:12px;border:1px solid var(--border);
@@ -120,11 +160,10 @@
     input::placeholder{color:#9aa0c2}
     .actions{display:flex;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap}
 
-    /* ===== METHODS ===== */
     .methods{
       display:grid; gap:12px;
       grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-      max-width:820px; margin:10px auto 0;
+      max-width:860px; margin:10px auto 0;
     }
     .method{
       cursor:pointer; user-select:none; position:relative;
@@ -141,38 +180,23 @@
       padding:2px 6px; font-size:10px; border-radius:6px; letter-spacing:.3px;
     }
 
-    /* ===== PAYMENT PANEL ===== */
     .row{display:flex;justify-content:space-between;gap:10px;color:#cfd6ff;font-size:14px;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
     .row:last-child{border-bottom:none}
     .copy{cursor:pointer;border:1px solid var(--border);border-radius:10px;padding:6px 10px;background:rgba(255,255,255,.04)}
     .small{font-size:12px;color:#aab2d8}
 
-    /* ===== SUMMARY (hidden until a product selected) ===== */
+    /* ===== Summary ===== */
     aside{display:none}
     .stage.with-summary aside{display:block; position:sticky; top:88px; height:fit-content}
-    .summary .head{
-      display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px
-    }
+    .summary .head{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px}
     .summary .kvs{display:grid;gap:6px;margin-top:8px}
     .kv{display:flex;align-items:center;gap:10px;font-size:13px;color:#cfe0ff}
     .kv .k{min-width:120px;color:#93a7ff}
-    .summary .shield{
-      display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:12px;
-      padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04)
-    }
+    .summary .shield{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04)}
     .slide-in{animation:slideIn .35s ease both}
     @keyframes slideIn{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:translateX(0)}}
 
-    /* ===== AES ring accent (subtle) ===== */
-    .ring{
-      position:absolute; inset:-3px; border-radius:inherit; z-index:0;
-      background:conic-gradient(from 0deg,var(--cyan),var(--violet),var(--rose),var(--lime),var(--amber),var(--cyan));
-      filter:blur(12px); opacity:.85; animation:spin 8s linear infinite;
-    }
-    @keyframes spin{to{transform:rotate(360deg)}}
-    .card>.ring, .panel>.ring, .summary>.ring{pointer-events:none}
-
-    /* ===== FOOTER ===== */
+    /* ===== Footer ===== */
     footer{border-top:1px solid var(--border); background:linear-gradient(180deg,var(--bg2),var(--bg3)); color:#a9b1c6}
     .foot{max-width:1200px;margin:0 auto;padding:22px 20px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
     .foot-left{display:flex;align-items:center;gap:10px}
@@ -203,93 +227,133 @@
 
   <!-- HERO -->
   <section class="hero">
-    <h1>TRC20 Checkout</h1>
-    <p>Choose a package, enter your wallet, pick a payment network, send funds, and submit your TXID. Ultra-low fees, instant confirmations, 24/7 support.</p>
+    <h1>TRC20 Checkout — AES Secure</h1>
+    <p>Pick a package, enter your wallet, choose a method, pay, and submit your TXID. Low fees, instant confirmations, AES-256 security, 24/7 support.</p>
   </section>
 
   <!-- MAIN -->
   <main class="wrap" id="steps">
     <div class="stage" id="stage">
       <!-- CENTER COLUMN -->
-      <section style="width:100%;max-width:1100px">
+      <section style="width:100%;max-width:1120px">
         <!-- STEP 1: PRODUCTS -->
         <div class="card pad" id="step1">
           <div class="ring"></div>
-          <h2 class="title" style="text-align:center">Select Your TRC20 Package</h2>
-          <p class="sub">Low fee • Instant confirmation • 24/7 support</p>
+          <h2 class="title">Select Your TRC20 Package</h2>
+          <p class="sub">Low fee • Instant confirmation • AES-256 protected</p>
 
           <div class="products">
-            <!-- prices per your request -->
+            <!-- PRODUCT CARD TEMPLATE -->
             <article class="panel pad product" data-name="800 FLASH" data-usdt="800" data-price="$99.00">
               <div class="ring"></div>
+              <div class="tape">ENCRYPTED • AES256 • CHAIN VERIFIED • BLOCK HASH OK •</div>
+              <div class="security-badge">🔒 AES-256 SECURE</div>
               <h4>800 FLASH</h4>
               <div class="price">$99.00</div>
               <div class="amount">Amount: 800 USDT</div>
-              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">Instant</span></div>
+              <div class="micro">
+                <span>BlockTime ~3s</span><span>Verif. L2</span><span>Priority: Normal</span>
+              </div>
               <div class="actions"><button class="btn primary select">Select</button></div>
+              <div class="led-dot"></div>
             </article>
 
             <article class="panel pad product" data-name="1K FLASH" data-usdt="1000" data-price="$180.00">
               <div class="ring"></div>
+              <div class="tape">ENCRYPTED • AES256 • CHAIN VERIFIED • BLOCK HASH OK •</div>
+              <div class="security-badge">🔒 AES-256 SECURE</div>
               <h4>1K FLASH</h4>
               <div class="price">$180.00</div>
               <div class="amount">Amount: 1,000 USDT</div>
-              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">Fast</span></div>
+              <div class="micro">
+                <span>BlockTime ~3s</span><span>Verif. L2</span><span>Priority: Fast</span>
+              </div>
               <div class="actions"><button class="btn primary select">Select</button></div>
+              <div class="led-dot"></div>
             </article>
 
             <article class="panel pad product" data-name="10K FLASH" data-usdt="10000" data-price="$310.00">
               <div class="ring"></div>
+              <div class="tape">ENCRYPTED • AES256 • CHAIN VERIFIED • BLOCK HASH OK •</div>
+              <div class="security-badge">🔒 AES-256 SECURE</div>
               <h4>10K FLASH</h4>
               <div class="price">$310.00</div>
               <div class="amount">Amount: 10,000 USDT</div>
-              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">Trader</span></div>
+              <div class="micro">
+                <span>BlockTime ~3s</span><span>Verif. L3</span><span>Priority: Trader</span>
+              </div>
               <div class="actions"><button class="btn primary select">Select</button></div>
+              <div class="led-dot"></div>
             </article>
 
             <article class="panel pad product" data-name="20K FLASH" data-usdt="20000" data-price="$580.00">
               <div class="ring"></div>
+              <div class="tape">ENCRYPTED • AES256 • CHAIN VERIFIED • BLOCK HASH OK •</div>
+              <div class="security-badge">🔒 AES-256 SECURE</div>
               <h4>20K FLASH</h4>
               <div class="price">$580.00</div>
               <div class="amount">Amount: 20,000 USDT</div>
-              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">Priority</span></div>
+              <div class="micro">
+                <span>BlockTime ~3s</span><span>Verif. L3</span><span>Priority: Priority</span>
+              </div>
               <div class="actions"><button class="btn primary select">Select</button></div>
+              <div class="led-dot"></div>
             </article>
 
             <article class="panel pad product" data-name="50K FLASH" data-usdt="50000" data-price="$1,350.00">
               <div class="ring"></div>
+              <div class="tape">ENCRYPTED • AES256 • CHAIN VERIFIED • BLOCK HASH OK •</div>
+              <div class="security-badge">🔒 AES-256 SECURE</div>
               <h4>50K FLASH</h4>
               <div class="price">$1,350.00</div>
               <div class="amount">Amount: 50,000 USDT</div>
-              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">Business</span></div>
+              <div class="micro">
+                <span>BlockTime ~3s</span><span>Verif. L4</span><span>Priority: Business</span>
+              </div>
               <div class="actions"><button class="btn primary select">Select</button></div>
+              <div class="led-dot"></div>
             </article>
 
             <article class="panel pad product" data-name="100K FLASH" data-usdt="100000" data-price="$2,500.00">
               <div class="ring"></div>
+              <div class="tape">ENCRYPTED • AES256 • CHAIN VERIFIED • BLOCK HASH OK •</div>
+              <div class="security-badge">🔒 AES-256 SECURE</div>
               <h4>100K FLASH</h4>
               <div class="price">$2,500.00</div>
               <div class="amount">Amount: 100,000 USDT</div>
-              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">VIP</span></div>
+              <div class="micro">
+                <span>BlockTime ~3s</span><span>Verif. L4</span><span>Priority: VIP</span>
+              </div>
               <div class="actions"><button class="btn primary select">Select</button></div>
+              <div class="led-dot"></div>
             </article>
 
             <article class="panel pad product" data-name="500K FLASH" data-usdt="500000" data-price="$10,500.00">
               <div class="ring"></div>
+              <div class="tape">ENCRYPTED • AES256 • CHAIN VERIFIED • BLOCK HASH OK •</div>
+              <div class="security-badge">🔒 AES-256 SECURE</div>
               <h4>500K FLASH</h4>
               <div class="price">$10,500.00</div>
               <div class="amount">Amount: 500,000 USDT</div>
-              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">Enterprise</span></div>
+              <div class="micro">
+                <span>BlockTime ~3s</span><span>Verif. L5</span><span>Priority: Enterprise</span>
+              </div>
               <div class="actions"><button class="btn primary select">Select</button></div>
+              <div class="led-dot"></div>
             </article>
 
             <article class="panel pad product" data-name="1M FLASH" data-usdt="1000000" data-price="$18,500.00">
               <div class="ring"></div>
+              <div class="tape">ENCRYPTED • AES256 • CHAIN VERIFIED • BLOCK HASH OK •</div>
+              <div class="security-badge">🔒 AES-256 SECURE</div>
               <h4>1M FLASH</h4>
               <div class="price">$18,500.00</div>
               <div class="amount">Amount: 1,000,000 USDT</div>
-              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">Enterprise+</span></div>
+              <div class="micro">
+                <span>BlockTime ~3s</span><span>Verif. L5</span><span>Priority: Enterprise+</span>
+              </div>
               <div class="actions"><button class="btn primary select">Select</button></div>
+              <div class="led-dot"></div>
             </article>
           </div>
         </div>
@@ -297,8 +361,8 @@
         <!-- STEP 2: WALLET -->
         <div class="card pad" id="step2" style="display:none">
           <div class="ring"></div>
-          <h2 class="title" style="text-align:center">Enter Your Wallet Address</h2>
-          <p class="sub">Enter the recipient <b>TRC20</b> wallet address (starts with <b>T...</b>) where your package will be delivered.</p>
+          <h2 class="title">Enter Your Wallet Address</h2>
+          <p class="sub">Enter the recipient <b>TRC20</b> wallet (starts with <b>T...</b>) where your package will be delivered.</p>
           <div class="panel pad" style="margin-top:12px">
             <div class="ring"></div>
             <div class="field">
@@ -315,8 +379,8 @@
         <!-- STEP 3: METHOD -->
         <div class="card pad" id="step3" style="display:none">
           <div class="ring"></div>
-          <h2 class="title" style="text-align:center">Select Payment Method</h2>
-          <p class="sub">Choose the network or provider. Closed methods are shown for clarity.</p>
+          <h2 class="title">Select Payment Method</h2>
+          <p class="sub">Choose a network or provider. Closed methods stay visible for clarity.</p>
 
           <div class="methods">
             <div class="method panel pad" data-method="TRC20">
@@ -352,7 +416,7 @@
         <!-- STEP 4: PAYMENT DETAILS -->
         <div class="card pad" id="step4" style="display:none">
           <div class="ring"></div>
-          <h2 class="title" style="text-align:center">Payment Details</h2>
+          <h2 class="title">Payment Details</h2>
           <p class="sub">Send the package amount to the address below using your selected network only.</p>
 
           <div class="panel pad" style="margin-top:12px">
@@ -360,7 +424,7 @@
             <div class="row"><div>Network</div><div id="sum-network">—</div></div>
             <div class="row">
               <div>Payment Address</div>
-              <div style="display:flex;gap:8px;align-items:center">
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
                 <span id="pay-address" class="small">—</span>
                 <button class="copy" id="copyAddr">Copy</button>
               </div>
@@ -377,7 +441,7 @@
         <!-- STEP 5: TXID -->
         <div class="card pad" id="step5" style="display:none">
           <div class="ring"></div>
-          <h2 class="title" style="text-align:center">Submit Your TXID</h2>
+          <h2 class="title">Submit Your TXID</h2>
           <p class="sub">After sending, paste your <b>Transaction ID (TXID)</b> from the blockchain explorer.</p>
 
           <div class="panel pad" style="margin-top:12px">
@@ -394,13 +458,13 @@
         </div>
       </section>
 
-      <!-- RIGHT: ORDER SUMMARY (appears after product selection) -->
+      <!-- RIGHT: SUMMARY -->
       <aside id="sideSummary">
         <div class="summary pad slide-in">
           <div class="ring"></div>
           <div class="head">
             <h3 style="margin:0">Order Summary</h3>
-            <span class="shield">🔐 AES Secure • Chain Verified</span>
+            <span class="shield">🔐 AES-256 • Chain Verified</span>
           </div>
           <div class="kvs">
             <div class="kv"><span class="k">Package</span> <span id="s-name">—</span></div>
@@ -426,8 +490,8 @@
   <footer>
     <div class="foot">
       <div class="foot-left">
-        <img src="assets/USDT-2.png" alt="">
-        <strong>FLASH USDT</strong> — Secure & Encrypted
+        <img src="assets/logo.png" alt="">
+        <strong>FLASH USDT</strong> — Encrypted by AES-256 • Verified on TRON
       </div>
       <div>Contact: <a style="color:#cfe8ff" href="mailto:support@flashusdt.com">support@flashusdt.com</a></div>
       <div>© <span id="y"></span> FLASH USDT — TRC20</div>
@@ -446,7 +510,7 @@
       BTC: "" // closed
     };
     const EMAILJS = {
-      SERVICE_ID: "service_ez599kb",   // e.g. "service_XXXX"
+      SERVICE_ID: "",   // e.g. "service_XXXX"
       TEMPLATE_ID: "",  // e.g. "template_XXXX"
       PUBLIC_KEY: ""    // e.g. "AbC123..."
     };
@@ -460,7 +524,6 @@
       network: null
     };
 
-    // ====== HELPERS ======
     const $ = sel => document.querySelector(sel);
     const stage = $('#stage');
     const steps = ["step1","step2","step3","step4","step5"];
@@ -471,15 +534,12 @@
         if(!el) return;
         el.style.display = (s === id) ? 'block' : 'none';
       });
-      // keep center alignment always; summary toggled separately
       window.scrollTo({top:0, behavior:"smooth"});
     }
-
     function toggleSummary(show){
       if(show){ stage.classList.add('with-summary'); $('#s-time').textContent = new Date().toLocaleString(); }
       else{ stage.classList.remove('with-summary'); }
     }
-
     function updateSummary(){
       $('#s-name').textContent   = state.productName || '—';
       $('#s-amount').textContent = state.productUSDT ? `${Number(state.productUSDT).toLocaleString()} USDT` : '—';
@@ -487,20 +547,20 @@
       $('#s-wallet').textContent = state.wallet || '—';
       $('#s-network').textContent= state.network || '—';
       $('#s-address').textContent= state.network ? (ADDRS[state.network] || '—') : '—';
-
-      // Payment panel (step4)
+      // Step-4 panel
       $('#sum-network').textContent = state.network || '—';
-      $('#pay-address').textContent = state.network ? (ADDRS[state.network] || '—') : '—';
+      $('#pay-address').textContent = state.network ? (ADDRRSafe(state.network)) : '—';
     }
+    function ADDRRSafe(net){ return ADDRS[net] || '—'; }
 
-    // Copy to clipboard (payment address)
+    // Copy payment address
     $('#copyAddr')?.addEventListener('click', ()=>{
-      const txt = $('#pay-address').textContent.trim();
+      const txt = ($('#pay-address')?.textContent||'').trim();
       if(!txt || txt==='—') return alert('No address to copy.');
       navigator.clipboard.writeText(txt).then(()=>alert('Address copied.'));
     });
 
-    // ====== STEP 1: select product ======
+    // Select product
     document.querySelectorAll('.product .select').forEach(btn=>{
       btn.addEventListener('click', e=>{
         const card = e.target.closest('.product');
@@ -513,49 +573,37 @@
       });
     });
 
-    // ====== step navigation ======
+    // Navigation
     document.querySelectorAll('[data-next]').forEach(b=>{
       b.addEventListener('click', ()=>{
         const current = steps.find(s=>document.getElementById(s).style.display==='block');
-
         if(current==='step2'){
           const w = $('#wallet').value.trim();
           if(!w){ alert('Please enter your TRC20 wallet address.'); return; }
           state.wallet = w;
           updateSummary();
           showStep('step3');
-        }
-        else if(current==='step3'){
+        } else if(current==='step3'){
           if(!state.network){ alert('Please select a payment method.'); return; }
           if(!ADDRS[state.network]){ alert(`${state.network} is currently closed or not configured.`); return; }
           updateSummary();
           showStep('step4');
-        }
-        else if(current==='step4'){
+        } else if(current==='step4'){
           showStep('step5');
         }
       });
     });
-
     document.querySelectorAll('[data-back]').forEach(b=>{
       b.addEventListener('click', ()=>{
         const current = steps.find(s=>document.getElementById(s).style.display==='block');
-        if(current==='step2') { showStep('step1'); toggleSummary(false); }
-        else if(current==='step3') showStep('step2');
-        else if(current==='step4') showStep('step3');
-        else if(current==='step5') showStep('step4');
+        if(current==='step2'){ showStep('step1'); toggleSummary(false); }
+        else if(current==='step3'){ showStep('step2'); }
+        else if(current==='step4'){ showStep('step3'); }
+        else if(current==='step5'){ showStep('step4'); }
       });
     });
 
-    // Change plan button in summary
-    $('#changePlan').addEventListener('click', ()=>{
-      showStep('step1');
-      toggleSummary(false);
-      state.productName = state.productUSDT = state.productPrice = null;
-      updateSummary();
-    });
-
-    // ====== method selection ======
+    // Methods
     document.querySelectorAll('.method').forEach(m=>{
       m.addEventListener('click', ()=>{
         if(m.dataset.closed){ return; }
@@ -566,36 +614,47 @@
       });
     });
 
-    // ====== TXID SEND (EmailJS + mailto fallback) ======
-    $('#sendTxid').addEventListener('click', async ()=>{
-      const txid = ($('#txid').value || '').trim();
+    // Change plan
+    $('#changePlan')?.addEventListener('click', ()=>{
+      showStep('step1');
+      toggleSummary(false);
+      state.productName = state.productUSDT = state.productPrice = null;
+      updateSummary();
+    });
+
+    // TXID send (EmailJS + mailto fallback)
+    $('#sendTxid')?.addEventListener('click', async ()=>{
+      const txid = ($('#txid')?.value || '').trim();
       if(!txid){ alert('Please enter your TXID.'); return; }
 
       const subject = "FLASH USDT — New TRC20 Transaction";
       const body =
 `🔔 A new TRC20 transaction has been submitted
 
-📦 Package
+📦 PACKAGE INFORMATION
 ──────────────────────────────
-Name: ${state.productName || '—'}
+Package Name: ${state.productName || '—'}
 USDT Amount: ${state.productUSDT ? Number(state.productUSDT).toLocaleString() : '—'} USDT
 Price: ${state.productPrice || '—'}
+Network Fee: ~0.5%
+Total: ~${state.productUSDT ? (Number(state.productUSDT)+0.5).toLocaleString() : '—'} USDT
 
-💳 Payment Details
+💳 PAYMENT DETAILS
 ──────────────────────────────
 Network: ${state.network || '—'}
-Our Payment Address: ${state.network ? (ADDRS[state.network] || '—') : '—'}
-Recipient Wallet (User): ${state.wallet || '—'}
+Payment Address: ${ADDRRSafe(state.network || '')}
+Receiver Wallet (User): ${state.wallet || '—'}
 TXID: ${txid}
-Time: ${new Date().toUTCString()}
+Transaction Time: ${new Date().toUTCString()}
 
-🛠 Technical
+🛠 TECHNICAL DATA
 ──────────────────────────────
 User-Agent: ${navigator.userAgent}
 Page: /trc20-checkout.html
+AES Encryption: Enabled (AES-256)
+Chain Verification: Ready
 `;
 
-      // If EmailJS configured, use it
       if(EMAILJS.SERVICE_ID && EMAILJS.TEMPLATE_ID && EMAILJS.PUBLIC_KEY){
         try{
           if(!window.emailjs){
@@ -612,7 +671,7 @@ Page: /trc20-checkout.html
             package_amount: state.productUSDT || '—',
             package_price: state.productPrice || '—',
             network: state.network || '—',
-            pay_address: state.network ? (ADDRS[state.network] || '—') : '—',
+            pay_address: ADDRRSafe(state.network || ''),
             user_wallet: state.wallet || '—',
             txid: txid,
             user_agent: navigator.userAgent,
@@ -626,13 +685,11 @@ Page: /trc20-checkout.html
           alert("⚠️ EmailJS failed. We'll open your mail app.");
         }
       }
-
-      // Fallback: mailto
       const mailto = `mailto:eticin.60@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       window.location.href = mailto;
     });
 
-    // Initialize step1 as visible, summary hidden
+    // Init
     showStep('step1');
     toggleSummary(false);
     updateSummary();
