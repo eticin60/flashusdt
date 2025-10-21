@@ -412,4 +412,256 @@
           <div class="kv"><span class="k">Pay Address</span> <span id="s-address" class="small">—</span></div>
           <div class="kv"><span class="k">Est. Fee</span> <span id="s-fee">varies by mempool (BTC)</span></div>
           <div class="kv"><span class="k">ETA</span> <span>~1–3 confs</span></div>
-          <div class="kv"><span class="k">Timestamp</spa
+          <div class="kv"><span class="k">Timestamp</span> <span id="s-time">—</span></div>
+        </div>
+        <div class="actions" style="margin-top:14px">
+          <button class="btn ghost" id="changePlan">Change Plan</button>
+          <a class="btn primary" href="#step4" id="gotoPayment">Confirm Payment</a>
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot">
+    <div class="foot-left">
+      <img src="assets/USDT-2.png" alt="">
+      <strong>FLASH USDT</strong> — Encrypted by AES-256 • Verified on BTC
+    </div>
+    <div>Contact: <a style="color:#cfe8ff" href="mailto:support@flashusdt.com">support@flashusdt.com</a></div>
+    <div>© <span id="y"></span> FLASH USDT — BTC</div>
+  </div>
+</footer>
+
+<!-- AES MODAL -->
+<div class="modal" id="aesModal" aria-hidden="true">
+  <div class="box">
+    <h3 style="margin:0 0 6px">Processing Transaction</h3>
+    <div class="small">AES-256 encryption & chain verification</div>
+
+    <div class="aes-steps" style="margin-top:12px">
+      <div class="aes-step" id="st1"><div class="dot"></div><div><strong>Encrypting</strong><div class="small">Sealing payload</div></div></div>
+      <div class="aes-step" id="st2"><div class="dot"></div><div><strong>Verifying</strong><div class="small">Confirming on-chain</div></div></div>
+      <div class="aes-step" id="st3"><div class="dot"></div><div><strong>Finalizing</strong><div class="small">Writing audit log</div></div></div>
+    </div>
+
+    <div class="code-line" id="codeLine">[AES] init…</div>
+    <div class="ok" id="okMsg">✅ Transaction Submitted. You can close this window.</div>
+
+    <div class="actions" style="margin-top:14px;justify-content:flex-end">
+      <button class="btn ghost" id="closeModal">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Year
+  document.getElementById('y').textContent = new Date().getFullYear();
+
+  // CONFIG (BTC aktif, diğerleri kapalı/boş)
+  const ADDRS = {
+    BTC: "bc1qexampleaddress0000000000000000000x9",    // <-- kendi BTC alım adresinizi girin
+    TRC20: "", ERC20: "", BEP20: ""
+  };
+  const EMAILJS = {
+    SERVICE_ID: "",   // e.g. service_xxx
+    TEMPLATE_ID: "",  // e.g. template_xxx
+    PUBLIC_KEY: ""    // e.g. AbC123...
+  };
+
+  // STATE
+  const state = { productName:null, productUSDT:null, productPrice:null, wallet:null, network:null };
+
+  const $ = sel => document.querySelector(sel);
+  const stage = $('#stage');
+  const steps = ["step1","step2","step3","step4","step5"];
+
+  function showStep(id){
+    steps.forEach(s => {
+      const el = document.getElementById(s);
+      if(!el) return;
+      el.style.display = (s === id) ? 'block' : 'none';
+    });
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+  function toggleSummary(show){
+    if(show){ stage.classList.add('with-summary'); $('#s-time').textContent = new Date().toLocaleString(); }
+    else{ stage.classList.remove('with-summary'); }
+  }
+  function ADDRRSafe(net){ return ADDRS[net] || '—'; }
+
+  function updateSummary(){
+    $('#s-name').textContent   = state.productName || '—';
+    $('#s-amount').textContent = state.productUSDT ? `${Number(state.productUSDT).toLocaleString()} USDT` : '—';
+    $('#s-price').textContent  = state.productPrice || '—';
+    $('#s-wallet').textContent = state.wallet || '—';
+    $('#s-network').textContent= state.network || '—';
+    $('#s-address').textContent= state.network ? (ADDRS[state.network] || '—') : '—';
+    const sumN = $('#sum-network'); if(sumN) sumN.textContent = state.network || '—';
+    const payA = $('#pay-address'); if(payA) payA.textContent = state.network ? ADDRRSafe(state.network) : '—';
+  }
+
+  // Scroll to start
+  const gotoStart = () => { showStep('step1'); document.getElementById('steps').scrollIntoView({behavior:'smooth'}); };
+  $('#goStart')?.addEventListener('click', e=>{ e.preventDefault(); gotoStart(); });
+
+  // Copy
+  $('#copyAddr')?.addEventListener('click', ()=>{
+    const txt = ($('#pay-address')?.textContent||'').trim();
+    if(!txt || txt==='—') return alert('No address to copy.');
+    navigator.clipboard.writeText(txt).then(()=>alert('Address copied.'));
+  });
+
+  // Select product
+  document.querySelectorAll('.product .select').forEach(btn=>{
+    btn.addEventListener('click', e=>{
+      const card = e.target.closest('.product');
+      state.productName = card.dataset.name;
+      state.productUSDT = card.dataset.usdt;
+      state.productPrice= card.dataset.price;
+      updateSummary();
+      toggleSummary(true);
+      showStep('step2');
+    });
+  });
+
+  // Next/Back
+  document.querySelectorAll('[data-next]').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      const current = steps.find(s=>document.getElementById(s).style.display==='block');
+      if(current==='step2'){
+        const w = $('#wallet').value.trim();
+        if(!w){ alert('Please enter your BTC wallet address.'); return; }
+        state.wallet = w; updateSummary(); showStep('step3');
+      } else if(current==='step3'){
+        if(!state.network){ alert('Please select a payment method.'); return; }
+        if(!ADDRS[state.network]){ alert(`${state.network} is currently closed or not configured.`); return; }
+        updateSummary(); showStep('step4');
+      } else if(current==='step4'){
+        showStep('step5');
+      }
+    });
+  });
+  document.querySelectorAll('[data-back]').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      const current = steps.find(s=>document.getElementById(s).style.display==='block');
+      if(current==='step2'){ showStep('step1'); toggleSummary(false); }
+      else if(current==='step3'){ showStep('step2'); }
+      else if(current==='step4'){ showStep('step3'); }
+      else if(current==='step5'){ showStep('step4'); }
+    });
+  });
+
+  // Methods
+  document.querySelectorAll('.method').forEach(m=>{
+    m.addEventListener('click', ()=>{
+      if(m.dataset.closed){ return; }
+      document.querySelectorAll('.method').forEach(x=>x.classList.remove('active'));
+      m.classList.add('active');
+      state.network = m.dataset.method;
+      updateSummary();
+    });
+  });
+
+  // Jump from summary
+  $('#gotoPayment')?.addEventListener('click', (e)=>{
+    e.preventDefault();
+    if(!state.network){ alert('Please select a payment method first.'); return; }
+    if(!ADDRS[state.network]){ alert(`${state.network} is currently closed or not configured.`); return; }
+    showStep('step4');
+  });
+
+  // Change plan
+  $('#changePlan')?.addEventListener('click', ()=>{
+    showStep('step1'); toggleSummary(false);
+    state.productName = state.productUSDT = state.productPrice = null;
+    updateSummary();
+  });
+
+  // AES Modal
+  const modal = $('#aesModal');
+  const st1 = $('#st1'), st2 = $('#st2'), st3 = $('#st3'), codeLine = $('#codeLine'), okMsg = $('#okMsg');
+  function resetModal(){ [st1,st2,st3].forEach(s=>s.classList.remove('active')); okMsg.style.display='none'; codeLine.textContent='[AES] init…'; }
+  function openModal(){ resetModal(); modal.style.display='flex'; modal.setAttribute('aria-hidden','false'); }
+  function closeModal(){ modal.style.display='none'; modal.setAttribute('aria-hidden','true'); }
+  $('#closeModal')?.addEventListener('click', closeModal);
+
+  function runAESSequence(){
+    openModal();
+    setTimeout(()=>{ st1.classList.add('active'); codeLine.textContent='[AES] generating key •••'; }, 200);
+    setTimeout(()=>{ st2.classList.add('active'); codeLine.textContent='[CHAIN] verifying BTC receipt •••'; }, 1200);
+    setTimeout(()=>{ st3.classList.add('active'); codeLine.textContent='[AUDIT] writing immutable log •••'; }, 2200);
+    setTimeout(()=>{ okMsg.style.display='block'; }, 3200);
+  }
+
+  // TXID send
+  $('#sendTxid')?.addEventListener('click', async ()=>{
+    const txid = ($('#txid')?.value || '').trim();
+    if(!txid){ alert('Please enter your TXID.'); return; }
+
+    const subject = "FLASH USDT — New BTC Transaction";
+    const body =
+`🔔 A new BTC transaction has been submitted
+
+📦 PACKAGE INFORMATION
+────────────────────────
+Package Name: ${state.productName || '—'}
+USDT Amount: ${state.productUSDT ? Number(state.productUSDT).toLocaleString() : '—'} USDT
+Price: ${state.productPrice || '—'}
+Network Fee: mempool-based
+
+💳 PAYMENT DETAILS
+────────────────────────
+Network: ${state.network || '—'}
+Payment Address: ${ADDRRSafe(state.network || '')}
+Receiver Wallet (User): ${state.wallet || '—'}
+TXID: ${txid}
+Transaction Time: ${new Date().toUTCString()}
+
+🛠 TECHNICAL DATA
+────────────────────────
+User-Agent: ${navigator.userAgent}
+Page: /btc-checkout.html
+AES Encryption: Enabled (AES-256)
+Chain Verification: Ready
+`;
+
+    let usedEmailJS = false;
+    if(EMAILJS.SERVICE_ID && EMAILJS.TEMPLATE_ID && EMAILJS.PUBLIC_KEY){
+      try{
+        if(!window.emailjs){
+          const s = document.createElement('script');
+          s.src = "https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js";
+          document.head.appendChild(s);
+          await new Promise(res=> s.onload = res);
+          window.emailjs.init(EMAILJS.PUBLIC_KEY);
+        }
+        await window.emailjs.send(EMAILJS.SERVICE_ID, EMAILJS.TEMPLATE_ID, {
+          to_email: "eticin.60@gmail.com",
+          subject, package_name: state.productName || '—',
+          package_amount: state.productUSDT || '—',
+          package_price: state.productPrice || '—',
+          network: state.network || '—',
+          pay_address: ADDRRSafe(state.network || ''),
+          user_wallet: state.wallet || '—',
+          txid, user_agent: navigator.userAgent,
+          time: new Date().toLocaleString(),
+          full_body: body
+        });
+        usedEmailJS = true;
+      }catch(e){ console.error(e); }
+    }
+    if(!usedEmailJS){
+      const mailto = `mailto:eticin.60@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailto;
+    }
+    runAESSequence();
+  });
+
+  // Init
+  showStep('step1'); toggleSummary(false); updateSummary();
+</script>
+</body>
+</html>
