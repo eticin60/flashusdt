@@ -3,140 +3,398 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MetaFlash USDT — TRC20 Plans</title>
-  <meta name="description" content="MetaFlash USDT TRC20 packages — fast and cost-efficient plans on the TRON network." />
+  <title>FLASH USDT — TRC20 Plans</title>
+  <meta name="description" content="FLASH USDT TRC20 packages — fast and cost-efficient plans on the TRON network." />
   <link rel="icon" type="image/png" href="assets/USDT-2.png" />
   <style>
     :root{
-      --bg1:#030615;--bg2:#0b1130;--bg3:#0f153d;
-      --text:#eef3ff;--muted:#9aa0c2;
-      --cyan:#00f0ff;--violet:#5b2cff;--rose:#ff4b9f;--lime:#16d18a;--amber:#ffcc4d;
-      --border:rgba(255,255,255,.12);
+      --bg1:#030615; --bg2:#0b1130; --bg3:#0f153d;
+      --text:#eef3ff; --muted:#9aa0c2;
+      --cyan:#00f0ff; --violet:#5b2cff; --rose:#ff4b9f; --lime:#16d18a; --amber:#ffcc4d;
+      --border:rgba(255,255,255,.12); --glass:rgba(255,255,255,.06);
+      --panel:#0f1730; --ok:#16d18a; --warn:#ffcc4d; --danger:#ff6b6b;
     }
     *{box-sizing:border-box}
     html,body{margin:0}
     body{
-      font-family:"Poppins",sans-serif;
+      font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
       background:
-        radial-gradient(1200px 700px at 10% -10%,rgba(0,240,255,.14),transparent 55%),
-        radial-gradient(900px 500px at 90% 0,rgba(91,44,255,.20),transparent 60%),
-        linear-gradient(180deg,var(--bg1),var(--bg2) 50%,var(--bg3));
+        radial-gradient(1200px 700px at 10% -10%, rgba(0,240,255,.14), transparent 55%),
+        radial-gradient(900px 500px at 90% 0, rgba(91,44,255,.20), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2) 50%, var(--bg3));
       overflow-x:hidden;
-      animation:fadeInBody 1s ease;
+      animation:fadeIn .8s ease;
     }
-    @keyframes fadeInBody{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
+    /* ===== NAV ===== */
     header{
-      position:sticky;top:0;z-index:50;
-      background:rgba(10,15,40,.75);backdrop-filter:blur(16px);
+      position:sticky; top:0; z-index:50;
+      background:rgba(10,15,40,.75); backdrop-filter:blur(16px);
       border-bottom:1px solid var(--border);
     }
-    .nav{max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.4px}
-    .brand img{width:36px;height:36px}
-    .brand span{background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;color:transparent}
-    .menu a{color:var(--muted);text-decoration:none;margin-left:18px;font-weight:600}
-    .menu a:hover{color:var(--cyan)}
-    .btn{display:inline-block;padding:10px 14px;border-radius:10px;font-weight:700;background:linear-gradient(90deg,var(--cyan),var(--violet));color:#fff;text-decoration:none;transition:.3s}
-    .btn:hover{opacity:.85;transform:translateY(-2px)}
-
-    .hero{text-align:center;padding:80px 20px 40px}
-    .hero h1{
-      font-size:clamp(32px,6vw,56px);
-      background:linear-gradient(90deg,var(--cyan),var(--violet),var(--rose));
-      -webkit-background-clip:text;color:transparent;
-      text-shadow:0 0 25px rgba(0,240,255,.25);
+    .nav{
+      max-width:1200px; margin:0 auto; padding:14px 20px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
     }
-    .hero p{max-width:700px;margin:12px auto;color:var(--muted);font-size:18px}
-    .net-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.06);margin-top:12px}
-    .net-badge img{width:26px;height:26px}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.4px}
+    .brand img{width:32px; height:32px; border-radius:8px}
+    .brand span{background:linear-gradient(90deg,var(--cyan),var(--violet)); -webkit-background-clip:text; background-clip:text; color:transparent}
+    .menu{display:flex; gap:16px; flex-wrap:wrap}
+    .menu a{color:var(--muted); text-decoration:none; font-weight:600}
+    .menu a:hover{color:var(--cyan)}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:8px; padding:10px 14px; border-radius:12px; font-weight:700;
+      background:linear-gradient(90deg,var(--cyan),var(--violet)); color:#fff; text-decoration:none;
+      box-shadow:0 10px 22px rgba(0,0,0,.25); transition:.2s;
+    }
+    .btn:hover{transform:translateY(-2px); opacity:.95}
 
-    .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
-    .grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:40px}
+    /* ===== LAYOUT ===== */
+    .wrap{max-width:1200px; margin:0 auto; padding:0 20px}
+    section{padding:54px 0}
+    .title{
+      margin:0 0 10px; text-align:left; font-size:clamp(26px,3.5vw,34px);
+      background:linear-gradient(90deg,var(--cyan),var(--violet)); -webkit-background-clip:text; color:transparent;
+    }
+    .sub{color:var(--muted); margin:6px 0 0}
 
-    /* ===== LED BAR CARD EFFECT ===== */
+    /* ===== HERO ===== */
+    .hero{padding:78px 20px 30px; position:relative; overflow:hidden}
+    .hero h1{
+      margin:0; font-size:clamp(34px,5.5vw,56px); line-height:1.1;
+      background:linear-gradient(270deg,#00f0ff,#5b2cff,#ff4b9f,#16d18a,#00f0ff);
+      background-size:400% 400%;
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      animation:rainbow 8s linear infinite;
+      text-shadow:0 0 26px rgba(0,240,255,.22);
+    }
+    @keyframes rainbow{from{background-position:0% 50%}to{background-position:200% 50%}}
+    .hero p{max-width:760px; color:var(--muted); font-size:18px; margin:12px 0 0}
+    .net-badge{
+      margin-top:14px; display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px; border-radius:999px; border:1px solid var(--border);
+      background:rgba(255,255,255,.05)
+    }
+    .net-badge img{width:22px; height:22px; object-fit:contain}
+
+    /* ===== GRID & CARDS ===== */
+    .grid{display:grid; gap:20px}
+    .g-3{grid-template-columns:repeat(auto-fit, minmax(280px,1fr))}
     .card{
-      position:relative;padding:24px;border-radius:20px;overflow:hidden;text-align:center;
-      background:rgba(255,255,255,.04);backdrop-filter:blur(14px);border:1px solid var(--border);
-      transition:.3s;
+      position:relative; border-radius:18px; overflow:hidden; padding:22px;
+      background:rgba(255,255,255,.04); border:1px solid var(--border); backdrop-filter:blur(14px);
+      transition:.25s;
     }
     .card::before{
-      content:"";position:absolute;inset:-3px;border-radius:inherit;
-      background:conic-gradient(from 0deg,var(--cyan),var(--violet),var(--rose),var(--lime),var(--amber),var(--cyan));
-      filter:blur(12px);opacity:0.9;animation:spin 8s linear infinite;z-index:0;
+      content:""; position:absolute; inset:-3px; border-radius:inherit; z-index:0;
+      background:conic-gradient(from 0deg, var(--cyan),var(--violet),var(--rose),var(--lime),var(--amber),var(--cyan));
+      filter:blur(10px); opacity:.85; animation:spin 8s linear infinite;
     }
     .card::after{
-      content:"";position:absolute;inset:0;border-radius:inherit;background:rgba(10,10,25,.88);z-index:1;
-      backdrop-filter:blur(12px);
+      content:""; position:absolute; inset:0; border-radius:inherit; z-index:1;
+      background:rgba(12,14,26,.88); backdrop-filter:blur(10px);
     }
-    .card>*{position:relative;z-index:2}
+    .card > *{position:relative; z-index:2}
+    .card:hover{transform:translateY(-6px); box-shadow:0 24px 60px rgba(0,240,255,.10)}
     @keyframes spin{to{transform:rotate(360deg)}}
-    .card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,240,255,.1)}
+    .card h3{margin:6px 0 10px; font-size:20px}
+    .price{font-weight:800; font-size:28px; color:var(--cyan); margin:6px 0 14px}
 
-    .price{font-size:28px;font-weight:700;margin:10px 0;color:var(--cyan)}
-    .feat{color:var(--muted);font-size:14px;margin-bottom:14px}
-    .card h3{margin:8px 0;font-size:20px}
-    footer{text-align:center;padding:40px 20px;border-top:1px solid var(--border);color:var(--muted)}
+    .features{display:grid; gap:8px; margin:12px 0 16px}
+    .row{display:flex; align-items:center; gap:10px; color:#c6cbea; font-size:14px}
+    .i-ok,.i-fast,.i-sec{width:18px; height:18px; flex:0 0 18px}
+    .i-ok path{fill:var(--ok)} .i-fast path{fill:var(--amber)} .i-sec path{fill:#7aa2ff}
+
+    .chip{display:inline-flex; align-items:center; gap:6px; padding:4px 8px; border-radius:12px;
+      border:1px solid var(--border); background:rgba(255,255,255,.04); font-size:12px; color:#cfd6ff}
+    .stack{display:flex; gap:8px; flex-wrap:wrap}
+
+    .btn.buy{width:100%; padding:12px 14px; border-radius:12px}
+
+    /* ===== STRIP HEADERS ===== */
+    .strip{
+      height:3px; border-radius:3px;
+      background:linear-gradient(90deg, var(--cyan), var(--violet), var(--rose));
+      box-shadow:0 0 16px rgba(0,240,255,.35);
+      margin:-22px -22px 16px -22px;
+    }
+
+    /* ===== VERIFY TXID ===== */
+    .panel{border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.04); backdrop-filter:blur(12px); padding:18px}
+    .field{display:flex; gap:10px; align-items:center; margin-top:12px}
+    input[type="text"]{
+      flex:1; height:44px; border-radius:12px; border:1px solid var(--border);
+      background:rgba(255,255,255,.04); color:var(--text); padding:0 12px; outline:none;
+    }
+    input[type="text"]::placeholder{color:#9aa0c2}
+    .btn.gradient{
+      background:linear-gradient(90deg,#3aa8ff,#7c5cff); border:none;
+    }
+
+    /* ===== FOOTER ===== */
+    footer{margin-top:54px; border-top:1px solid var(--border); background:linear-gradient(180deg, var(--bg2), var(--bg3)); color:#a9b1c6}
+    .foot{max-width:1200px; margin:0 auto; padding:26px 20px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; align-items:center}
+    .foot .brand{font-size:14px}
+    .ledbar{height:2px; width:100%; background:linear-gradient(90deg,var(--cyan),var(--violet),var(--rose),var(--lime)); box-shadow:0 0 16px rgba(0,240,255,.35)}
+
+    /* ==== Responsive tweaks ==== */
+    @media (max-width:700px){
+      .title{text-align:center}
+      .hero p{text-align:left; max-width:unset}
+    }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="nav">
-    <div class="brand"><img src="assets/USDT-2.png"><span>MetaFlash</span> USDT</div>
-    <nav class="menu"><a href="index.html">Home</a><a href="#plans">Plans</a></nav>
-  </div>
-</header>
+  <!-- ===== NAV ===== -->
+  <header>
+    <div class="nav">
+      <div class="brand"><img src="assets/logo.png" alt=""><div><span>FLASH</span> USDT</div></div>
+      <nav class="menu">
+        <a href="index.html">Home</a>
+        <a href="#plans">Plans</a>
+        <a href="#verify">Verify</a>
+      </nav>
+      <a class="btn" href="#plans">Get Started</a>
+    </div>
+  </header>
 
-<section class="hero">
-  <h1>TRC-20 Plans</h1>
-  <p>Lightning-fast USDT transfers on the TRON network. Low fees, instant settlements, high performance.</p>
-  <div class="net-badge"><img src="assets/trc20.png"><span>TRON Network</span></div>
-</section>
+  <!-- ===== HERO ===== -->
+  <section class="hero wrap">
+    <h1>TRC-20 Plans</h1>
+    <p>Lightning-fast USDT transfers on the TRC-20 network. Low fees, instant settlements, and enterprise-grade security.</p>
+    <div class="net-badge"><img src="assets/trc20.png" alt="">TRON Network</div>
+  </section>
 
-<section class="wrap" id="plans">
-  <div class="grid">
-    <article class="card">
-      <h3>Starter</h3>
-      <div class="price">$49</div>
-      <div class="feat">Up to 1,000 USDT • 1% fee</div>
-      <a class="btn" href="#">Buy Now</a>
-    </article>
-    <article class="card">
-      <h3>Standard</h3>
-      <div class="price">$199</div>
-      <div class="feat">Up to 5,000 USDT • 0.8% fee</div>
-      <a class="btn" href="#">Buy Now</a>
-    </article>
-    <article class="card">
-      <h3>Pro</h3>
-      <div class="price">$499</div>
-      <div class="feat">Up to 20,000 USDT • 0.5% fee</div>
-      <a class="btn" href="#">Buy Now</a>
-    </article>
-    <article class="card">
-      <h3>Advanced</h3>
-      <div class="price">$999</div>
-      <div class="feat">Up to 100,000 USDT • 0.3% fee</div>
-      <a class="btn" href="#">Buy Now</a>
-    </article>
-    <article class="card">
-      <h3>Premium</h3>
-      <div class="price">$1,999</div>
-      <div class="feat">Up to 500,000 USDT • VIP Support</div>
-      <a class="btn" href="#">Buy Now</a>
-    </article>
-    <article class="card">
-      <h3>Enterprise</h3>
-      <div class="price">Custom</div>
-      <div class="feat">Unlimited volume • SLA Contract</div>
-      <a class="btn" href="#">Contact Sales</a>
-    </article>
-  </div>
-</section>
+  <!-- ===== PLANS ===== -->
+  <section class="wrap" id="plans">
+    <h2 class="title">Choose Your Package</h2>
+    <p class="sub">All packages include encryption, 24/7 support, and multi-network compatibility.</p>
 
-<footer>© <span id="y"></span> MetaFlash USDT — TRC20</footer>
-<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+    <div class="grid g-3" style="margin-top:18px">
+      <!-- STARTER -->
+      <article class="card">
+        <div class="strip"></div>
+        <div class="stack" style="margin-bottom:10px">
+          <span class="chip">TRC20</span><span class="chip">Instant</span>
+        </div>
+        <h3>Starter</h3>
+        <div class="price">$49</div>
+        <div class="features">
+          <div class="row"><svg class="i-fast" viewBox="0 0 24 24"><path d="M2 12h14l-4 4M16 8l-4 4"/></svg> Up to 1,000 USDT</div>
+          <div class="row"><svg class="i-ok" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> 1% fee</div>
+          <div class="row"><svg class="i-sec" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5L12 2 4 5v7c0 6 8 10 8 10Z"/></svg> AES-256 encryption</div>
+        </div>
+        <a class="btn buy" href="#verify" data-plan="Starter" data-price="$49" data-amount="1000">Select Package</a>
+      </article>
+
+      <!-- STANDARD -->
+      <article class="card">
+        <div class="strip"></div>
+        <div class="stack" style="margin-bottom:10px">
+          <span class="chip">TRC20</span><span class="chip">Recommended</span>
+        </div>
+        <h3>Standard</h3>
+        <div class="price">$199</div>
+        <div class="features">
+          <div class="row"><svg class="i-fast" viewBox="0 0 24 24"><path d="M2 12h14l-4 4M16 8l-4 4"/></svg> Up to 5,000 USDT</div>
+          <div class="row"><svg class="i-ok" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> 0.8% fee</div>
+          <div class="row"><svg class="i-sec" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5L12 2 4 5v7c0 6 8 10 8 10Z"/></svg> Priority pipeline</div>
+        </div>
+        <a class="btn buy" href="#verify" data-plan="Standard" data-price="$199" data-amount="5000">Select Package</a>
+      </article>
+
+      <!-- PRO -->
+      <article class="card">
+        <div class="strip"></div>
+        <div class="stack" style="margin-bottom:10px">
+          <span class="chip">TRC20</span><span class="chip">Trader</span>
+        </div>
+        <h3>Pro</h3>
+        <div class="price">$499</div>
+        <div class="features">
+          <div class="row"><svg class="i-fast" viewBox="0 0 24 24"><path d="M2 12h14l-4 4M16 8l-4 4"/></svg> Up to 20,000 USDT</div>
+          <div class="row"><svg class="i-ok" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> 0.5% fee</div>
+          <div class="row"><svg class="i-sec" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5L12 2 4 5v7c0 6 8 10 8 10Z"/></svg> SLA support</div>
+        </div>
+        <a class="btn buy" href="#verify" data-plan="Pro" data-price="$499" data-amount="20000">Select Package</a>
+      </article>
+
+      <!-- ADVANCED -->
+      <article class="card">
+        <div class="strip"></div>
+        <div class="stack" style="margin-bottom:10px">
+          <span class="chip">TRC20</span><span class="chip">Business</span>
+        </div>
+        <h3>Advanced</h3>
+        <div class="price">$999</div>
+        <div class="features">
+          <div class="row"><svg class="i-fast" viewBox="0 0 24 24"><path d="M2 12h14l-4 4M16 8l-4 4"/></svg> Up to 100,000 USDT</div>
+          <div class="row"><svg class="i-ok" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> 0.3% fee</div>
+          <div class="row"><svg class="i-sec" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5L12 2 4 5v7c0 6 8 10 8 10Z"/></svg> Dedicated channel</div>
+        </div>
+        <a class="btn buy" href="#verify" data-plan="Advanced" data-price="$999" data-amount="100000">Select Package</a>
+      </article>
+
+      <!-- PREMIUM -->
+      <article class="card">
+        <div class="strip"></div>
+        <div class="stack" style="margin-bottom:10px">
+          <span class="chip">TRC20</span><span class="chip">VIP</span>
+        </div>
+        <h3>Premium</h3>
+        <div class="price">$1,999</div>
+        <div class="features">
+          <div class="row"><svg class="i-fast" viewBox="0 0 24 24"><path d="M2 12h14l-4 4M16 8l-4 4"/></svg> Up to 500,000 USDT</div>
+          <div class="row"><svg class="i-ok" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> VIP support</div>
+          <div class="row"><svg class="i-sec" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5L12 2 4 5v7c0 6 8 10 8 10Z"/></svg> Multi-sig review</div>
+        </div>
+        <a class="btn buy" href="#verify" data-plan="Premium" data-price="$1,999" data-amount="500000">Select Package</a>
+      </article>
+
+      <!-- ENTERPRISE -->
+      <article class="card">
+        <div class="strip"></div>
+        <div class="stack" style="margin-bottom:10px">
+          <span class="chip">TRC20</span><span class="chip">Custom</span>
+        </div>
+        <h3>Enterprise</h3>
+        <div class="price">Custom</div>
+        <div class="features">
+          <div class="row"><svg class="i-fast" viewBox="0 0 24 24"><path d="M2 12h14l-4 4M16 8l-4 4"/></svg> Unlimited volume</div>
+          <div class="row"><svg class="i-ok" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> SLA contract</div>
+          <div class="row"><svg class="i-sec" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5L12 2 4 5v7c0 6 8 10 8 10Z"/></svg> Compliance review</div>
+        </div>
+        <a class="btn buy" href="#verify" data-plan="Enterprise" data-price="Custom" data-amount="Unlimited">Select Package</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== VERIFY TXID (EmailJS + mailto fallback) ===== -->
+  <section class="wrap" id="verify">
+    <h2 class="title">Verify Your Transaction</h2>
+    <p class="sub">Enter your TRC20 Transaction ID (TXID) to notify the support team.</p>
+
+    <div class="grid" style="margin-top:14px; grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
+      <!-- SUMMARY -->
+      <div class="panel">
+        <div class="stack" style="margin-bottom:10px">
+          <span class="chip"><img src="assets/trc20.png" alt="" style="width:16px;height:16px"> TRC20</span>
+          <span class="chip">Secure</span>
+        </div>
+        <div style="font-weight:700; margin-bottom:6px">Order Summary</div>
+        <div id="sum-plan" class="sub">Plan: —</div>
+        <div id="sum-amount" class="sub">Amount: —</div>
+        <div id="sum-price" class="sub">Price: —</div>
+        <div class="sub" style="margin-top:10px; color:#9edbbf">Your transaction is encrypted and handled securely.</div>
+      </div>
+
+      <!-- FORM -->
+      <div class="panel">
+        <div style="font-weight:700">Enter Wallet & TXID</div>
+        <div class="field"><input id="wallet" type="text" placeholder="Your TRC20 wallet address (T...)" /></div>
+        <div class="field"><input id="txid" type="text" placeholder="Transaction ID (TXID)" /></div>
+        <div class="field">
+          <button class="btn gradient" id="sendTxid" type="button" style="width:100%">Send TXID</button>
+        </div>
+        <div id="sendNote" class="sub" style="margin-top:6px">We’ll notify <b>eticin.60@gmail.com</b> with your details.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="ledbar"></div>
+    <div class="foot">
+      <div class="brand"><img src="assets/logo.png" alt="" style="width:22px;height:22px;border-radius:6px;margin-right:6px"> <strong>FLASH USDT</strong> — Secure & Encrypted</div>
+      <div>Contact: <a style="color:#cfe8ff" href="mailto:support@flashusdt.com">support@flashusdt.com</a></div>
+      <div>© <span id="y"></span> FLASH USDT — TRC20</div>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script>
+    // Yıl
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Paket bilgisini "Select Package" tıklamasından al ve özet paneline yaz
+    document.querySelectorAll('.buy').forEach(btn=>{
+      btn.addEventListener('click', e=>{
+        const plan = btn.dataset.plan;
+        const price = btn.dataset.price;
+        const amount = btn.dataset.amount;
+        document.getElementById('sum-plan').textContent   = 'Plan: ' + plan;
+        document.getElementById('sum-price').textContent  = 'Price: ' + price;
+        document.getElementById('sum-amount').textContent = 'Amount: ' + amount;
+      });
+    });
+
+    // === TXID mail gönderimi: EmailJS varsa onu kullan, yoksa mailto fallback ===
+    // EmailJS KULLANMAK İSTERSEN:
+    // 1) emailjs.com -> account aç, bir service ve template oluştur
+    // 2) aşağıdaki 3 değeri doldur: SERVICE_ID, TEMPLATE_ID, PUBLIC_KEY
+    const EMAILJS = {
+      SERVICE_ID: "",     // örn: "service_xxx"
+      TEMPLATE_ID: "",    // örn: "template_xxx"
+      PUBLIC_KEY: ""      // örn: "AbC123..."
+    };
+
+    const sendBtn = document.getElementById('sendTxid');
+    sendBtn.addEventListener('click', async ()=>{
+      const wallet = (document.getElementById('wallet').value || '').trim();
+      const txid   = (document.getElementById('txid').value   || '').trim();
+
+      if(!txid){
+        alert('Please enter your TXID.');
+        return;
+      }
+
+      // EmailJS yapılandırılmamışsa mailto fallback
+      if(!EMAILJS.SERVICE_ID || !EMAILJS.TEMPLATE_ID || !EMAILJS.PUBLIC_KEY){
+        const subject = encodeURIComponent("New TRC20 TXID Submission");
+        const body = encodeURIComponent(
+          "Wallet: " + (wallet || "—") + "\n" +
+          "TXID: "   + txid + "\n" +
+          "Time: "   + new Date().toLocaleString()
+        );
+        const mailto = `mailto:eticin.60@gmail.com?subject=${subject}&body=${body}`;
+        window.location.href = mailto;
+        return;
+      }
+
+      // EmailJS ile gönder (client-only)
+      try{
+        // emailjs script yoksa ekle
+        if(!window.emailjs){
+          const s = document.createElement('script');
+          s.src = "https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js";
+          document.head.appendChild(s);
+          await new Promise(res=> s.onload = res);
+          window.emailjs.init(EMAILJS.PUBLIC_KEY);
+        }
+        await window.emailjs.send(EMAILJS.SERVICE_ID, EMAILJS.TEMPLATE_ID, {
+          to_email: "eticin.60@gmail.com",
+          from_page: "TRC20 Plans",
+          wallet: wallet || "—",
+          txid: txid,
+          time: new Date().toLocaleString()
+        });
+        alert("✅ TXID has been sent successfully. We'll review and get back to you.");
+      }catch(err){
+        console.error(err);
+        alert("⚠️ Could not send via EmailJS. We’ll open your email app instead.");
+        const subject = encodeURIComponent("New TRC20 TXID Submission (fallback)");
+        const body = encodeURIComponent(
+          "Wallet: " + (wallet || "—") + "\n" +
+          "TXID: "   + txid + "\n" +
+          "Time: "   + new Date().toLocaleString()
+        );
+        window.location.href = `mailto:eticin.60@gmail.com?subject=${subject}&body=${body}`;
+      }
+    });
+  </script>
 </body>
 </html>
