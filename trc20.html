@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>FLASH USDT — TRC20 Checkout</title>
-  <meta name="description" content="FLASH USDT TRC20 packages — fast and cost-efficient plans on the TRON network." />
-  <link rel="icon" type="image/png" href="assets/USDT-2.png" />
+  <meta name="description" content="FLASH USDT TRC20 checkout — step-by-step payment with plan selection, multi-network methods and TXID submission."/>
+  <link rel="icon" type="image/png" href="assets/USDT-2.png"/>
+
   <style>
     :root{
       --bg1:#030615; --bg2:#0b1130; --bg3:#0f153d;
-      --text:#eef3ff; --muted:#9aa0c2;
+      --text:#eef3ff; --muted:#9aa0c2; --soft:#cfd6ff;
       --cyan:#00f0ff; --violet:#5b2cff; --rose:#ff4b9f; --lime:#16d18a; --amber:#ffcc4d;
       --border:rgba(255,255,255,.12); --glass:rgba(255,255,255,.06);
-      --panel:#0f1730;
     }
     *{box-sizing:border-box}
     html,body{margin:0}
     body{
-      font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      font-family:"Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--text);
       background:
-        radial-gradient(1200px 700px at 10% -10%, rgba(0,240,255,.14), transparent 55%),
-        radial-gradient(900px 500px at 90% 0, rgba(91,44,255,.20), transparent 60%),
+        radial-gradient(1200px 700px at 10% -10%, rgba(0,240,255,.12), transparent 55%),
+        radial-gradient(900px 500px at 90% 0, rgba(91,44,255,.16), transparent 60%),
         linear-gradient(180deg, var(--bg1), var(--bg2) 50%, var(--bg3));
       overflow-x:hidden;
       animation:fadeIn .6s ease;
     }
     @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    a{color:inherit;text-decoration:none}
 
     /* NAV */
     header{position:sticky;top:0;z-index:50;background:rgba(10,15,40,.75);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
@@ -35,41 +36,51 @@
     .brand img{width:28px;height:28px;border-radius:8px}
     .brand span{background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
     .menu{display:flex;gap:16px}
-    .menu a{color:var(--muted);text-decoration:none;font-weight:600}
+    .menu a{color:var(--muted);font-weight:600}
     .menu a:hover{color:var(--cyan)}
     .btn{
       display:inline-flex;align-items:center;justify-content:center;gap:8px;
       padding:10px 14px;border-radius:12px;font-weight:700;
-      background:linear-gradient(90deg,var(--cyan),var(--violet));color:#fff;text-decoration:none;
-      box-shadow:0 10px 22px rgba(0,0,0,.25);transition:.2s;
+      background:linear-gradient(90deg,var(--cyan),var(--violet));color:#fff;
+      box-shadow:0 8px 20px rgba(0,0,0,.25);transition:.2s;
     }
     .btn:hover{transform:translateY(-2px);opacity:.95}
+    .btn.ghost{background:transparent;border:1px solid var(--border);color:var(--text)}
+    .btn.ghost:hover{border-color:#8fb6ff}
 
     /* LAYOUT */
     .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
     main{padding:28px 0 40px}
-    .grid{
-      display:grid;gap:22px;
-      grid-template-columns: minmax(0,1fr) 360px; /* left content + sticky summary */
+    .grid{display:grid;gap:22px;grid-template-columns:minmax(0,1fr) 360px}
+    @media (max-width:980px){ .grid{grid-template-columns:1fr} }
+
+    /* STEPPER TOP */
+    .progress{
+      display:flex;align-items:center;gap:10px;counter-reset:step;
+      margin-bottom:16px;flex-wrap:wrap
     }
-    @media (max-width:960px){ .grid{grid-template-columns:1fr} }
+    .step-dot{
+      position:relative;display:flex;align-items:center;gap:10px
+    }
+    .step-dot::before{
+      counter-increment:step;content:counter(step);
+      width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
+      background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--soft);font-weight:700
+    }
+    .step-dot.active::before{background:linear-gradient(90deg,var(--cyan),var(--violet));color:#001018}
+    .pipe{flex:1;height:2px;background:linear-gradient(90deg,rgba(255,255,255,.08),rgba(255,255,255,.18));min-width:44px}
 
-    /* STEPS CONTAINER */
-    .stepper{position:relative}
-    .step{display:none;animation:slide .35s ease}
-    .step.active{display:block}
-    @keyframes slide{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
+    /* TITLES */
     .title{
-      margin:0 0 10px;font-size:clamp(26px,3.5vw,32px);
+      margin:0 0 6px;font-size:clamp(26px,3.5vw,32px);
       background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent
     }
-    .sub{color:var(--muted);margin:4px 0 0}
+    .sub{color:var(--muted);margin:0}
 
-    /* CARD / PANEL / LED BORDER */
+    /* CARDS / PANELS */
     .card,.panel,.summary{
       position:relative;border-radius:18px;overflow:hidden;padding:20px;
-      background:rgba(255,255,255,.04);border:1px solid var(--border);backdrop-filter:blur(14px);
+      background:rgba(255,255,255,.045);border:1px solid var(--border);backdrop-filter:blur(14px);
     }
     .led::before{
       content:"";position:absolute;inset:-3px;border-radius:inherit;z-index:0;
@@ -77,22 +88,30 @@
       filter:blur(10px);opacity:.85;animation:spin 8s linear infinite;
     }
     .led::after{
-      content:"";position:absolute;inset:0;border-radius:inherit;z-index:1;
-      background:rgba(12,14,26,.88);backdrop-filter:blur(10px);
+      content:"";position:absolute;inset:0;border-radius:inherit;z-index:1;background:rgba(12,14,26,.88);backdrop-filter:blur(10px)
     }
     .card>*,.panel>*,.summary>*{position:relative;z-index:2}
     @keyframes spin{to{transform:rotate(360deg)}}
 
-    /* PRODUCTS GRID */
-    .products{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-    .product{padding:18px;text-align:center;transition:.25s}
-    .product h4{margin:6px 0 6px;font-size:18px}
-    .price{font-weight:800;font-size:22px;color:var(--cyan);margin-bottom:6px}
-    .amount{font-size:13px;color:#cbd2ff}
-    .product:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,240,255,.08)}
-    .chip{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.04);font-size:12px;color:#cfd6ff}
+    /* STEPS */
+    .stepper{position:relative}
+    .step{display:none;animation:stepfade .35s ease}
+    .step.active{display:block}
+    @keyframes stepfade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-    /* FORM FIELDS */
+    /* PRODUCTS */
+    .products{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+    .product{padding:18px;transition:.25s}
+    .product:hover{transform:translateY(-6px);box-shadow:0 22px 60px rgba(0,240,255,.08)}
+    .product h4{margin:6px 0 6px;font-size:18px}
+    .price{font-weight:800;font-size:22px;color:var(--cyan);margin-bottom:4px}
+    .amount{font-size:13px;color:#cbd2ff}
+    .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+    .chip{padding:4px 8px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.05);font-size:12px;color:#cfd6ff}
+    .list{margin-top:10px;color:var(--soft);font-size:13px;line-height:1.5}
+    .list li{margin:4px 0}
+
+    /* FORM */
     .field{display:flex;gap:10px;align-items:center;margin-top:12px}
     input[type="text"]{
       flex:1;height:46px;border-radius:12px;border:1px solid var(--border);
@@ -100,29 +119,38 @@
     }
     input::placeholder{color:#9aa0c2}
 
-    /* METHOD SELECT */
-    .methods{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin-top:12px}
+    /* METHODS */
+    .methods{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));margin-top:12px}
     .method{
       cursor:pointer;user-select:none;display:flex;align-items:center;gap:10px;
-      padding:12px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,.03);
-      transition:.2s
+      padding:12px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,.03);transition:.2s
     }
-    .method img{width:24px;height:24px;object-fit:contain}
-    .method.active{outline:2px solid rgba(0,240,255,.6);background:rgba(0,240,255,.05)}
+    .method img{width:26px;height:26px;object-fit:contain}
+    .method.active{outline:2px solid rgba(0,240,255,.55);background:rgba(0,240,255,.05)}
+    .method.disabled{opacity:.45;cursor:not-allowed;position:relative}
+    .method.disabled::after{
+      content:"Temporarily Unavailable";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+      background:rgba(0,0,0,.45);color:#fff;border-radius:14px;font-size:12px;font-weight:700
+    }
 
-    /* SUMMARY (RIGHT SIDEBAR) */
+    /* SUMMARY RIGHT */
     aside{position:sticky;top:88px;height:fit-content}
     .summary h3{margin:0 0 8px}
-    .row{display:flex;justify-content:space-between;gap:10px;color:#cfd6ff;font-size:14px;padding:6px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
+    .row{display:flex;justify-content:space-between;gap:10px;color:#cfd6ff;font-size:14px;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
     .row:last-child{border-bottom:none}
+    .small{font-size:12px;color:#9fb1ff}
     .copy{cursor:pointer;border:1px solid var(--border);border-radius:10px;padding:6px 10px;background:rgba(255,255,255,.04)}
-    .small{font-size:12px;color:#aab2d8}
 
-    /* NAV BUTTONS */
-    .actions{display:flex;justify-content:space-between;gap:10px;margin-top:16px;flex-wrap:wrap}
-    .ghost{background:transparent;border:1px solid var(--border);color:#d5dcff}
-    .ghost:hover{border-color:#7aa2ff}
-    .primary{background:linear-gradient(90deg,#3aa8ff,#7c5cff);border:none}
+    /* ACTIONS */
+    .actions{display:flex;justify-content:space-between;gap:10px;margin-top:18px;flex-wrap:wrap}
+
+    /* TOAST */
+    .toast{
+      position:fixed;left:50%;bottom:24px;transform:translateX(-50%);
+      background:rgba(0,0,0,.7);color:#fff;padding:10px 14px;border-radius:10px;font-size:14px;
+      border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:.3s;z-index:100
+    }
+    .toast.show{opacity:1}
 
     /* FOOTER */
     footer{margin-top:40px;border-top:1px solid var(--border);background:linear-gradient(180deg,var(--bg2),var(--bg3));color:#a9b1c6}
@@ -131,6 +159,7 @@
   </style>
 </head>
 <body>
+
   <!-- NAV -->
   <header>
     <div class="nav">
@@ -145,165 +174,214 @@
   </header>
 
   <main class="wrap" id="steps">
+    <!-- PROGRESS -->
+    <div class="progress" aria-label="checkout progress">
+      <div class="step-dot active">Select Plan</div><div class="pipe"></div>
+      <div class="step-dot">Your Wallet</div><div class="pipe"></div>
+      <div class="step-dot">Payment Method</div><div class="pipe"></div>
+      <div class="step-dot">Payment Details</div><div class="pipe"></div>
+      <div class="step-dot">Submit TXID</div>
+    </div>
+
     <div class="grid">
+      <!-- LEFT: STEPS -->
       <section class="stepper">
-        <!-- STEP 1: PRODUCT SELECT -->
+
+        <!-- STEP 1 -->
         <div class="step active" id="step1">
           <h2 class="title">Select Your TRC20 Package</h2>
-          <p class="sub">Tümü düşük ücret, anında onay ve 7/24 destek ile gelir.</p>
+          <p class="sub">Ultra-low fees, instant confirmation and 24/7 support are included in all packages.</p>
 
           <div class="products">
-            <!-- Fiyatlar: gönderdiğin görsele göre -->
+            <!-- Detailed product cards -->
             <article class="card led product" data-name="800 FLASH" data-usdt="800" data-price="$99.00">
               <h4>800 FLASH</h4>
               <div class="price">$99.00</div>
               <div class="amount">Amount: 800 USDT</div>
-              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">Instant</span></div>
-              <div class="actions"><button class="btn primary select">Select Package</button></div>
+              <div class="chips"><span class="chip">TRC20</span><span class="chip">Instant</span><span class="chip">Basic</span></div>
+              <ul class="list">
+                <li>Processing time: ~30 sec</li>
+                <li>Standard routing</li>
+                <li>Email notifications</li>
+              </ul>
+              <div class="actions"><button class="btn select">Select</button></div>
             </article>
 
             <article class="card led product" data-name="1K FLASH" data-usdt="1000" data-price="$180.00">
               <h4>1K FLASH</h4>
               <div class="price">$180.00</div>
               <div class="amount">Amount: 1,000 USDT</div>
-              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">Fast</span></div>
-              <div class="actions"><button class="btn primary select">Select Package</button></div>
+              <div class="chips"><span class="chip">TRC20</span><span class="chip">Fast</span><span class="chip">Priority</span></div>
+              <ul class="list">
+                <li>Processing time: ~25 sec</li>
+                <li>Priority queue</li>
+                <li>Basic support</li>
+              </ul>
+              <div class="actions"><button class="btn select">Select</button></div>
             </article>
 
             <article class="card led product" data-name="10K FLASH" data-usdt="10000" data-price="$310.00">
               <h4>10K FLASH</h4>
               <div class="price">$310.00</div>
               <div class="amount">Amount: 10,000 USDT</div>
-              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">Trader</span></div>
-              <div class="actions"><button class="btn primary select">Select Package</button></div>
+              <div class="chips"><span class="chip">TRC20</span><span class="chip">Trader</span><span class="chip">SLA</span></div>
+              <ul class="list">
+                <li>Processing time: ~20 sec</li>
+                <li>SLA-backed queue</li>
+                <li>Support: 24/7</li>
+              </ul>
+              <div class="actions"><button class="btn select">Select</button></div>
             </article>
 
             <article class="card led product" data-name="20K FLASH" data-usdt="20000" data-price="$580.00">
               <h4>20K FLASH</h4>
               <div class="price">$580.00</div>
               <div class="amount">Amount: 20,000 USDT</div>
-              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">Priority</span></div>
-              <div class="actions"><button class="btn primary select">Select Package</button></div>
+              <div class="chips"><span class="chip">TRC20</span><span class="chip">Priority</span><span class="chip">VIP lane</span></div>
+              <ul class="list">
+                <li>Processing time: ~18 sec</li>
+                <li>VIP routing</li>
+                <li>Dedicated assistant</li>
+              </ul>
+              <div class="actions"><button class="btn select">Select</button></div>
             </article>
 
             <article class="card led product" data-name="50K FLASH" data-usdt="50000" data-price="$1,350.00">
               <h4>50K FLASH</h4>
               <div class="price">$1,350.00</div>
               <div class="amount">Amount: 50,000 USDT</div>
-              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">Business</span></div>
-              <div class="actions"><button class="btn primary select">Select Package</button></div>
+              <div class="chips"><span class="chip">TRC20</span><span class="chip">Business</span><span class="chip">VIP</span></div>
+              <ul class="list">
+                <li>Processing time: ~15 sec</li>
+                <li>VIP routing + SLA</li>
+                <li>Priority support</li>
+              </ul>
+              <div class="actions"><button class="btn select">Select</button></div>
             </article>
 
             <article class="card led product" data-name="100K FLASH" data-usdt="100000" data-price="$2,500.00">
               <h4>100K FLASH</h4>
               <div class="price">$2,500.00</div>
               <div class="amount">Amount: 100,000 USDT</div>
-              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">VIP</span></div>
-              <div class="actions"><button class="btn primary select">Select Package</button></div>
+              <div class="chips"><span class="chip">TRC20</span><span class="chip">VIP</span><span class="chip">SLA+</span></div>
+              <ul class="list">
+                <li>Processing time: ~12 sec</li>
+                <li>VIP+ routing</li>
+                <li>Dedicated manager</li>
+              </ul>
+              <div class="actions"><button class="btn select">Select</button></div>
             </article>
 
             <article class="card led product" data-name="500K FLASH" data-usdt="500000" data-price="$10,500.00">
               <h4>500K FLASH</h4>
               <div class="price">$10,500.00</div>
               <div class="amount">Amount: 500,000 USDT</div>
-              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">Enterprise</span></div>
-              <div class="actions"><button class="btn primary select">Select Package</button></div>
+              <div class="chips"><span class="chip">Enterprise</span><span class="chip">White-glove</span></div>
+              <ul class="list">
+                <li>Processing time: ~10 sec</li>
+                <li>Private routing</li>
+                <li>Dedicated SLA</li>
+              </ul>
+              <div class="actions"><button class="btn select">Select</button></div>
             </article>
 
             <article class="card led product" data-name="1M FLASH" data-usdt="1000000" data-price="$18,500.00">
               <h4>1M FLASH</h4>
               <div class="price">$18,500.00</div>
               <div class="amount">Amount: 1,000,000 USDT</div>
-              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">Enterprise+</span></div>
-              <div class="actions"><button class="btn primary select">Select Package</button></div>
+              <div class="chips"><span class="chip">Enterprise+</span><span class="chip">Custom SLA</span></div>
+              <ul class="list">
+                <li>Processing time: ~8 sec</li>
+                <li>Private dedicated lane</li>
+                <li>Account manager</li>
+              </ul>
+              <div class="actions"><button class="btn select">Select</button></div>
             </article>
           </div>
         </div>
 
-        <!-- STEP 2: WALLET -->
+        <!-- STEP 2 -->
         <div class="step" id="step2">
           <h2 class="title">Enter Your Wallet Address</h2>
-          <p class="sub">Ürünün gönderileceği kendi <b>TRC20</b> (T...) cüzdan adresinizi girin.</p>
+          <p class="sub">This is the <b>receiver address</b> where your package will be delivered.</p>
+
           <div class="panel led" style="margin-top:12px">
             <div class="field">
-              <input type="text" id="wallet" placeholder="Your TRC20 wallet address (starts with T...)" />
+              <input type="text" id="wallet" placeholder="Your wallet address (e.g., TRC20 starts with T...)"/>
             </div>
-            <div class="small" style="margin-top:6px">Uyarı: Yanlış adres girilmesi durumunda sorumluluk kullanıcıya aittir.</div>
+            <div class="small" style="margin-top:6px">Make sure the format matches your selected network in the next step.</div>
           </div>
 
           <div class="actions">
             <button class="btn ghost" data-back>Back</button>
-            <button class="btn primary" data-next>Continue</button>
+            <button class="btn" data-next>Continue</button>
           </div>
         </div>
 
-        <!-- STEP 3: METHOD -->
+        <!-- STEP 3 -->
         <div class="step" id="step3">
           <h2 class="title">Select Payment Method</h2>
-          <p class="sub">Ödemeyi hangi ağ üzerinden yapacaksınız?</p>
+          <p class="sub">Only pay via the selected network below.</p>
 
           <div class="methods">
-            <div class="method card led" data-method="TRC20">
-              <img src="assets/trc20.png" alt=""><div>TRC20 (TRON)</div>
-            </div>
-            <div class="method card led" data-method="ERC20">
-              <img src="assets/erc20.png" alt=""><div>ERC20 (Ethereum)</div>
-            </div>
-            <div class="method card led" data-method="BEP20">
-              <img src="assets/bep20.png" alt=""><div>BEP20 (BSC)</div>
-            </div>
-            <div class="method card led" data-method="BTC">
-              <img src="assets/btc.png" alt=""><div>BTC (Bitcoin)</div>
-            </div>
+            <div class="method card led" data-method="TRC20"><img src="assets/trc20.png" alt="TRC20"><div>TRC20 (TRON)</div></div>
+            <div class="method card led" data-method="ERC20"><img src="assets/erc20.png" alt="ERC20"><div>ERC20 (Ethereum)</div></div>
+            <div class="method card led" data-method="BEP20"><img src="assets/bep20.png" alt="BEP20"><div>BEP20 (BSC)</div></div>
+
+            <div class="method card led disabled" title="Currently Closed"><img src="assets/btc.png" alt="BTC"><div>BTC (Bitcoin)</div></div>
+            <div class="method card led disabled" title="Currently Closed"><img src="assets/binance.png" alt="Binance Pay"><div>Binance Pay</div></div>
+            <div class="method card led disabled" title="Currently Closed"><img src="assets/okx.png" alt="OKX Pay"><div>OKX Pay</div></div>
           </div>
 
           <div class="actions">
             <button class="btn ghost" data-back>Back</button>
-            <button class="btn primary" data-next>Continue</button>
+            <button class="btn" data-next>Continue</button>
           </div>
         </div>
 
-        <!-- STEP 4: PAYMENT DETAILS -->
+        <!-- STEP 4 -->
         <div class="step" id="step4">
           <h2 class="title">Payment Details</h2>
-          <p class="sub">Aşağıdaki adrese, seçtiğiniz paket tutarında USDT gönderin. Sadece seçilen ağı kullanın.</p>
+          <p class="sub">Send the payment to the address below via your selected network.</p>
 
           <div class="panel led" style="margin-top:12px">
             <div class="row"><div>Network</div><div id="sum-network">—</div></div>
-            <div class="row"><div>Payment Address</div>
-              <div style="display:flex;gap:8px;align-items:center">
+            <div class="row">
+              <div>Payment Address</div>
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
                 <span id="pay-address" class="small">—</span>
                 <button class="copy" id="copyAddr">Copy</button>
               </div>
             </div>
-            <div class="small" style="margin-top:8px">Uyarı: Yanlış ağa gönderim geri alınamaz. Sadece seçtiğiniz ağı kullanınız.</div>
+            <div class="small" style="margin-top:8px">Payments sent to a different network may be lost and are non-recoverable.</div>
           </div>
 
           <div class="actions">
             <button class="btn ghost" data-back>Back</button>
-            <button class="btn primary" data-next>I've Made the Payment</button>
+            <button class="btn" data-next>I've Made the Payment</button>
           </div>
         </div>
 
-        <!-- STEP 5: TXID -->
+        <!-- STEP 5 -->
         <div class="step" id="step5">
           <h2 class="title">Submit Your TXID</h2>
-          <p class="sub">Ödeme tamamlandıktan sonra, blockchain üzerindeki <b>Transaction ID (TXID)</b> değerini girin.</p>
+          <p class="sub">Paste your blockchain Transaction ID (TXID). We’ll verify and contact you shortly.</p>
 
           <div class="panel led" style="margin-top:12px">
             <div class="field">
-              <input type="text" id="txid" placeholder="Paste your TXID here" />
+              <input type="text" id="txid" placeholder="Paste your TXID here"/>
             </div>
             <div class="actions" style="margin-top:12px">
               <button class="btn ghost" data-back>Back</button>
-              <button class="btn primary" id="sendTxid">Submit Transaction</button>
+              <button class="btn" id="sendTxid">Submit Transaction</button>
             </div>
-            <div class="small" style="margin-top:8px">Kişisel veri toplanmaz. Yalnızca TXID iletilir.</div>
+            <div class="small" style="margin-top:8px">We do not collect personal data. Only TXID and order details are sent.</div>
           </div>
         </div>
+
       </section>
 
-      <!-- RIGHT: STICKY SUMMARY -->
+      <!-- RIGHT: SUMMARY -->
       <aside>
         <div class="summary led">
           <h3>Order Summary</h3>
@@ -323,193 +401,188 @@
     <div class="ledbar"></div>
     <div class="foot">
       <div><strong>FLASH USDT</strong> — Secure & Encrypted</div>
-      <div>Contact: <a style="color:#cfe8ff" href="mailto:support@flashusdt.com">support@flashusdt.com</a></div>
-      <div>© <span id="y"></span> FLASH USDT — TRC20</div>
+      <div>Support: <a style="color:#cfe8ff" href="mailto:support@flashusdt.com">support@flashusdt.com</a></div>
+      <div>© <span id="y"></span> FLASH USDT</div>
     </div>
   </footer>
 
-  <script>
-    // Year
-    document.getElementById('y').textContent = new Date().getFullYear();
+  <!-- TOAST -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-    // ====== CONFIG ======
+  <script>
+    // ===== CONFIG =====
     const ADDRS = {
       TRC20: "TXAk3cty1QpM72m9wRgQNwxBzEy3E9SyNU",
       ERC20: "0xE88921A2d0315BF364a768c393D02cDF111A0Bc6",
       BEP20: "0xE88921A2d0315BF364a768c393D02cDF111A0Bc6",
-      BTC: "" // buraya BTC adresi eklenirse aktif gösterilecek
+      BTC: "" // keep empty to remain closed
     };
-
     const EMAILJS = {
-      SERVICE_ID: "",   // e.g. "service_XXXX"
-      TEMPLATE_ID: "",  // e.g. "template_XXXX"
+      SERVICE_ID: "",   // e.g. "service_xxxx"
+      TEMPLATE_ID: "",  // e.g. "template_xxxx"
       PUBLIC_KEY: ""    // e.g. "AbC123..."
     };
+    const TO = "eticin.60@gmail.com"; // destination email
 
-    // ====== STATE ======
-    const state = {
-      productName: null,
-      productUSDT: null,
-      productPrice: null,
-      wallet: null,
-      network: null
+    // ===== UTIL =====
+    const $ = (s)=>document.querySelector(s);
+    const $$ = (s)=>document.querySelectorAll(s);
+    const toast = (msg)=>{ const t=$("#toast"); t.textContent=msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),1800); };
+    const setProgress = (n)=> {
+      const dots=[...document.querySelectorAll(".step-dot")];
+      dots.forEach((d,i)=> d.classList.toggle("active", i<=n));
     };
 
-    // ====== HELPERS ======
-    const $ = sel => document.querySelector(sel);
+    // Year
+    $("#y").textContent = new Date().getFullYear();
 
-    function goto(stepId){
-      document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
-      document.getElementById(stepId).classList.add('active');
-    }
+    // STATE
+    const state = { productName:null, productUSDT:null, productPrice:null, wallet:null, network:null };
+    const updateSummary = ()=>{
+      $("#s-name").textContent   = state.productName || "—";
+      $("#s-amount").textContent = state.productUSDT ? Number(state.productUSDT).toLocaleString()+" USDT" : "—";
+      $("#s-price").textContent  = state.productPrice || "—";
+      $("#s-wallet").textContent = state.wallet || "—";
+      $("#s-network").textContent= state.network || "—";
+      $("#s-address").textContent= state.network ? (ADDRS[state.network] || "—") : "—";
+      $("#sum-network") && ($("#sum-network").textContent = state.network || "—");
+      $("#pay-address") && ($("#pay-address").textContent = state.network ? (ADDRS[state.network] || "—") : "—");
+    };
 
-    function updateSummary(){
-      $('#s-name').textContent   = state.productName || '—';
-      $('#s-amount').textContent = state.productUSDT ? `${Number(state.productUSDT).toLocaleString()} USDT` : '—';
-      $('#s-price').textContent  = state.productPrice || '—';
-      $('#s-wallet').textContent = state.wallet || '—';
-      $('#s-network').textContent= state.network || '—';
-      $('#s-address').textContent= state.network ? (ADDRS[state.network] || '—') : '—';
+    // NAVIGATION
+    const goto = (id, idx) => {
+      $$(".step").forEach(s=>s.classList.remove("active"));
+      $("#"+id).classList.add("active");
+      setProgress(idx);
+      window.scrollTo({top:0,behavior:"smooth"});
+    };
 
-      // Payment panel (step4)
-      $('#sum-network') && ($('#sum-network').textContent = state.network || '—');
-      $('#pay-address') && ($('#pay-address').textContent = state.network ? (ADDRS[state.network] || '—') : '—');
-    }
-
-    function selectMethod(el){
-      document.querySelectorAll('.method').forEach(m=>m.classList.remove('active'));
-      el.classList.add('active');
-      state.network = el.dataset.method;
-      updateSummary();
-    }
-
-    // Copy to clipboard
-    $('#copyAddr')?.addEventListener('click', ()=>{
-      const txt = $('#pay-address').textContent.trim();
-      if(!txt || txt==='—') return alert('No address to copy.');
-      navigator.clipboard.writeText(txt).then(()=>alert('Address copied.'));
-    });
-
-    // ====== STEP 1: select product ======
-    document.querySelectorAll('.product .select').forEach(btn=>{
-      btn.addEventListener('click', e=>{
-        const card = e.target.closest('.product');
+    // STEP 1: select product
+    $$(".product .select").forEach(btn=>{
+      btn.addEventListener("click", (e)=>{
+        const card = e.target.closest(".product");
         state.productName = card.dataset.name;
         state.productUSDT = card.dataset.usdt;
         state.productPrice= card.dataset.price;
         updateSummary();
-        goto('step2');
+        goto("step2",1);
       });
     });
 
-    // ====== step actions (next/back) ======
-    document.querySelectorAll('[data-next]').forEach(b=>{
-      b.addEventListener('click', ()=>{
-        const current = document.querySelector('.step.active').id;
-
-        if(current==='step2'){
-          // wallet required
-          const w = $('#wallet').value.trim();
-          if(!w){ alert('Please enter your TRC20 wallet address.'); return; }
-          state.wallet = w;
-          updateSummary();
-          goto('step3');
-        }
-        else if(current==='step3'){
-          // network required
-          if(!state.network){ alert('Please select a payment network.'); return; }
-          if(!ADDRS[state.network]){ alert(`${state.network} address is not configured yet.`); return; }
-          updateSummary();
-          goto('step4');
-        }
-        else if(current==='step4'){
-          goto('step5');
+    // Next / Back generic
+    $$("[data-next]").forEach(b=>{
+      b.addEventListener("click", ()=>{
+        const current = document.querySelector(".step.active").id;
+        if(current==="step2"){
+          const w = $("#wallet").value.trim();
+          if(!w){ toast("Please enter your wallet address."); return; }
+          state.wallet = w; updateSummary(); goto("step3",2);
+        }else if(current==="step3"){
+          if(!state.network){ toast("Select a payment method."); return; }
+          if(!ADDRS[state.network]){ toast(`${state.network} is closed right now.`); return; }
+          updateSummary(); goto("step4",3);
+        }else if(current==="step4"){
+          goto("step5",4);
         }
       });
     });
-
-    document.querySelectorAll('[data-back]').forEach(b=>{
-      b.addEventListener('click', ()=>{
-        const current = document.querySelector('.step.active').id;
-        if(current==='step2') goto('step1');
-        else if(current==='step3') goto('step2');
-        else if(current==='step4') goto('step3');
-        else if(current==='step5') goto('step4');
+    $$("[data-back]").forEach(b=>{
+      b.addEventListener("click", ()=>{
+        const current = document.querySelector(".step.active").id;
+        if(current==="step2") goto("step1",0);
+        else if(current==="step3") goto("step2",1);
+        else if(current==="step4") goto("step3",2);
+        else if(current==="step5") goto("step4",3);
       });
     });
 
-    // ====== step3 method selection ======
-    document.querySelectorAll('.method').forEach(m=>{
-      m.addEventListener('click', ()=>selectMethod(m));
+    // STEP 3: method selection
+    $$(".method").forEach(m=>{
+      if(m.classList.contains("disabled")) return;
+      m.addEventListener("click", ()=>{
+        $$(".method").forEach(x=>x.classList.remove("active"));
+        m.classList.add("active");
+        state.network = m.dataset.method;
+        updateSummary();
+      });
     });
 
-    // ====== TXID SEND (EmailJS + mailto fallback) ======
-    $('#sendTxid').addEventListener('click', async ()=>{
-      const txid = ($('#txid').value || '').trim();
-      if(!txid){ alert('Please enter your TXID.'); return; }
+    // Copy Address
+    $("#copyAddr")?.addEventListener("click", ()=>{
+      const txt = ($("#pay-address").textContent||"").trim();
+      if(!txt || txt==="—") return toast("No address to copy");
+      navigator.clipboard.writeText(txt).then(()=>toast("Address copied"));
+    });
 
-      const subject = "FLASH USDT — Yeni TRC20 İşlemi Bildirimi";
+    // TXID submit (EmailJS with mailto fallback)
+    $("#sendTxid").addEventListener("click", async ()=>{
+      const txid = ($("#txid").value||"").trim();
+      if(!txid) return toast("Please enter TXID");
+      const nowUTC = new Date().toUTCString().replace("GMT","(UTC)");
+
+      // Compose pretty text body
       const body =
-`🔔 Yeni bir TRC20 işlemi alındı
+`🔔 New TRC20 Transaction Received
 
-📦 Paket Bilgileri
+📦 Package Information
 ──────────────────────────────
-Paket Adı: ${state.productName || '—'}
-USDT Miktarı: ${state.productUSDT ? Number(state.productUSDT).toLocaleString() : '—'} USDT
-Fiyat: ${state.productPrice || '—'}
+Package Name: ${state.productName||"—"}
+USDT Amount: ${state.productUSDT? Number(state.productUSDT).toLocaleString(): "—"} USDT
+Price: ${state.productPrice||"—"}
 
-💳 Ödeme Detayları
+💳 Payment Details
 ──────────────────────────────
-Ağ (Network): ${state.network || '—'}
-Alıcı Cüzdan Adresi: ${state.network ? (ADDRS[state.network] || '—') : '—'}
-Kullanıcı Cüzdanı (Receiver): ${state.wallet || '—'}
-Gönderici TXID: ${txid}
-İşlem Saati: ${new Date().toLocaleString()}
+Network: ${state.network||"—"}
+Receiver Address (merchant): ${state.network? (ADDRS[state.network]||"—"):"—"}
+Customer Wallet (receiver): ${state.wallet||"—"}
+TXID: ${txid}
+Transaction Time: ${nowUTC}
 
-🛠 Teknik Bilgiler
+🛠 Technical Info
 ──────────────────────────────
-Tarayıcı: ${navigator.userAgent}
-Sayfa: /trc20.html
+Browser: ${navigator.userAgent}
+Device: ${/Mobi/i.test(navigator.userAgent)?"Mobile":"Desktop"}
+Page: /trc20.html
+`;
 
-Bu mesaj FLASH USDT sisteminden otomatik olarak gönderilmiştir.`;
-
-      // If EmailJS configured, use it
+      // Try EmailJS if configured
       if(EMAILJS.SERVICE_ID && EMAILJS.TEMPLATE_ID && EMAILJS.PUBLIC_KEY){
         try{
           if(!window.emailjs){
-            const s = document.createElement('script');
-            s.src = "https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js";
+            const s=document.createElement("script");
+            s.src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js";
             document.head.appendChild(s);
-            await new Promise(res=> s.onload = res);
-            window.emailjs.init(EMAILJS.PUBLIC_KEY);
+            await new Promise(r=>s.onload=r);
           }
+          window.emailjs.init(EMAILJS.PUBLIC_KEY);
           await window.emailjs.send(EMAILJS.SERVICE_ID, EMAILJS.TEMPLATE_ID, {
-            to_email: "eticin.60@gmail.com",
-            subject: subject,
-            package_name: state.productName || '—',
-            package_amount: state.productUSDT || '—',
-            package_price: state.productPrice || '—',
-            network: state.network || '—',
-            pay_address: state.network ? (ADDRS[state.network] || '—') : '—',
-            user_wallet: state.wallet || '—',
+            to_email: TO,
+            subject: "FLASH USDT — New TRC20 Payment",
+            package_name: state.productName||"—",
+            package_amount: state.productUSDT||"—",
+            package_price: state.productPrice||"—",
+            network: state.network||"—",
+            pay_address: state.network? (ADDRS[state.network]||"—"):"—",
+            user_wallet: state.wallet||"—",
             txid: txid,
-            user_agent: navigator.userAgent,
-            time: new Date().toLocaleString(),
+            time: nowUTC,
+            browser: navigator.userAgent,
+            device: /Mobi/i.test(navigator.userAgent)?"Mobile":"Desktop",
+            page: "/trc20.html",
             full_body: body
           });
-          alert("✅ TXID e-posta ile başarıyla iletildi. Teşekkürler!");
+          toast("TXID sent via EmailJS ✅");
           return;
-        }catch(e){
-          console.error(e);
-          alert("⚠️ EmailJS gönderimi başarısız. E-posta uygulamasıyla göndereceğiz.");
+        }catch(err){
+          console.error(err);
+          toast("EmailJS failed — using mail client…");
         }
       }
 
       // Fallback: mailto
-      const mailto = `mailto:eticin.60@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const mailto = `mailto:${encodeURIComponent(TO)}?subject=${encodeURIComponent("FLASH USDT — New TRC20 Payment")}&body=${encodeURIComponent(body)}`;
       window.location.href = mailto;
     });
-
   </script>
 </body>
 </html>
