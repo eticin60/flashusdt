@@ -41,7 +41,22 @@
   .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.4px}
   .brand img{width:28px;height:28px;border-radius:8px}
   /* SADECE BURASI TURUNCU GRADYAN */
-  .brand span{background:linear-gradient(90deg,#f0b90b,#ffcc4d);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand span{
+  background:linear-gradient(90deg,
+    #f0b90b 0%,
+    #ffb700 35%,
+    #ffd966 65%,
+    #fff1c0 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation:shine 4s ease-in-out infinite alternate;
+}
+@keyframes shine{
+  0%{filter:brightness(1)}
+  50%{filter:brightness(1.35)}
+  100%{filter:brightness(1)}
+}
 
   .menu{display:flex;gap:16px}
   .menu a{color:var(--muted);text-decoration:none;font-weight:600}
