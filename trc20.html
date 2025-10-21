@@ -3,225 +3,513 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FLASH USDT — Secure Payment</title>
+  <title>FLASH USDT — TRC20 Checkout</title>
+  <meta name="description" content="FLASH USDT TRC20 packages — fast and cost-efficient plans on the TRON network." />
   <link rel="icon" type="image/png" href="assets/USDT-2.png" />
   <style>
-    :root {
-      --bg1:#030615;--bg2:#0b1130;--bg3:#0f153d;
-      --text:#eef3ff;--muted:#9aa0c2;
-      --cyan:#00f0ff;--violet:#5b2cff;--rose:#ff4b9f;
-      --border:rgba(255,255,255,.12);
+    :root{
+      --bg1:#030615; --bg2:#0b1130; --bg3:#0f153d;
+      --text:#eef3ff; --muted:#9aa0c2;
+      --cyan:#00f0ff; --violet:#5b2cff; --rose:#ff4b9f; --lime:#16d18a; --amber:#ffcc4d;
+      --border:rgba(255,255,255,.12); --glass:rgba(255,255,255,.06);
+      --panel:#0f1730;
     }
-    *{box-sizing:border-box;margin:0;padding:0}
-    body {
-      font-family:"Poppins",sans-serif;
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
-      background:linear-gradient(180deg,var(--bg1),var(--bg2) 50%,var(--bg3));
+      background:
+        radial-gradient(1200px 700px at 10% -10%, rgba(0,240,255,.14), transparent 55%),
+        radial-gradient(900px 500px at 90% 0, rgba(91,44,255,.20), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2) 50%, var(--bg3));
       overflow-x:hidden;
+      animation:fadeIn .6s ease;
     }
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-    .container {
-      max-width:700px;
-      margin:50px auto;
-      background:rgba(255,255,255,.05);
-      border:1px solid var(--border);
-      border-radius:20px;
-      padding:30px;
-      backdrop-filter:blur(20px);
-      box-shadow:0 0 25px rgba(0,0,0,.4);
+    /* NAV */
+    header{position:sticky;top:0;z-index:50;background:rgba(10,15,40,.75);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+    .nav{max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.4px}
+    .brand img{width:28px;height:28px;border-radius:8px}
+    .brand span{background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .menu{display:flex;gap:16px}
+    .menu a{color:var(--muted);text-decoration:none;font-weight:600}
+    .menu a:hover{color:var(--cyan)}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:10px 14px;border-radius:12px;font-weight:700;
+      background:linear-gradient(90deg,var(--cyan),var(--violet));color:#fff;text-decoration:none;
+      box-shadow:0 10px 22px rgba(0,0,0,.25);transition:.2s;
     }
+    .btn:hover{transform:translateY(-2px);opacity:.95}
 
-    h2 {
-      text-align:center;
-      background:linear-gradient(90deg,var(--cyan),var(--violet));
-      -webkit-background-clip:text;color:transparent;
-      font-size:28px;margin-bottom:14px;
+    /* LAYOUT */
+    .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+    main{padding:28px 0 40px}
+    .grid{
+      display:grid;gap:22px;
+      grid-template-columns: minmax(0,1fr) 360px; /* left content + sticky summary */
     }
-    p{text-align:center;color:var(--muted);margin-bottom:24px}
+    @media (max-width:960px){ .grid{grid-template-columns:1fr} }
 
-    .step {display:none;animation:fade .4s ease;}
+    /* STEPS CONTAINER */
+    .stepper{position:relative}
+    .step{display:none;animation:slide .35s ease}
     .step.active{display:block}
-    @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes slide{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-    .grid {display:grid;gap:14px;margin-top:16px}
-    .card {
-      background:rgba(255,255,255,.06);
-      border:1px solid var(--border);
-      border-radius:14px;
-      padding:16px;
-      cursor:pointer;
-      transition:.3s;
-      text-align:center;
+    .title{
+      margin:0 0 10px;font-size:clamp(26px,3.5vw,32px);
+      background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent
     }
-    .card:hover {background:rgba(255,255,255,.1);transform:translateY(-3px)}
-    .selected {border:1px solid var(--cyan);box-shadow:0 0 15px rgba(0,240,255,.2)}
-    .btn {
-      margin-top:24px;
-      display:inline-block;
-      padding:12px 24px;
-      border-radius:12px;
-      font-weight:700;
-      background:linear-gradient(90deg,var(--cyan),var(--violet));
-      color:#fff;
-      text-decoration:none;
-      border:none;
-      cursor:pointer;
-      transition:.3s;
-    }
-    .btn:hover{opacity:.85;transform:translateY(-2px)}
-    .back-btn {
-      background:none;
-      border:1px solid var(--border);
-      color:var(--text);
-      margin-right:10px;
-    }
-    input,select {
-      width:100%;
-      padding:12px;
-      border-radius:10px;
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.06);
-      color:var(--text);
-      font-size:15px;
-      margin-top:10px;
-    }
+    .sub{color:var(--muted);margin:4px 0 0}
 
-    footer {
-      text-align:center;margin-top:40px;color:var(--muted);font-size:13px;
+    /* CARD / PANEL / LED BORDER */
+    .card,.panel,.summary{
+      position:relative;border-radius:18px;overflow:hidden;padding:20px;
+      background:rgba(255,255,255,.04);border:1px solid var(--border);backdrop-filter:blur(14px);
     }
+    .led::before{
+      content:"";position:absolute;inset:-3px;border-radius:inherit;z-index:0;
+      background:conic-gradient(from 0deg, var(--cyan),var(--violet),var(--rose),var(--lime),var(--amber),var(--cyan));
+      filter:blur(10px);opacity:.85;animation:spin 8s linear infinite;
+    }
+    .led::after{
+      content:"";position:absolute;inset:0;border-radius:inherit;z-index:1;
+      background:rgba(12,14,26,.88);backdrop-filter:blur(10px);
+    }
+    .card>*,.panel>*,.summary>*{position:relative;z-index:2}
+    @keyframes spin{to{transform:rotate(360deg)}}
 
-    .disabled{opacity:.4;pointer-events:none}
+    /* PRODUCTS GRID */
+    .products{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .product{padding:18px;text-align:center;transition:.25s}
+    .product h4{margin:6px 0 6px;font-size:18px}
+    .price{font-weight:800;font-size:22px;color:var(--cyan);margin-bottom:6px}
+    .amount{font-size:13px;color:#cbd2ff}
+    .product:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,240,255,.08)}
+    .chip{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.04);font-size:12px;color:#cfd6ff}
+
+    /* FORM FIELDS */
+    .field{display:flex;gap:10px;align-items:center;margin-top:12px}
+    input[type="text"]{
+      flex:1;height:46px;border-radius:12px;border:1px solid var(--border);
+      background:rgba(255,255,255,.04);color:var(--text);padding:0 12px;outline:none
+    }
+    input::placeholder{color:#9aa0c2}
+
+    /* METHOD SELECT */
+    .methods{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin-top:12px}
+    .method{
+      cursor:pointer;user-select:none;display:flex;align-items:center;gap:10px;
+      padding:12px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,.03);
+      transition:.2s
+    }
+    .method img{width:24px;height:24px;object-fit:contain}
+    .method.active{outline:2px solid rgba(0,240,255,.6);background:rgba(0,240,255,.05)}
+
+    /* SUMMARY (RIGHT SIDEBAR) */
+    aside{position:sticky;top:88px;height:fit-content}
+    .summary h3{margin:0 0 8px}
+    .row{display:flex;justify-content:space-between;gap:10px;color:#cfd6ff;font-size:14px;padding:6px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
+    .row:last-child{border-bottom:none}
+    .copy{cursor:pointer;border:1px solid var(--border);border-radius:10px;padding:6px 10px;background:rgba(255,255,255,.04)}
+    .small{font-size:12px;color:#aab2d8}
+
+    /* NAV BUTTONS */
+    .actions{display:flex;justify-content:space-between;gap:10px;margin-top:16px;flex-wrap:wrap}
+    .ghost{background:transparent;border:1px solid var(--border);color:#d5dcff}
+    .ghost:hover{border-color:#7aa2ff}
+    .primary{background:linear-gradient(90deg,#3aa8ff,#7c5cff);border:none}
+
+    /* FOOTER */
+    footer{margin-top:40px;border-top:1px solid var(--border);background:linear-gradient(180deg,var(--bg2),var(--bg3));color:#a9b1c6}
+    .ledbar{height:2px;width:100%;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--rose),var(--lime));box-shadow:0 0 16px rgba(0,240,255,.35)}
+    .foot{max-width:1200px;margin:0 auto;padding:24px 20px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
   </style>
 </head>
 <body>
-
-<div class="container">
-  <h2>FLASH USDT Payment</h2>
-  <p>Secure multi-network payment process</p>
-
-  <!-- Step 1: Choose Plan -->
-  <div class="step active" id="step1">
-    <h3>Select Your Plan</h3>
-    <div class="grid">
-      <div class="card" data-plan="Starter ($49)">Starter — $49</div>
-      <div class="card" data-plan="Standard ($199)">Standard — $199</div>
-      <div class="card" data-plan="Pro ($499)">Pro — $499</div>
-      <div class="card" data-plan="Advanced ($999)">Advanced — $999</div>
-      <div class="card" data-plan="Premium ($1,999)">Premium — $1,999</div>
+  <!-- NAV -->
+  <header>
+    <div class="nav">
+      <div class="brand"><img src="assets/logo.png" alt=""><div><span>FLASH</span> USDT</div></div>
+      <nav class="menu">
+        <a href="index.html">Home</a>
+        <a href="#steps">Checkout</a>
+        <a href="#verify">TXID</a>
+      </nav>
+      <a class="btn" href="#steps">Get Started</a>
     </div>
-    <button class="btn" id="next1">Next</button>
-  </div>
+  </header>
 
-  <!-- Step 2: Choose Payment Method -->
-  <div class="step" id="step2">
-    <h3>Select Payment Method</h3>
+  <main class="wrap" id="steps">
     <div class="grid">
-      <div class="card" data-method="TRC20">TRC20 (TRON)</div>
-      <div class="card" data-method="ERC20">ERC20 (Ethereum)</div>
-      <div class="card" data-method="BEP20">BEP20 (BSC)</div>
-      <div class="card disabled">BTC (Unavailable)</div>
-      <div class="card disabled">Binance Pay (Unavailable)</div>
-      <div class="card disabled">OKX Pay (Unavailable)</div>
+      <section class="stepper">
+        <!-- STEP 1: PRODUCT SELECT -->
+        <div class="step active" id="step1">
+          <h2 class="title">Select Your TRC20 Package</h2>
+          <p class="sub">Tümü düşük ücret, anında onay ve 7/24 destek ile gelir.</p>
+
+          <div class="products">
+            <!-- Fiyatlar: gönderdiğin görsele göre -->
+            <article class="card led product" data-name="800 FLASH" data-usdt="800" data-price="$99.00">
+              <h4>800 FLASH</h4>
+              <div class="price">$99.00</div>
+              <div class="amount">Amount: 800 USDT</div>
+              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">Instant</span></div>
+              <div class="actions"><button class="btn primary select">Select Package</button></div>
+            </article>
+
+            <article class="card led product" data-name="1K FLASH" data-usdt="1000" data-price="$180.00">
+              <h4>1K FLASH</h4>
+              <div class="price">$180.00</div>
+              <div class="amount">Amount: 1,000 USDT</div>
+              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">Fast</span></div>
+              <div class="actions"><button class="btn primary select">Select Package</button></div>
+            </article>
+
+            <article class="card led product" data-name="10K FLASH" data-usdt="10000" data-price="$310.00">
+              <h4>10K FLASH</h4>
+              <div class="price">$310.00</div>
+              <div class="amount">Amount: 10,000 USDT</div>
+              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">Trader</span></div>
+              <div class="actions"><button class="btn primary select">Select Package</button></div>
+            </article>
+
+            <article class="card led product" data-name="20K FLASH" data-usdt="20000" data-price="$580.00">
+              <h4>20K FLASH</h4>
+              <div class="price">$580.00</div>
+              <div class="amount">Amount: 20,000 USDT</div>
+              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">Priority</span></div>
+              <div class="actions"><button class="btn primary select">Select Package</button></div>
+            </article>
+
+            <article class="card led product" data-name="50K FLASH" data-usdt="50000" data-price="$1,350.00">
+              <h4>50K FLASH</h4>
+              <div class="price">$1,350.00</div>
+              <div class="amount">Amount: 50,000 USDT</div>
+              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">Business</span></div>
+              <div class="actions"><button class="btn primary select">Select Package</button></div>
+            </article>
+
+            <article class="card led product" data-name="100K FLASH" data-usdt="100000" data-price="$2,500.00">
+              <h4>100K FLASH</h4>
+              <div class="price">$2,500.00</div>
+              <div class="amount">Amount: 100,000 USDT</div>
+              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">VIP</span></div>
+              <div class="actions"><button class="btn primary select">Select Package</button></div>
+            </article>
+
+            <article class="card led product" data-name="500K FLASH" data-usdt="500000" data-price="$10,500.00">
+              <h4>500K FLASH</h4>
+              <div class="price">$10,500.00</div>
+              <div class="amount">Amount: 500,000 USDT</div>
+              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">Enterprise</span></div>
+              <div class="actions"><button class="btn primary select">Select Package</button></div>
+            </article>
+
+            <article class="card led product" data-name="1M FLASH" data-usdt="1000000" data-price="$18,500.00">
+              <h4>1M FLASH</h4>
+              <div class="price">$18,500.00</div>
+              <div class="amount">Amount: 1,000,000 USDT</div>
+              <div style="margin-top:8px"><span class="chip">TRC20</span> <span class="chip">Enterprise+</span></div>
+              <div class="actions"><button class="btn primary select">Select Package</button></div>
+            </article>
+          </div>
+        </div>
+
+        <!-- STEP 2: WALLET -->
+        <div class="step" id="step2">
+          <h2 class="title">Enter Your Wallet Address</h2>
+          <p class="sub">Ürünün gönderileceği kendi <b>TRC20</b> (T...) cüzdan adresinizi girin.</p>
+          <div class="panel led" style="margin-top:12px">
+            <div class="field">
+              <input type="text" id="wallet" placeholder="Your TRC20 wallet address (starts with T...)" />
+            </div>
+            <div class="small" style="margin-top:6px">Uyarı: Yanlış adres girilmesi durumunda sorumluluk kullanıcıya aittir.</div>
+          </div>
+
+          <div class="actions">
+            <button class="btn ghost" data-back>Back</button>
+            <button class="btn primary" data-next>Continue</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: METHOD -->
+        <div class="step" id="step3">
+          <h2 class="title">Select Payment Method</h2>
+          <p class="sub">Ödemeyi hangi ağ üzerinden yapacaksınız?</p>
+
+          <div class="methods">
+            <div class="method card led" data-method="TRC20">
+              <img src="assets/trc20.png" alt=""><div>TRC20 (TRON)</div>
+            </div>
+            <div class="method card led" data-method="ERC20">
+              <img src="assets/erc20.png" alt=""><div>ERC20 (Ethereum)</div>
+            </div>
+            <div class="method card led" data-method="BEP20">
+              <img src="assets/bep20.png" alt=""><div>BEP20 (BSC)</div>
+            </div>
+            <div class="method card led" data-method="BTC">
+              <img src="assets/btc.png" alt=""><div>BTC (Bitcoin)</div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn ghost" data-back>Back</button>
+            <button class="btn primary" data-next>Continue</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: PAYMENT DETAILS -->
+        <div class="step" id="step4">
+          <h2 class="title">Payment Details</h2>
+          <p class="sub">Aşağıdaki adrese, seçtiğiniz paket tutarında USDT gönderin. Sadece seçilen ağı kullanın.</p>
+
+          <div class="panel led" style="margin-top:12px">
+            <div class="row"><div>Network</div><div id="sum-network">—</div></div>
+            <div class="row"><div>Payment Address</div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <span id="pay-address" class="small">—</span>
+                <button class="copy" id="copyAddr">Copy</button>
+              </div>
+            </div>
+            <div class="small" style="margin-top:8px">Uyarı: Yanlış ağa gönderim geri alınamaz. Sadece seçtiğiniz ağı kullanınız.</div>
+          </div>
+
+          <div class="actions">
+            <button class="btn ghost" data-back>Back</button>
+            <button class="btn primary" data-next>I've Made the Payment</button>
+          </div>
+        </div>
+
+        <!-- STEP 5: TXID -->
+        <div class="step" id="step5">
+          <h2 class="title">Submit Your TXID</h2>
+          <p class="sub">Ödeme tamamlandıktan sonra, blockchain üzerindeki <b>Transaction ID (TXID)</b> değerini girin.</p>
+
+          <div class="panel led" style="margin-top:12px">
+            <div class="field">
+              <input type="text" id="txid" placeholder="Paste your TXID here" />
+            </div>
+            <div class="actions" style="margin-top:12px">
+              <button class="btn ghost" data-back>Back</button>
+              <button class="btn primary" id="sendTxid">Submit Transaction</button>
+            </div>
+            <div class="small" style="margin-top:8px">Kişisel veri toplanmaz. Yalnızca TXID iletilir.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT: STICKY SUMMARY -->
+      <aside>
+        <div class="summary led">
+          <h3>Order Summary</h3>
+          <div class="row"><div>Package</div><div id="s-name">—</div></div>
+          <div class="row"><div>Amount</div><div id="s-amount">—</div></div>
+          <div class="row"><div>Price</div><div id="s-price">—</div></div>
+          <div class="row"><div>Wallet</div><div id="s-wallet">—</div></div>
+          <div class="row"><div>Network</div><div id="s-network">—</div></div>
+          <div class="row"><div>Pay Address</div><div class="small" id="s-address">—</div></div>
+        </div>
+      </aside>
     </div>
-    <button class="btn back-btn" id="back2">Back</button>
-    <button class="btn" id="next2">Next</button>
-  </div>
+  </main>
 
-  <!-- Step 3: Enter Receiver Address -->
-  <div class="step" id="step3">
-    <h3>Enter Your Wallet Address</h3>
-    <p>Enter the address where you want to receive your package.</p>
-    <input type="text" id="receiver" placeholder="Enter your wallet address">
-    <button class="btn back-btn" id="back3">Back</button>
-    <button class="btn" id="next3">Next</button>
-  </div>
+  <!-- FOOTER -->
+  <footer>
+    <div class="ledbar"></div>
+    <div class="foot">
+      <div><strong>FLASH USDT</strong> — Secure & Encrypted</div>
+      <div>Contact: <a style="color:#cfe8ff" href="mailto:support@flashusdt.com">support@flashusdt.com</a></div>
+      <div>© <span id="y"></span> FLASH USDT — TRC20</div>
+    </div>
+  </footer>
 
-  <!-- Step 4: Show Payment Address -->
-  <div class="step" id="step4">
-    <h3>Make Payment</h3>
-    <p>Please send your payment to the address below:</p>
-    <div id="pay-address" style="word-break:break-all;background:rgba(255,255,255,.08);padding:12px;border-radius:10px;font-size:14px"></div>
-    <p style="margin-top:10px;color:var(--muted)">After payment, click Next to submit your TXID.</p>
-    <button class="btn back-btn" id="back4">Back</button>
-    <button class="btn" id="next4">Next</button>
-  </div>
+  <script>
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
 
-  <!-- Step 5: TXID Submission -->
-  <div class="step" id="step5">
-    <h3>Submit TXID</h3>
-    <p>After sending payment, paste your transaction ID below.</p>
-    <input type="text" id="txid" placeholder="Enter TXID">
-    <button class="btn back-btn" id="back5">Back</button>
-    <button class="btn" id="submit">Submit</button>
-  </div>
-</div>
+    // ====== CONFIG ======
+    const ADDRS = {
+      TRC20: "TXAk3cty1QpM72m9wRgQNwxBzEy3E9SyNU",
+      ERC20: "0xE88921A2d0315BF364a768c393D02cDF111A0Bc6",
+      BEP20: "0xE88921A2d0315BF364a768c393D02cDF111A0Bc6",
+      BTC: "" // buraya BTC adresi eklenirse aktif gösterilecek
+    };
 
-<footer>© <span id="y"></span> FLASH USDT — Secure Payment</footer>
+    const EMAILJS = {
+      SERVICE_ID: "",   // e.g. "service_XXXX"
+      TEMPLATE_ID: "",  // e.g. "template_XXXX"
+      PUBLIC_KEY: ""    // e.g. "AbC123..."
+    };
 
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
-<script>
-  emailjs.init("YOUR_PUBLIC_KEY"); // replace this with your EmailJS public key
+    // ====== STATE ======
+    const state = {
+      productName: null,
+      productUSDT: null,
+      productPrice: null,
+      wallet: null,
+      network: null
+    };
 
-  const steps = document.querySelectorAll('.step');
-  const planCards = document.querySelectorAll('#step1 .card');
-  const methodCards = document.querySelectorAll('#step2 .card:not(.disabled)');
-  let currentStep = 0, selectedPlan="", selectedMethod="", paymentAddress="";
-  const addressMap = {
-    TRC20:"TXAk3cty1QpM72m9wRgQNwxBzEy3E9SyNU",
-    ERC20:"0xE88921A2d0315BF364a768c393D02cDF111A0Bc6",
-    BEP20:"0xE88921A2d0315BF364a768c393D02cDF111A0Bc6"
-  };
+    // ====== HELPERS ======
+    const $ = sel => document.querySelector(sel);
 
-  planCards.forEach(c=>c.onclick=()=>{
-    planCards.forEach(x=>x.classList.remove('selected'));
-    c.classList.add('selected');
-    selectedPlan=c.dataset.plan;
-  });
+    function goto(stepId){
+      document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+      document.getElementById(stepId).classList.add('active');
+    }
 
-  methodCards.forEach(c=>c.onclick=()=>{
-    methodCards.forEach(x=>x.classList.remove('selected'));
-    c.classList.add('selected');
-    selectedMethod=c.dataset.method;
-  });
+    function updateSummary(){
+      $('#s-name').textContent   = state.productName || '—';
+      $('#s-amount').textContent = state.productUSDT ? `${Number(state.productUSDT).toLocaleString()} USDT` : '—';
+      $('#s-price').textContent  = state.productPrice || '—';
+      $('#s-wallet').textContent = state.wallet || '—';
+      $('#s-network').textContent= state.network || '—';
+      $('#s-address').textContent= state.network ? (ADDRS[state.network] || '—') : '—';
 
-  const showStep=(n)=>{
-    steps.forEach((s,i)=>s.classList.toggle('active',i===n));
-    currentStep=n;
-  };
+      // Payment panel (step4)
+      $('#sum-network') && ($('#sum-network').textContent = state.network || '—');
+      $('#pay-address') && ($('#pay-address').textContent = state.network ? (ADDRS[state.network] || '—') : '—');
+    }
 
-  document.getElementById('next1').onclick=()=>{
-    if(!selectedPlan) return alert('Please select a plan.');
-    showStep(1);
-  };
-  document.getElementById('back2').onclick=()=>showStep(0);
-  document.getElementById('next2').onclick=()=>{
-    if(!selectedMethod) return alert('Please select a payment method.');
-    showStep(2);
-  };
-  document.getElementById('back3').onclick=()=>showStep(1);
-  document.getElementById('next3').onclick=()=>{
-    const r=document.getElementById('receiver').value.trim();
-    if(!r) return alert('Please enter your wallet address.');
-    paymentAddress=addressMap[selectedMethod];
-    document.getElementById('pay-address').textContent=paymentAddress;
-    showStep(3);
-  };
-  document.getElementById('back4').onclick=()=>showStep(2);
-  document.getElementById('next4').onclick=()=>showStep(4);
-  document.getElementById('back5').onclick=()=>showStep(3);
+    function selectMethod(el){
+      document.querySelectorAll('.method').forEach(m=>m.classList.remove('active'));
+      el.classList.add('active');
+      state.network = el.dataset.method;
+      updateSummary();
+    }
 
-  document.getElementById('submit').onclick=()=>{
-    const txid=document.getElementById('txid').value.trim();
-    if(!txid) return alert('Please enter TXID.');
-    emailjs.send("YOUR_SERVICE_ID","YOUR_TEMPLATE_ID",{
-      plan:selectedPlan,
-      method:selectedMethod,
-      receiver:document.getElementById('receiver').value,
-      txid:txid
-    }).then(()=>alert("Transaction sent successfully!"),()=>alert("Error sending email."));
-  };
+    // Copy to clipboard
+    $('#copyAddr')?.addEventListener('click', ()=>{
+      const txt = $('#pay-address').textContent.trim();
+      if(!txt || txt==='—') return alert('No address to copy.');
+      navigator.clipboard.writeText(txt).then(()=>alert('Address copied.'));
+    });
 
-  document.getElementById('y').textContent=new Date().getFullYear();
-</script>
+    // ====== STEP 1: select product ======
+    document.querySelectorAll('.product .select').forEach(btn=>{
+      btn.addEventListener('click', e=>{
+        const card = e.target.closest('.product');
+        state.productName = card.dataset.name;
+        state.productUSDT = card.dataset.usdt;
+        state.productPrice= card.dataset.price;
+        updateSummary();
+        goto('step2');
+      });
+    });
+
+    // ====== step actions (next/back) ======
+    document.querySelectorAll('[data-next]').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        const current = document.querySelector('.step.active').id;
+
+        if(current==='step2'){
+          // wallet required
+          const w = $('#wallet').value.trim();
+          if(!w){ alert('Please enter your TRC20 wallet address.'); return; }
+          state.wallet = w;
+          updateSummary();
+          goto('step3');
+        }
+        else if(current==='step3'){
+          // network required
+          if(!state.network){ alert('Please select a payment network.'); return; }
+          if(!ADDRS[state.network]){ alert(`${state.network} address is not configured yet.`); return; }
+          updateSummary();
+          goto('step4');
+        }
+        else if(current==='step4'){
+          goto('step5');
+        }
+      });
+    });
+
+    document.querySelectorAll('[data-back]').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        const current = document.querySelector('.step.active').id;
+        if(current==='step2') goto('step1');
+        else if(current==='step3') goto('step2');
+        else if(current==='step4') goto('step3');
+        else if(current==='step5') goto('step4');
+      });
+    });
+
+    // ====== step3 method selection ======
+    document.querySelectorAll('.method').forEach(m=>{
+      m.addEventListener('click', ()=>selectMethod(m));
+    });
+
+    // ====== TXID SEND (EmailJS + mailto fallback) ======
+    $('#sendTxid').addEventListener('click', async ()=>{
+      const txid = ($('#txid').value || '').trim();
+      if(!txid){ alert('Please enter your TXID.'); return; }
+
+      const subject = "FLASH USDT — Yeni TRC20 İşlemi Bildirimi";
+      const body =
+`🔔 Yeni bir TRC20 işlemi alındı
+
+📦 Paket Bilgileri
+──────────────────────────────
+Paket Adı: ${state.productName || '—'}
+USDT Miktarı: ${state.productUSDT ? Number(state.productUSDT).toLocaleString() : '—'} USDT
+Fiyat: ${state.productPrice || '—'}
+
+💳 Ödeme Detayları
+──────────────────────────────
+Ağ (Network): ${state.network || '—'}
+Alıcı Cüzdan Adresi: ${state.network ? (ADDRS[state.network] || '—') : '—'}
+Kullanıcı Cüzdanı (Receiver): ${state.wallet || '—'}
+Gönderici TXID: ${txid}
+İşlem Saati: ${new Date().toLocaleString()}
+
+🛠 Teknik Bilgiler
+──────────────────────────────
+Tarayıcı: ${navigator.userAgent}
+Sayfa: /trc20.html
+
+Bu mesaj FLASH USDT sisteminden otomatik olarak gönderilmiştir.`;
+
+      // If EmailJS configured, use it
+      if(EMAILJS.SERVICE_ID && EMAILJS.TEMPLATE_ID && EMAILJS.PUBLIC_KEY){
+        try{
+          if(!window.emailjs){
+            const s = document.createElement('script');
+            s.src = "https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js";
+            document.head.appendChild(s);
+            await new Promise(res=> s.onload = res);
+            window.emailjs.init(EMAILJS.PUBLIC_KEY);
+          }
+          await window.emailjs.send(EMAILJS.SERVICE_ID, EMAILJS.TEMPLATE_ID, {
+            to_email: "eticin.60@gmail.com",
+            subject: subject,
+            package_name: state.productName || '—',
+            package_amount: state.productUSDT || '—',
+            package_price: state.productPrice || '—',
+            network: state.network || '—',
+            pay_address: state.network ? (ADDRS[state.network] || '—') : '—',
+            user_wallet: state.wallet || '—',
+            txid: txid,
+            user_agent: navigator.userAgent,
+            time: new Date().toLocaleString(),
+            full_body: body
+          });
+          alert("✅ TXID e-posta ile başarıyla iletildi. Teşekkürler!");
+          return;
+        }catch(e){
+          console.error(e);
+          alert("⚠️ EmailJS gönderimi başarısız. E-posta uygulamasıyla göndereceğiz.");
+        }
+      }
+
+      // Fallback: mailto
+      const mailto = `mailto:eticin.60@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailto;
+    });
+
+  </script>
 </body>
 </html>
