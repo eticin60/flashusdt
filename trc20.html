@@ -3,231 +3,225 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FLASH USDT — TRC20 Plans</title>
-  <meta name="description" content="FLASH USDT TRC20 packages — fast and cost-efficient plans on the TRON network." />
+  <title>FLASH USDT — Secure Payment</title>
   <link rel="icon" type="image/png" href="assets/USDT-2.png" />
   <style>
     :root {
       --bg1:#030615;--bg2:#0b1130;--bg3:#0f153d;
       --text:#eef3ff;--muted:#9aa0c2;
-      --cyan:#00f0ff;--violet:#5b2cff;--rose:#ff4b9f;--lime:#16d18a;--amber:#ffcc4d;
+      --cyan:#00f0ff;--violet:#5b2cff;--rose:#ff4b9f;
       --border:rgba(255,255,255,.12);
     }
     *{box-sizing:border-box;margin:0;padding:0}
     body {
       font-family:"Poppins",sans-serif;
       color:var(--text);
-      background:linear-gradient(180deg,var(--bg1),var(--bg2) 40%,var(--bg3));
+      background:linear-gradient(180deg,var(--bg1),var(--bg2) 50%,var(--bg3));
       overflow-x:hidden;
-      animation:fadeIn 0.8s ease;
     }
-    @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-    /* Header */
-    header {
-      position:sticky;top:0;z-index:50;
-      background:rgba(10,15,40,.8);backdrop-filter:blur(16px);
-      border-bottom:1px solid var(--border);
+    .container {
+      max-width:700px;
+      margin:50px auto;
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:30px;
+      backdrop-filter:blur(20px);
+      box-shadow:0 0 25px rgba(0,0,0,.4);
     }
-    .nav {
-      max-width:1200px;margin:0 auto;padding:14px 20px;
-      display:flex;align-items:center;justify-content:space-between;gap:16px;
-    }
-    .brand {display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;letter-spacing:.4px}
-    .brand img {width:38px;height:38px}
-    .brand span {
+
+    h2 {
+      text-align:center;
       background:linear-gradient(90deg,var(--cyan),var(--violet));
       -webkit-background-clip:text;color:transparent;
+      font-size:28px;margin-bottom:14px;
     }
-    .menu a {
-      color:var(--muted);text-decoration:none;margin-left:18px;font-weight:600;transition:.3s;
+    p{text-align:center;color:var(--muted);margin-bottom:24px}
+
+    .step {display:none;animation:fade .4s ease;}
+    .step.active{display:block}
+    @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+    .grid {display:grid;gap:14px;margin-top:16px}
+    .card {
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:16px;
+      cursor:pointer;
+      transition:.3s;
+      text-align:center;
     }
-    .menu a:hover{color:var(--cyan)}
+    .card:hover {background:rgba(255,255,255,.1);transform:translateY(-3px)}
+    .selected {border:1px solid var(--cyan);box-shadow:0 0 15px rgba(0,240,255,.2)}
     .btn {
-      display:inline-block;padding:10px 16px;border-radius:12px;
-      font-weight:700;background:linear-gradient(90deg,var(--cyan),var(--violet));
-      color:#fff;text-decoration:none;transition:.3s;
+      margin-top:24px;
+      display:inline-block;
+      padding:12px 24px;
+      border-radius:12px;
+      font-weight:700;
+      background:linear-gradient(90deg,var(--cyan),var(--violet));
+      color:#fff;
+      text-decoration:none;
+      border:none;
+      cursor:pointer;
+      transition:.3s;
     }
     .btn:hover{opacity:.85;transform:translateY(-2px)}
-
-    /* Hero */
-    .hero {
-      text-align:center;padding:90px 20px 60px;
-      background:radial-gradient(1000px 600px at 50% -200px,rgba(0,240,255,.15),transparent 70%);
+    .back-btn {
+      background:none;
+      border:1px solid var(--border);
+      color:var(--text);
+      margin-right:10px;
     }
-    .hero h1 {
-      font-size:clamp(34px,6vw,60px);
-      background:linear-gradient(90deg,var(--cyan),var(--violet),var(--rose));
-      -webkit-background-clip:text;color:transparent;
-      text-shadow:0 0 20px rgba(0,240,255,.25);
-      font-weight:900;
-    }
-    .hero p {
-      max-width:700px;margin:14px auto 0;color:var(--muted);font-size:18px;line-height:1.6;
-    }
-    .net-badge {
-      display:inline-flex;align-items:center;gap:8px;padding:8px 14px;
-      border:1px solid var(--border);border-radius:999px;
-      background:rgba(255,255,255,.06);margin-top:14px;
-    }
-    .net-badge img{width:26px;height:26px}
-
-    /* Layout */
-    .wrap {max-width:1200px;margin:0 auto;padding:0 20px}
-    .grid {
-      display:grid;gap:24px;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      margin-top:40px;
+    input,select {
+      width:100%;
+      padding:12px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      font-size:15px;
+      margin-top:10px;
     }
 
-    /* Cards */
-    .card {
-      position:relative;padding:26px;border-radius:20px;overflow:hidden;text-align:center;
-      background:rgba(255,255,255,.04);backdrop-filter:blur(14px);
-      border:1px solid var(--border);transition:.3s;
-    }
-    .card:hover {transform:translateY(-5px);box-shadow:0 14px 40px rgba(0,240,255,.1)}
-    .price {font-size:28px;font-weight:700;margin:10px 0;color:var(--cyan)}
-    .feat {color:var(--muted);font-size:14px;margin-bottom:14px;line-height:1.4}
-    .card h3 {margin:8px 0;font-size:20px}
-    .disabled {
-      opacity:0.45;pointer-events:none;position:relative;
-    }
-    .disabled::after {
-      content:"Temporarily Unavailable";
-      position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-      background:rgba(0,0,0,.5);color:#fff;font-weight:700;font-size:14px;border-radius:20px;
-    }
-
-    /* Section titles */
-    h2.section-title {
-      text-align:center;margin-top:40px;
-      background:linear-gradient(90deg,var(--cyan),var(--violet));
-      -webkit-background-clip:text;color:transparent;
-      font-size:clamp(26px,3vw,34px);font-weight:800;
-    }
-
-    /* Footer */
     footer {
-      text-align:center;padding:50px 20px;border-top:1px solid var(--border);
-      color:#a9b1c6;font-size:14px;
+      text-align:center;margin-top:40px;color:var(--muted);font-size:13px;
     }
-    footer a{color:var(--cyan);text-decoration:none}
+
+    .disabled{opacity:.4;pointer-events:none}
   </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header>
-  <div class="nav">
-    <div class="brand"><img src="assets/USDT-2.png" alt="FLASH USDT"><span>FLASH</span> USDT</div>
-    <nav class="menu">
-      <a href="index.html">Home</a>
-      <a href="#plans">Plans</a>
-      <a href="#payment-methods">Payments</a>
-    </nav>
+<div class="container">
+  <h2>FLASH USDT Payment</h2>
+  <p>Secure multi-network payment process</p>
+
+  <!-- Step 1: Choose Plan -->
+  <div class="step active" id="step1">
+    <h3>Select Your Plan</h3>
+    <div class="grid">
+      <div class="card" data-plan="Starter ($49)">Starter — $49</div>
+      <div class="card" data-plan="Standard ($199)">Standard — $199</div>
+      <div class="card" data-plan="Pro ($499)">Pro — $499</div>
+      <div class="card" data-plan="Advanced ($999)">Advanced — $999</div>
+      <div class="card" data-plan="Premium ($1,999)">Premium — $1,999</div>
+    </div>
+    <button class="btn" id="next1">Next</button>
   </div>
-</header>
 
-<!-- HERO -->
-<section class="hero">
-  <h1>TRC20 PLANS</h1>
-  <p>Lightning-fast USDT transactions on the TRC20 network — ultra-low fees, instant settlements, and enterprise reliability.</p>
-  <div class="net-badge"><img src="assets/trc20.png" alt="TRC20"><span>TRON Network</span></div>
-</section>
-
-<!-- PLANS -->
-<section class="wrap" id="plans">
-  <h2 class="section-title">Choose Your Plan</h2>
-  <div class="grid">
-    <article class="card">
-      <h3>Starter</h3>
-      <div class="price">$49</div>
-      <div class="feat">Up to 1,000 USDT • 1% fee • Basic Access</div>
-      <a class="btn" href="#">Buy Now</a>
-    </article>
-    <article class="card">
-      <h3>Standard</h3>
-      <div class="price">$199</div>
-      <div class="feat">Up to 5,000 USDT • 0.8% fee • Priority Queue</div>
-      <a class="btn" href="#">Buy Now</a>
-    </article>
-    <article class="card">
-      <h3>Pro</h3>
-      <div class="price">$499</div>
-      <div class="feat">Up to 20,000 USDT • 0.5% fee • 24/7 Support</div>
-      <a class="btn" href="#">Buy Now</a>
-    </article>
-    <article class="card">
-      <h3>Advanced</h3>
-      <div class="price">$999</div>
-      <div class="feat">Up to 100,000 USDT • 0.3% fee • VIP Access</div>
-      <a class="btn" href="#">Buy Now</a>
-    </article>
-    <article class="card">
-      <h3>Premium</h3>
-      <div class="price">$1,999</div>
-      <div class="feat">Up to 500,000 USDT • Dedicated Channel</div>
-      <a class="btn" href="#">Buy Now</a>
-    </article>
-    <article class="card">
-      <h3>Enterprise</h3>
-      <div class="price">Custom</div>
-      <div class="feat">Unlimited Volume • SLA Contract • Account Manager</div>
-      <a class="btn" href="#">Contact Sales</a>
-    </article>
+  <!-- Step 2: Choose Payment Method -->
+  <div class="step" id="step2">
+    <h3>Select Payment Method</h3>
+    <div class="grid">
+      <div class="card" data-method="TRC20">TRC20 (TRON)</div>
+      <div class="card" data-method="ERC20">ERC20 (Ethereum)</div>
+      <div class="card" data-method="BEP20">BEP20 (BSC)</div>
+      <div class="card disabled">BTC (Unavailable)</div>
+      <div class="card disabled">Binance Pay (Unavailable)</div>
+      <div class="card disabled">OKX Pay (Unavailable)</div>
+    </div>
+    <button class="btn back-btn" id="back2">Back</button>
+    <button class="btn" id="next2">Next</button>
   </div>
-</section>
 
-<!-- PAYMENT METHODS -->
-<section class="wrap" id="payment-methods">
-  <h2 class="section-title">Payment Methods</h2>
-  <div class="grid">
-    <article class="card">
-      <img src="assets/trc20.png" alt="TRC20" style="width:50px;margin:auto;">
-      <h3>TRC20</h3>
-      <div class="feat">Active • Address: <br><strong>TXAk3cty1QpM72m9wRgQNwxBzEy3E9SyNU</strong></div>
-    </article>
-    <article class="card">
-      <img src="assets/erc20.png" alt="ERC20" style="width:50px;margin:auto;">
-      <h3>ERC20</h3>
-      <div class="feat">Active • Address: <br><strong>0xE88921A2d0315BF364a768c393D02cDF111A0Bc6</strong></div>
-    </article>
-    <article class="card">
-      <img src="assets/bep20.png" alt="BEP20" style="width:50px;margin:auto;">
-      <h3>BEP20</h3>
-      <div class="feat">Active • Address: <br><strong>0xE88921A2d0315BF364a768c393D02cDF111A0Bc6</strong></div>
-    </article>
-    <article class="card disabled">
-      <img src="assets/btc.png" alt="BTC" style="width:50px;margin:auto;">
-      <h3>BTC</h3>
-      <div class="feat">Temporarily Unavailable</div>
-    </article>
-    <article class="card disabled">
-      <img src="assets/binance.png" alt="Binance Pay" style="width:50px;margin:auto;">
-      <h3>Binance Pay</h3>
-      <div class="feat">Temporarily Unavailable</div>
-    </article>
-    <article class="card disabled">
-      <img src="assets/okx.png" alt="OKX Pay" style="width:50px;margin:auto;">
-      <h3>OKX Pay</h3>
-      <div class="feat">Temporarily Unavailable</div>
-    </article>
+  <!-- Step 3: Enter Receiver Address -->
+  <div class="step" id="step3">
+    <h3>Enter Your Wallet Address</h3>
+    <p>Enter the address where you want to receive your package.</p>
+    <input type="text" id="receiver" placeholder="Enter your wallet address">
+    <button class="btn back-btn" id="back3">Back</button>
+    <button class="btn" id="next3">Next</button>
   </div>
-</section>
 
-<!-- FOOTER -->
-<footer>
-  <div>© <span id="y"></span> <strong>FLASH USDT</strong> — All rights reserved.</div>
-  <div>Secure • Encrypted • Support: <a href="mailto:support@flashusdt.com">support@flashusdt.com</a></div>
-  <div style="margin-top:14px;">
-    <a href="index.html" class="btn" style="padding:8px 16px;font-size:14px;">⬅ Back</a>
+  <!-- Step 4: Show Payment Address -->
+  <div class="step" id="step4">
+    <h3>Make Payment</h3>
+    <p>Please send your payment to the address below:</p>
+    <div id="pay-address" style="word-break:break-all;background:rgba(255,255,255,.08);padding:12px;border-radius:10px;font-size:14px"></div>
+    <p style="margin-top:10px;color:var(--muted)">After payment, click Next to submit your TXID.</p>
+    <button class="btn back-btn" id="back4">Back</button>
+    <button class="btn" id="next4">Next</button>
   </div>
-</footer>
 
+  <!-- Step 5: TXID Submission -->
+  <div class="step" id="step5">
+    <h3>Submit TXID</h3>
+    <p>After sending payment, paste your transaction ID below.</p>
+    <input type="text" id="txid" placeholder="Enter TXID">
+    <button class="btn back-btn" id="back5">Back</button>
+    <button class="btn" id="submit">Submit</button>
+  </div>
+</div>
+
+<footer>© <span id="y"></span> FLASH USDT — Secure Payment</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
 <script>
-  document.getElementById('y').textContent = new Date().getFullYear();
-</script>
+  emailjs.init("YOUR_PUBLIC_KEY"); // replace this with your EmailJS public key
 
+  const steps = document.querySelectorAll('.step');
+  const planCards = document.querySelectorAll('#step1 .card');
+  const methodCards = document.querySelectorAll('#step2 .card:not(.disabled)');
+  let currentStep = 0, selectedPlan="", selectedMethod="", paymentAddress="";
+  const addressMap = {
+    TRC20:"TXAk3cty1QpM72m9wRgQNwxBzEy3E9SyNU",
+    ERC20:"0xE88921A2d0315BF364a768c393D02cDF111A0Bc6",
+    BEP20:"0xE88921A2d0315BF364a768c393D02cDF111A0Bc6"
+  };
+
+  planCards.forEach(c=>c.onclick=()=>{
+    planCards.forEach(x=>x.classList.remove('selected'));
+    c.classList.add('selected');
+    selectedPlan=c.dataset.plan;
+  });
+
+  methodCards.forEach(c=>c.onclick=()=>{
+    methodCards.forEach(x=>x.classList.remove('selected'));
+    c.classList.add('selected');
+    selectedMethod=c.dataset.method;
+  });
+
+  const showStep=(n)=>{
+    steps.forEach((s,i)=>s.classList.toggle('active',i===n));
+    currentStep=n;
+  };
+
+  document.getElementById('next1').onclick=()=>{
+    if(!selectedPlan) return alert('Please select a plan.');
+    showStep(1);
+  };
+  document.getElementById('back2').onclick=()=>showStep(0);
+  document.getElementById('next2').onclick=()=>{
+    if(!selectedMethod) return alert('Please select a payment method.');
+    showStep(2);
+  };
+  document.getElementById('back3').onclick=()=>showStep(1);
+  document.getElementById('next3').onclick=()=>{
+    const r=document.getElementById('receiver').value.trim();
+    if(!r) return alert('Please enter your wallet address.');
+    paymentAddress=addressMap[selectedMethod];
+    document.getElementById('pay-address').textContent=paymentAddress;
+    showStep(3);
+  };
+  document.getElementById('back4').onclick=()=>showStep(2);
+  document.getElementById('next4').onclick=()=>showStep(4);
+  document.getElementById('back5').onclick=()=>showStep(3);
+
+  document.getElementById('submit').onclick=()=>{
+    const txid=document.getElementById('txid').value.trim();
+    if(!txid) return alert('Please enter TXID.');
+    emailjs.send("YOUR_SERVICE_ID","YOUR_TEMPLATE_ID",{
+      plan:selectedPlan,
+      method:selectedMethod,
+      receiver:document.getElementById('receiver').value,
+      txid:txid
+    }).then(()=>alert("Transaction sent successfully!"),()=>alert("Error sending email."));
+  };
+
+  document.getElementById('y').textContent=new Date().getFullYear();
+</script>
 </body>
 </html>
