@@ -1,527 +1,668 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>FLASH USDT — TRC20 Checkout</title>
-  <meta name="description" content="FLASH USDT TRC20 checkout — step-by-step payment with plan selection, multi-network methods and TXID submission."/>
-  <link rel="icon" type="image/png" href="assets/USDT-2.png"/>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>FLASH USDT — TRC20 Checkout (Secure AES)</title>
+<meta name="description" content="Step-by-step TRC20 checkout with AES-styled secure UI, multi-network methods and TXID submission."/>
+<link rel="icon" type="image/png" href="assets/USDT-2.png"/>
 
-  <style>
-    :root{
-      --bg1:#030615; --bg2:#0b1130; --bg3:#0f153d;
-      --text:#eef3ff; --muted:#9aa0c2; --soft:#cfd6ff;
-      --cyan:#00f0ff; --violet:#5b2cff; --rose:#ff4b9f; --lime:#16d18a; --amber:#ffcc4d;
-      --border:rgba(255,255,255,.12); --glass:rgba(255,255,255,.06);
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0}
-    body{
-      font-family:"Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 700px at 10% -10%, rgba(0,240,255,.12), transparent 55%),
-        radial-gradient(900px 500px at 90% 0, rgba(91,44,255,.16), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg2) 50%, var(--bg3));
-      overflow-x:hidden;
-      animation:fadeIn .6s ease;
-    }
-    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-    a{color:inherit;text-decoration:none}
+<style>
+  :root{
+    --bg1:#0b1024; --bg2:#0e1533; --bg3:#121a3f;
+    --text:#eef3ff; --muted:#9aa0c2; --soft:#cfd6ff;
+    --cyan:#00f0ff; --violet:#7c4dff; --rose:#ff4b9f; --lime:#16d18a; --amber:#ffcc4d;
+    --border:rgba(255,255,255,.12); --glass:rgba(255,255,255,.06);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    color:var(--text);
+    background:linear-gradient(180deg,var(--bg1),var(--bg2) 50%,var(--bg3));
+    overflow-x:hidden;
+  }
 
-    /* NAV */
-    header{position:sticky;top:0;z-index:50;background:rgba(10,15,40,.75);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
-    .nav{max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.4px}
-    .brand img{width:28px;height:28px;border-radius:8px}
-    .brand span{background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
-    .menu{display:flex;gap:16px}
-    .menu a{color:var(--muted);font-weight:600}
-    .menu a:hover{color:var(--cyan)}
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:8px;
-      padding:10px 14px;border-radius:12px;font-weight:700;
-      background:linear-gradient(90deg,var(--cyan),var(--violet));color:#fff;
-      box-shadow:0 8px 20px rgba(0,0,0,.25);transition:.2s;
-    }
-    .btn:hover{transform:translateY(-2px);opacity:.95}
-    .btn.ghost{background:transparent;border:1px solid var(--border);color:var(--text)}
-    .btn.ghost:hover{border-color:#8fb6ff}
+  /* ===== AES CRYPTO BACKGROUND (subtle) ===== */
+  .aes-bg{
+    position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none;
+    background:
+      radial-gradient(1200px 600px at 20% -10%, rgba(0,240,255,.12), transparent 60%),
+      radial-gradient(1000px 600px at 85% 0%, rgba(124,77,255,.15), transparent 60%);
+  }
+  /* fine grid */
+  .aes-bg::before{
+    content:""; position:absolute; inset:-200% -200%;
+    background:
+      repeating-linear-gradient(0deg, rgba(255,255,255,.04) 0 1px, transparent 1px 70px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,.04) 0 1px, transparent 1px 70px);
+    mix-blend-mode:overlay; opacity:.35; filter:blur(.3px);
+    animation: gridMove 18s linear infinite;
+  }
+  /* moving cipher lines */
+  .aes-bg::after{
+    content:""; position:absolute; inset:-150% -150%;
+    background:
+      linear-gradient(120deg, transparent 0 45%, rgba(0,240,255,.05) 48%, transparent 52% 100%),
+      linear-gradient(-120deg, transparent 0 47%, rgba(124,77,255,.06) 50%, transparent 53% 100%);
+    animation: cipherSweep 9s linear infinite;
+  }
+  @keyframes gridMove { to { transform: translate3d(80px,60px,0) } }
+  @keyframes cipherSweep { 50%{ transform:translate3d(80px,-60px,0) } 100%{ transform:translate3d(0,0,0) } }
 
-    /* LAYOUT */
-    .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
-    main{padding:28px 0 40px}
-    .grid{display:grid;gap:22px;grid-template-columns:minmax(0,1fr) 360px}
-    @media (max-width:980px){ .grid{grid-template-columns:1fr} }
+  /* ===== HEADER ===== */
+  header{position:sticky; top:0; z-index:50; background:rgba(10,15,40,.75); backdrop-filter:blur(16px); border-bottom:1px solid var(--border)}
+  .nav{max-width:1200px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; justify-content:space-between; gap:12px}
+  .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px}
+  .brand img{width:30px; height:30px; border-radius:8px}
+  .brand span{background:linear-gradient(90deg,var(--cyan),var(--violet)); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .menu{display:flex; gap:16px; flex-wrap:wrap}
+  .menu a{color:var(--muted); font-weight:600; text-decoration:none}
+  .menu a:hover{color:var(--cyan)}
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding:10px 14px; border-radius:12px; font-weight:700;
+    background:linear-gradient(90deg,var(--cyan),var(--violet)); color:#001018;
+    color:#fff; box-shadow:0 10px 22px rgba(0,0,0,.25); transition:.2s;
+  }
+  .btn:hover{transform:translateY(-2px); opacity:.95}
+  .btn.ghost{background:transparent; border:1px solid var(--border); color:var(--text)}
+  .btn.ghost:hover{border-color:#9bc9ff}
 
-    /* STEPPER TOP */
-    .progress{
-      display:flex;align-items:center;gap:10px;counter-reset:step;
-      margin-bottom:16px;flex-wrap:wrap
-    }
-    .step-dot{
-      position:relative;display:flex;align-items:center;gap:10px
-    }
-    .step-dot::before{
-      counter-increment:step;content:counter(step);
-      width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
-      background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--soft);font-weight:700
-    }
-    .step-dot.active::before{background:linear-gradient(90deg,var(--cyan),var(--violet));color:#001018}
-    .pipe{flex:1;height:2px;background:linear-gradient(90deg,rgba(255,255,255,.08),rgba(255,255,255,.18));min-width:44px}
+  /* ===== LAYOUT ===== */
+  .wrap{max-width:1200px; margin:0 auto; padding:0 20px}
+  main{padding:34px 0 44px}
+  .grid{display:grid; gap:24px; grid-template-columns:minmax(0,1fr) 360px}
+  @media (max-width:980px){ .grid{grid-template-columns:1fr} }
 
-    /* TITLES */
-    .title{
-      margin:0 0 6px;font-size:clamp(26px,3.5vw,32px);
-      background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent
-    }
-    .sub{color:var(--muted);margin:0}
+  /* ===== TITLES ===== */
+  .title{
+    margin:0 0 8px; font-size:clamp(26px,3.5vw,32px);
+    background:linear-gradient(90deg,var(--cyan),var(--violet)); -webkit-background-clip:text; background-clip:text; color:transparent
+  }
+  .sub{color:var(--muted); margin:0}
 
-    /* CARDS / PANELS */
-    .card,.panel,.summary{
-      position:relative;border-radius:18px;overflow:hidden;padding:20px;
-      background:rgba(255,255,255,.045);border:1px solid var(--border);backdrop-filter:blur(14px);
-    }
-    .led::before{
-      content:"";position:absolute;inset:-3px;border-radius:inherit;z-index:0;
-      background:conic-gradient(from 0deg, var(--cyan),var(--violet),var(--rose),var(--lime),var(--amber),var(--cyan));
-      filter:blur(10px);opacity:.85;animation:spin 8s linear infinite;
-    }
-    .led::after{
-      content:"";position:absolute;inset:0;border-radius:inherit;z-index:1;background:rgba(12,14,26,.88);backdrop-filter:blur(10px)
-    }
-    .card>*,.panel>*,.summary>*{position:relative;z-index:2}
-    @keyframes spin{to{transform:rotate(360deg)}}
+  /* ===== PROGRESS ===== */
+  .progress{display:flex; align-items:center; gap:10px; counter-reset:step; margin-bottom:16px; flex-wrap:wrap}
+  .step-dot{position:relative; display:flex; align-items:center; gap:10px}
+  .step-dot::before{
+    counter-increment:step; content:counter(step);
+    width:28px; height:28px; border-radius:50%; display:grid; place-items:center;
+    background:rgba(255,255,255,.06); border:1px solid var(--border); color:var(--soft); font-weight:700
+  }
+  .step-dot.active::before{background:linear-gradient(90deg,var(--cyan),var(--violet)); color:#001018}
+  .pipe{flex:1; height:2px; background:linear-gradient(90deg,rgba(255,255,255,.08),rgba(255,255,255,.18)); min-width:44px}
 
-    /* STEPS */
-    .stepper{position:relative}
-    .step{display:none;animation:stepfade .35s ease}
-    .step.active{display:block}
-    @keyframes stepfade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  /* ===== PANELS / CARDS ===== */
+  .card,.panel,.summary{
+    position:relative; border-radius:18px; overflow:hidden; padding:20px;
+    background:rgba(255,255,255,.045); border:1px solid var(--border); backdrop-filter:blur(14px);
+  }
+  .led::before{
+    content:""; position:absolute; inset:-3px; border-radius:inherit; z-index:0;
+    background:conic-gradient(from 0deg, var(--cyan),var(--violet),var(--rose),var(--lime),var(--amber),var(--cyan));
+    filter:blur(10px); opacity:.75; animation:spin 8s linear infinite;
+  }
+  .led::after{
+    content:""; position:absolute; inset:0; border-radius:inherit; z-index:1; background:rgba(12,14,26,.88); backdrop-filter:blur(10px)
+  }
+  .card>*,.panel>*,.summary>*{position:relative; z-index:2}
+  @keyframes spin{to{transform:rotate(360deg)}}
 
-    /* PRODUCTS */
-    .products{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-    .product{padding:18px;transition:.25s}
-    .product:hover{transform:translateY(-6px);box-shadow:0 22px 60px rgba(0,240,255,.08)}
-    .product h4{margin:6px 0 6px;font-size:18px}
-    .price{font-weight:800;font-size:22px;color:var(--cyan);margin-bottom:4px}
-    .amount{font-size:13px;color:#cbd2ff}
-    .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-    .chip{padding:4px 8px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.05);font-size:12px;color:#cfd6ff}
-    .list{margin-top:10px;color:var(--soft);font-size:13px;line-height:1.5}
-    .list li{margin:4px 0}
+  /* ===== STEPS ===== */
+  .stepper{position:relative}
+  .step{display:none; animation:stepfade .35s ease}
+  .step.active{display:block}
+  @keyframes stepfade{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:translateY(0)}}
 
-    /* FORM */
-    .field{display:flex;gap:10px;align-items:center;margin-top:12px}
-    input[type="text"]{
-      flex:1;height:46px;border-radius:12px;border:1px solid var(--border);
-      background:rgba(255,255,255,.04);color:var(--text);padding:0 12px;outline:none
-    }
-    input::placeholder{color:#9aa0c2}
+  /* ===== PRODUCT GRID (crisp) ===== */
+  .products{display:grid; gap:18px; grid-template-columns:repeat(3,1fr); margin-top:12px}
+  @media (max-width:1100px){ .products{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:640px){ .products{grid-template-columns:1fr} }
 
-    /* METHODS */
-    .methods{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));margin-top:12px}
-    .method{
-      cursor:pointer;user-select:none;display:flex;align-items:center;gap:10px;
-      padding:12px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,.03);transition:.2s
-    }
-    .method img{width:26px;height:26px;object-fit:contain}
-    .method.active{outline:2px solid rgba(0,240,255,.55);background:rgba(0,240,255,.05)}
-    .method.disabled{opacity:.45;cursor:not-allowed;position:relative}
-    .method.disabled::after{
-      content:"Temporarily Unavailable";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-      background:rgba(0,0,0,.45);color:#fff;border-radius:14px;font-size:12px;font-weight:700
-    }
+  .product{padding:18px; transition:.25s}
+  .product:hover{transform:translateY(-6px); box-shadow:0 22px 60px rgba(0,240,255,.09)}
+  .product h4{margin:2px 0 8px; font-size:18px; letter-spacing:.3px}
+  .price{font-weight:800; font-size:22px; color:var(--cyan); margin-bottom:2px}
+  .amount{font-size:13px; color:#cbd2ff}
 
-    /* SUMMARY RIGHT */
-    aside{position:sticky;top:88px;height:fit-content}
-    .summary h3{margin:0 0 8px}
-    .row{display:flex;justify-content:space-between;gap:10px;color:#cfd6ff;font-size:14px;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
-    .row:last-child{border-bottom:none}
-    .small{font-size:12px;color:#9fb1ff}
-    .copy{cursor:pointer;border:1px solid var(--border);border-radius:10px;padding:6px 10px;background:rgba(255,255,255,.04)}
+  .mini-row{display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:8px}
+  .chip{
+    display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border-radius:999px;
+    border:1px solid var(--border); background:rgba(255,255,255,.04); font-size:12px; color:#cfd6ff
+  }
+  .chip svg{width:14px; height:14px}
 
-    /* ACTIONS */
-    .actions{display:flex;justify-content:space-between;gap:10px;margin-top:18px;flex-wrap:wrap}
+  .list{margin:10px 0 0; padding-left:18px; color:var(--soft); font-size:13px; line-height:1.55}
+  .list li{margin:4px 0}
 
-    /* TOAST */
-    .toast{
-      position:fixed;left:50%;bottom:24px;transform:translateX(-50%);
-      background:rgba(0,0,0,.7);color:#fff;padding:10px 14px;border-radius:10px;font-size:14px;
-      border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:.3s;z-index:100
-    }
-    .toast.show{opacity:1}
+  .actions{display:flex; gap:10px; justify-content:space-between; margin-top:12px; flex-wrap:wrap}
+  .btn.block{width:100%}
 
-    /* FOOTER */
-    footer{margin-top:40px;border-top:1px solid var(--border);background:linear-gradient(180deg,var(--bg2),var(--bg3));color:#a9b1c6}
-    .ledbar{height:2px;width:100%;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--rose),var(--lime));box-shadow:0 0 16px rgba(0,240,255,.35)}
-    .foot{max-width:1200px;margin:0 auto;padding:24px 20px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
-  </style>
+  /* ===== FORM ===== */
+  .field{display:flex; gap:10px; align-items:center; margin-top:12px}
+  input[type="text"]{
+    flex:1; height:48px; border-radius:12px; border:1px solid var(--border);
+    background:rgba(255,255,255,.04); color:var(--text); padding:0 12px; outline:none
+  }
+  input::placeholder{color:#9aa0c2}
+
+  /* ===== METHODS ===== */
+  .methods{display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); margin-top:12px}
+  .method{
+    cursor:pointer; user-select:none; display:flex; align-items:center; gap:12px;
+    padding:12px; border-radius:14px; border:1px solid var(--border); background:rgba(255,255,255,.03); transition:.2s
+  }
+  .method img{width:26px; height:26px; object-fit:contain}
+  .method.active{outline:2px solid rgba(0,240,255,.55); background:rgba(0,240,255,.05)}
+  .method.disabled{opacity:.45; cursor:not-allowed; position:relative}
+  .method.disabled::after{
+    content:"Temporarily Unavailable"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    background:rgba(0,0,0,.45); color:#fff; border-radius:14px; font-size:12px; font-weight:700
+  }
+
+  /* ===== SUMMARY RIGHT (hidden until selection) ===== */
+  aside{position:sticky; top:88px; height:fit-content}
+  aside.hidden{display:none}
+  .summary h3{margin:0 0 8px}
+  .row{display:flex; justify-content:space-between; gap:10px; color:#cfd6ff; font-size:14px; padding:8px 0; border-bottom:1px dashed rgba(255,255,255,.08)}
+  .row:last-child{border-bottom:none}
+  .small{font-size:12px; color:#9fb1ff}
+  .copy{cursor:pointer; border:1px solid var(--border); border-radius:10px; padding:6px 10px; background:rgba(255,255,255,.04)}
+
+  /* ===== SUMMARY MODAL (center) ===== */
+  .modal{
+    position:fixed; inset:0; display:none; place-items:center; padding:20px; z-index:60;
+    background:rgba(5,8,20,.55); backdrop-filter:blur(6px);
+  }
+  .modal.show{display:grid; animation:fadeIn .25s ease}
+  .modal-card{
+    width:min(640px,94vw); border-radius:20px; overflow:hidden; border:1px solid var(--border);
+    background:rgba(18,24,48,.92); box-shadow:0 30px 80px rgba(0,0,0,.5);
+  }
+  .modal-head{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:16px 18px; border-bottom:1px solid var(--border)}
+  .modal-body{padding:18px}
+  .close-x{background:transparent; border:1px solid var(--border); color:#fff; padding:6px 10px; border-radius:10px; cursor:pointer}
+  .sumgrid{display:grid; gap:10px; grid-template-columns:1fr 1fr}
+  .sumgrid .k{color:#9fb1ff}
+  .sumgrid .v{justify-self:end}
+  @media (max-width:560px){ .sumgrid{grid-template-columns:1fr} .sumgrid .v{justify-self:start} }
+
+  /* ===== TOAST ===== */
+  .toast{
+    position:fixed; left:50%; bottom:24px; transform:translateX(-50%);
+    background:rgba(0,0,0,.7); color:#fff; padding:10px 14px; border-radius:10px; font-size:14px;
+    border:1px solid rgba(255,255,255,.12); backdrop-filter:blur(6px); opacity:0; pointer-events:none; transition:.3s; z-index:100
+  }
+  .toast.show{opacity:1}
+
+  /* ===== FOOTER ===== */
+  footer{margin-top:44px; border-top:1px solid var(--border); background:linear-gradient(180deg,#0f1730,#0f153d)}
+  .ledbar{height:2px; width:100%; background:linear-gradient(90deg,var(--cyan),var(--violet),var(--rose),var(--lime)); box-shadow:0 0 16px rgba(0,240,255,.35)}
+  .foot{max-width:1200px; margin:0 auto; padding:26px 20px; display:flex; flex-direction:column; gap:10px; align-items:center; text-align:center; color:#a9b1c6}
+  .foot img{width:36px; height:36px; border-radius:9px; opacity:.95}
+  .tagline{color:#cfd6ff}
+</style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <header>
-    <div class="nav">
-      <div class="brand"><img src="assets/logo.png" alt=""><div><span>FLASH</span> USDT</div></div>
-      <nav class="menu">
-        <a href="index.html">Home</a>
-        <a href="#steps">Checkout</a>
-        <a href="#verify">TXID</a>
-      </nav>
-      <a class="btn" href="#steps">Get Started</a>
+<div class="aes-bg" aria-hidden="true"></div>
+
+<!-- ===== NAV ===== -->
+<header>
+  <div class="nav">
+    <div class="brand">
+      <img src="assets/logo.png" alt="Logo"/>
+      <div><span>FLASH</span> USDT</div>
     </div>
-  </header>
+    <nav class="menu">
+      <a href="index.html">Home</a>
+      <a href="#steps">Checkout</a>
+      <a href="#verify">TXID</a>
+    </nav>
+    <a class="btn" href="#steps">Get Started</a>
+  </div>
+</header>
 
-  <main class="wrap" id="steps">
-    <!-- PROGRESS -->
-    <div class="progress" aria-label="checkout progress">
-      <div class="step-dot active">Select Plan</div><div class="pipe"></div>
-      <div class="step-dot">Your Wallet</div><div class="pipe"></div>
-      <div class="step-dot">Payment Method</div><div class="pipe"></div>
-      <div class="step-dot">Payment Details</div><div class="pipe"></div>
-      <div class="step-dot">Submit TXID</div>
-    </div>
+<main class="wrap" id="steps">
+  <!-- PROGRESS -->
+  <div class="progress" aria-label="checkout progress">
+    <div class="step-dot active">Select Plan</div><div class="pipe"></div>
+    <div class="step-dot">Your Wallet</div><div class="pipe"></div>
+    <div class="step-dot">Payment Method</div><div class="pipe"></div>
+    <div class="step-dot">Payment Details</div><div class="pipe"></div>
+    <div class="step-dot">Submit TXID</div>
+  </div>
 
-    <div class="grid">
-      <!-- LEFT: STEPS -->
-      <section class="stepper">
+  <div class="grid">
+    <!-- LEFT: STEPS -->
+    <section class="stepper">
 
-        <!-- STEP 1 -->
-        <div class="step active" id="step1">
-          <h2 class="title">Select Your TRC20 Package</h2>
-          <p class="sub">Ultra-low fees, instant confirmation and 24/7 support are included in all packages.</p>
+      <!-- STEP 1: PRODUCTS -->
+      <div class="step active" id="step1">
+        <h2 class="title">Select Your TRC20 Package</h2>
+        <p class="sub">All packages include ultra-low fees, instant confirmation and 24/7 support.</p>
 
-          <div class="products">
-            <!-- Detailed product cards -->
-            <article class="card led product" data-name="800 FLASH" data-usdt="800" data-price="$99.00">
-              <h4>800 FLASH</h4>
-              <div class="price">$99.00</div>
-              <div class="amount">Amount: 800 USDT</div>
-              <div class="chips"><span class="chip">TRC20</span><span class="chip">Instant</span><span class="chip">Basic</span></div>
-              <ul class="list">
-                <li>Processing time: ~30 sec</li>
-                <li>Standard routing</li>
-                <li>Email notifications</li>
-              </ul>
-              <div class="actions"><button class="btn select">Select</button></div>
-            </article>
+        <div class="products">
+          <!-- Product card template style with security chips -->
+          <article class="card led product" data-name="800 FLASH" data-usdt="800" data-price="$99.00">
+            <h4>800 FLASH</h4>
+            <div class="price">$99.00</div>
+            <div class="amount">Amount: 800 USDT</div>
+            <div class="mini-row">
+              <span class="chip">
+                <!-- lock icon -->
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm6-6h-1V9a5 5 0 0 0-10 0v2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2Zm-7 0H9V9a3 3 0 0 1 6 0v2h-2Z"/></svg>
+                AES Encrypted
+              </span>
+              <span class="chip">
+                <!-- chain icon -->
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10.59 13.41a1.99 1.99 0 0 0 2.82 0l3.18-3.18a2 2 0 1 0-2.83-2.83l-1.06 1.06a1 1 0 1 1-1.42-1.41l1.06-1.06a4 4 0 0 1 5.66 5.66l-3.18 3.18a4 4 0 0 1-5.66-5.66l.71-.71a1 1 0 0 1 1.41 1.41l-.71.71a2 2 0 0 0 0 2.83Z"/></svg>
+                Chain Verified
+              </span>
+            </div>
+            <ul class="list">
+              <li>Processing time ~30 sec</li>
+              <li>Standard routing</li>
+              <li>Email notification</li>
+            </ul>
+            <div class="actions"><button class="btn block select">Select</button></div>
+          </article>
 
-            <article class="card led product" data-name="1K FLASH" data-usdt="1000" data-price="$180.00">
-              <h4>1K FLASH</h4>
-              <div class="price">$180.00</div>
-              <div class="amount">Amount: 1,000 USDT</div>
-              <div class="chips"><span class="chip">TRC20</span><span class="chip">Fast</span><span class="chip">Priority</span></div>
-              <ul class="list">
-                <li>Processing time: ~25 sec</li>
-                <li>Priority queue</li>
-                <li>Basic support</li>
-              </ul>
-              <div class="actions"><button class="btn select">Select</button></div>
-            </article>
+          <article class="card led product" data-name="1K FLASH" data-usdt="1000" data-price="$180.00">
+            <h4>1K FLASH</h4>
+            <div class="price">$180.00</div>
+            <div class="amount">Amount: 1,000 USDT</div>
+            <div class="mini-row">
+              <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm6-6h-1V9a5 5 0 0 0-10 0v2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2Z"/></svg> AES Encrypted</span>
+              <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10.59 13.41a1.99 1.99 0 0 0 2.82 0l3.18-3.18a2 2 0 1 0-2.83-2.83l-1.06 1.06a1 1 0 1 1-1.42-1.41l1.06-1.06a4 4 0 0 1 5.66 5.66l-3.18 3.18a4 4 0 0 1-5.66-5.66l.71-.71a1 1 0 0 1 1.41 1.41l-.71.71a2 2 0 0 0 0 2.83Z"/></svg> Chain Verified</span>
+            </div>
+            <ul class="list">
+              <li>Processing time ~25 sec</li>
+              <li>Priority queue</li>
+              <li>Basic support</li>
+            </ul>
+            <div class="actions"><button class="btn block select">Select</button></div>
+          </article>
 
-            <article class="card led product" data-name="10K FLASH" data-usdt="10000" data-price="$310.00">
-              <h4>10K FLASH</h4>
-              <div class="price">$310.00</div>
-              <div class="amount">Amount: 10,000 USDT</div>
-              <div class="chips"><span class="chip">TRC20</span><span class="chip">Trader</span><span class="chip">SLA</span></div>
-              <ul class="list">
-                <li>Processing time: ~20 sec</li>
-                <li>SLA-backed queue</li>
-                <li>Support: 24/7</li>
-              </ul>
-              <div class="actions"><button class="btn select">Select</button></div>
-            </article>
+          <article class="card led product" data-name="10K FLASH" data-usdt="10000" data-price="$310.00">
+            <h4>10K FLASH</h4>
+            <div class="price">$310.00</div>
+            <div class="amount">Amount: 10,000 USDT</div>
+            <div class="mini-row">
+              <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm6-6h-1V9a5 5 0 0 0-10 0v2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2Z"/></svg> AES Encrypted</span>
+              <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10.59 13.41a1.99 1.99 0 0 0 2.82 0l3.18-3.18a2 2 0 1 0-2.83-2.83l-1.06 1.06a1 1 0 1 1-1.42-1.41l1.06-1.06a4 4 0 0 1 5.66 5.66l-3.18 3.18a4 4 0 0 1-5.66-5.66l.71-.71a1 1 0 0 1 1.41 1.41l-.71.71a2 2 0 0 0 0 2.83Z"/></svg> SLA Support</span>
+            </div>
+            <ul class="list">
+              <li>Processing time ~20 sec</li>
+              <li>SLA-backed queue</li>
+              <li>24/7 support</li>
+            </ul>
+            <div class="actions"><button class="btn block select">Select</button></div>
+          </article>
 
-            <article class="card led product" data-name="20K FLASH" data-usdt="20000" data-price="$580.00">
-              <h4>20K FLASH</h4>
-              <div class="price">$580.00</div>
-              <div class="amount">Amount: 20,000 USDT</div>
-              <div class="chips"><span class="chip">TRC20</span><span class="chip">Priority</span><span class="chip">VIP lane</span></div>
-              <ul class="list">
-                <li>Processing time: ~18 sec</li>
-                <li>VIP routing</li>
-                <li>Dedicated assistant</li>
-              </ul>
-              <div class="actions"><button class="btn select">Select</button></div>
-            </article>
+          <article class="card led product" data-name="20K FLASH" data-usdt="20000" data-price="$580.00">
+            <h4>20K FLASH</h4>
+            <div class="price">$580.00</div>
+            <div class="amount">Amount: 20,000 USDT</div>
+            <div class="mini-row">
+              <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm6-6h-1V9a5 5 0 0 0-10 0v2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2Z"/></svg> AES Encrypted</span>
+              <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h9l-1 8 10-12H12l1-8z"/></svg> VIP Lane</span>
+            </div>
+            <ul class="list">
+              <li>Processing time ~18 sec</li>
+              <li>VIP routing</li>
+              <li>Dedicated assistant</li>
+            </ul>
+            <div class="actions"><button class="btn block select">Select</button></div>
+          </article>
 
-            <article class="card led product" data-name="50K FLASH" data-usdt="50000" data-price="$1,350.00">
-              <h4>50K FLASH</h4>
-              <div class="price">$1,350.00</div>
-              <div class="amount">Amount: 50,000 USDT</div>
-              <div class="chips"><span class="chip">TRC20</span><span class="chip">Business</span><span class="chip">VIP</span></div>
-              <ul class="list">
-                <li>Processing time: ~15 sec</li>
-                <li>VIP routing + SLA</li>
-                <li>Priority support</li>
-              </ul>
-              <div class="actions"><button class="btn select">Select</button></div>
-            </article>
+          <article class="card led product" data-name="50K FLASH" data-usdt="50000" data-price="$1,350.00">
+            <h4>50K FLASH</h4>
+            <div class="price">$1,350.00</div>
+            <div class="amount">Amount: 50,000 USDT</div>
+            <div class="mini-row">
+              <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm6-6h-1V9a5 5 0 0 0-10 0v2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2Z"/></svg> AES Encrypted</span>
+              <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 17l5-5-5-5v10z"/></svg> SLA+</span>
+            </div>
+            <ul class="list">
+              <li>Processing time ~15 sec</li>
+              <li>VIP routing + SLA</li>
+              <li>Priority support</li>
+            </ul>
+            <div class="actions"><button class="btn block select">Select</button></div>
+          </article>
 
-            <article class="card led product" data-name="100K FLASH" data-usdt="100000" data-price="$2,500.00">
-              <h4>100K FLASH</h4>
-              <div class="price">$2,500.00</div>
-              <div class="amount">Amount: 100,000 USDT</div>
-              <div class="chips"><span class="chip">TRC20</span><span class="chip">VIP</span><span class="chip">SLA+</span></div>
-              <ul class="list">
-                <li>Processing time: ~12 sec</li>
-                <li>VIP+ routing</li>
-                <li>Dedicated manager</li>
-              </ul>
-              <div class="actions"><button class="btn select">Select</button></div>
-            </article>
+          <article class="card led product" data-name="100K FLASH" data-usdt="100000" data-price="$2,500.00">
+            <h4>100K FLASH</h4>
+            <div class="price">$2,500.00</div>
+            <div class="amount">Amount: 100,000 USDT</div>
+            <div class="mini-row">
+              <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm6-6h-1V9a5 5 0 0 0-10 0v2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2Z"/></svg> AES Encrypted</span>
+              <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.1L18 20l-6-3.8L6 20l1.5-6.9L2 9h7z"/></svg> Dedicated</span>
+            </div>
+            <ul class="list">
+              <li>Processing time ~12 sec</li>
+              <li>VIP+ routing</li>
+              <li>Dedicated manager</li>
+            </ul>
+            <div class="actions"><button class="btn block select">Select</button></div>
+          </article>
 
-            <article class="card led product" data-name="500K FLASH" data-usdt="500000" data-price="$10,500.00">
-              <h4>500K FLASH</h4>
-              <div class="price">$10,500.00</div>
-              <div class="amount">Amount: 500,000 USDT</div>
-              <div class="chips"><span class="chip">Enterprise</span><span class="chip">White-glove</span></div>
-              <ul class="list">
-                <li>Processing time: ~10 sec</li>
-                <li>Private routing</li>
-                <li>Dedicated SLA</li>
-              </ul>
-              <div class="actions"><button class="btn select">Select</button></div>
-            </article>
+          <article class="card led product" data-name="500K FLASH" data-usdt="500000" data-price="$10,500.00">
+            <h4>500K FLASH</h4>
+            <div class="price">$10,500.00</div>
+            <div class="amount">Amount: 500,000 USDT</div>
+            <div class="mini-row">
+              <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm6-6h-1V9a5 5 0 0 0-10 0v2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2Z"/></svg> AES Encrypted</span>
+              <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v4H4zm0 6h16v2H4zm0 4h16v4H4z"/></svg> Private</span>
+            </div>
+            <ul class="list">
+              <li>Processing time ~10 sec</li>
+              <li>Private routing</li>
+              <li>Dedicated SLA</li>
+            </ul>
+            <div class="actions"><button class="btn block select">Select</button></div>
+          </article>
 
-            <article class="card led product" data-name="1M FLASH" data-usdt="1000000" data-price="$18,500.00">
-              <h4>1M FLASH</h4>
-              <div class="price">$18,500.00</div>
-              <div class="amount">Amount: 1,000,000 USDT</div>
-              <div class="chips"><span class="chip">Enterprise+</span><span class="chip">Custom SLA</span></div>
-              <ul class="list">
-                <li>Processing time: ~8 sec</li>
-                <li>Private dedicated lane</li>
-                <li>Account manager</li>
-              </ul>
-              <div class="actions"><button class="btn select">Select</button></div>
-            </article>
+          <article class="card led product" data-name="1M FLASH" data-usdt="1000000" data-price="$18,500.00">
+            <h4>1M FLASH</h4>
+            <div class="price">$18,500.00</div>
+            <div class="amount">Amount: 1,000,000 USDT</div>
+            <div class="mini-row">
+              <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm6-6h-1V9a5 5 0 0 0-10 0v2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2Z"/></svg> AES Encrypted</span>
+              <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2l3 7h7l-5.5 4.1L18 20l-6-3.8L6 20l1.5-6.9L2 9h7z"/></svg> Enterprise+</span>
+            </div>
+            <ul class="list">
+              <li>Processing time ~8 sec</li>
+              <li>Dedicated lane</li>
+              <li>Account manager</li>
+            </ul>
+            <div class="actions"><button class="btn block select">Select</button></div>
+          </article>
+        </div>
+      </div>
+
+      <!-- STEP 2: WALLET -->
+      <div class="step" id="step2">
+        <h2 class="title">Enter Your Wallet Address</h2>
+        <p class="sub">This is the <b>receiver address</b> where your package will be delivered.</p>
+
+        <div class="panel led" style="margin-top:12px">
+          <div class="field">
+            <input type="text" id="wallet" placeholder="Your wallet address (e.g., TRC20 starts with T...)"/>
           </div>
+          <div class="small" style="margin-top:6px">Ensure the format matches your selected network in the next step.</div>
         </div>
 
-        <!-- STEP 2 -->
-        <div class="step" id="step2">
-          <h2 class="title">Enter Your Wallet Address</h2>
-          <p class="sub">This is the <b>receiver address</b> where your package will be delivered.</p>
+        <div class="actions">
+          <button class="btn ghost" data-back>Back</button>
+          <button class="btn" data-next>Continue</button>
+        </div>
+      </div>
 
-          <div class="panel led" style="margin-top:12px">
-            <div class="field">
-              <input type="text" id="wallet" placeholder="Your wallet address (e.g., TRC20 starts with T...)"/>
+      <!-- STEP 3: METHOD -->
+      <div class="step" id="step3">
+        <h2 class="title">Select Payment Method</h2>
+        <p class="sub">Pay only via the selected network.</p>
+
+        <div class="methods">
+          <div class="method card led" data-method="TRC20"><img src="assets/trc20.png" alt="TRC20"><div>TRC20 (TRON)</div></div>
+          <div class="method card led" data-method="ERC20"><img src="assets/erc20.png" alt="ERC20"><div>ERC20 (Ethereum)</div></div>
+          <div class="method card led" data-method="BEP20"><img src="assets/bep20.png" alt="BEP20"><div>BEP20 (BSC)</div></div>
+
+          <div class="method card led disabled" title="Currently Closed"><img src="assets/btc.png" alt="BTC"><div>BTC (Bitcoin)</div></div>
+          <div class="method card led disabled" title="Currently Closed"><img src="assets/binance.png" alt="Binance Pay"><div>Binance Pay</div></div>
+          <div class="method card led disabled" title="Currently Closed"><img src="assets/okx.png" alt="OKX Pay"><div>OKX Pay</div></div>
+        </div>
+
+        <div class="actions">
+          <button class="btn ghost" data-back>Back</button>
+          <button class="btn" data-next>Continue</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: PAYMENT DETAILS -->
+      <div class="step" id="step4">
+        <h2 class="title">Payment Details</h2>
+        <p class="sub">Send payment to the address below via your selected network.</p>
+
+        <div class="panel led" style="margin-top:12px">
+          <div class="row"><div>Network</div><div id="sum-network">—</div></div>
+          <div class="row">
+            <div>Payment Address</div>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <span id="pay-address" class="small">—</span>
+              <button class="copy" id="copyAddr">Copy</button>
             </div>
-            <div class="small" style="margin-top:6px">Make sure the format matches your selected network in the next step.</div>
           </div>
+          <div class="small" style="margin-top:8px">Payments sent to another network may be lost and are non-recoverable.</div>
+        </div>
 
-          <div class="actions">
+        <div class="actions">
+          <button class="btn ghost" data-back>Back</button>
+          <button class="btn" data-next>I've Made the Payment</button>
+        </div>
+      </div>
+
+      <!-- STEP 5: TXID -->
+      <div class="step" id="step5">
+        <h2 class="title">Submit Your TXID</h2>
+        <p class="sub">Paste your blockchain Transaction ID (TXID). We’ll verify and contact you shortly.</p>
+
+        <div class="panel led" style="margin-top:12px">
+          <div class="field">
+            <input type="text" id="txid" placeholder="Paste your TXID here"/>
+          </div>
+          <div class="actions" style="margin-top:12px">
             <button class="btn ghost" data-back>Back</button>
-            <button class="btn" data-next>Continue</button>
+            <button class="btn" id="sendTxid">Submit Transaction</button>
           </div>
+          <div class="small" style="margin-top:8px">We do not collect personal data. Only TXID and order details are sent.</div>
         </div>
+      </div>
+    </section>
 
-        <!-- STEP 3 -->
-        <div class="step" id="step3">
-          <h2 class="title">Select Payment Method</h2>
-          <p class="sub">Only pay via the selected network below.</p>
+    <!-- RIGHT: SUMMARY (hidden until a product is selected) -->
+    <aside id="sidebar" class="hidden">
+      <div class="summary led">
+        <h3>Order Summary</h3>
+        <div class="row"><div>Package</div><div id="s-name">—</div></div>
+        <div class="row"><div>Amount</div><div id="s-amount">—</div></div>
+        <div class="row"><div>Price</div><div id="s-price">—</div></div>
+        <div class="row"><div>Wallet</div><div id="s-wallet">—</div></div>
+        <div class="row"><div>Network</div><div id="s-network">—</div></div>
+        <div class="row"><div>Pay Address</div><div class="small" id="s-address">—</div></div>
+      </div>
+    </aside>
+  </div>
+</main>
 
-          <div class="methods">
-            <div class="method card led" data-method="TRC20"><img src="assets/trc20.png" alt="TRC20"><div>TRC20 (TRON)</div></div>
-            <div class="method card led" data-method="ERC20"><img src="assets/erc20.png" alt="ERC20"><div>ERC20 (Ethereum)</div></div>
-            <div class="method card led" data-method="BEP20"><img src="assets/bep20.png" alt="BEP20"><div>BEP20 (BSC)</div></div>
+<!-- FOOTER -->
+<footer>
+  <div class="ledbar"></div>
+  <div class="foot">
+    <img src="assets/logo.png" alt="FLASH USDT logo"/>
+    <div class="tagline"><strong>FLASH USDT</strong> — Fast • Secure • Trusted</div>
+    <div>Support: <a style="color:#cfe8ff" href="mailto:support@flashusdt.com">support@flashusdt.com</a></div>
+    <div>© <span id="y"></span> FLASH USDT</div>
+  </div>
+</footer>
 
-            <div class="method card led disabled" title="Currently Closed"><img src="assets/btc.png" alt="BTC"><div>BTC (Bitcoin)</div></div>
-            <div class="method card led disabled" title="Currently Closed"><img src="assets/binance.png" alt="Binance Pay"><div>Binance Pay</div></div>
-            <div class="method card led disabled" title="Currently Closed"><img src="assets/okx.png" alt="OKX Pay"><div>OKX Pay</div></div>
-          </div>
-
-          <div class="actions">
-            <button class="btn ghost" data-back>Back</button>
-            <button class="btn" data-next>Continue</button>
-          </div>
-        </div>
-
-        <!-- STEP 4 -->
-        <div class="step" id="step4">
-          <h2 class="title">Payment Details</h2>
-          <p class="sub">Send the payment to the address below via your selected network.</p>
-
-          <div class="panel led" style="margin-top:12px">
-            <div class="row"><div>Network</div><div id="sum-network">—</div></div>
-            <div class="row">
-              <div>Payment Address</div>
-              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-                <span id="pay-address" class="small">—</span>
-                <button class="copy" id="copyAddr">Copy</button>
-              </div>
-            </div>
-            <div class="small" style="margin-top:8px">Payments sent to a different network may be lost and are non-recoverable.</div>
-          </div>
-
-          <div class="actions">
-            <button class="btn ghost" data-back>Back</button>
-            <button class="btn" data-next>I've Made the Payment</button>
-          </div>
-        </div>
-
-        <!-- STEP 5 -->
-        <div class="step" id="step5">
-          <h2 class="title">Submit Your TXID</h2>
-          <p class="sub">Paste your blockchain Transaction ID (TXID). We’ll verify and contact you shortly.</p>
-
-          <div class="panel led" style="margin-top:12px">
-            <div class="field">
-              <input type="text" id="txid" placeholder="Paste your TXID here"/>
-            </div>
-            <div class="actions" style="margin-top:12px">
-              <button class="btn ghost" data-back>Back</button>
-              <button class="btn" id="sendTxid">Submit Transaction</button>
-            </div>
-            <div class="small" style="margin-top:8px">We do not collect personal data. Only TXID and order details are sent.</div>
-          </div>
-        </div>
-
-      </section>
-
-      <!-- RIGHT: SUMMARY -->
-      <aside>
-        <div class="summary led">
-          <h3>Order Summary</h3>
-          <div class="row"><div>Package</div><div id="s-name">—</div></div>
-          <div class="row"><div>Amount</div><div id="s-amount">—</div></div>
-          <div class="row"><div>Price</div><div id="s-price">—</div></div>
-          <div class="row"><div>Wallet</div><div id="s-wallet">—</div></div>
-          <div class="row"><div>Network</div><div id="s-network">—</div></div>
-          <div class="row"><div>Pay Address</div><div class="small" id="s-address">—</div></div>
-        </div>
-      </aside>
+<!-- SUMMARY MODAL -->
+<div class="modal" id="sumModal" aria-hidden="true">
+  <div class="modal-card">
+    <div class="modal-head">
+      <strong>Order Summary</strong>
+      <button class="close-x" id="closeModal">Close</button>
     </div>
-  </main>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="ledbar"></div>
-    <div class="foot">
-      <div><strong>FLASH USDT</strong> — Secure & Encrypted</div>
-      <div>Support: <a style="color:#cfe8ff" href="mailto:support@flashusdt.com">support@flashusdt.com</a></div>
-      <div>© <span id="y"></span> FLASH USDT</div>
+    <div class="modal-body">
+      <div class="sumgrid">
+        <div class="k">Package</div><div class="v" id="m-name">—</div>
+        <div class="k">Amount</div><div class="v" id="m-amount">—</div>
+        <div class="k">Price</div><div class="v" id="m-price">—</div>
+        <div class="k">Wallet</div><div class="v" id="m-wallet">—</div>
+        <div class="k">Network</div><div class="v" id="m-network">—</div>
+        <div class="k">Pay Address</div><div class="v" id="m-address">—</div>
+      </div>
+      <div class="actions" style="margin-top:16px">
+        <button class="btn ghost" id="modalBackBtn">Change Plan</button>
+        <button class="btn" id="modalProceedBtn">Proceed</button>
+      </div>
     </div>
-  </footer>
+  </div>
+</div>
 
-  <!-- TOAST -->
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+<!-- TOAST -->
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <script>
-    // ===== CONFIG =====
-    const ADDRS = {
-      TRC20: "TXAk3cty1QpM72m9wRgQNwxBzEy3E9SyNU",
-      ERC20: "0xE88921A2d0315BF364a768c393D02cDF111A0Bc6",
-      BEP20: "0xE88921A2d0315BF364a768c393D02cDF111A0Bc6",
-      BTC: "" // keep empty to remain closed
-    };
-    const EMAILJS = {
-      SERVICE_ID: "",   // e.g. "service_xxxx"
-      TEMPLATE_ID: "",  // e.g. "template_xxxx"
-      PUBLIC_KEY: ""    // e.g. "AbC123..."
-    };
-    const TO = "eticin.60@gmail.com"; // destination email
+<script>
+  // ===== CONFIG =====
+  const ADDRS = {
+    TRC20: "TXAk3cty1QpM72m9wRgQNwxBzEy3E9SyNU",
+    ERC20: "0xE88921A2d0315BF364a768c393D02cDF111A0Bc6",
+    BEP20: "0xE88921A2d0315BF364a768c393D02cDF111A0Bc6",
+    BTC: "" // closed (kept empty)
+  };
+  const EMAILJS = {
+    SERVICE_ID: "",   // e.g. "service_xxxx"
+    TEMPLATE_ID: "",  // e.g. "template_xxxx"
+    PUBLIC_KEY: ""    // e.g. "AbC123..."
+  };
+  const TO = "eticin.60@gmail.com";
 
-    // ===== UTIL =====
-    const $ = (s)=>document.querySelector(s);
-    const $$ = (s)=>document.querySelectorAll(s);
-    const toast = (msg)=>{ const t=$("#toast"); t.textContent=msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),1800); };
-    const setProgress = (n)=> {
-      const dots=[...document.querySelectorAll(".step-dot")];
-      dots.forEach((d,i)=> d.classList.toggle("active", i<=n));
-    };
+  // ===== UTIL =====
+  const $ = s=>document.querySelector(s);
+  const $$ = s=>document.querySelectorAll(s);
+  const toast = msg => { const t=$("#toast"); t.textContent=msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),1800); };
+  const setProgress = n => {
+    const dots=[...document.querySelectorAll(".step-dot")];
+    dots.forEach((d,i)=> d.classList.toggle("active", i<=n));
+  };
 
-    // Year
-    $("#y").textContent = new Date().getFullYear();
+  // Year
+  $("#y").textContent = new Date().getFullYear();
 
-    // STATE
-    const state = { productName:null, productUSDT:null, productPrice:null, wallet:null, network:null };
-    const updateSummary = ()=>{
-      $("#s-name").textContent   = state.productName || "—";
-      $("#s-amount").textContent = state.productUSDT ? Number(state.productUSDT).toLocaleString()+" USDT" : "—";
-      $("#s-price").textContent  = state.productPrice || "—";
-      $("#s-wallet").textContent = state.wallet || "—";
-      $("#s-network").textContent= state.network || "—";
-      $("#s-address").textContent= state.network ? (ADDRS[state.network] || "—") : "—";
-      $("#sum-network") && ($("#sum-network").textContent = state.network || "—");
-      $("#pay-address") && ($("#pay-address").textContent = state.network ? (ADDRS[state.network] || "—") : "—");
-    };
+  // STATE
+  const state = { productName:null, productUSDT:null, productPrice:null, wallet:null, network:null, selected:false };
 
-    // NAVIGATION
-    const goto = (id, idx) => {
-      $$(".step").forEach(s=>s.classList.remove("active"));
-      $("#"+id).classList.add("active");
-      setProgress(idx);
-      window.scrollTo({top:0,behavior:"smooth"});
-    };
+  const syncSummary = ()=>{
+    $("#s-name").textContent   = state.productName || "—";
+    $("#s-amount").textContent = state.productUSDT ? Number(state.productUSDT).toLocaleString()+" USDT" : "—";
+    $("#s-price").textContent  = state.productPrice || "—";
+    $("#s-wallet").textContent = state.wallet || "—";
+    $("#s-network").textContent= state.network || "—";
+    $("#s-address").textContent= state.network ? (ADDRS[state.network] || "—") : "—";
 
-    // STEP 1: select product
-    $$(".product .select").forEach(btn=>{
-      btn.addEventListener("click", (e)=>{
-        const card = e.target.closest(".product");
-        state.productName = card.dataset.name;
-        state.productUSDT = card.dataset.usdt;
-        state.productPrice= card.dataset.price;
-        updateSummary();
-        goto("step2",1);
-      });
+    $("#sum-network") && ($("#sum-network").textContent = state.network || "—");
+    $("#pay-address") && ($("#pay-address").textContent = state.network ? (ADDRS[state.network] || "—") : "—");
+
+    // Modal fields
+    $("#m-name").textContent   = $("#s-name").textContent;
+    $("#m-amount").textContent = $("#s-amount").textContent;
+    $("#m-price").textContent  = $("#s-price").textContent;
+    $("#m-wallet").textContent = $("#s-wallet").textContent;
+    $("#m-network").textContent= $("#s-network").textContent;
+    $("#m-address").textContent= $("#s-address").textContent;
+  };
+
+  const goto = (id, idx) => {
+    $$(".step").forEach(s=>s.classList.remove("active"));
+    $("#"+id).classList.add("active");
+    setProgress(idx);
+    window.scrollTo({top:0,behavior:"smooth"});
+  };
+
+  // Initially hide sidebar summary
+  const sidebar = $("#sidebar");
+  const showSidebar = () => sidebar.classList.remove("hidden");
+  const hideSidebar = () => sidebar.classList.add("hidden");
+  hideSidebar();
+
+  // STEP 1: select product
+  $$(".product .select").forEach(btn=>{
+    btn.addEventListener("click", e=>{
+      const card = e.target.closest(".product");
+      state.productName = card.dataset.name;
+      state.productUSDT = card.dataset.usdt;
+      state.productPrice= card.dataset.price;
+      state.selected = true;
+      syncSummary();
+
+      // Show modal centered first
+      $("#sumModal").classList.add("show");
+      // Do not show sidebar yet; it will appear after user proceeds
     });
+  });
 
-    // Next / Back generic
-    $$("[data-next]").forEach(b=>{
-      b.addEventListener("click", ()=>{
-        const current = document.querySelector(".step.active").id;
-        if(current==="step2"){
-          const w = $("#wallet").value.trim();
-          if(!w){ toast("Please enter your wallet address."); return; }
-          state.wallet = w; updateSummary(); goto("step3",2);
-        }else if(current==="step3"){
-          if(!state.network){ toast("Select a payment method."); return; }
-          if(!ADDRS[state.network]){ toast(`${state.network} is closed right now.`); return; }
-          updateSummary(); goto("step4",3);
-        }else if(current==="step4"){
-          goto("step5",4);
-        }
-      });
+  // Modal controls
+  $("#closeModal").addEventListener("click", ()=> $("#sumModal").classList.remove("show"));
+  $("#modalBackBtn").addEventListener("click", ()=>{
+    $("#sumModal").classList.remove("show");
+    goto("step1",0);
+  });
+  $("#modalProceedBtn").addEventListener("click", ()=>{
+    $("#sumModal").classList.remove("show");
+    showSidebar();        // now persistent summary at right
+    goto("step2",1);      // continue flow
+  });
+
+  // Next / Back generic
+  $$("[data-next]").forEach(b=>{
+    b.addEventListener("click", ()=>{
+      const current = document.querySelector(".step.active").id;
+      if(current==="step2"){
+        const w = $("#wallet").value.trim();
+        if(!w){ toast("Please enter your wallet address."); return; }
+        state.wallet = w;
+        syncSummary();
+        goto("step3",2);
+      } else if(current==="step3"){
+        if(!state.network){ toast("Select a payment method."); return; }
+        if(!ADDRS[state.network]){ toast(`${state.network} is currently closed.`); return; }
+        syncSummary();
+        goto("step4",3);
+      } else if(current==="step4"){
+        syncSummary();
+        goto("step5",4);
+      }
     });
-    $$("[data-back]").forEach(b=>{
-      b.addEventListener("click", ()=>{
-        const current = document.querySelector(".step.active").id;
-        if(current==="step2") goto("step1",0);
-        else if(current==="step3") goto("step2",1);
-        else if(current==="step4") goto("step3",2);
-        else if(current==="step5") goto("step4",3);
-      });
+  });
+  $$("[data-back]").forEach(b=>{
+    b.addEventListener("click", ()=>{
+      const current = document.querySelector(".step.active").id;
+      if(current==="step2") goto("step1",0);
+      else if(current==="step3") goto("step2",1);
+      else if(current==="step4") goto("step3",2);
+      else if(current==="step5") goto("step4",3);
     });
+  });
 
-    // STEP 3: method selection
-    $$(".method").forEach(m=>{
-      if(m.classList.contains("disabled")) return;
-      m.addEventListener("click", ()=>{
-        $$(".method").forEach(x=>x.classList.remove("active"));
-        m.classList.add("active");
-        state.network = m.dataset.method;
-        updateSummary();
-      });
+  // Methods (ignore disabled)
+  $$(".method").forEach(m=>{
+    if(m.classList.contains("disabled")) return;
+    m.addEventListener("click", ()=>{
+      $$(".method").forEach(x=>x.classList.remove("active"));
+      m.classList.add("active");
+      state.network = m.dataset.method;
+      syncSummary();
     });
+  });
 
-    // Copy Address
-    $("#copyAddr")?.addEventListener("click", ()=>{
-      const txt = ($("#pay-address").textContent||"").trim();
-      if(!txt || txt==="—") return toast("No address to copy");
-      navigator.clipboard.writeText(txt).then(()=>toast("Address copied"));
-    });
+  // Copy address
+  $("#copyAddr")?.addEventListener("click", ()=>{
+    const txt = ($("#pay-address").textContent||"").trim();
+    if(!txt || txt==="—") return toast("No address to copy");
+    navigator.clipboard.writeText(txt).then(()=>toast("Address copied"));
+  });
 
-    // TXID submit (EmailJS with mailto fallback)
-    $("#sendTxid").addEventListener("click", async ()=>{
-      const txid = ($("#txid").value||"").trim();
-      if(!txid) return toast("Please enter TXID");
-      const nowUTC = new Date().toUTCString().replace("GMT","(UTC)");
+  // TXID submit (EmailJS with mailto fallback)
+  $("#sendTxid").addEventListener("click", async ()=>{
+    const txid = ($("#txid").value||"").trim();
+    if(!txid) return toast("Please enter TXID");
+    const nowUTC = new Date().toUTCString().replace("GMT","(UTC)");
 
-      // Compose pretty text body
-      const body =
+    const body =
 `🔔 New TRC20 Transaction Received
 
 📦 Package Information
@@ -545,44 +686,44 @@ Device: ${/Mobi/i.test(navigator.userAgent)?"Mobile":"Desktop"}
 Page: /trc20.html
 `;
 
-      // Try EmailJS if configured
-      if(EMAILJS.SERVICE_ID && EMAILJS.TEMPLATE_ID && EMAILJS.PUBLIC_KEY){
-        try{
-          if(!window.emailjs){
-            const s=document.createElement("script");
-            s.src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js";
-            document.head.appendChild(s);
-            await new Promise(r=>s.onload=r);
-          }
-          window.emailjs.init(EMAILJS.PUBLIC_KEY);
-          await window.emailjs.send(EMAILJS.SERVICE_ID, EMAILJS.TEMPLATE_ID, {
-            to_email: TO,
-            subject: "FLASH USDT — New TRC20 Payment",
-            package_name: state.productName||"—",
-            package_amount: state.productUSDT||"—",
-            package_price: state.productPrice||"—",
-            network: state.network||"—",
-            pay_address: state.network? (ADDRS[state.network]||"—"):"—",
-            user_wallet: state.wallet||"—",
-            txid: txid,
-            time: nowUTC,
-            browser: navigator.userAgent,
-            device: /Mobi/i.test(navigator.userAgent)?"Mobile":"Desktop",
-            page: "/trc20.html",
-            full_body: body
-          });
-          toast("TXID sent via EmailJS ✅");
-          return;
-        }catch(err){
-          console.error(err);
-          toast("EmailJS failed — using mail client…");
+    // EmailJS if configured
+    if(EMAILJS.SERVICE_ID && EMAILJS.TEMPLATE_ID && EMAILJS.PUBLIC_KEY){
+      try{
+        if(!window.emailjs){
+          const s=document.createElement("script");
+          s.src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js";
+          document.head.appendChild(s);
+          await new Promise(r=>s.onload=r);
         }
+        window.emailjs.init(EMAILJS.PUBLIC_KEY);
+        await window.emailjs.send(EMAILJS.SERVICE_ID, EMAILJS.TEMPLATE_ID, {
+          to_email: TO,
+          subject: "FLASH USDT — New TRC20 Payment",
+          package_name: state.productName||"—",
+          package_amount: state.productUSDT||"—",
+          package_price: state.productPrice||"—",
+          network: state.network||"—",
+          pay_address: state.network? (ADDRS[state.network]||"—"):"—",
+          user_wallet: state.wallet||"—",
+          txid: txid,
+          time: nowUTC,
+          browser: navigator.userAgent,
+          device: /Mobi/i.test(navigator.userAgent)?"Mobile":"Desktop",
+          page: "/trc20.html",
+          full_body: body
+        });
+        toast("TXID sent via EmailJS ✅");
+        return;
+      }catch(err){
+        console.error(err);
+        toast("EmailJS failed — using mail client…");
       }
+    }
 
-      // Fallback: mailto
-      const mailto = `mailto:${encodeURIComponent(TO)}?subject=${encodeURIComponent("FLASH USDT — New TRC20 Payment")}&body=${encodeURIComponent(body)}`;
-      window.location.href = mailto;
-    });
-  </script>
+    // Fallback: mailto
+    const mailto=`mailto:${encodeURIComponent(TO)}?subject=${encodeURIComponent("FLASH USDT — New TRC20 Payment")}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
+  });
+</script>
 </body>
 </html>
