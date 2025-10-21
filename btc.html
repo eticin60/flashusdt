@@ -1,44 +1,415 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>MetaFlash USDT — BTC Plans</title>
-<link rel="icon" type="image/png" href="assets/USDT-2.png"/>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FLASH USDT — BTC Checkout (AES Secure)</title>
+<meta name="description" content="FLASH USDT BTC packages — AES-secure, instant settlement, professional checkout." />
+<link rel="icon" type="image/png" href="assets/btc.png" />
 <style>
-body{margin:0;font-family:Poppins,sans-serif;color:#fff;background:radial-gradient(900px 600px at 50% -10%,rgba(255,150,0,.15),transparent 60%),linear-gradient(180deg,#090909,#121212 60%,#0b0b0b)}
-header{position:sticky;top:0;background:rgba(20,20,20,.85);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08)}
-.nav{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;max-width:1200px;margin:0 auto}
-.brand{display:flex;align-items:center;gap:8px;font-weight:800}
-.brand img{width:32px;height:32px}
-.brand span{background:linear-gradient(90deg,#ffae00,#ff5e00);-webkit-background-clip:text;color:transparent}
-.hero{text-align:center;padding:90px 20px 40px}
-.hero h1{font-size:52px;background:linear-gradient(90deg,#ffae00,#ff5e00);-webkit-background-clip:text;color:transparent}
-.hero p{max-width:700px;margin:10px auto;color:#bbb;font-size:18px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;max-width:1200px;margin:0 auto;padding:0 20px 60px}
-.card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:24px;transition:.3s;text-align:center}
-.card:hover{transform:translateY(-6px);border-color:#ffae00;box-shadow:0 0 30px rgba(255,174,0,.2)}
-.card h3{margin:8px 0;color:#ffae00}
-.card p{color:#ccc;font-size:14px}
-.btn{display:inline-block;margin-top:14px;padding:10px 16px;border-radius:10px;background:linear-gradient(90deg,#ffae00,#ff5e00);color:#000;font-weight:700;text-decoration:none}
-footer{text-align:center;padding:50px 20px;color:#888;border-top:1px solid rgba(255,255,255,.1)}
+  :root{
+    --bg1:#0b0f18; --bg2:#111827; --bg3:#0f172a;
+    --text:#eef3ff; --muted:#9aa0c2;
+    --cyan:#00f0ff; --vio:#5b2cff; --rose:#ff4b9f; --lime:#16d18a;
+    --amber:#ffb347; /* btc-turuncu */
+    --amber2:#ff8c1a;
+    --border:rgba(255,255,255,.12); --glass:rgba(255,255,255,.06);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    color:var(--text);
+    background:
+      radial-gradient(1200px 700px at 10% -10%, rgba(255,165,0,.12), transparent 55%),
+      radial-gradient(900px 500px at 90% 0, rgba(255,140,26,.18), transparent 60%),
+      linear-gradient(180deg, var(--bg1), var(--bg2) 50%, var(--bg3));
+    overflow-x:hidden;
+    display:flex; flex-direction:column;
+  }
+
+  /* Subtle AES background grid */
+  .aes-bg{
+    position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.08;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px 80px),
+      repeating-linear-gradient(0deg, rgba(255,255,255,.04) 0 1px, transparent 1px 80px);
+    mask: radial-gradient(ellipse at 50% 10%, #000 35%, transparent 70%);
+  }
+
+  /* Header */
+  header{position:sticky;top:0;z-index:50;background:rgba(10,15,40,.75);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+  .nav{max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.4px}
+  .brand img{width:28px;height:28px;border-radius:8px}
+  /* BTC turuncu geçişli yazı */
+  .brand span{
+    background:linear-gradient(90deg,#ffd08a,#ffaf4d,#ff8c1a);
+    -webkit-background-clip:text;background-clip:text;color:transparent
+  }
+  .menu{display:flex;gap:16px}
+  .menu a{color:var(--muted);text-decoration:none;font-weight:600}
+  .menu a:hover{color:var(--amber)}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:10px 14px;border-radius:12px;font-weight:700;
+    background:linear-gradient(90deg,var(--amber),var(--amber2));color:#0a0a0a;text-decoration:none;
+    box-shadow:0 10px 22px rgba(0,0,0,.25);transition:.2s;border:none
+  }
+  .btn:hover{transform:translateY(-2px);opacity:.95}
+  .ghost{background:transparent;border:1px solid var(--border);color:#d5dcff}
+  .ghost:hover{border-color:#ffd08a}
+  .primary{background:linear-gradient(90deg,var(--amber),var(--amber2));border:none;color:#111}
+
+  /* Hero */
+  .hero{position:relative; text-align:center; padding:64px 20px 10px; z-index:1}
+  .hero h1{
+    margin:0 0 8px;
+    font-size:clamp(30px,5.5vw,44px);
+    font-weight:900; letter-spacing:.5px;
+    background:linear-gradient(90deg,#ffe4b5,#ffc46a,#ff9e2b);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    text-shadow:0 0 18px rgba(255,165,0,.18);
+  }
+  .hero p{max-width:880px;margin:8px auto 22px;color:#c5cdf2;line-height:1.7}
+  .hero .btn{margin-top:4px}
+
+  /* Main layout */
+  main{position:relative;z-index:1; flex:1}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+  .stage{
+    min-height: calc(100vh - 260px);
+    display:grid; gap:24px;
+    grid-template-columns: minmax(0,1fr);
+    align-items:start; justify-items:center;
+    transition:grid-template-columns .35s ease;
+  }
+  .stage.with-summary{grid-template-columns:minmax(0,1fr) 380px}
+
+  /* Common cards (no rainbow) */
+  .card,.panel,.summary{
+    position:relative;border-radius:18px;overflow:hidden;
+    background:rgba(255,255,255,.045);border:1px solid var(--border);backdrop-filter:blur(14px);
+    box-shadow:0 10px 30px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.02);
+  }
+  .pad{padding:20px}
+
+  /* Section headings */
+  .title{margin:0 0 6px;font-size:clamp(24px,3.5vw,28px);text-align:center}
+  .sub{color:var(--muted);margin:2px 0 12px;text-align:center}
+
+  /* Products */
+  .products{
+    max-width:1040px; margin:10px auto 6px;
+    display:grid; gap:18px;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  }
+  .product{
+    position:relative; padding:18px; text-align:center; transition:.25s; overflow:hidden;
+    outline:1px solid rgba(255,255,255,.06);
+  }
+  .product:hover{transform:translateY(-6px);box-shadow:0 30px 70px rgba(255,165,0,.12)}
+  .product h4{margin:6px 0 6px;font-size:18px}
+  .price{font-weight:800;font-size:22px;color:var(--amber);margin-bottom:6px}
+  .amount{font-size:13px;color:#cbd2ff}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.04);font-size:12px;color:#cfd6ff}
+  .product .actions{margin-top:12px}
+
+  /* AES tape (aynı, hafif turuncu) */
+  .tape{
+    position:absolute; left:-40%; right:-40%; top:10px;
+    height:22px; display:flex; align-items:center; justify-content:center;
+    gap:18px; letter-spacing:.8px; font-size:11px; font-weight:800; color:#ffd596;
+    background:linear-gradient(90deg, rgba(255,191,94,.16), rgba(255,140,26,.16));
+    border-top:1px solid rgba(255,255,255,.1); border-bottom:1px solid rgba(255,255,255,.1);
+    transform:rotate(-3deg);
+    animation:tapeMove 10s linear infinite;
+    text-shadow:0 0 10px rgba(255,165,0,.28);
+  }
+  @keyframes tapeMove{ 0%{transform:translateX(0) rotate(-3deg)} 100%{transform:translateX(18%) rotate(-3deg)} }
+  .led-dot{
+    position:absolute; right:12px; bottom:12px; width:8px; height:8px; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, #65ffbf, #16d18a 60%, #0f513c 100%);
+    box-shadow:0 0 10px rgba(22,209,138,.7), 0 0 20px rgba(22,209,138,.3);
+    animation:blink 1.6s ease-in-out infinite;
+  }
+  @keyframes blink{ 0%,100%{opacity:.7; transform:scale(1)} 50%{opacity:1; transform:scale(1.25)} }
+  .security-badge{
+    display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:11px;
+    padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.05);
+    color:#ffd596; margin-bottom:10px;
+  }
+  .micro{margin-top:10px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap; font-size:11px; color:#cfe0ff}
+  .micro span{border:1px solid var(--border);padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.04)}
+
+  /* Fields / methods */
+  .field{display:flex;gap:10px;align-items:center;margin-top:12px}
+  input[type="text"]{
+    flex:1;height:46px;border-radius:12px;border:1px solid var(--border);
+    background:rgba(255,255,255,.04);color:var(--text);padding:0 12px;outline:none
+  }
+  input::placeholder{color:#9aa0c2}
+  .actions{display:flex;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap}
+
+  .methods{
+    display:grid; gap:12px;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    max-width:860px; margin:10px auto 0;
+  }
+  .method{
+    cursor:pointer; user-select:none; position:relative;
+    display:flex; align-items:center; gap:12px;
+    padding:14px; border-radius:14px; border:1px solid var(--border);
+    background:rgba(255,255,255,.03); transition:.2s
+  }
+  .method img{width:24px;height:24px;object-fit:contain}
+  .method.active{outline:2px solid rgba(255,165,0,.6);background:rgba(255,165,0,.06)}
+  .method.closed{opacity:.6; filter:saturate(.85) grayscale(.1)}
+  .method .badge-closed{
+    position:absolute; top:6px; right:8px;
+    background:#ff4b4b; color:#fff; font-weight:800;
+    padding:2px 6px; font-size:10px; border-radius:6px; letter-spacing:.3px;
+  }
+
+  .row{display:flex;justify-content:space-between;gap:10px;color:#cfd6ff;font-size:14px;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
+  .row:last-child{border-bottom:none}
+  .copy{cursor:pointer;border:1px solid var(--border);border-radius:10px;padding:6px 10px;background:rgba(255,255,255,.04)}
+  .small{font-size:12px;color:#aab2d8}
+
+  /* Summary */
+  aside{display:none}
+  .stage.with-summary aside{display:block; position:sticky; top:88px; height:fit-content}
+  .summary .head{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px}
+  .summary .kvs{display:grid;gap:6px;margin-top:8px}
+  .kv{display:flex;align-items:center;gap:10px;font-size:13px;color:#cfe0ff}
+  .kv .k{min-width:120px;color:#ffd08a}
+  .summary .shield{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04)}
+  .slide-in{animation:slideIn .35s ease both}
+  @keyframes slideIn{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:translateX(0)}}
+
+  /* Footer (TRC20 ile aynı yapı) */
+  footer{border-top:1px solid var(--border); background:linear-gradient(180deg,var(--bg2),var(--bg3)); color:#a9b1c6}
+  .foot{max-width:1200px;margin:0 auto;padding:22px 20px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
+  .foot-left{display:flex;align-items:center;gap:10px}
+  .foot-left img{width:22px;height:22px;border-radius:6px}
+
+  /* AES MODAL */
+  .modal{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(3,6,21,.6); backdrop-filter:blur(6px); z-index:60}
+  .modal .box{
+    width:min(520px, 92vw);
+    background:rgba(255,255,255,.06); border:1px solid var(--border); border-radius:16px; padding:20px; color:var(--text);
+    box-shadow:0 20px 80px rgba(0,0,0,.45);
+  }
+  .aes-steps{display:flex; gap:10px; margin:14px 0 8px; flex-wrap:wrap}
+  .aes-step{
+    flex:1; min-width:140px;
+    border:1px dashed rgba(255,255,255,.16); border-radius:10px; padding:10px 12px;
+    display:flex; align-items:center; gap:10px; opacity:.75
+  }
+  .aes-step.active{border-style:solid; opacity:1; box-shadow:0 0 0 1px rgba(255,165,0,.28) inset}
+  .dot{width:10px;height:10px;border-radius:50%; background:#ff9e2b; box-shadow:0 0 12px rgba(255,158,43,.55)}
+  .aes-step.active .dot{background:#16d18a; box-shadow:0 0 12px rgba(22,209,138,.6)}
+  .code-line{
+    font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size:12px; color:#b9c6ff; opacity:.88
+  }
+  .modal .ok{display:none; margin-top:12px; text-align:center; font-weight:700; color:#9ef7cb}
+
+  /* Responsive */
+  @media (max-width:960px){
+    .stage.with-summary{grid-template-columns:1fr}
+    aside{position:relative; top:auto}
+  }
 </style>
 </head>
 <body>
-<header><div class="nav"><div class="brand"><img src="assets/USDT-2.png"><span>MetaFlash</span> BTC</div><a href="index.html" style="color:#aaa;text-decoration:none">Home</a></div></header>
-<section class="hero">
-<h1>Bitcoin (BTC) Plans</h1>
-<p>Secure, transparent and verified settlements via Bitcoin blockchain.</p>
-<img src="assets/btc.png" alt="BTC" style="width:64px;margin-top:12px"/>
+<div class="aes-bg"></div>
+
+<!-- NAV -->
+<header>
+  <div class="nav">
+    <div class="brand"><img src="assets/logo.png" alt=""><div><span>FLASH</span> USDT</div></div>
+    <nav class="menu">
+      <a href="index.html">Home</a>
+      <a href="#steps">Checkout</a>
+      <a href="#verify">TXID</a>
+    </nav>
+    <a class="btn" id="goStart" href="#steps">Get Started</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <h1>BTC Checkout — AES Secure</h1>
+  <p>Select a package, enter your BTC wallet, choose payment, send, and submit your TXID. Fast confirmations, AES-256 security, 24/7 support.</p>
 </section>
-<section class="grid">
-<div class="card"><h3>Micro</h3><p>Up to 0.01 BTC • Instant sync</p><a class="btn" href="#">Buy</a></div>
-<div class="card"><h3>Basic</h3><p>Up to 0.05 BTC • 1% fee</p><a class="btn" href="#">Buy</a></div>
-<div class="card"><h3>Standard</h3><p>Up to 0.2 BTC • Priority mempool</p><a class="btn" href="#">Buy</a></div>
-<div class="card"><h3>Advanced</h3><p>Up to 1 BTC • Accelerated confirm</p><a class="btn" href="#">Buy</a></div>
-<div class="card"><h3>Premium</h3><p>Up to 5 BTC • VIP confirmations</p><a class="btn" href="#">Buy</a></div>
-<div class="card"><h3>Enterprise</h3><p>Custom volume • SLA contracts</p><a class="btn" href="#">Contact</a></div>
-</section>
-<footer>© <span id="y"></span> MetaFlash USDT — BTC</footer>
-<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
-</body>
-</html>
+
+<!-- MAIN -->
+<main class="wrap" id="steps">
+  <div class="stage" id="stage">
+    <!-- CENTER COLUMN -->
+    <section style="width:100%;max-width:1120px">
+      <!-- STEP 1: PRODUCTS (görseldeki ürün ve fiyatlar) -->
+      <div class="card pad" id="step1">
+        <h2 class="title">Select Your BTC Package</h2>
+        <p class="sub">Fast confirmation • On-chain security • AES-256 protected</p>
+
+        <div class="products">
+          <article class="panel pad product" data-name="1K FLASH" data-usdt="1000" data-price="$470.00">
+            <div class="tape">ENCRYPTED • AES256 • CHAIN VERIFIED • BLOCK HASH OK •</div>
+            <div class="security-badge">🔒 AES-256 SECURE</div>
+            <h4>1K FLASH</h4>
+            <div class="price">$470.00</div>
+            <div class="amount">Amount: 1,000 USDT</div>
+            <div class="micro"><span>BTC Confirm ~10m*</span><span>SegWit</span><span>Multi-Network Compatible</span></div>
+            <div class="actions"><button class="btn primary select">Select</button></div>
+            <div class="led-dot"></div>
+          </article>
+
+          <article class="panel pad product" data-name="2K FLASH" data-usdt="2000" data-price="$900.00">
+            <div class="tape">ENCRYPTED • AES256 • CHAIN VERIFIED • BLOCK HASH OK •</div>
+            <div class="security-badge">🔒 AES-256 SECURE</div>
+            <h4>2K FLASH</h4>
+            <div class="price">$900.00</div>
+            <div class="amount">Amount: 2,000 USDT</div>
+            <div class="micro"><span>BTC Confirm ~10m*</span><span>SegWit</span><span>Multi-Network Compatible</span></div>
+            <div class="actions"><button class="btn primary select">Select</button></div>
+            <div class="led-dot"></div>
+          </article>
+
+          <article class="panel pad product" data-name="5K FLASH" data-usdt="5000" data-price="$2,000.00">
+            <div class="tape">ENCRYPTED • AES256 • CHAIN VERIFIED • BLOCK HASH OK •</div>
+            <div class="security-badge">🔒 AES-256 SECURE</div>
+            <h4>5K FLASH</h4>
+            <div class="price">$2,000.00</div>
+            <div class="amount">Amount: 5,000 USDT</div>
+            <div class="micro"><span>BTC Confirm ~10m*</span><span>SegWit</span><span>Multi-Network Compatible</span></div>
+            <div class="actions"><button class="btn primary select">Select</button></div>
+            <div class="led-dot"></div>
+          </article>
+
+          <article class="panel pad product" data-name="10K FLASH" data-usdt="10000" data-price="$3,700.00">
+            <div class="tape">ENCRYPTED • AES256 • CHAIN VERIFIED • BLOCK HASH OK •</div>
+            <div class="security-badge">🔒 AES-256 SECURE</div>
+            <h4>10K FLASH</h4>
+            <div class="price">$3,700.00</div>
+            <div class="amount">Amount: 10,000 USDT</div>
+            <div class="micro"><span>BTC Confirm ~10m*</span><span>SegWit</span><span>Multi-Network Compatible</span></div>
+            <div class="actions"><button class="btn primary select">Select</button></div>
+            <div class="led-dot"></div>
+          </article>
+        </div>
+      </div>
+
+      <!-- STEP 2: WALLET -->
+      <div class="card pad" id="step2" style="display:none">
+        <h2 class="title">Enter Your BTC Wallet</h2>
+        <p class="sub">Enter the recipient <b>Bitcoin</b> wallet (e.g., starts with <b>bc1</b>, <b>1</b> or <b>3</b>) where your package will be delivered.</p>
+        <div class="panel pad" style="margin-top:12px">
+          <div class="field">
+            <input type="text" id="wallet" placeholder="Your BTC wallet address (bc1..., 1..., or 3...)" />
+          </div>
+          <div class="small" style="margin-top:6px">Warning: Sending to a wrong address is irreversible.</div>
+        </div>
+        <div class="actions">
+          <button class="btn ghost" data-back>Back</button>
+          <button class="btn primary" data-next>Continue</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: METHOD -->
+      <div class="card pad" id="step3" style="display:none">
+        <h2 class="title">Select Payment Method</h2>
+        <p class="sub">Choose your payment network. Closed methods stay visible for clarity.</p>
+
+        <div class="methods">
+          <div class="method panel pad" data-method="BTC">
+            <img src="assets/btc.png" alt=""><div>BTC (Bitcoin)</div>
+          </div>
+
+          <div class="method panel pad closed" data-closed="true">
+            <span class="badge-closed">CLOSED</span>
+            <img src="assets/trc20.png" alt=""><div>TRC20 (TRON)</div>
+          </div>
+          <div class="method panel pad closed" data-closed="true">
+            <span class="badge-closed">CLOSED</span>
+            <img src="assets/erc20.png" alt=""><div>ERC20 (Ethereum)</div>
+          </div>
+          <div class="method panel pad closed" data-closed="true">
+            <span class="badge-closed">CLOSED</span>
+            <img src="assets/bep20.png" alt=""><div>BEP20 (BSC)</div>
+          </div>
+          <div class="method panel pad closed" data-closed="true">
+            <span class="badge-closed">CLOSED</span>
+            <img src="assets/binance.png" alt=""><div>Binance Pay</div>
+          </div>
+          <div class="method panel pad closed" data-closed="true">
+            <span class="badge-closed">CLOSED</span>
+            <img src="assets/okx.png" alt=""><div>OKX Pay</div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn ghost" data-back>Back</button>
+          <button class="btn primary" data-next>Continue</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: PAYMENT DETAILS -->
+      <div class="card pad" id="step4" style="display:none">
+        <h2 class="title">Payment Details</h2>
+        <p class="sub">Send the package amount to the address below using the <b>BTC network</b> only.</p>
+
+        <div class="panel pad" style="margin-top:12px">
+          <div class="row"><div>Network</div><div id="sum-network">—</div></div>
+          <div class="row">
+            <div>Payment Address</div>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <span id="pay-address" class="small">—</span>
+              <button class="copy" id="copyAddr">Copy</button>
+            </div>
+          </div>
+          <div class="small" style="margin-top:8px">Use the BTC network you selected. Wrong-network transfers are not recoverable.</div>
+        </div>
+
+        <div class="actions">
+          <button class="btn ghost" data-back>Back</button>
+          <button class="btn primary" data-next>I've Made the Payment</button>
+        </div>
+      </div>
+
+      <!-- STEP 5: TXID -->
+      <div class="card pad" id="step5" style="display:none">
+        <h2 class="title">Submit Your TXID</h2>
+        <p class="sub">After sending, paste your <b>Transaction ID (TXID)</b> from a BTC block explorer.</p>
+
+        <div class="panel pad" style="margin-top:12px">
+          <div class="field">
+            <input type="text" id="txid" placeholder="Paste your BTC TXID here" />
+          </div>
+          <div class="actions" style="margin-top:12px">
+            <button class="btn ghost" data-back>Back</button>
+            <button class="btn primary" id="sendTxid">Submit Transaction</button>
+          </div>
+          <div class="small" style="margin-top:8px">We do not collect personal data. Only TXID and necessary order info are sent.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT: SUMMARY -->
+    <aside id="sideSummary">
+      <div class="summary pad slide-in">
+        <div class="head">
+          <h3 style="margin:0">Order Summary</h3>
+          <span class="shield">🔐 AES-256 • Chain Verified</span>
+        </div>
+        <div class="kvs">
+          <div class="kv"><span class="k">Package</span> <span id="s-name">—</span></div>
+          <div class="kv"><span class="k">USDT Amount</span> <span id="s-amount">—</span></div>
+          <div class="kv"><span class="k">Price</span> <span id="s-price">—</span></div>
+          <div class="kv"><span class="k">Wallet</span> <span id="s-wallet">—</span></div>
+          <div class="kv"><span class="k">Network</span> <span id="s-network">—</span></div>
+          <div class="kv"><span class="k">Pay Address</span> <span id="s-address" class="small">—</span></div>
+          <div class="kv"><span class="k">Est. Fee</span> <span id="s-fee">varies by mempool (BTC)</span></div>
+          <div class="kv"><span class="k">ETA</span> <span>~1–3 confs</span></div>
+          <div class="kv"><span class="k">Timestamp</spa
