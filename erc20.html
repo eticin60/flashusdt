@@ -3,179 +3,217 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>MetaFlash USDT — ERC20 Network Products</title>
-<meta name="description" content="MetaFlash USDT ERC20 packages — AES-secure, verified, and enterprise-grade Ethereum plans." />
+<title>MetaFlash USDT — ERC20 Checkout (AES Secure)</title>
+<meta name="description" content="MetaFlash USDT ERC20 packages — AES-secure Ethereum checkout, verified transactions, and instant settlement." />
 <link rel="icon" type="image/png" href="assets/USDT-2.png" />
 <style>
 :root{
-  --bg1:#0b0e22; --bg2:#131731; --bg3:#1a1e3f;
-  --text:#eef3ff; --muted:#a3add8;
-  --cyan:#00d8ff; --vio:#8a2cff; --lime:#16d18a;
+  --bg1:#0c0e24; --bg2:#141835; --bg3:#1b2045;
+  --text:#eef3ff; --muted:#9ea7d3;
+  --cyan:#00d8ff; --vio:#8a2cff; --lime:#16d18a; --amber:#f5b53f;
   --border:rgba(255,255,255,.12);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{
-  font-family:"Poppins",sans-serif;
-  color:var(--text);
+html,body{height:100%;overflow-x:hidden;font-family:"Poppins",sans-serif;color:var(--text);
   background:
     radial-gradient(1200px 700px at 10% -10%, rgba(0,216,255,.12), transparent 55%),
     radial-gradient(900px 500px at 90% 0, rgba(138,44,255,.18), transparent 60%),
-    linear-gradient(180deg, var(--bg1), var(--bg2) 50%, var(--bg3));
-  overflow-x:hidden;
+    linear-gradient(180deg,var(--bg1),var(--bg2) 50%,var(--bg3));
 }
 
-/* HEADER */
-header{position:sticky;top:0;z-index:50;background:rgba(15,18,45,.75);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
-.nav{max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+/* NAV */
+header{position:sticky;top:0;z-index:50;background:rgba(10,15,40,.8);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav{max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800}
-.brand img{width:30px;height:30px}
+.brand img{width:30px;height:30px;border-radius:8px}
 .brand span{background:linear-gradient(90deg,var(--cyan),var(--vio));-webkit-background-clip:text;background-clip:text;color:transparent}
-.menu a{color:var(--muted);margin-left:18px;text-decoration:none;font-weight:600}
+.menu a{color:var(--muted);text-decoration:none;font-weight:600;margin-left:16px}
 .menu a:hover{color:var(--cyan)}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:12px;font-weight:700;
+background:linear-gradient(90deg,#3aa8ff,#8a2cff);color:#fff;text-decoration:none;transition:.25s;border:none}
+.btn:hover{opacity:.9;transform:translateY(-2px)}
+.ghost{background:transparent;border:1px solid var(--border);color:#d5dcff}
 
 /* HERO */
-.hero{text-align:center;padding:70px 20px 30px}
-.hero h1{font-size:clamp(32px,5vw,48px);font-weight:900;
-  background:linear-gradient(90deg,var(--cyan),var(--vio));-webkit-background-clip:text;color:transparent;
-  text-shadow:0 0 18px rgba(0,216,255,.2);
-}
-.hero p{max-width:820px;margin:10px auto;color:var(--muted);font-size:17px;line-height:1.6}
+.hero{text-align:center;padding:70px 20px 20px}
+.hero h1{font-size:clamp(30px,5vw,46px);font-weight:900;background:linear-gradient(90deg,#b0caff,#8a2cff);
+  -webkit-background-clip:text;color:transparent;text-shadow:0 0 18px rgba(0,216,255,.15);}
+.hero p{max-width:860px;margin:10px auto 20px;color:#c5cdf2;line-height:1.7}
 
-/* PRODUCTS GRID */
-.wrap{max-width:1200px;margin:0 auto;padding:0 20px 80px}
-.products{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:30px}
-.product{
-  position:relative;overflow:hidden;
-  border-radius:18px;border:1px solid var(--border);
-  background:rgba(255,255,255,.04);backdrop-filter:blur(10px);
-  padding:20px;text-align:center;transition:.25s;
-  box-shadow:0 8px 28px rgba(0,0,0,.25);
-}
-.product:hover{transform:translateY(-6px);box-shadow:0 30px 70px rgba(0,216,255,.1)}
-.product h4{margin:10px 0 4px;font-size:20px;font-weight:700}
-.price{font-size:24px;font-weight:800;color:var(--cyan);margin-bottom:6px}
-.amount{font-size:13px;color:#cfd6ff;margin-bottom:10px}
+/* MAIN */
+main{max-width:1200px;margin:0 auto;padding:0 20px 60px}
+.stage{display:grid;gap:24px;grid-template-columns:1fr;transition:.3s}
+.stage.with-summary{grid-template-columns:1fr 380px}
+
+/* CARDS */
+.card,.panel,.summary{border-radius:18px;background:rgba(255,255,255,.045);border:1px solid var(--border);
+  backdrop-filter:blur(14px);box-shadow:0 10px 30px rgba(0,0,0,.25);padding:20px;}
+.title{text-align:center;margin-bottom:6px;font-size:clamp(24px,3vw,28px)}
+.sub{text-align:center;color:var(--muted);margin-bottom:14px}
+
+/* PRODUCTS */
+.products{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-top:10px}
+.product{position:relative;text-align:center;padding:20px;overflow:hidden;transition:.25s}
+.product:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,216,255,.1)}
+.product h4{margin:6px 0 6px;font-size:18px}
+.price{font-weight:800;font-size:22px;color:var(--cyan);margin-bottom:6px}
+.amount{font-size:13px;color:#cbd2ff}
 .micro{margin-top:10px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;font-size:11px;color:#cfe0ff}
 .micro span{border:1px solid var(--border);padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.04)}
-.btn{
-  display:inline-block;margin-top:12px;padding:10px 14px;border-radius:10px;
-  background:linear-gradient(90deg,var(--cyan),var(--vio));color:#fff;text-decoration:none;font-weight:700;
-  transition:.25s;
-}
-.btn:hover{opacity:.85}
-
-/* AES BAND (flat, not diagonal) */
-.tape{
-  position:absolute;top:8px;left:0;right:0;height:22px;
-  display:flex;align-items:center;justify-content:center;
+.tape{position:absolute;top:8px;left:0;right:0;height:22px;
   background:linear-gradient(90deg,rgba(0,216,255,.1),rgba(138,44,255,.1));
   color:#7fe9ff;font-weight:800;font-size:11px;letter-spacing:.8px;
   border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);
-  animation:tapeScroll 12s linear infinite;
-}
-@keyframes tapeScroll{
-  0%{background-position:0 0}
-  100%{background-position:300px 0}
-}
-.security-badge{
-  display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:11px;
+  display:flex;align-items:center;justify-content:center;
+  animation:tapeScroll 12s linear infinite;}
+@keyframes tapeScroll{0%{background-position:0 0}100%{background-position:300px 0}}
+.security-badge{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:11px;
   padding:6px 10px;border-radius:999px;border:1px solid var(--border);
-  background:rgba(255,255,255,.05);color:#9ee7ff;margin-top:26px;
-}
+  background:rgba(255,255,255,.05);color:#9ee7ff;margin-top:26px;}
+
+/* INPUTS */
+.field{display:flex;gap:10px;align-items:center;margin-top:12px}
+input[type="text"]{flex:1;height:46px;border-radius:12px;border:1px solid var(--border);
+  background:rgba(255,255,255,.04);color:var(--text);padding:0 12px;outline:none}
+input::placeholder{color:#9aa0c2}
+
+/* METHODS */
+.methods{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));max-width:860px;margin:10px auto 0;}
+.method{cursor:pointer;position:relative;display:flex;align-items:center;gap:12px;
+  padding:14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,.03);transition:.2s;}
+.method img{width:24px;height:24px;object-fit:contain}
+.method.active{outline:2px solid rgba(0,216,255,.6);background:rgba(0,216,255,.05)}
+.method.closed{opacity:.6;filter:saturate(.85) grayscale(.1)}
+.badge-closed{position:absolute;top:6px;right:8px;background:#ff4b4b;color:#fff;font-weight:800;
+  padding:2px 6px;font-size:10px;border-radius:6px}
+
+/* SUMMARY */
+aside{display:none}
+.stage.with-summary aside{display:block;position:sticky;top:88px;height:fit-content}
+.summary .head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.kvs{display:grid;gap:6px}
+.kv{display:flex;align-items:center;gap:10px;font-size:13px;color:#cfe0ff}
+.kv .k{min-width:120px;color:#93a7ff}
+.summary .shield{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:12px;
+  padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04)}
+.actions{display:flex;justify-content:center;gap:10px;margin-top:14px;flex-wrap:wrap}
 
 /* FOOTER */
-footer{border-top:1px solid var(--border);background:linear-gradient(180deg,var(--bg2),var(--bg3));color:#a9b1c6;text-align:center;padding:40px 20px;font-size:14px}
-footer img{width:20px;height:20px;vertical-align:middle;margin-right:6px}
+footer{border-top:1px solid var(--border);background:linear-gradient(180deg,var(--bg2),var(--bg3));color:#a9b1c6}
+.foot{max-width:1200px;margin:0 auto;padding:22px 20px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
+.foot-left{display:flex;align-items:center;gap:10px}
+.foot-left img{width:22px;height:22px;border-radius:6px}
+@media(max-width:960px){.stage.with-summary{grid-template-columns:1fr}aside{position:relative;top:auto}}
 </style>
 </head>
 <body>
 
 <header>
   <div class="nav">
-    <div class="brand"><img src="assets/USDT-2.png" alt=""><span>MetaFlash</span> USDT</div>
-    <nav class="menu"><a href="index.html">Home</a><a href="#plans">Plans</a></nav>
+    <div class="brand"><img src="assets/logo.png" alt=""><span>MetaFlash</span> USDT</div>
+    <nav class="menu">
+      <a href="#top">Home</a>
+      <a href="#plans">Checkout</a>
+      <a href="#verify">TXID</a>
+    </nav>
+    <a class="btn" href="#plans">Get Started</a>
   </div>
 </header>
 
-<section class="hero">
-  <h1>ERC20 Network Products</h1>
-  <p>Select the MetaFlash USDT package that fits your Ethereum trading needs. All plans include AES-256 security and verified on-chain encryption.</p>
+<section class="hero" id="top">
+  <h1>ERC20 Checkout — AES Secure</h1>
+  <p>Choose your MetaFlash ERC20 package. Instant verification, AES-256 encryption, and enterprise-grade security on the Ethereum network.</p>
 </section>
 
-<section class="wrap" id="plans">
-  <div class="products">
-    <div class="product">
-      <div class="tape">AES256 ENCRYPTED • CHAIN VERIFIED • BLOCK HASH OK •</div>
-      <div class="security-badge">🔒 AES-256 SECURE</div>
-      <h4>1K FLASH</h4>
-      <div class="price">$280.00</div>
-      <div class="amount">Amount: 1,000 USDT</div>
-      <div class="micro"><span>BlockTime ~12s</span><span>Verify L2</span><span>Priority: Normal</span></div>
-      <a class="btn" href="#">Select Package →</a>
-    </div>
-    <div class="product">
-      <div class="tape">AES256 ENCRYPTED • CHAIN VERIFIED • BLOCK HASH OK •</div>
-      <div class="security-badge">🔒 AES-256 SECURE</div>
-      <h4>10K FLASH</h4>
-      <div class="price">$510.00</div>
-      <div class="amount">Amount: 10,000 USDT</div>
-      <div class="micro"><span>BlockTime ~12s</span><span>Verify L3</span><span>Priority: Fast</span></div>
-      <a class="btn" href="#">Select Package →</a>
-    </div>
-    <div class="product">
-      <div class="tape">AES256 ENCRYPTED • CHAIN VERIFIED • BLOCK HASH OK •</div>
-      <div class="security-badge">🔒 AES-256 SECURE</div>
-      <h4>20K FLASH</h4>
-      <div class="price">$780.00</div>
-      <div class="amount">Amount: 20,000 USDT</div>
-      <div class="micro"><span>BlockTime ~12s</span><span>Verify L3</span><span>Priority: Trader</span></div>
-      <a class="btn" href="#">Select Package →</a>
-    </div>
-    <div class="product">
-      <div class="tape">AES256 ENCRYPTED • CHAIN VERIFIED • BLOCK HASH OK •</div>
-      <div class="security-badge">🔒 AES-256 SECURE</div>
-      <h4>50K FLASH</h4>
-      <div class="price">$3,350.00</div>
-      <div class="amount">Amount: 50,000 USDT</div>
-      <div class="micro"><span>BlockTime ~12s</span><span>Verify L4</span><span>Priority: Business</span></div>
-      <a class="btn" href="#">Select Package →</a>
-    </div>
-    <div class="product">
-      <div class="tape">AES256 ENCRYPTED • CHAIN VERIFIED • BLOCK HASH OK •</div>
-      <div class="security-badge">🔒 AES-256 SECURE</div>
-      <h4>100K FLASH</h4>
-      <div class="price">$4,500.00</div>
-      <div class="amount">Amount: 100,000 USDT</div>
-      <div class="micro"><span>BlockTime ~12s</span><span>Verify L4</span><span>Priority: VIP</span></div>
-      <a class="btn" href="#">Select Package →</a>
-    </div>
-    <div class="product">
-      <div class="tape">AES256 ENCRYPTED • CHAIN VERIFIED • BLOCK HASH OK •</div>
-      <div class="security-badge">🔒 AES-256 SECURE</div>
-      <h4>500K FLASH</h4>
-      <div class="price">$14,500.00</div>
-      <div class="amount">Amount: 500,000 USDT</div>
-      <div class="micro"><span>BlockTime ~12s</span><span>Verify L5</span><span>Priority: Enterprise</span></div>
-      <a class="btn" href="#">Select Package →</a>
-    </div>
-    <div class="product">
-      <div class="tape">AES256 ENCRYPTED • CHAIN VERIFIED • BLOCK HASH OK •</div>
-      <div class="security-badge">🔒 AES-256 SECURE</div>
-      <h4>1M FLASH</h4>
-      <div class="price">$22,500.00</div>
-      <div class="amount">Amount: 1,000,000 USDT</div>
-      <div class="micro"><span>BlockTime ~12s</span><span>Verify L5</span><span>Priority: Enterprise+</span></div>
-      <a class="btn" href="#">Select Package →</a>
-    </div>
+<main id="plans">
+  <div class="stage" id="stage">
+    <!-- PRODUCT SELECTION -->
+    <section>
+      <div class="card">
+        <h2 class="title">Select Your ERC20 Package</h2>
+        <p class="sub">Instant delivery • AES-256 security • Verified on-chain</p>
+        <div class="products">
+          <article class="product" data-name="1K FLASH" data-usdt="1000" data-price="$280.00">
+            <div class="tape">AES256 ENCRYPTED • CHAIN VERIFIED • BLOCK HASH OK •</div>
+            <div class="security-badge">🔒 AES-256 SECURE</div>
+            <h4>1K FLASH</h4><div class="price">$280.00</div><div class="amount">Amount: 1,000 USDT</div>
+            <div class="micro"><span>BlockTime ~12s</span><span>Verify L2</span><span>Priority: Normal</span></div>
+            <div class="actions"><button class="btn select">Select</button></div>
+          </article>
+          <article class="product" data-name="10K FLASH" data-usdt="10000" data-price="$510.00">
+            <div class="tape">AES256 ENCRYPTED • CHAIN VERIFIED • BLOCK HASH OK •</div>
+            <div class="security-badge">🔒 AES-256 SECURE</div>
+            <h4>10K FLASH</h4><div class="price">$510.00</div><div class="amount">Amount: 10,000 USDT</div>
+            <div class="micro"><span>BlockTime ~12s</span><span>Verify L3</span><span>Priority: Fast</span></div>
+            <div class="actions"><button class="btn select">Select</button></div>
+          </article>
+          <article class="product" data-name="20K FLASH" data-usdt="20000" data-price="$780.00">
+            <div class="tape">AES256 ENCRYPTED • CHAIN VERIFIED • BLOCK HASH OK •</div>
+            <div class="security-badge">🔒 AES-256 SECURE</div>
+            <h4>20K FLASH</h4><div class="price">$780.00</div><div class="amount">Amount: 20,000 USDT</div>
+            <div class="micro"><span>BlockTime ~12s</span><span>Verify L3</span><span>Priority: Trader</span></div>
+            <div class="actions"><button class="btn select">Select</button></div>
+          </article>
+          <article class="product" data-name="50K FLASH" data-usdt="50000" data-price="$3,350.00">
+            <div class="tape">AES256 ENCRYPTED • CHAIN VERIFIED • BLOCK HASH OK •</div>
+            <div class="security-badge">🔒 AES-256 SECURE</div>
+            <h4>50K FLASH</h4><div class="price">$3,350.00</div><div class="amount">Amount: 50,000 USDT</div>
+            <div class="micro"><span>BlockTime ~12s</span><span>Verify L4</span><span>Priority: Business</span></div>
+            <div class="actions"><button class="btn select">Select</button></div>
+          </article>
+          <article class="product" data-name="100K FLASH" data-usdt="100000" data-price="$4,500.00">
+            <div class="tape">AES256 ENCRYPTED • CHAIN VERIFIED • BLOCK HASH OK •</div>
+            <div class="security-badge">🔒 AES-256 SECURE</div>
+            <h4>100K FLASH</h4><div class="price">$4,500.00</div><div class="amount">Amount: 100,000 USDT</div>
+            <div class="micro"><span>BlockTime ~12s</span><span>Verify L4</span><span>Priority: VIP</span></div>
+            <div class="actions"><button class="btn select">Select</button></div>
+          </article>
+          <article class="product" data-name="500K FLASH" data-usdt="500000" data-price="$14,500.00">
+            <div class="tape">AES256 ENCRYPTED • CHAIN VERIFIED • BLOCK HASH OK •</div>
+            <div class="security-badge">🔒 AES-256 SECURE</div>
+            <h4>500K FLASH</h4><div class="price">$14,500.00</div><div class="amount">Amount: 500,000 USDT</div>
+            <div class="micro"><span>BlockTime ~12s</span><span>Verify L5</span><span>Priority: Enterprise</span></div>
+            <div class="actions"><button class="btn select">Select</button></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUMMARY -->
+    <aside>
+      <div class="summary">
+        <div class="head"><h3>Order Summary</h3><span class="shield">🔐 AES-256 Verified</span></div>
+        <div class="kvs">
+          <div class="kv"><span class="k">Package</span><span id="s-name">—</span></div>
+          <div class="kv"><span class="k">USDT</span><span id="s-amount">—</span></div>
+          <div class="kv"><span class="k">Price</span><span id="s-price">—</span></div>
+        </div>
+      </div>
+    </aside>
   </div>
-</section>
+</main>
 
 <footer>
-  <img src="assets/USDT-2.png" alt=""> © <span id="y"></span> MetaFlash USDT — ERC20 • AES-256 Protected
+  <div class="foot">
+    <div class="foot-left"><img src="assets/USDT-2.png" alt=""><strong>MetaFlash USDT</strong> — AES-256 • Ethereum Verified</div>
+    <div>Contact: <a style="color:#cfe8ff" href="mailto:support@flashusdt.com">support@flashusdt.com</a></div>
+    <div>© <span id="y"></span> MetaFlash USDT — ERC20</div>
+  </div>
 </footer>
 
 <script>
 document.getElementById('y').textContent = new Date().getFullYear();
+const state={};
+document.querySelectorAll('.select').forEach(b=>{
+ b.onclick=e=>{
+  const c=e.target.closest('.product');
+  state.name=c.dataset.name; state.usdt=c.dataset.usdt; state.price=c.dataset.price;
+  document.getElementById('s-name').textContent=state.name;
+  document.getElementById('s-amount').textContent=state.usdt+' USDT';
+  document.getElementById('s-price').textContent=state.price;
+  document.getElementById('stage').classList.add('with-summary');
+ };
+});
 </script>
 </body>
 </html>
