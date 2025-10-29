@@ -1,1091 +1,662 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FLASH USDT</title>
-  <meta name="description" content="FLASH USDT — multi-chain flash USDT platform with TRC20, ERC20, BEP20 and BTC support. Fast, secure and reliable." />
-  <link rel="icon" type="image/png" href="assets/USDT-2.png" />
-  <style>
-    /* ===== THEME ===== */
-    :root{
-      --bg1:#030615; --bg2:#0b1130; --bg3:#0f153d;
-      --text:#eef3ff; --muted:#9aa0c2;
-      --cyan:#00f0ff; --violet:#5b2cff; --rose:#ff4b9f; --lime:#16d18a; --amber:#ffcc4d;
-      --glass:rgba(255,255,255,.06); --border:rgba(255,255,255,.12);
-      --panel:#121932; --panel2:#0f1730;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0}
-    body{
-      font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 700px at 10% -10%, rgba(0,240,255,.14) 0%, transparent 55%),
-        radial-gradient(900px 500px at 90% 0%, rgba(91,44,255,.20) 0%, transparent 60%),
-        linear-gradient(180deg,var(--bg1),var(--bg2) 50%,var(--bg3));
-      overflow-x:hidden;
-      animation:fadeBody 1s ease;
-    }
-    @keyframes fadeBody{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-    a{color:inherit;text-decoration:none}
-    img{display:block;max-width:100%}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FLASH USDT — Fast • Secure • Multichain</title>
+<meta name="description" content="FLASH USDT — multi-chain flash USDT platform with TRC20, ERC20, BEP20 and BTC support. Fast, secure and reliable." />
+<link rel="icon" type="image/png" href="assets/USDT-2.png" />
+<style>
+  /* ====== Base / Reset ====== */
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0;width:100%;height:100%}
+  body{
+    font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    overflow-x:hidden; color:#eef3ff;
+    background:
+      radial-gradient(1200px 700px at 10% -10%, rgba(0,240,255,.14) 0%, transparent 55%),
+      radial-gradient(900px 500px at 90% 0%, rgba(91,44,255,.20) 0%, transparent 60%),
+      linear-gradient(180deg,#030615,#0b1130 50%,#0f153d);
+  }
+  img{max-width:100%;display:block}
 
-    /* ==== LED BORDER EFFECT for Combined Section ==== */
-#networks {
-  position: relative;
-  border-radius: 22px;
-  margin: 60px auto;
-  padding: 60px 0;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.08);
+  :root{
+    --text:#eef3ff; --muted:#9aa0c2;
+    --cyan:#00f0ff; --vio:#5b2cff; --rose:#ff4b9f; --lime:#16d18a; --amber:#ffcc4d;
+    --border:rgba(255,255,255,.12); --glass:rgba(255,255,255,.06);
+  }
+
+  /* ====== SPLASH (5s) ====== */
+  .splash{
+    position:fixed; inset:0; z-index:9999; display:grid; place-items:center;
+    background:radial-gradient(1200px 700px at 10% -10%, rgba(0,240,255,.10), transparent 55%),
+               radial-gradient(900px 500px at 90% 0, rgba(91,44,255,.16), transparent 60%),
+               linear-gradient(180deg,#030615,#0b1130 50%,#0f153d);
+  }
+  .splash-inner{width:min(560px,92vw); text-align:center}
+  .halo{
+    position:relative; width:140px; height:140px; margin:0 auto 16px; border-radius:50%;
+    display:grid; place-items:center;
+  }
+  .halo::before{
+    content:""; position:absolute; inset:-8px; border-radius:50%;
+    background:conic-gradient(
+      from 0deg,
+      #00f0ff, #5b2cff, #ff4b9f, #ffcc4d, #16d18a, #00f0ff
+    );
+    filter:blur(14px); opacity:.9; animation:spin 6s linear infinite;
+  }
+  .halo::after{
+    content:""; position:absolute; inset:0; border-radius:50%;
+    border:2px solid rgba(255,255,255,.12);
+    backdrop-filter:blur(2px);
+  }
+  .halo img{width:92px;height:92px;border-radius:50%; position:relative; z-index:1}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  .splash-title{font-size:22px; font-weight:800; margin:4px 0 8px}
+  .splash-steps{color:#c9d1ff; font-size:14px; min-height:64px}
+  .splash-steps .line{opacity:0; transform:translateY(6px); transition:.5s}
+  .splash-steps .line.show{opacity:1; transform:translateY(0)}
+  .bar-wrap{height:6px; border-radius:999px; background:rgba(255,255,255,.06); overflow:hidden; margin:14px auto 0; width:min(480px,90vw)}
+  .bar{height:100%; width:0%; background:linear-gradient(90deg,#00f0ff,#5b2cff,#ff4b9f,#ffcc4d,#16d18a,#00f0ff); background-size:300% 100%; animation:move 2s linear infinite}
+  @keyframes move{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+  .fade-out{animation:fadeOut .6s ease forwards}
+  @keyframes fadeOut{to{opacity:0;visibility:hidden}}
+
+  /* ====== Header ====== */
+  header{position:sticky; top:0; z-index:50; background:rgba(10,15,40,.75); backdrop-filter:blur(16px); border-bottom:1px solid var(--border)}
+  .nav{max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.4px}
+  .brand img{width:36px;height:36px;border-radius:8px}
+  .brand span{background:linear-gradient(90deg,var(--cyan),var(--vio));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .menu{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+  .menu a{color:var(--muted);font-weight:600;opacity:.9;text-decoration:none}
+  .menu a:hover{color:var(--cyan)}
+  .btn{display:inline-block;padding:10px 14px;border-radius:12px;font-weight:700;background:linear-gradient(90deg,var(--cyan),var(--vio));color:#fff;box-shadow:0 10px 22px rgba(0,0,0,.25);transition:.2s}
+  .btn:hover{transform:translateY(-2px);opacity:.95}
+  .mobile-hide{display:block}
+  @media (max-width:768px){ .menu{display:none} .mobile-hide{display:none} }
+
+  /* ====== Hero ====== */
+  .hero{position:relative;text-align:center;padding:130px 20px 100px}
+  .hero h1{
+    font-size: clamp(44px, 6vw, 88px); font-weight:900; text-transform:uppercase; margin:0 0 14px;
+    color:#fff; text-shadow:0 0 25px rgba(0,240,255,.25),0 0 45px rgba(91,44,255,.15),0 0 80px rgba(255,75,159,.10);
+  }
+  .rainbow{background:linear-gradient(270deg,#00f0ff,#5b2cff,#ff4b9f,#ffcc4d,#16d18a,#00f0ff);background-size:400% 400%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:rainbowShift 7s linear infinite}
+  @keyframes rainbowShift{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+  .hero p{max-width:760px;margin:20px auto 0;color:#aeb6d8;font-size:18px;line-height:1.7}
+  .hero-logos{margin-top:40px;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:24px}
+  .hero-logos img{width:58px;height:58px;object-fit:contain;filter:drop-shadow(0 0 10px rgba(0,240,255,0.25));transition:transform .3s ease, filter .3s}
+  .hero-logos img:hover{transform:scale(1.15);filter:drop-shadow(0 0 18px rgba(0,240,255,.45))}
+  @media (max-width:640px){ .hero{padding:100px 16px 80px}.hero-logos img{width:46px;height:46px}}
+
+  /* ====== Sections / Cards ====== */
+  section{padding:56px 20px}
+  .wrap{max-width:1200px;margin:0 auto}
+  .title{text-align:center;margin:0 0 10px;font-size:clamp(26px,3.5vw,36px);background:linear-gradient(90deg,var(--cyan),var(--vio));-webkit-background-clip:text;color:transparent}
+  .sub{color:var(--muted);text-align:center;max-width:860px;margin:0 auto 24px}
+  .grid{display:grid;gap:22px}
+  .g-4{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .card{
+    position:relative;border-radius:18px;padding:22px;overflow:hidden;background:var(--glass);border:1px solid var(--border);backdrop-filter:blur(16px);transition:.3s
+  }
+  .card::before{
+    content:"";position:absolute;inset:-3px;border-radius:inherit;background:conic-gradient(from 0deg,#00f0ff,#5b2cff,#ff4b9f,#ffcc4d,#16d18a,#00f0ff);filter:blur(10px);opacity:.9;animation:spin 6s linear infinite;z-index:0
+  }
+  .card::after{content:"";position:absolute;inset:0;border-radius:inherit;background:rgba(15,15,30,.88);backdrop-filter:blur(12px);z-index:1}
+  .card>*{position:relative;z-index:2}
+  .card:hover{transform:translateY(-6px);border-color:rgba(0,240,255,.45);box-shadow:0 24px 60px rgba(0,240,255,.14)}
+
+  /* Product cards */
+  .product{text-align:center;padding:28px;cursor:pointer}
+  .product img{width:78px;height:78px;margin:0 auto 10px;filter:drop-shadow(0 0 10px rgba(0,240,255,.35))}
+  .product h3{margin:6px 0 6px}
+  .product .btn{margin-top:10px}
+
+  /* Minimal grids */
+  .grid-minimal{display:flex;flex-wrap:wrap;justify-content:center;gap:26px;margin-top:28px}
+  .grid-minimal .item{flex:0 1 120px;text-align:center;transition:transform .3s ease,opacity .3s}
+  .grid-minimal .item:hover{transform:translateY(-6px);opacity:.95}
+  .grid-minimal img{width:48px;height:48px;margin:0 auto 8px;object-fit:contain;filter:drop-shadow(0 0 10px rgba(0,240,255,.2))}
+  .grid-minimal .label{font-weight:700;font-size:14px;color:#fff}
+  .grid-minimal .subtext{font-size:12px;color:var(--muted);margin-top:2px}
+
+  /* Divider */
+  .rainbow-divider{width:90%;height:2px;border-radius:2px;margin:50px auto 0;background:linear-gradient(90deg,#00f0ff,#5b2cff,#ff4b9f,#ffcc4d,#16d18a,#00f0ff);background-size:400% 100%;animation:move 6s linear infinite;opacity:.8}
+
+  /* Wallet/Payment icon tiles (shared) */
+  .wallet-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:24px;margin-top:36px}
+  .wallet{width:100px;height:110px;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:transform .3s,box-shadow .3s;backdrop-filter:blur(12px)}
+  .wallet:hover{transform:translateY(-6px);box-shadow:0 0 14px rgba(0,240,255,.25)}
+  .wallet img{width:40px;height:40px;object-fit:contain;margin-bottom:10px}
+  .wallet span{font-size:13px;font-weight:600;color:#fff;opacity:.9}
+  @media (max-width:640px){ .wallet{width:90px;height:100px}.wallet img{width:36px;height:36px}.grid-minimal{gap:18px}.grid-minimal .item{flex:0 1 80px}.grid-minimal img{width:40px;height:40px}.grid-minimal .label{font-size:13px}.grid-minimal .subtext{font-size:11px}}
+
+  /* ====== Footer ====== */
+  footer{padding:60px 20px 50px;border-top:1px solid rgba(255,255,255,.06);background:linear-gradient(180deg,#0b1130,#0f153d);text-align:center}
+  .footer-led{height:3px;width:100%;background:linear-gradient(90deg,#00f0ff,#5b2cff,#ff4b9f,#16d18a,#00f0ff);background-size:300% 100%;animation:move 8s linear infinite;filter:blur(1px);opacity:.9;margin-bottom:18px}
+  .footer-logo{width:52px;height:52px;object-fit:contain;margin:0 auto 14px;filter:drop-shadow(0 0 10px rgba(0,240,255,.3))}
+  .footer .muted{color:#9aa3bd;font-size:13.5px;letter-spacing:.2px}
+
+  /* ====== Reveal on scroll ====== */
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ====== ADDED: underline fix & hero extras ====== */
+  .btn, .btn:link, .btn:visited, .btn:hover, .btn:focus, .btn:active{ text-decoration:none !important; } /* ADDED */
+  .hero-cta{ margin-top:22px; display:flex; justify-content:center; gap:14px; flex-wrap:wrap;} /* ADDED */
+  .hero-cta .buy-btn{ padding:12px 18px; border-radius:12px; font-weight:800; } /* ADDED */
+  .contact-banner{ display:block; max-width:860px; margin:22px auto 0; border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,.08);} /* ADDED */
+  .contact-banner img{ width:100%; height:auto; display:block; } /* ADDED */
+    /* === Contact gradient button (Get Started ile aynı görünüm + parlama) === */
+.contact-btn{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:12px 18px; border-radius:12px; font-weight:800;
+  background:linear-gradient(90deg,var(--cyan),var(--vio));
+  color:#fff; text-decoration:none; box-shadow:0 10px 22px rgba(0,0,0,.25);
+  transition:transform .2s ease, opacity .2s ease, box-shadow .2s ease;
+  position:relative; overflow:hidden;
+}
+.contact-btn:hover{ transform:translateY(-2px); opacity:.95; box-shadow:0 14px 28px rgba(0,0,0,.28); }
+
+/* yumuşak LED parlama */
+.contact-btn::after{
+  content:""; position:absolute; inset:-40%; border-radius:40px;
+  background:radial-gradient(circle at 30% 50%, rgba(255,255,255,.18), transparent 60%);
+  mix-blend-mode:screen; animation:contactGlow 2.6s ease-in-out infinite;
+}
+@keyframes contactGlow{
+  0%,100%{ transform:translateX(-6%) scale(1); opacity:.55; }
+  50%{ transform:translateX(6%) scale(1.05); opacity:.9; }
 }
 
-#networks::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 2px; /* LED kalınlığı */
-  background: linear-gradient(135deg,
+/* küçük dışa-açılır ok ikonu ayarları */
+.contact-btn svg{ width:18px; height:18px; stroke:currentColor; }
+    
+    /* === ADDED: ultra-hafif animasyonlu arka plan (plasma neon) === */
+.bgfx{
+  position:fixed;
+  inset:-12% -12% -12% -12%;
+  z-index:-1;
+  pointer-events:none;
+  filter: blur(70px);
+  opacity:.55;            /* arka planın görünürlüğü; fazla gelirse .45 yapabilirsin */
+}
+.bgfx .blob{
+  position:absolute;
+  width:60vw; height:60vw;
+  max-width:900px; max-height:900px;
+  border-radius:50%;
+  mix-blend-mode:screen;  /* alttaki gradient ile hoşça karışır */
+  will-change: transform, opacity;
+}
+
+/* renkli, yumuşak ışık daireleri */
+.bgfx .cyan{
+  background: radial-gradient(circle at 30% 30%, rgba(0,240,255,.55), rgba(0,240,255,0) 60%);
+  animation: floatA 26s ease-in-out infinite alternate;
+}
+.bgfx .vio{
+  background: radial-gradient(circle at 70% 40%, rgba(91,44,255,.45), rgba(91,44,255,0) 60%);
+  animation: floatB 34s ease-in-out infinite alternate;
+}
+.bgfx .rose{
+  background: radial-gradient(circle at 50% 70%, rgba(255,75,159,.35), rgba(255,75,159,0) 60%);
+  animation: floatC 40s ease-in-out infinite alternate;
+}
+
+/* akıcı ve düşük CPU kullanan hareketler */
+@keyframes floatA{
+  0%   { transform: translate(-10%, -6%) scale(1.05); opacity:.95; }
+  100% { transform: translate(10%, 6%)  scale(1.15); opacity:.8;  }
+}
+@keyframes floatB{
+  0%   { transform: translate(8%, -12%)  scale(1.0);  opacity:.9; }
+  100% { transform: translate(-6%, 12%)  scale(1.12); opacity:.75;}
+}
+@keyframes floatC{
+  0%   { transform: translate(-12%, 10%) scale(1.05); opacity:.85;}
+  100% { transform: translate(12%, -8%)  scale(1.18); opacity:.7; }
+}
+
+/* hareketi kapatmak isteyen kullanıcılar için saygı modu */
+@media (prefers-reduced-motion: reduce){
+  .bgfx{ display:none; }
+}
+
+
+</style>
+    <!-- SOFT FADE TUNING -->
+<style>
+/* 1) Arka plan geçişlerini yumuşat: daha geniş, daha saydam ve daha yavaş */
+body{
+  background:
+    radial-gradient(1400px 840px at 12% -12%, rgba(0,240,255,.08) 0%, rgba(0,240,255,0) 60%),
+    radial-gradient(1200px 660px at 88% -6%, rgba(91,44,255,.12) 0%, rgba(91,44,255,0) 62%),
+    linear-gradient(180deg,#030615 0%, #0a1030 50%, #0f153d 100%) !important;
+}
+
+/* 2) Hafif vignette + film grain hissi (çok düşük opaklık) */
+body::before{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; z-index:-1;
+  background:
+    radial-gradient(1600px 900px at 50% -10%, rgba(255,255,255,.06), transparent 65%),
+    radial-gradient(1200px 800px at 50% 110%, rgba(0,0,0,.25), transparent 60%);
+  mix-blend-mode:soft-light;
+}
+body::after{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; z-index:-1;
+  /* çok ince “grain” için çizgisel doku */
+  background-image: repeating-linear-gradient(0deg, rgba(255,255,255,.018), rgba(255,255,255,.018) 1px, transparent 1px, transparent 2px);
+  opacity:.25;
+}
+
+/* 3) Hero başlığı parlamasını yumuşat */
+.hero h1{
+  text-shadow:0 0 18px rgba(0,240,255,.18), 0 0 36px rgba(91,44,255,.12), 0 0 60px rgba(255,75,159,.08) !important;
+}
+
+/* 4) Kartlardaki konik parıltıyı kıs: daha az keskin */
+.card::before{ opacity:.35 !important; filter:blur(14px) !important; }
+.card::after { background:rgba(12,14,28,.90) !important; }
+.card:hover  { box-shadow:0 18px 44px rgba(0,240,255,.10) !important; transform:translateY(-4px) !important; }
+
+/* 5) Renkli blob’ları (bgfx) daha “soft” yap + daha yavaş hareket */
+.bgfx{ filter: blur(90px) !important; opacity:.42 !important; }
+.bgfx .blob{ max-width:980px; max-height:980px; }
+.bgfx .cyan{ animation: floatA 42s ease-in-out infinite alternate !important; }
+.bgfx .vio { animation: floatB 56s ease-in-out infinite alternate !important; }
+.bgfx .rose{ animation: floatC 64s ease-in-out infinite alternate !important; }
+@keyframes floatA{
+  0%   { transform: translate(-6%, -4%) scale(1.03); opacity:.85; }
+  100% { transform: translate( 6%,  4%) scale(1.10); opacity:.70; }
+}
+@keyframes floatB{
+  0%   { transform: translate( 5%, -8%)  scale(1.00); opacity:.78; }
+  100% { transform: translate(-4%,  8%)  scale(1.08); opacity:.66; }
+}
+@keyframes floatC{
+  0%   { transform: translate(-8%,  6%)  scale(1.03); opacity:.74; }
+  100% { transform: translate( 8%, -6%)  scale(1.12); opacity:.60; }
+}
+
+/* 6) Splash bar’ı daha ipeksi göster */
+.bar-wrap{ background:rgba(255,255,255,.05) !important; }
+.bar{
+  background:linear-gradient(90deg,#00f0ff80,#5b2cff80,#ff4b9f80,#ffcc4d80,#16d18a80,#00f0ff80) !important;
+  background-size:300% 100% !important;
+  filter: blur(.2px);
+}
+
+/* 7) Küresel renkler: doygunlukları hafif kırp (metin akışı daha rahat) */
+:root{
+  --cyan:#00e6f5;         /* bir tık daha yumuşak */
+  --vio:#5b2cff;
+  --rose:#ff4b9f;
+  --lime:#19c98b;
+  --amber:#ffc74d;
+  --border:rgba(255,255,255,.10);
+  --glass:rgba(255,255,255,.055);
+}
+
+/* 8) Minimal ikon grid’lerde hover “zıplamasını” azalt */
+.grid-minimal .item{ transition: transform .45s ease, opacity .45s ease; }
+.grid-minimal .item:hover{ transform:translateY(-4px); opacity:.96; }
+
+/* 9) Bölüm geçişlerine hafif üst-alt fade (yapısal değişiklik yok) */
+section{
+  position:relative;
+}
+section::before, section::after{
+  content:""; position:absolute; left:0; right:0; height:36px; pointer-events:none;
+  opacity:.55;
+}
+section::before{
+  top:-18px;
+  background:linear-gradient(180deg, rgba(3,6,21,0), rgba(3,6,21,.22));
+}
+section::after{
+  bottom:-18px;
+  background:linear-gradient(0deg, rgba(3,6,21,0), rgba(3,6,21,.22));
+}
+
+/* 10) Başlık gradyanlarını daha ipeksi kaydır */
+.rainbow, .title{
+  background-size: 300% 100% !important;
+  animation: rainbowShift 12s ease-in-out infinite !important;
+}
+
+/* Hareketi azalt tercihine saygı: ek overlay’leri de kapat */
+@media (prefers-reduced-motion: reduce){
+  body::after{ display:none; }
+  .rainbow, .title{ animation:none !important; }
+}
+    <style>
+.rainbow {
+  display: inline-block;
+  background: linear-gradient(90deg,#00f0ff,#5b2cff,#ff4b9f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 900;
+  animation: rainbowFlow 6s linear infinite;
+}
+
+@keyframes rainbowFlow {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+/* Son span’ı alta atmak için */
+.rainbow:last-child {
+  display: block;
+  margin-top: 6px;
+}
+    /* === Rainbow Glow Logo === */
+.brand img {
+  border-radius: 50%;                     /* yuvarlak logo */
+  padding: 3px;                           /* iç boşluk */
+  background: conic-gradient(
+    from 0deg,
     #00f0ff,
     #5b2cff,
     #ff4b9f,
-    #ffcc4d,
     #16d18a,
-    #00f0ff);
-  mask: 
-    linear-gradient(#000 0 0) content-box, 
-    linear-gradient(#000 0 0);
-  -webkit-mask: 
-    linear-gradient(#000 0 0) content-box, 
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  filter: blur(2px);
-  animation: borderShift 6s linear infinite;
-  opacity: 0.85;
+    #00f0ff
+  );                                      /* gökkuşağı renkleri */
+  animation: spinHue 6s linear infinite;  /* dönen animasyon */
+  box-shadow: 0 0 12px rgba(0,240,255,.4),
+              0 0 24px rgba(91,44,255,.3);
 }
 
-@keyframes borderShift {
-  0% {background-position: 0% 50%;}
-  100% {background-position: 200% 50%;}
+/* döngü animasyonu */
+@keyframes spinHue {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
 }
 
-    /* ==== Transparent LED Frame Cards for Networks Section ==== */
-#networks .card {
-  background: transparent !important;
-  backdrop-filter: none !important;
-  border: none !important;
-  position: relative;
-  padding: 20px;
-  border-radius: 16px;
-  overflow: hidden;
-  transition: transform .3s;
+/* logonun iç kısmı düzgün gözüksün */
+.brand img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
 }
+</style>
 
-#networks .card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 2px; /* LED çizgi kalınlığı */
-  background: linear-gradient(135deg,
-    #00f0ff,
-    #5b2cff,
-    #ff4b9f,
-    #ffcc4d,
-    #16d18a,
-    #00f0ff);
-  mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  filter: blur(1.5px);
-  animation: borderFlow 6s linear infinite;
-  opacity: 0.9;
-  z-index: 0;
-}
-
-#networks .card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: transparent;
-  z-index: 1;
-}
-
-#networks .card > * {
-  position: relative;
-  z-index: 2;
-}
-
-#networks .card:hover {
-  transform: translateY(-4px);
-}
-
-@keyframes borderFlow {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
-}
-
-
-
-    /* ===== HEADER ===== */
-    header{
-      position:sticky; top:0; z-index:50;
-      background:rgba(10,15,40,.75); backdrop-filter:blur(16px);
-      border-bottom:1px solid var(--border);
-    }
-    .nav{
-      max-width:1200px; margin:0 auto; padding:14px 20px;
-      display:flex; align-items:center; justify-content:space-between; gap:14px;
-    }
-    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.4px}
-    .brand img{width:36px; height:36px; border-radius:8px}
-    .brand span{background:linear-gradient(90deg,var(--cyan),var(--violet)); -webkit-background-clip:text; background-clip:text; color:transparent}
-    .menu{display:flex; gap:18px; align-items:center; flex-wrap:wrap}
-    .menu a{color:var(--muted); font-weight:600; opacity:.9}
-    .menu a:hover{color:var(--cyan)}
-    .btn{
-      display:inline-block; padding:10px 14px; border-radius:12px; font-weight:700;
-      background:linear-gradient(90deg,var(--cyan),var(--violet)); color:#001018;
-      color:#fff; box-shadow:0 10px 22px rgba(0,0,0,.25); transition:transform .2s,opacity .2s;
-    }
-    .btn:hover{transform:translateY(-2px); opacity:.95}
-    .mobile-hide{display:block}
-    @media (max-width:768px){ .mobile-hide{display:none} }
-
-    /* ===== HERO ===== */
-    .hero{
-      padding:88px 20px 56px; text-align:center; position:relative; z-index:1;
-    }
-.hero h1 {
-  color: #eef6ff;
-  text-shadow: 0 0 25px rgba(0,240,255,.6), 0 0 50px rgba(91,44,255,.3);
-}
-    .hero p{max-width:780px; margin:12px auto 0; color:var(--muted); font-size:18px; line-height:1.65}
-    @keyframes slideIn{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
-    .badges{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:14px}
-    .badge{
-      padding:8px 12px; border-radius:999px;
-      border:1px solid var(--border); background:rgba(255,255,255,.05); font-weight:700; font-size:13px
-    }
-
-    /* ===== RAINBOW CARD (for all blocks) ===== */
-    .card{
-      position:relative; border-radius:18px; padding:22px; overflow:hidden;
-      background:var(--glass); border:1px solid var(--border); backdrop-filter:blur(16px);
-      transition:.3s; will-change:transform, box-shadow, border-color;
-    }
-.card::before{
-  content:"";
-  position:absolute;
-  inset:-3px; /* LED genişliği için */
-  border-radius:inherit;
-  background:conic-gradient(from 0deg,
-     #00f0ff,
-     #5b2cff,
-     #ff4b9f,
-     #ffcc4d,
-     #16d18a,
-     #00f0ff);
-  filter:blur(10px);       /* yumuşak LED yayılımı */
-  opacity:0.9;
-  animation:spin 6s linear infinite;
-  z-index:0;
-}
-.card::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:inherit;
-  background:rgba(15,15,30,0.88); /* iç kısmı karartır */
-  backdrop-filter:blur(12px);
-  z-index:1;
-}
-  .card > *{position:relative; z-index:2}
-    .card:hover{transform:translateY(-6px); border-color:rgba(0,240,255,.45); box-shadow:0 24px 60px rgba(0,240,255,.14)}
-    @keyframes spin{to{transform:rotate(360deg)}}
-
-    /* ===== SECTIONS ===== */
-    section{padding:56px 20px}
-    .wrap{max-width:1200px; margin:0 auto}
-    .title{
-      text-align:center; margin:0 0 10px; font-size:clamp(26px,3.5vw,36px);
-      background:linear-gradient(90deg,var(--cyan),var(--violet)); -webkit-background-clip:text; color:transparent;
-    }
-    .sub{color:var(--muted); text-align:center; max-width:860px; margin:0 auto 24px}
-
-    .grid{display:grid; gap:22px}
-    .g-4{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-    .g-3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-    .g-logos{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
-
-    .icon{width:58px; height:58px; border-radius:16px; display:grid; place-items:center; margin-bottom:10px;
-      background:linear-gradient(135deg, rgba(0,240,255,.18), rgba(91,44,255,.18)); border:1px solid var(--border)}
-    .icon img{width:32px; height:32px; object-fit:contain}
-    .icon svg{width:32px; height:32px; fill:var(--cyan)}
-
-    /* product cards */
-    .product{text-align:center; padding:28px}
-    .product img{width:78px; height:78px; margin:0 auto 10px; filter:drop-shadow(0 0 10px rgba(0,240,255,.35))}
-    .product h3{margin:6px 0 6px}
-    .product .btn{margin-top:10px}
-
-    /* logo tiles */
-    .logo-tile{height:96px; display:flex; align-items:center; justify-content:center; background:var(--panel2); border-radius:14px; border:1px solid var(--border)}
-    .logo-tile img{max-height:56px; max-width:150px; object-fit:contain}
-
-    footer{padding:36px 20px; border-top:1px solid var(--border); color:#a9b1c6; text-align:center}
-
-    /* Mobile tweaks */
-    @media (max-width:640px){
-      .menu{display:none}
-      .product img{width:66px; height:66px}
-      .icon{width:54px;height:54px}
-    }
-  </style>
 </head>
 <body>
+    <!-- ADDED: Animated background layer (düşük maliyetli) -->
+<div class="bgfx" aria-hidden="true">
+  <div class="blob cyan"></div>
+  <div class="blob vio"></div>
+  <div class="blob rose"></div>
+</div>
 
-  <!-- ===== NAV ===== -->
-  <header>
-    <div class="nav">
-      <div class="brand">
-        <img src="assets/logo.png" alt="FLASH Logo">
-        <div><span>FLASH</span> USDT</div>
-      </div>
-      <nav class="menu">
-        <a href="#products">Products</a>
-        <a href="#why">Why</a>
-        <a href="#usecases">Use Cases</a>
-        <a href="#networks">Networks</a>
-        <a href="#wallets">Wallets</a>
-        <a href="#payments">Payments</a>
-      </nav>
-      <a class="btn mobile-hide" href="#products">Get Started</a>
+
+<!-- ===== SPLASH ===== -->
+<div class="splash" id="splash" aria-hidden="false">
+  <div class="splash-inner">
+    <div class="halo"><img src="assets/USDT-2.png" alt="USDT"></div>
+    <div class="splash-title">USDT Multichain Monitor</div>
+    <div class="splash-steps">
+      <div class="line" id="l1">Initializing FLASH Network…</div>
+      <div class="line" id="l2">Synchronizing Validators…</div>
+      <div class="line" id="l3">Establishing Secure Channels…</div>
     </div>
-  </header>
+    <div class="bar-wrap"><div class="bar" id="bar"></div></div>
+  </div>
+</div>
+
+<!-- ===== NAV ===== -->
+<header class="reveal">
+  <div class="nav">
+    <div class="brand">
+      <img src="assets/USDT-2.png" alt="FLASH Logo">
+      <div><span>FLASH</span> USDT</div>
+    </div>
+    <nav class="menu">
+      <a href="#products">Products</a>
+      <a href="#why">Why</a>
+      <a href="#usecases">Use Cases</a>
+      <a href="#networks">Networks</a>
+      <a href="#payments">Payments</a>
+    </nav>
+<!-- <a class="btn mobile-hide" href="#products">Get Started</a> -->
+<!-- Contact button (png yerine saf CSS) -->
+<a class="contact-btn" href="https://t.me/onlyXbtc" target="_blank" rel="noopener"
+   aria-label="Contact on Telegram (@onlyXbtc)">
+  Contact
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+    <path d="M15 3h6v6"></path>
+    <path d="M10 14L21 3"></path>
+  </svg>
+</a>
+
+
+  </div>
+</header>
 
 <!-- ===== HERO ===== -->
-<section class="hero">
-  <div class="hero-bg">
-    <div class="glow-circle glow1"></div>
-    <div class="glow-circle glow2"></div>
-    <div class="glow-circle glow3"></div>
+<section class="hero reveal">
+  <h1>
+    <span class="rainbow">FAST</span> •
+    <span class="rainbow">SECURE</span> •
+    <span class="rainbow">TRUSTED</span>
+    <span class="rainbow">FLASH USDT PLATFORM</span>
+
+    </h1>
+  <p>
+    The next-gen <strong>FLASH USDT</strong> experience — multi-network support
+    across <b>TRC20</b>, <b>ERC20</b>, <b>BEP20</b> and <b>BTC</b> with
+    instant settlement and enterprise-grade security.
+  </p>
+  <div class="hero-logos">
+    <img src="assets/trc20.png" alt="TRC20">
+    <img src="assets/erc20.png" alt="ERC20">
+    <img src="assets/bep20.png" alt="BEP20">
+    <img src="assets/btc.png" alt="BTC">
   </div>
 
-  <div class="hero-inner">
-    <h1>
-      <span class="word rainbow">FAST</span> • 
-      <span class="word rainbow">SECURE</span> • 
-      <span class="word rainbow">TRUSTED</span>
-    </h1>
+  <!-- ADDED: Start Buying CTA + Contact banner -->
+<div class="hero-cta" style="margin-top:22px">
+  <a class="btn" href="#products" style="text-decoration:none;display:inline-block;padding:12px 18px;border-radius:12px;font-weight:800">
+    Start Buy
+  </a>
+</div>
 
-    <p>
-      The next-gen <strong>FLASH USDT</strong> experience — multi-network support 
-      across <b>TRC20</b>, <b>ERC20</b>, <b>BEP20</b> and <b>BTC</b> with 
-      instant settlement and enterprise-grade security.
-    </p>
+  <!-- /ADDED -->
+</section>
 
-    <div class="hero-logos">
-      <img src="assets/trc20.png" alt="TRC20">
-      <img src="assets/erc20.png" alt="ERC20">
-      <img src="assets/bep20.png" alt="BEP20">
-      <img src="assets/btc.png" alt="BTC">
+<!-- ===== PRODUCTS ===== -->
+<section id="products" class="reveal">
+  <div class="wrap">
+    <h2 class="title">Flash USDT Products</h2>
+    <p class="sub">Choose a network to explore packages and plans.</p>
+    <div class="grid g-4">
+      <article class="card product" data-href="trc20.html">
+        <img src="assets/trc20.png" alt="TRC20">
+        <h3>TRC-20</h3>
+        <p class="sub" style="margin:8px auto 0">Ultra low fees & fast finality on TRON.</p>
+        <a class="btn" href="trc20.html">Select Network</a>
+      </article>
+      <article class="card product" data-href="erc20.html">
+        <img src="assets/erc20.png" alt="ERC20">
+        <h3>ERC-20</h3>
+        <p class="sub" style="margin:8px auto 0">Ethereum-grade security and reliability.</p>
+        <a class="btn" href="erc20.html">Select Network</a>
+      </article>
+      <article class="card product" data-href="bep20.html">
+        <img src="assets/bep20.png" alt="BEP20">
+        <h3>BEP-20</h3>
+        <p class="sub" style="margin:8px auto 0">Cost-effective transfers on BSC.</p>
+        <a class="btn" href="bep20.html">Select Network</a>
+      </article>
+      <article class="card product" data-href="btc.html">
+        <img src="assets/btc.png" alt="BTC">
+        <h3>Bitcoin (BTC)</h3>
+        <p class="sub" style="margin:8px auto 0">Transparent, verified settlements.</p>
+        <a class="btn" href="btc.html">Select Network</a>
+      </article>
     </div>
   </div>
 </section>
 
-<style>
-/* ===== DARK HERO SECTION ===== */
-.hero {
-  position: relative;
-  text-align: center;
-  padding: 130px 20px 100px;
-  overflow: hidden;
-  background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 50%, var(--bg3) 100%);
-  color: var(--text);
-}
-
-/* === Background Glows (daha koyu & yumuşak) === */
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  z-index: 0;
-}
-.glow-circle {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(140px);
-  opacity: 0.10;
-  animation: moveGlow 14s ease-in-out infinite alternate;
-  mix-blend-mode: screen;
-}
-.glow1 { width: 700px; height: 700px; background: #00f0ff; top: -100px; left: 10%; animation-delay: 0s; }
-.glow2 { width: 900px; height: 900px; background: #5b2cff; bottom: -250px; right: 15%; animation-delay: 2s; }
-.glow3 { width: 600px; height: 600px; background: #ff4b9f; top: 30%; left: 60%; animation-delay: 4s; }
-
-@keyframes moveGlow {
-  0% { transform: translateY(0) scale(1); opacity: .08; }
-  100% { transform: translateY(-30px) scale(1.15); opacity: .15; }
-}
-
-/* === Text Section === */
-.hero-inner {
-  position: relative;
-  z-index: 2;
-}
-
-.hero h1 {
-  font-size: clamp(44px, 6vw, 88px);
-  font-weight: 900;
-  text-transform: uppercase;
-  margin: 0 auto 14px;
-  color: #ffffff;
-  text-shadow:
-    0 0 25px rgba(0,240,255,.25),
-    0 0 45px rgba(91,44,255,.15),
-    0 0 80px rgba(255,75,159,.10);
-  line-height: 1.15;
-}
-
-.word {
-  display: inline-block;
-  animation: pulseWord 5s ease-in-out infinite;
-}
-
-@keyframes pulseWord {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.05); opacity: 0.9; }
-}
-
-/* === Rainbow Text Animation === */
-.rainbow {
-  background: linear-gradient(270deg,
-    #00f0ff, #5b2cff, #ff4b9f, #ffcc4d, #16d18a, #00f0ff);
-  background-size: 400% 400%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: rainbowShift 7s linear infinite;
-}
-
-@keyframes rainbowShift {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
-}
-
-/* === Subtext === */
-.hero p {
-  max-width: 760px;
-  margin: 20px auto 0;
-  color: #aeb6d8;
-  font-size: 18px;
-  line-height: 1.7;
-  text-shadow: 0 0 16px rgba(0,0,0,0.35);
-}
-
-/* === Logos === */
-.hero-logos {
-  margin-top: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 24px;
-  z-index: 3;
-}
-.hero-logos img {
-  width: 58px;
-  height: 58px;
-  object-fit: contain;
-  filter: drop-shadow(0 0 10px rgba(0,240,255,0.25));
-  transition: transform .3s ease, filter .3s ease;
-}
-.hero-logos img:hover {
-  transform: scale(1.15);
-  filter: drop-shadow(0 0 18px rgba(0,240,255,0.45));
-}
-
-/* 📱 Mobile tweaks */
-@media (max-width:640px){
-  .hero { padding: 100px 16px 80px; }
-  .hero h1 { font-size: clamp(32px, 9vw, 60px); }
-  .hero p { font-size: 15.5px; }
-  .hero-logos img { width: 46px; height: 46px; }
-}
-</style>
-
-  <!-- ===== PRODUCTS (TOP) ===== -->
-  <section id="products">
-    <div class="wrap">
-      <h2 class="title">Flash USDT Products</h2>
-      <p class="sub">Choose a network to explore packages and plans.</p>
-      <div class="grid g-4">
-        <article class="card product">
-          <img src="assets/trc20.png" alt="TRC20">
-          <h3>TRC-20</h3>
-          <p class="sub" style="margin:8px auto 0">Ultra low fees & fast finality on TRON.</p>
-          <a class="btn" href="trc20.html">View Plans</a>
-        </article>
-        <article class="card product">
-          <img src="assets/erc20.png" alt="ERC20">
-          <h3>ERC-20</h3>
-          <p class="sub" style="margin:8px auto 0">Ethereum-grade security and reliability.</p>
-          <a class="btn" href="erc20.html">View Plans</a>
-        </article>
-        <article class="card product">
-          <img src="assets/bep20.png" alt="BEP20">
-          <h3>BEP-20</h3>
-          <p class="sub" style="margin:8px auto 0">Cost-effective transfers on BSC.</p>
-          <a class="btn" href="bep20.html">View Plans</a>
-        </article>
-        <article class="card product">
-          <img src="assets/btc.png" alt="BTC">
-          <h3>Bitcoin (BTC)</h3>
-          <p class="sub" style="margin:8px auto 0">Transparent, verified settlements.</p>
-          <a class="btn" href="btc.html">View Plans</a>
-        </article>
-      </div>
-    </div>
-  </section>
-
-<!-- ===== WHY CHOOSE (UPDATED) ===== -->
-<section id="why">
+<!-- ===== WHY ===== -->
+<section id="why" class="reveal">
   <div class="wrap">
     <h2 class="title">Why Choose FLASH USDT</h2>
-    <p class="sub">Our platform provides flexible, fast, and secure services across four major blockchain networks.</p>
-
+    <p class="sub">Flexible, fast, and secure services across four major blockchains.</p>
     <div class="wallet-grid">
-
-      <!-- Lightning Fast -->
-      <div class="wallet">
-        <svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="#00f0ff" stroke-width="2">
-          <path d="M13 2 3 14h9l-1 8 10-12H12l1-8z" stroke-linejoin="round" stroke-linecap="round"/>
-        </svg>
-        <span>Lightning Fast</span>
-      </div>
-
-      <!-- Security -->
-      <div class="wallet">
-        <svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="#5b2cff" stroke-width="2">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-linejoin="round"/>
-        </svg>
-        <span>Security</span>
-      </div>
-
-      <!-- Multi-Network Support -->
-      <div class="wallet">
-        <svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="#16d18a" stroke-width="2">
-          <circle cx="12" cy="12" r="3" fill="#16d18a"/>
-          <path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1M5.6 18.4l2.1-2.1m8.6-8.6 2.1-2.1"
-            stroke-linecap="round" fill="none"/>
-        </svg>
-        <span>Multi-Network</span>
-      </div>
-
+      <div class="wallet"><span style="font-size:26px">⚡</span><span>Lightning Fast</span></div>
+      <div class="wallet"><span style="font-size:26px">🛡️</span><span>Security</span></div>
+      <div class="wallet"><span style="font-size:26px">🔗</span><span>Multi-Network</span></div>
     </div>
   </div>
 </section>
 
-<style>
-/* ===== WHY CHOOSE FLASH USDT (same grid system) ===== */
-#why {
-  margin-top: 80px;
-  text-align: center;
-}
-
-#why .title {
-  background: linear-gradient(90deg,#00f0ff,#5b2cff);
-  -webkit-background-clip:text;
-  color: transparent;
-}
-
-.wallet-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 24px;
-  margin-top: 36px;
-}
-
-.wallet {
-  width: 110px;
-  height: 110px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: transform .3s ease, box-shadow .3s ease;
-  backdrop-filter: blur(12px);
-}
-
-.wallet:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 0 14px rgba(0,240,255,.25);
-}
-
-.wallet svg {
-  display: block;
-  margin-bottom: 10px;
-}
-
-.wallet span {
-  font-size: 13px;
-  font-weight: 600;
-  color: #fff;
-  opacity: 0.9;
-}
-
-/* 📱 Mobile optimization */
-@media (max-width:640px){
-  .wallet-grid {gap:18px;}
-  .wallet {width:90px;height:100px;}
-  .wallet svg{width:32px;height:32px;}
-  .wallet span{font-size:12px;}
-}
-</style>
-
-  <!-- ===== NETWORKS & WALLETS (MINIMAL) ===== -->
-<section id="networks">
+<!-- ===== NETWORKS + WALLETS ===== -->
+<section id="networks" class="reveal" style="position:relative;border-radius:22px;margin:60px auto;padding:60px 0;overflow:hidden;border:1px solid rgba(255,255,255,.08)">
   <div class="wrap">
     <h2 class="title">Supported Networks & Wallets</h2>
-    <p class="sub">FLASH USDT works seamlessly across major blockchain networks and trusted wallet platforms.</p>
+    <p class="sub">Seamless across major networks and trusted wallet platforms.</p>
 
-    <!-- ==== Networks ==== -->
     <div class="grid-minimal">
-      <div class="item">
-        <img src="assets/trc20.png" alt="TRC20">
-        <div class="label">TRC-20</div>
-        <div class="subtext">TRON • Low Fees</div>
-      </div>
-      <div class="item">
-        <img src="assets/erc20.png" alt="ERC20">
-        <div class="label">ERC-20</div>
-        <div class="subtext">Ethereum • Security</div>
-      </div>
-      <div class="item">
-        <img src="assets/bep20.png" alt="BEP20">
-        <div class="label">BEP-20</div>
-        <div class="subtext">BSC • Economy</div>
-      </div>
-      <div class="item">
-        <img src="assets/btc.png" alt="BTC">
-        <div class="label">BTC</div>
-        <div class="subtext">Bitcoin Network</div>
-      </div>
+      <div class="item"><img src="assets/trc20.png" alt=""><div class="label">TRC-20</div><div class="subtext">TRON • Low Fees</div></div>
+      <div class="item"><img src="assets/erc20.png" alt=""><div class="label">ERC-20</div><div class="subtext">Ethereum • Security</div></div>
+      <div class="item"><img src="assets/bep20.png" alt=""><div class="label">BEP-20</div><div class="subtext">BSC • Economy</div></div>
+      <div class="item"><img src="assets/btc.png" alt=""><div class="label">BTC</div><div class="subtext">Bitcoin Network</div></div>
     </div>
 
-    <!-- 🌈 Rainbow Divider -->
     <div class="rainbow-divider"></div>
 
-    <!-- ==== Wallets ==== -->
-    <div class="grid-minimal" style="margin-top:40px;">
-      <div class="item"><img src="assets/trust.png" alt="Trust Wallet"><div class="label">Trust</div></div>
-      <div class="item"><img src="assets/metamask.png" alt="MetaMask"><div class="label">MetaMask</div></div>
-      <div class="item"><img src="assets/binance.png" alt="Binance"><div class="label">Binance</div></div>
-      <div class="item"><img src="assets/okx.png" alt="OKX"><div class="label">OKX</div></div>
-      <div class="item"><img src="assets/coinbaselogo.png" alt="Coinbase"><div class="label">Coinbase</div></div>
-      <div class="item"><img src="assets/mexc.png" alt="MEXC"><div class="label">MEXC</div></div>
-      <div class="item"><img src="assets/exodus.png" alt="Exodus"><div class="label">Exodus</div></div>
-      <div class="item"><img src="assets/tronlink.png" alt="TronLink"><div class="label">TronLink</div></div>
+    <div class="grid-minimal" style="margin-top:40px">
+      <div class="item"><img src="assets/trust.png" alt=""><div class="label">Trust</div></div>
+      <div class="item"><img src="assets/metamask.png" alt=""><div class="label">MetaMask</div></div>
+      <div class="item"><img src="assets/binance.png" alt=""><div class="label">Binance</div></div>
+      <div class="item"><img src="assets/okx.png" alt=""><div class="label">OKX</div></div>
+      <div class="item"><img src="assets/coinbaselogo.png" alt=""><div class="label">Coinbase</div></div>
+      <div class="item"><img src="assets/mexc.png" alt=""><div class="label">MEXC</div></div>
+      <div class="item"><img src="assets/exodus.png" alt=""><div class="label">Exodus</div></div>
+      <div class="item"><img src="assets/tronlink.png" alt=""><div class="label">TronLink</div></div>
     </div>
   </div>
 </section>
 
-<!-- 🌈 Minimal Grid Styles -->
-<style>
-#networks {
-  margin: 60px auto;
-  text-align: center;
-}
-.grid-minimal {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 26px;
-  margin-top: 28px;
-}
-.grid-minimal .item {
-  flex: 0 1 120px;
-  text-align: center;
-  transition: transform .3s ease, opacity .3s ease;
-}
-.grid-minimal .item:hover {
-  transform: translateY(-6px);
-  opacity: 0.95;
-}
-.grid-minimal img {
-  width: 48px;
-  height: 48px;
-  margin: 0 auto 8px;
-  object-fit: contain;
-  filter: drop-shadow(0 0 10px rgba(0,240,255,.2));
-}
-.grid-minimal .label {
-  font-weight: 700;
-  font-size: 14px;
-  color: #fff;
-}
-.grid-minimal .subtext {
-  font-size: 12px;
-  color: var(--muted);
-  margin-top: 2px;
-}
-
-/* 🌈 Rainbow Divider */
-.rainbow-divider {
-  width: 90%;
-  height: 2px;
-  border-radius: 2px;
-  margin: 50px auto 0;
-  background: linear-gradient(90deg,
-    #00f0ff,
-    #5b2cff,
-    #ff4b9f,
-    #ffcc4d,
-    #16d18a,
-    #00f0ff);
-  background-size: 400% 100%;
-  animation: moveGradient 6s linear infinite;
-  opacity: 0.8;
-}
-@keyframes moveGradient {
-  0% {background-position: 0% 50%;}
-  100% {background-position: 200% 50%;}
-}
-
-/* 📱 Mobile Optimization */
-@media (max-width:640px) {
-  .grid-minimal {gap: 18px;}
-  .grid-minimal .item {flex: 0 1 80px;}
-  .grid-minimal img {width: 40px; height: 40px;}
-  .grid-minimal .label {font-size: 13px;}
-  .grid-minimal .subtext {font-size: 11px;}
-}
-</style>
-
-
-<!-- ===== USE CASES & APPLICATIONS (ICON-BASED VERSION) ===== -->
-<section id="usecases">
+<!-- ===== USE CASES ===== -->
+<section id="usecases" class="reveal">
   <div class="wrap">
     <h2 class="title">Use Cases & Applications</h2>
     <p class="sub">FLASH USDT empowers diverse sectors with instant, reliable and borderless payments.</p>
-
     <div class="wallet-grid">
-      
-      <!-- Trading -->
-      <div class="wallet">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="38" height="38">
-          <path d="M3 17l6-6 4 4 8-8" stroke="#00f0ff" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="3" cy="17" r="1.5" fill="#00f0ff"/>
-          <circle cx="9" cy="11" r="1.5" fill="#00f0ff"/>
-          <circle cx="13" cy="15" r="1.5" fill="#00f0ff"/>
-          <circle cx="21" cy="7" r="1.5" fill="#00f0ff"/>
-        </svg>
-        <span>Trading</span>
-      </div>
-
-      <!-- Gaming -->
-      <div class="wallet">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="38" height="38">
-          <path d="M6 12l3-8h6l3 8-3 8H9l-3-8z" stroke="#ff4b9f"/>
-          <circle cx="12" cy="12" r="2.5" fill="#ff4b9f"/>
-        </svg>
-        <span>Gaming</span>
-      </div>
-
-      <!-- Casino -->
-      <div class="wallet">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="38" height="38">
-          <rect x="4" y="4" width="16" height="16" rx="3" stroke="#ffcc4d"/>
-          <circle cx="8" cy="8" r="1.2" fill="#ffcc4d"/>
-          <circle cx="16" cy="8" r="1.2" fill="#ffcc4d"/>
-          <circle cx="8" cy="16" r="1.2" fill="#ffcc4d"/>
-          <circle cx="16" cy="16" r="1.2" fill="#ffcc4d"/>
-          <circle cx="12" cy="12" r="1.2" fill="#ffcc4d"/>
-        </svg>
-        <span>Casino</span>
-      </div>
-
-      <!-- Payments -->
-      <div class="wallet">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="38" height="38">
-          <rect x="3" y="6" width="18" height="12" rx="2" stroke="#16d18a"/>
-          <line x1="3" y1="10" x2="21" y2="10" stroke="#16d18a"/>
-          <circle cx="17" cy="14" r="1.2" fill="#16d18a"/>
-        </svg>
-        <span>Payments</span>
-      </div>
-
-      <!-- Credit -->
-      <div class="wallet">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="38" height="38">
-          <path d="M5 12h14M5 12a7 7 0 0 1 7-7m0 14a7 7 0 0 0 7-7" stroke="#5b2cff"/>
-        </svg>
-        <span>Credit</span>
-      </div>
-
-      <!-- E-Commerce -->
-      <div class="wallet">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="38" height="38">
-          <path d="M3 6h18l-2 10H5L3 6z" stroke="#00f0ff"/>
-          <circle cx="9" cy="20" r="1.2" fill="#00f0ff"/>
-          <circle cx="17" cy="20" r="1.2" fill="#00f0ff"/>
-        </svg>
-        <span>E-Commerce</span>
-      </div>
-
-      <!-- Remittance -->
-      <div class="wallet">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="38" height="38">
-          <circle cx="12" cy="12" r="9" stroke="#ff4b9f"/>
-          <path d="M2 12h20M12 2a15 15 0 0 1 0 20" stroke="#ff4b9f"/>
-        </svg>
-        <span>Remittance</span>
-      </div>
-
-      <!-- Investment -->
-      <div class="wallet">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="38" height="38">
-          <path d="M3 17l6-6 4 4 8-8" stroke="#16d18a" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span>Investment</span>
-      </div>
+      <div class="wallet"><span style="font-size:24px">📈</span><span>Trading</span></div>
+      <div class="wallet"><span style="font-size:24px">🎮</span><span>Gaming</span></div>
+      <div class="wallet"><span style="font-size:24px">🎲</span><span>Casino</span></div>
+      <div class="wallet"><span style="font-size:24px">💳</span><span>Payments</span></div>
+      <div class="wallet"><span style="font-size:24px">🏦</span><span>Credit</span></div>
+      <div class="wallet"><span style="font-size:24px">🛒</span><span>E-Commerce</span></div>
+      <div class="wallet"><span style="font-size:24px">🌍</span><span>Remittance</span></div>
+      <div class="wallet"><span style="font-size:24px">📊</span><span>Investment</span></div>
     </div>
   </div>
 </section>
 
-<style>
-#usecases {
-  margin-top: 80px;
-  text-align: center;
-}
-
-#usecases .title {
-  background: linear-gradient(90deg,#00f0ff,#5b2cff);
-  -webkit-background-clip:text;
-  color: transparent;
-}
-
-.wallet-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 24px;
-  margin-top: 36px;
-}
-
-.wallet {
-  width: 100px;
-  height: 110px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: transform .3s ease, box-shadow .3s ease;
-  backdrop-filter: blur(12px);
-}
-
-.wallet:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 0 14px rgba(0,240,255,.25);
-}
-
-.wallet svg {
-  display: block;
-  margin-bottom: 10px;
-}
-
-.wallet span {
-  font-size: 13px;
-  font-weight: 600;
-  color: #fff;
-  opacity: 0.9;
-}
-
-/* 📱 Mobile optimization */
-@media (max-width:640px){
-  .wallet-grid {gap:18px;}
-  .wallet {width:90px;height:100px;}
-  .wallet svg{width:32px;height:32px;}
-  .wallet span{font-size:12px;}
-}
-</style>
-
-<!-- ===== PAYMENT METHODS (UPDATED TO MATCH WALLETS STYLE) ===== -->
-<section id="payments">
+<!-- ===== PAYMENTS ===== -->
+<section id="payments" class="reveal">
   <div class="wrap">
     <h2 class="title">Payment Methods</h2>
     <p class="sub">Choose the most convenient way to pay or receive USDT quickly and securely.</p>
-
     <div class="wallet-grid">
-      <div class="wallet">
-        <img src="assets/binance.png" alt="Binance Pay">
-        <span>Binance Pay</span>
-      </div>
-            <div class="wallet">
-        <img src="assets/okx.png" alt="OKX">
-        <span>OKX Pay</span>
-      </div>
-      <div class="wallet">
-        <img src="assets/trc20.png" alt="TRC20">
-        <span>TRC-20</span>
-      </div>
-      <div class="wallet">
-        <img src="assets/erc20.png" alt="ERC20">
-        <span>ERC-20</span>
-      </div>
-      <div class="wallet">
-        <img src="assets/bep20.png" alt="BEP20">
-        <span>BEP-20</span>
-      </div>
-      <div class="wallet">
-        <img src="assets/btc.png" alt="Bitcoin">
-        <span>Bitcoin</span>
-      </div>
-      <div class="wallet">
-        <img src="assets/trust.png" alt="Trust Wallet">
-        <span>Trust Wallet</span>
-      </div>
-      <div class="wallet">
-        <img src="assets/metamask.png" alt="MetaMask">
-        <span>MetaMask</span>
-      </div>
+      <div class="wallet"><img src="assets/binance.png" alt=""><span>Binance Pay</span></div>
+      <div class="wallet"><img src="assets/okx.png" alt=""><span>OKX Pay</span></div>
+      <div class="wallet"><img src="assets/trc20.png" alt=""><span>TRC-20</span></div>
+      <div class="wallet"><img src="assets/erc20.png" alt=""><span>ERC-20</span></div>
+      <div class="wallet"><img src="assets/bep20.png" alt=""><span>BEP-20</span></div>
+      <div class="wallet"><img src="assets/btc.png" alt=""><span>Bitcoin</span></div>
+      <div class="wallet"><img src="assets/trust.png" alt=""><span>Trust Wallet</span></div>
+      <div class="wallet"><img src="assets/metamask.png" alt=""><span>MetaMask</span></div>
+    </div>
+    <div class="badges" style="display:flex;justify-content:center;gap:16px;margin-top:28px;flex-wrap:wrap">
+      <span class="btn" style="padding:8px 16px;border-radius:999px;">Invoice / Link</span>
+      <span class="btn" style="padding:8px 16px;border-radius:999px;background:linear-gradient(90deg,#5b2cff,#ff4b9f)">QR Pay</span>
+      <span class="btn" style="padding:8px 16px;border-radius:999px;background:linear-gradient(90deg,#16d18a,#00f0ff)">Wallet Transfer</span>
     </div>
   </div>
 </section>
 
-<style>
-/* ===== PAYMENT METHODS STYLE (same as wallets) ===== */
-#payments {
-  margin-top: 80px;
-  text-align: center;
-}
+<!-- ===== FOOTER ===== -->
+<footer class="reveal">
+  <div class="footer-led"></div>
+  <img src="assets/USDT-2.png" class="footer-logo" alt="">
+  <p class="footer-text">© <span id="y"></span> <strong>FLASH USDT</strong> — All rights reserved.</p>
+  <p class="muted">Secure • Encrypted • support@flashusdt.com</p>
+</footer>
 
-#wallets .title,
-#payments .title {
-  background: linear-gradient(90deg,#00f0ff,#5b2cff);
-  -webkit-background-clip:text;
-  color: transparent;
-}
+<script>
+  // Year
+  document.getElementById('y').textContent = new Date().getFullYear();
 
-.wallet-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 24px;
-  margin-top: 36px;
-}
-.wallet {
-  width: 100px;
-  height: 110px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: transform .3s ease, box-shadow .3s ease;
-  backdrop-filter: blur(12px);
-}
-.wallet:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 0 14px rgba(0,240,255,.25);
-}
-.wallet img {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  margin-bottom: 10px;
-}
-.wallet span {
-  font-size: 13px;
-  font-weight: 600;
-  color: #fff;
-  opacity: 0.9;
-}
+  // ===== Product cards clickable (full box) =====
+  document.querySelectorAll('.product').forEach(card=>{
+    card.addEventListener('click', (e)=>{
+      const a = card.querySelector('a.btn');
+      const href = card.dataset.href || (a ? a.getAttribute('href') : null);
+      if(!href) return;
+      // Only prevent if not clicked directly on a link/button
+      if(!(e.target.closest('a') || e.target.closest('button'))) {
+        window.location.href = href;
+      }
+    });
+  });
 
-/* 📱 Mobile Optimization */
-@media (max-width:640px){
-  .wallet-grid {gap:18px;}
-  .wallet {width:90px;height:100px;}
-  .wallet img{width:36px;height:36px;}
-  .wallet span{font-size:12px;}
-}
-</style>
+  // ===== Reveal on scroll (fade-up) =====
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(ent=>{
+      if(ent.isIntersecting){ ent.target.classList.add('in'); io.unobserve(ent.target); }
+    });
+  }, {threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
+  // ===== Splash control (5s with staged lines + progress) =====
+  (function(){
+    const splash = document.getElementById('splash');
+    const bar    = document.getElementById('bar');
+    const l1 = document.getElementById('l1');
+    const l2 = document.getElementById('l2');
+    const l3 = document.getElementById('l3');
 
-      <!-- ===== PAYMENT BADGES (UPGRADED) ===== -->
-      <div class="badges payment-badges">
-        <span class="badge">Invoice / Link</span>
-        <span class="badge">QR Pay</span>
-        <span class="badge">Wallet Transfer</span>
-      </div>
-    </div>
-  </section>
+    // staged lines
+    setTimeout(()=>l1.classList.add('show'), 300);
+    setTimeout(()=>l2.classList.add('show'), 1600);
+    setTimeout(()=>l3.classList.add('show'), 3000);
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer">
-    <div class="footer-led"></div>
-    <div class="wrap">
-      <div class="footer-content">
-        <img src="assets/USDT-2.png" alt="FLASH USDT Logo" class="footer-logo" />
-        <p class="footer-text">© <span id="y"></span> <strong>FLASH USDT</strong> — All rights reserved.</p>
-        <p class="muted">Secure • Encrypted • support@flashusdt.com</p>
-      </div>
-    </div>
-  </footer>
+    // progress over 5s
+    const total = 5000; // ms
+    const start = performance.now();
+    function tick(t){
+      const pct = Math.min(1, (t-start)/total);
+      bar.style.width = (pct*100).toFixed(2) + '%';
+      if(pct < 1) requestAnimationFrame(tick);
+      else setTimeout(()=>{ splash.classList.add('fade-out'); splash.setAttribute('aria-hidden','true'); }, 150);
+    }
+    requestAnimationFrame(tick);
 
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
+    // safety: allow skip by click/esc (optional)
+    splash.addEventListener('click', ()=>{ bar.style.width='100%'; setTimeout(()=>{ splash.classList.add('fade-out') }, 150); });
+    window.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ bar.style.width='100%'; splash.classList.add('fade-out'); } });
+  })();
 
-<style>
-/* ===== PAYMENT BADGES (ENHANCED STYLE) ===== */
-.payment-badges {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 28px;
-  flex-wrap: wrap;
-}
-
-.payment-badges .badge {
-  background: linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
-  border: 1px solid rgba(255,255,255,0.12);
-  padding: 10px 20px;
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: .3px;
-  transition: all .3s ease;
-  box-shadow: 0 0 12px rgba(0,240,255,0.1);
-  backdrop-filter: blur(10px);
-}
-.payment-badges .badge:hover {
-  border-color: rgba(0,240,255,0.6);
-  background: linear-gradient(90deg,#00f0ff,#5b2cff,#ff4b9f);
-  box-shadow: 0 0 22px rgba(0,240,255,0.35);
-  color: #fff;
-  transform: translateY(-2px);
-}
-
-/* ===== FOOTER (MATCHED TO PAGE BACKGROUND) ===== */
-.footer {
-  position: relative;
-  padding: 60px 20px 50px;
-  text-align: center;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  background: linear-gradient(180deg, var(--bg2) 0%, var(--bg3) 100%);
-  overflow: hidden;
-}
-
-.footer-led {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 100%;
-  height: 3px;
-  transform: translateX(-50%);
-  background: linear-gradient(90deg, #00f0ff, #5b2cff, #ff4b9f, #16d18a, #00f0ff);
-  background-size: 300% 100%;
-  animation: ledShift 8s linear infinite;
-  filter: blur(1px);
-  opacity: 0.9;
-}
-
-@keyframes ledShift {
-  0% {background-position: 0% 50%;}
-  100% {background-position: 200% 50%;}
-}
-
-.footer-content {
-  position: relative;
-  z-index: 2;
-  color: #d5d9f5;
-}
-
-.footer-logo {
-  width: 52px;
-  height: 52px;
-  object-fit: contain;
-  margin: 0 auto 14px;
-  opacity: .95;
-  filter: drop-shadow(0 0 10px rgba(0,240,255,.3));
-}
-
-.footer-text {
-  font-size: 15px;
-  margin: 6px 0;
-  font-weight: 600;
-  color: #f2f5ff;
-}
-
-.footer .muted {
-  color: #9aa3bd;
-  font-size: 13.5px;
-  letter-spacing: .2px;
-}
-
-@media (max-width:640px){
-  .footer { padding: 50px 20px; }
-  .footer-logo { width: 46px; height: 46px; }
-  .footer-text { font-size: 14px; }
-  .footer .muted { font-size: 12.5px; }
-}
-</style>
-
+  // ===== Anchor smooth scroll (no horizontal jumps) =====
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', e=>{
+      const id = a.getAttribute('href').slice(1);
+      const el = document.getElementById(id);
+      if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+    });
+  });
+</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
