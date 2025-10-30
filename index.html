@@ -225,6 +225,44 @@
 @media (prefers-reduced-motion: reduce){
   .bgfx{ display:none; }
 }
+/* === MOBILE PERFORMANCE BOOST === */
+@media (max-width: 900px) {
+
+  /* Arka plan basitleştir */
+  body {
+    background: linear-gradient(180deg, #050a1c, #0a1028);
+  }
+
+  /* AES grid arka planını kapat */
+  .aes-bg {
+    display:none !important;
+  }
+
+  /* Blur ve shadow'ları azalt */
+  .card, .panel, .summary {
+    backdrop-filter:none !important;
+    box-shadow:none !important;
+    background:rgba(255,255,255,0.04);
+  }
+
+  /* Animasyonları azalt */
+  * {
+    animation-duration: 0s !important;
+    transition: none !important;
+  }
+
+  /* Sabit elemanlarda optimize */
+  header {
+    backdrop-filter:none !important;
+    background:rgba(10,15,40,.95);
+  }
+
+  /* Scroll davranışı düzelt */
+  html, body {
+    overflow-y:auto !important;
+    -webkit-overflow-scrolling:touch !important;
+  }
+}
 
 
 </style>
