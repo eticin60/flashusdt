@@ -284,6 +284,75 @@ footer .foot > *{ min-width:0; }
   .vpanel, .panel, .card{ border-radius:14px; }
   .pay-address-box{ font-size:13px; }
 }
+    /* Secure Transaction badge - visual like uploaded image */
+.secure-transaction {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(90deg, rgba(16, 255, 160, 0.05), rgba(0, 255, 160, 0.02));
+  border: 1px solid rgba(16, 255, 160, 0.15);
+  border-radius: 14px;
+  padding: 14px 18px;
+  color: #8affd6;
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow: 0 0 25px rgba(16, 255, 160, 0.05);
+  margin-top: 14px;
+}
+
+.secure-transaction svg {
+  width: 20px;
+  height: 20px;
+  fill: #16d18a;
+  flex-shrink: 0;
+}
+
+/* Make Payment Instructions panel slightly smaller */
+#step4 .panel.pad.like-summary {
+  padding: 18px 20px;
+  max-width: 860px;
+  margin-inline: auto;
+  border-radius: 18px;
+}
+/* === MOBILE PERFORMANCE BOOST === */
+@media (max-width: 900px) {
+
+  /* Arka plan basitleştir */
+  body {
+    background: linear-gradient(180deg, #050a1c, #0a1028);
+  }
+
+  /* AES grid arka planını kapat */
+  .aes-bg {
+    display:none !important;
+  }
+
+  /* Blur ve shadow'ları azalt */
+  .card, .panel, .summary {
+    backdrop-filter:none !important;
+    box-shadow:none !important;
+    background:rgba(255,255,255,0.04);
+  }
+
+  /* Animasyonları azalt */
+  * {
+    animation-duration: 0s !important;
+    transition: none !important;
+  }
+
+  /* Sabit elemanlarda optimize */
+  header {
+    backdrop-filter:none !important;
+    background:rgba(10,15,40,.95);
+  }
+
+  /* Scroll davranışı düzelt */
+  html, body {
+    overflow-y:auto !important;
+    -webkit-overflow-scrolling:touch !important;
+  }
+}
+
 
 </style>
 </head>
@@ -433,9 +502,16 @@ footer .foot > *{ min-width:0; }
               <div class="kv"><span class="k">Price:</span> <span id="sum-price" style="color:#00f0ff;font-weight:800;">—</span></div>
             </div>
 
-            <div style="margin-top:16px;border-radius:12px;padding:12px 14px;background:rgba(22,209,138,.06);border:1px solid rgba(22,209,138,.2);color:#9ef7cb;font-size:14px;">
-              ✅ Your transaction is secured with advanced encryption.
-            </div>
+<div class="secure-transaction">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M12 2L4 5v6c0 5 3.4 9.74 8 11 4.6-1.26 8-6 8-11V5l-8-3zm0 2.18l6 2.25v5.44c0 4.11-2.72 8.08-6 9.34-3.28-1.26-6-5.23-6-9.34V6.43l6-2.25zm-1 11.32l5.3-5.3-1.42-1.42L11 12.66l-1.88-1.88-1.42 1.42L11 15.5z"/>
+  </svg>
+  <div>
+    <div style="font-weight:700;">Secure Transaction</div>
+    <div style="font-size:13.5px;color:#aefbe4;">Your transaction is protected with enterprise-grade encryption.</div>
+  </div>
+</div>
+
 
             <div style="margin-top:12px;display:grid;grid-template-columns:repeat(2,minmax(130px,1fr));gap:10px;">
               <div class="mini-feature">⚡ Instant Delivery</div>
@@ -902,6 +978,7 @@ Page: FLASH USDT TRC20 Checkout
   openVerifyProcess();
   setTimeout(()=>{ swapToPending(); }, 4000);
 });
+
 
   // Init
   showStep('step1');
