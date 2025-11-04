@@ -595,6 +595,149 @@ section::after{
   height: 40px;
   object-fit: cover;
 }
+
+    /* === FLASH USDT — Transaction Pending Glass Redesign === */
+/* 👁 Cam, soft blur, neon kenar, modern görünüm */
+.vmodal {
+  background: radial-gradient(circle at 50% 10%, rgba(0, 10, 40, .95) 0%, rgba(0, 0, 0, .92) 100%);
+  backdrop-filter: blur(18px);
+}
+
+/* Ana kutu */
+.vbox {
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid rgba(255, 255, 255, .08);
+  backdrop-filter: blur(24px) saturate(140%);
+  box-shadow: 0 0 50px rgba(0, 240, 255, .06),
+              0 0 120px rgba(91, 44, 255, .08),
+              inset 0 0 0 1px rgba(255, 255, 255, .05);
+}
+
+/* Başlık */
+.pendingTitle {
+  color: #ff5656;
+  font-weight: 900;
+  text-shadow: 0 0 18px rgba(255, 80, 80, .35),
+               0 0 30px rgba(255, 80, 80, .25);
+  letter-spacing: .3px;
+}
+.pendingSub {
+  color: #ffcfcf;
+  opacity: .9;
+}
+
+/* Üst uyarı kutusu */
+.pendingTop {
+  background: rgba(255, 60, 60, .08);
+  border: 1px solid rgba(255, 60, 60, .25);
+  box-shadow: inset 0 0 25px rgba(255, 60, 60, .15),
+              0 0 40px rgba(255, 80, 80, .1);
+  backdrop-filter: blur(20px) saturate(130%);
+}
+
+/* İç paneller (cam efektli kutular) */
+.vpanel {
+  background: rgba(255, 255, 255, .03);
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 16px;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 0 30px rgba(0, 0, 0, .25),
+              inset 0 0 0 1px rgba(255, 255, 255, .05);
+}
+
+/* Timeline kutusu */
+.timeline {
+  background: rgba(255, 255, 255, .02);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, .06);
+  padding: 10px 14px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .03);
+  backdrop-filter: blur(14px);
+}
+.tstep .tbadge {
+  border: 1px solid rgba(255, 255, 255, .15);
+  background: rgba(255, 255, 255, .04);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 12px rgba(255, 255, 255, .08);
+}
+.tstep.active .tbadge {
+  background: rgba(255, 204, 77, .12);
+  color: #ffcc4d;
+  border-color: rgba(255, 204, 77, .25);
+  box-shadow: 0 0 18px rgba(255, 204, 77, .35);
+}
+
+/* Adres kutusu */
+.addr-box {
+  background: rgba(0, 0, 0, .45);
+  border: 1px solid rgba(255, 255, 255, .1);
+  box-shadow: inset 0 0 8px rgba(255, 255, 255, .04),
+              0 0 25px rgba(0, 240, 255, .05);
+  backdrop-filter: blur(14px) saturate(120%);
+  color: #a8f3ff;
+}
+
+/* Telegram ve Back butonları */
+#vPending .btn {
+  font-weight: 700;
+  border-radius: 14px;
+  padding: 12px 20px;
+  transition: all .2s ease;
+  box-shadow: 0 0 20px rgba(0, 240, 255, .12);
+}
+#vPending .btn:hover {
+  transform: translateY(-2px);
+  opacity: .95;
+}
+#vPending .btn.ghost {
+  border: 1px solid rgba(255, 255, 255, .12);
+  background: rgba(255, 255, 255, .04);
+  color: #dfe7ff;
+}
+#vPending .btn.ghost:hover {
+  border-color: rgba(0, 240, 255, .4);
+  color: #00f0ff;
+}
+
+/* Küçük metinler */
+.vpanel .small {
+  color: #d8e2ff;
+  opacity: .9;
+}
+.vpanel div[style*="color:#ff9b6a"] {
+  color: #ffc873 !important;
+}
+
+/* Daha derin cam hissi için */
+.vmodal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(0,240,255,.04), transparent 60%),
+              radial-gradient(circle at 100% 100%, rgba(91,44,255,.06), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+.vbox, .vpanel, .timeline, .addr-box {
+  position: relative;
+  z-index: 1;
+}
+
+/* Neon kenar geçişleri */
+.vbox::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  pointer-events: none;
+  background: linear-gradient(145deg,
+    rgba(0,240,255,.15) 0%,
+    rgba(91,44,255,.12) 40%,
+    rgba(255,255,255,.05) 100%);
+  mix-blend-mode: overlay;
+  opacity: .7;
+}
+
 </style>
 
 </head>
@@ -1388,4 +1531,5 @@ startStats();
 
 </body>
 </html>
+
 
