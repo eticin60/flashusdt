@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+  xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+
+  <!-- ============================================= -->
+  <!-- FLASH USDT — Official Multi-Chain Sitemap     -->
+  <!-- Updated: 2025-11-03                           -->
+  <!-- ============================================= -->
+
+  <!-- 🌐 Home Page -->
+  <url>
+    <loc>https://flashusd.com.tr/</loc>
+    <lastmod>2025-11-03T22:00:00+03:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.00</priority>
+    <image:image>
+      <image:loc>https://flashusd.com.tr/assets/USDT-2.png</image:loc>
+      <image:title>FLASH USDT Logo</image:title>
+    </image:image>
+  </url>
+
+  <!-- 💎 TRC20 Checkout -->
+  <url>
+    <loc>https://flashusd.com.tr/trc20.html</loc>
+    <lastmod>2025-11-03T22:00:00+03:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- ⚡ ERC20 Checkout -->
+  <url>
+    <loc>https://flashusd.com.tr/erc20.html</loc>
+    <lastmod>2025-11-03T22:00:00+03:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- 🔶 BEP20 Checkout -->
+  <url>
+    <loc>https://flashusd.com.tr/bep20.html</loc>
+    <lastmod>2025-11-03T22:00:00+03:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- ₿ BTC Checkout -->
+  <url>
+    <loc>https://flashusd.com.tr/btc.html</loc>
+    <lastmod>2025-11-03T22:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.70</priority>
+  </url>
+
+  <!-- 🧩 Verify Transaction -->
+  <url>
+    <loc>https://flashusd.com.tr/verify.html</loc>
+    <lastmod>2025-11-03T22:00:00+03:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+ <!-- 🧠 About / Info Section (Future Expansion) -->
+  <url>
+    <loc>https://flashusd.com.tr/about.html</loc>
+    <lastmod>2025-11-03T22:00:00+03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.50</priority>
+  </url>
+
+  <!-- 📞 Contact Section -->
+  <url>
+    <loc>https://flashusd.com.tr/contact.html</loc>
+    <lastmod>2025-11-03T22:00:00+03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.50</priority>
+  </url>
+
+</urlset>

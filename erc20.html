@@ -4,6 +4,96 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>FLASH USDT - ERC20 Checkout (AES Secure)</title>
+
+<!-- ✅ Primary SEO -->
+<meta name="description" content="FLASH USDT — ERC20 secure checkout platform with AES-256 encryption, instant delivery, and FlashLoan verification. Buy and verify USDT transactions securely on the TRON network.">
+<meta name="keywords" content="Flash USDT, FLASHUSD, TRC20, USDT TRC20, FlashLoan, Flash Pay, Flash Wallet, AES Secure, TRON, Blockchain Checkout, Instant USDT Payment, Flash Crypto, Flash USD, Flash Tether, Secure TRC20 Payments">
+<meta name="author" content=":FLASH USDT ADMIN • FLASH USDT">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://flashusd.com.tr/erc20.html">
+
+<!-- ✅ Favicons -->
+<link rel="icon" type="image/png" sizes="32x32" href="assets/USDT-2.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/USDT-2.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/USDT-2.png">
+<link rel="shortcut icon" href="assets/USDT-2.png">
+<meta name="theme-color" content="#030615">
+
+<!-- ✅ Open Graph / Facebook / Telegram -->
+<meta property="og:type" content="product">
+<meta property="og:site_name" content="FLASH USDT">
+<meta property="og:title" content="FLASH USDT — ERC20 Secure Checkout">
+<meta property="og:description" content="Instant and encrypted FLASH USDT ERC20 checkout with AES-256 protection and verified FlashLoan transactions.">
+<meta property="og:url" content="https://flashusd.com.tr/erc20.html">
+<meta property="og:image" content="https://flashusd.com.tr/assets/USDT-2.png">
+
+<!-- ✅ Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FLASH USDT — ERC20 Secure Checkout">
+<meta name="twitter:description" content="Instant and encrypted FLASH USDT ERC20 checkout with AES-256 protection and verified FlashLoan transactions.">
+<meta name="twitter:image" content="https://flashusd.com.tr/assets/USDT-2.png">
+<meta name="twitter:site" content="@FlashUSDT">
+
+<!-- ✅ Schema: Product -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "FLASH USDT ERC20",
+  "image": "https://flashusd.com.tr/assets/USDT-2.png",
+  "description": "Secure and instant FLASH USDT ERC20 purchase with AES encryption and verified FlashLoan settlement.",
+  "brand": {
+    "@type": "Brand",
+    "name": "FLASH USDT",
+    "logo": "https://flashusd.com.tr/assets/USDT-2.png"
+  },
+  "sku": "ERC20",
+  "offers": {
+    "@type": "Offer",
+    "url": "https://flashusd.com.tr/erc20.html",
+    "priceCurrency": "USDT",
+    "price": "1.00",
+    "availability": "https://schema.org/InStock"
+  }
+}
+</script>
+
+<!-- ✅ Schema: Organization -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "FLASH USDT",
+  "url": "https://flashusd.com.tr/",
+  "logo": "https://flashusd.com.tr/assets/USDT-2.png",
+  "description": "FLASH USDT is a multichain FlashLoan-enabled Tether platform supporting TRC20, ERC20, BEP20 and BTC networks with AES-256 secure checkout.",
+  "founder": {
+    "@type": "Person",
+    "name": "FLASH USDT ADMIN"
+  },
+  "sameAs": [
+    "https://t.me/soulflyss",
+    "https://twitter.com/FlashUSDT",
+    "https://www.instagram.com/flashusdt"
+  ]
+}
+</script>
+
+<!-- ✅ Schema: WebSite -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "FLASH USDT",
+  "url": "https://flashusd.com.tr/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://flashusd.com.tr/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
 <meta name="description" content="FLASH USDT ERC20 packages — AES-secure, instant settlement, professional checkout." />
 <link rel="icon" type="image/png" href="assets/USDT-2.png" />
 <style>
@@ -111,6 +201,45 @@
   .method.active{outline:2px solid rgba(0,240,255,.6);background:rgba(0,240,255,.05)}
   .method.closed{opacity:.6; filter:saturate(.85) grayscale(.1)}
   .method .badge-closed{position:absolute; top:6px; right:8px;background:#ff4b4b; color:#fff; font-weight:800;padding:2px 6px; font-size:10px; border-radius:6px; letter-spacing:.3px}
+  /* === Oxapay Gateway - Active Payment Method === */
+.method[data-method="OXAPAY"] {
+  position: relative;
+  border: 1px solid rgba(0, 255, 160, .25);
+  background: linear-gradient(180deg, rgba(0,255,160,.05), rgba(0,255,160,.02));
+  box-shadow: 0 0 25px rgba(0,255,160,.05);
+  transition: all .25s ease;
+}
+.method[data-method="OXAPAY"]:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 35px rgba(0,255,160,.15);
+  border-color: rgba(0,255,160,.5);
+}
+.method[data-method="OXAPAY"] img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+/* === LIVE Badge (glowing green tag) === */
+.badge-live {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  background: linear-gradient(90deg, #16d18a, #0be7a3);
+  color: #fff;
+  font-weight: 800;
+  padding: 2px 7px;
+  font-size: 10px;
+  border-radius: 6px;
+  letter-spacing: .4px;
+  box-shadow: 0 0 10px rgba(22,209,138,.4);
+  animation: livePulse 1.8s ease-in-out infinite;
+}
+@keyframes livePulse {
+  0%,100% { box-shadow: 0 0 6px rgba(22,209,138,.4), 0 0 12px rgba(22,209,138,.2); opacity: .9; }
+  50%     { box-shadow: 0 0 14px rgba(22,209,138,.7), 0 0 20px rgba(22,209,138,.4); opacity: 1; }
+}
+
 
   .row{display:flex;justify-content:space-between;gap:10px;color:#cfd6ff;font-size:14px;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
   .row:last-child{border-bottom:none}
@@ -286,6 +415,30 @@ footer .foot > *{ min-width:0; }
   .vpanel, .panel, .card{ border-radius:14px; }
   .pay-address-box{ font-size:13px; }
 }
+
+    /* Secure Transaction badge - visual like uploaded image */
+.secure-transaction {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(90deg, rgba(16, 255, 160, 0.05), rgba(0, 255, 160, 0.02));
+  border: 1px solid rgba(16, 255, 160, 0.15);
+  border-radius: 14px;
+  padding: 14px 18px;
+  color: #8affd6;
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow: 0 0 25px rgba(16, 255, 160, 0.05);
+  margin-top: 14px;
+}
+
+.secure-transaction svg {
+  width: 20px;
+  height: 20px;
+  fill: #16d18a;
+  flex-shrink: 0;
+}
+
 /* === MOBILE PERFORMANCE BOOST === */
 @media (max-width: 900px) {
 
@@ -326,7 +479,6 @@ footer .foot > *{ min-width:0; }
 }
 
 </style>
-</head>
 <body>
 <div class="aes-bg"></div>
 
@@ -473,9 +625,15 @@ footer .foot > *{ min-width:0; }
               <div class="kv"><span class="k">Price:</span> <span id="sum-price" style="color:#00f0ff;font-weight:800;">—</span></div>
             </div>
 
-            <div style="margin-top:16px;border-radius:12px;padding:12px 14px;background:rgba(22,209,138,.06);border:1px solid rgba(22,209,138,.2);color:#9ef7cb;font-size:14px;">
-              ✅ Your transaction is secured with advanced encryption.
-            </div>
+<div class="secure-transaction">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M12 2L4 5v6c0 5 3.4 9.74 8 11 4.6-1.26 8-6 8-11V5l-8-3zm0 2.18l6 2.25v5.44c0 4.11-2.72 8.08-6 9.34-3.28-1.26-6-5.23-6-9.34V6.43l6-2.25zm-1 11.32l5.3-5.3-1.42-1.42L11 12.66l-1.88-1.88-1.42 1.42L11 15.5z"/>
+  </svg>
+  <div>
+    <div style="font-weight:700;">Secure Transaction</div>
+    <div style="font-size:13.5px;color:#aefbe4;">Your transaction is protected with enterprise-grade encryption.</div>
+  </div>
+</div>
 
             <div style="margin-top:12px;display:grid;grid-template-columns:repeat(2,minmax(130px,1fr));gap:10px;">
               <div class="mini-feature">⚡ Instant Delivery</div>
@@ -518,10 +676,17 @@ footer .foot > *{ min-width:0; }
             <img src="assets/bep20.png" alt=""><div>BEP20 (BSC)</div>
           </div>
 
-          <div class="method panel pad closed" data-closed="true">
-            <span class="badge-closed">CLOSED</span>
+          <div class="method panel pad" data-method="BTC">
+            <span class="badge-live">NEW</span>
             <img src="assets/btc.png" alt=""><div>BTC (Bitcoin)</div>
           </div>
+          <!-- === Oxapay Gateway (LIVE) === -->
+<div class="method panel pad" data-method="OXAPAY" data-url="https://pay.oxapay.com/13369911">
+  <span class="badge-live">LIVE</span>
+  <img src="assets/oxapay.svg" alt="Oxapay Logo">
+  <div>Oxapay Gateway</div>
+</div>
+
           <div class="method panel pad closed" data-closed="true">
             <span class="badge-closed">CLOSED</span>
             <img src="assets/binance.png" alt=""><div>Binance Pay</div>
@@ -583,7 +748,7 @@ footer .foot > *{ min-width:0; }
           </div>
 
           <div class="warning-box">⚠️ <b>Important</b><br>Only send <b>ERC20</b> to this address. Sending any other cryptocurrency may result in permanent loss of funds.</div>
-          <div class="time-box">⏱️ Processing time: <b>5–15 minutes</b> after payment confirmation.</div>
+          <div class="time-box">⏱️ Processing time: <b>1 minute or maximum 48 hours</b> after payment confirmation.</div>
 
           <!-- Özellik kutuları -->
           <div class="pi-features">
@@ -657,7 +822,7 @@ footer .foot > *{ min-width:0; }
       <img src="assets/USDT-2.png" alt="">
       <strong>FLASH USDT</strong> — Encrypted by AES-256 • Verified on Ethereum
     </div>
-    <div>Contact: <a style="color:#cfe8ff" href="mailto:support@flashusdt.com">support@flashusdt.com</a></div>
+    <div>Contact: <a style="color:#cfe8ff" href="mailto:support@flashusd.com.tr">support@flashusd.com.tr</a></div>
     <div>© <span id="y"></span> FLASH USDT — ERC20</div>
   </div>
 </footer>
@@ -729,7 +894,7 @@ footer .foot > *{ min-width:0; }
       </div>
 
       <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;">
-        <a class="btn" href="https://t.me/onlyXbtc" target="_blank" rel="noopener">Telegram Support ↗</a>
+        <a class="btn" href="https://t.me/soulflyss" target="_blank" rel="noopener">Telegram Support ↗</a>
         <button class="btn ghost" id="vClose2">Back to Main</button>
       </div>
     </div>
@@ -745,7 +910,7 @@ footer .foot > *{ min-width:0; }
     TRC20: "TXAk3cty1QpM72m9wRgQNwxBzEy3E9SyNU",
     ERC20: "0xE88921A2d0315BF364a768c393D02cDF111A0Bc6",
     BEP20: "0xE88921A2d0315BF364a768c393D02cDF111A0Bc6",
-    BTC: "" // closed
+    BTC: "bc1qwwqwkkw7aqvg5j58peskg0hw4xuyeeucahg7gl" // closed
   };
 
   // STATE
@@ -797,11 +962,6 @@ footer .foot > *{ min-width:0; }
 
   // Nav buttons
   document.getElementById('navCheckout')?.addEventListener('click',(e)=>{ e.preventDefault(); showStep('step1'); showPayDetails(false); });
-  document.getElementById('navTxid')?.addEventListener('click',(e)=>{
-    e.preventDefault();
-    showPayDetails(false);        // TXID hızlı erişimde yan özet kapalı
-    showStep('step5');            // Doğrudan TXID kısmına git
-  });
 
   // Get Started
   $('#goStart')?.addEventListener('click', e=>{ e.preventDefault(); showStep('step1'); });
@@ -939,6 +1099,29 @@ Page: FLASH USDT TRC20 Checkout
   showStep('step1');
   updateSummary();
   showPayDetails(false); // ilk ekranda gizli
+</script>
+
+<!-- 🔗 Oxapay link yönlendirme -->
+<script>
+document.querySelectorAll('.method[data-method="OXAPAY"]').forEach(m=>{
+  m.addEventListener('click', ()=>{
+    window.open(m.dataset.url, '_blank'); // yeni sekmede Oxapay açılır
+  });
+});
+</script>
+
+<!-- ✅ TXID button script ayrı -->
+<script>
+document.getElementById('navTxid')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  // Network bilgisi
+  const network = 'ERC20'; // bu dosya ERC20 olduğu için sabit
+  document.body.style.transition = 'opacity 0.4s ease';
+  document.body.style.opacity = '0';
+  setTimeout(() => window.location.href = `verify.html?network=${network}`, 400);
+});
 </script>
 </body>
 </html>

