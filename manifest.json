@@ -1,6 +1,6 @@
 {
   "name": "FLASH USDT",
-  "short_name": "FlashUSDT",
+  "short_name": "FLASH USD",
   "description": "Multichain FlashLoan & Tether Platform (TRC20, ERC20, BEP20, BTC)",
   "start_url": "/",
   "display": "standalone",
