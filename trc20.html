@@ -35,6 +35,9 @@
 <meta name="twitter:site" content="@FlashUSDT">
 
 <!-- ✅ Schema: Product -->
+
+
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -579,7 +582,7 @@
 #step6 > .stage {
   display: flex !important;
   justify-content: center;
-  align-items: flex-start;
+  align-items: flex-start; 
   gap: 40px;
   flex-wrap: wrap;
   width: 100%;
@@ -1034,6 +1037,43 @@ footer .foot > *{ min-width:0; }
 .led-dot      { animation-duration: 1.6s !important; }
 
 
+/* === Step6 Mobile Fix (Diğer Adımları Etkilemez) === */
+@media (max-width: 900px) {
+  #step6 > div {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 18px !important;
+    width: 100% !important;
+  }
+
+  #step6 .productDetails,
+  #step6 .tx-summary.enhanced {
+    width: 94% !important;
+    max-width: 580px !important;
+    margin: 0 auto !important;
+  }
+
+  #step6 .tx-summary.enhanced .kv span,
+  #step6 .productDetails p {
+    word-break: break-word !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  #step6 .tx-summary.enhanced,
+  #step6 .productDetails {
+    text-align: left !important;
+    border-radius: 16px !important;
+    padding: 18px 20px !important;
+    box-shadow: 0 0 12px rgba(0,240,255,.05);
+  }
+ 
+ <!-- ✅ Mobile Browser UI Color Fix -->
+<meta name="theme-color" content="#030615" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="msapplication-navbutton-color" content="#030615">
 
 </style>
 </head>
@@ -1086,6 +1126,7 @@ footer .foot > *{ min-width:0; }
             <div class="actions"><button class="btn primary select">Select</button></div>
             <div class="led-dot"></div>
           </article>
+
 
           <article class="panel pad product" data-name="5K FLASH USDT" data-usdt="5000" data-price="$3500">
             <div class="tape">ENCRYPTED • AES256 • CHAIN VERIFIED • BLOCK HASH OK •</div>
@@ -1248,6 +1289,14 @@ footer .foot > *{ min-width:0; }
   <img src="assets/oxapay.svg" alt="Oxapay Logo">
   <div>Oxapay Gateway</div>
 </div>
+<!-- Shopier Ödeme Yöntemi Ekleme -->
+<div class="method panel pad" data-method="Shopier" data-url="https://www.shopier.com/creditusd">
+<span class="badge-live">NEW</span>
+    <img src="assets/shopier.png" alt="Shopier Logo">
+    <div>Shopier (Secure Payment)</div>
+</div>
+
+
 
           <div class="method panel pad closed" data-closed="true">
             <span class="badge-closed">CLOSED</span>
@@ -1712,6 +1761,13 @@ document.querySelectorAll('.method[data-method="OXAPAY"]').forEach(m=>{
     window.open(m.dataset.url, '_blank');
   });
 });
+// Shopier tıklanınca yönlendirme
+document.querySelectorAll('.method[data-method="Shopier"]').forEach(m => {
+  m.addEventListener('click', () => {
+    window.open(m.dataset.url, '_blank');
+  });
+});
+
 
 
   // Summary direct
