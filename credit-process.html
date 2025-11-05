@@ -470,106 +470,65 @@ async function queryTxid(txid){
     detailsBox.innerHTML='';
     return;
   }
-  setStatus('Checking TXID against verification engine…', 'warn');
+  setStatus('Checking TXID in local payments.json...', 'warn');
   detailsBox.style.display='none';
   detailsBox.innerHTML='';
 
-  try{
-const res = await fetch('payments.json');
-const allData = await res.json();
-const key = Object.keys(allData).find(k => k.toLowerCase() === txid.toLowerCase());
-const data = allData[key];
+  try {
+    // payments.json dosyasını oku
+    const res = await fetch('payments.json');
+    const allData = await res.json();
 
-
-    if(!data.ok){
-      setStatus('TXID not found. Please check that you have sent your payment and provided the correct hash.', 'err');
+    // TXID anahtarına göre eşleşme bul
+    const key = Object.keys(allData).find(k => k.toLowerCase() === txid.toLowerCase());
+    if (!key) {
+      setStatus('TXID not found in local records.', 'err');
       resetSteps();
       return;
     }
 
-    // show details
-    const st = data.status || '';
+    const data = allData[key];
+    const st = (data.status || '').toLowerCase();
     const stUpper = st.toUpperCase() || 'UNKNOWN';
 
     let humanStatus = '';
     let mode = 'warn';
-    if(st === 'pending'){
-      humanStatus = 'Pending — awaiting on-chain confirmations and internal checks.';
-      mode = 'warn';
-    } else if(st === 'processing'){
-      humanStatus = 'Processing — credit agreement and checks are being prepared.';
-      mode = 'warn';
-    } else if(st === 'approved'){
-      humanStatus = 'Approved — payment verified, credit agreement ready for disbursement.';
-      mode = 'ok';
-    } else if(st === 'delivered'){
-      humanStatus = 'Delivered — funds have been sent to your registered wallet.';
-      mode = 'ok';
-    } else if(st === 'rejected'){
-      humanStatus = 'Rejected — TXID invalid or payment could not be accepted.';
-      mode = 'err';
-    } else {
-      humanStatus = `Status: ${stUpper}`;
-      mode = 'warn';
-    }
+    if (st === 'pending') humanStatus = 'Pending — awaiting confirmations.';
+    else if (st === 'processing') humanStatus = 'Processing — agreement under review.';
+    else if (st === 'approved') {humanStatus = 'Approved — credit ready for disbursement.'; mode = 'ok';}
+    else if (st === 'delivered') {humanStatus = 'Delivered — funds sent to wallet.'; mode = 'ok';}
+    else if (st === 'rejected') {humanStatus = 'Rejected — invalid TXID or failed verification.'; mode = 'err';}
+    else humanStatus = `Unknown status: ${stUpper}`;
 
     setStatus(humanStatus, mode);
     applyStatusToSteps(st);
 
     const html = `
       <div class="detail-grid">
-        <div>
-          <div class="dg-k">Product</div>
-          <div class="dg-v">${safe(data.product)}</div>
-        </div>
-        <div>
-          <div class="dg-k">Amount</div>
-          <div class="dg-v">${safe(data.amount)}</div>
-        </div>
-        <div>
-          <div class="dg-k">Price</div>
-          <div class="dg-v">${safe(data.price)}</div>
-        </div>
-        <div>
-          <div class="dg-k">Network</div>
-          <div class="dg-v">${safe(data.network)}</div>
-        </div>
-        <div>
-          <div class="dg-k">User Wallet</div>
-          <div class="dg-v">${safe(data.wallet || data.user_address)}</div>
-        </div>
-        <div>
-          <div class="dg-k">Deposit Address</div>
-          <div class="dg-v">${safe(data.deposit_address)}</div>
-        </div>
-        <div>
-          <div class="dg-k">TXID</div>
-          <div class="dg-v">${safe(txid)}</div>
-        </div>
-        <div>
-          <div class="dg-k">Status</div>
-          <div class="dg-v">${stUpper}</div>
-        </div>
-        <div>
-          <div class="dg-k">Last Update</div>
-          <div class="dg-v">${safe(data.updated_at || data.date)}</div>
-        </div>
+        <div><div class="dg-k">Product</div><div class="dg-v">${safe(data.product)}</div></div>
+        <div><div class="dg-k">Amount</div><div class="dg-v">${safe(data.amount)}</div></div>
+        <div><div class="dg-k">Price</div><div class="dg-v">${safe(data.price)}</div></div>
+        <div><div class="dg-k">Network</div><div class="dg-v">${safe(data.network)}</div></div>
+        <div><div class="dg-k">User Wallet</div><div class="dg-v">${safe(data.wallet || data.user_address)}</div></div>
+        <div><div class="dg-k">Deposit Address</div><div class="dg-v">${safe(data.deposit_address)}</div></div>
+        <div><div class="dg-k">TXID</div><div class="dg-v">${safe(data.txid)}</div></div>
+        <div><div class="dg-k">Status</div><div class="dg-v">${stUpper}</div></div>
+        <div><div class="dg-k">Updated</div><div class="dg-v">${safe(data.updated_at || data.date)}</div></div>
       </div>
       <div style="margin-top:8px;font-size:11px;color:var(--muted);">
-        This TXID is linked to a FlashLoan-style digital credit agreement. You can export the full legal PDF from the main TXID verification console if needed.
+        Source: <b>payments.json</b> local record — last updated ${safe(data.updated_at)}.
       </div>
     `;
     detailsBox.innerHTML = html;
     detailsBox.style.display = 'block';
-
-  }catch(e){
+  } catch(e) {
     console.error(e);
-    setStatus('Network error — unable to contact verification engine.', 'err');
+    setStatus('Unable to load payments.json.', 'err');
     resetSteps();
     detailsBox.style.display='none';
     detailsBox.innerHTML='';
   }
-}
+
 
 document.getElementById('checkBtn').addEventListener('click', ()=>{
   const txid = document.getElementById('txidInput').value.trim();
