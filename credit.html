@@ -1,62 +1,398 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FLASH USDT — FlashCredit (Teminatsız Kripto Kredi)</title>
-<meta name="description" content="Teminatsız, anlık ve zincir üstü kripto kredi. FlashLoan + dYdX ve DeFi protokolleriyle desteklenen, güvenli ve otomatik kredi platformu.">
-<link rel="icon" type="image/png" href="assets/USDT-2.png">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FLASH USDT — FlashCredit (DeFi FlashLoan Credit)</title>
+
+<!-- Basic SEO -->
+<meta name="description" content="FlashCredit provides unsecured digital credit powered by FlashLoan and leading DeFi protocols such as dYdX, Aave and Uniswap. All credit flows are executed and verified on-chain.">
+<meta name="keywords" content="FlashCredit, FlashLoan, DeFi, dYdX, Aave, Uniswap, Crypto Credit, On-chain Credit, FLASH USDT, Digital Loan, TRC20, ERC20, BEP20">
+<link rel="icon" type="image/png" href="assets/USDT-2.png" />
+
 <style>
 :root {
-  --bg1:#030615; --bg2:#0b1130; --text:#eef3ff;
-  --cyan:#00f0ff; --amber:#ffcc4d;
+  --bg1:#030615; --bg2:#0b1130;
+  --text:#eef3ff; --muted:#aab2d8;
+  --border:rgba(255,255,255,.1);
+  --cyan:#00f0ff; --amber:#ffcc4d; --vio:#5b2cff;
+  --green:#16d18a;
 }
+
+*{box-sizing:border-box;}
+
 body {
-  margin:0; font-family:Poppins,sans-serif;
-  background:linear-gradient(135deg,var(--bg1),var(--bg2));
+  margin:0;
+  font-family:Poppins,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;
   color:var(--text);
+  background:
+    radial-gradient(circle at 0 0,rgba(0,240,255,.16),transparent 55%),
+    radial-gradient(circle at 100% 0,rgba(91,44,255,.16),transparent 60%),
+    linear-gradient(180deg,var(--bg1),var(--bg2));
 }
-.container {
-  max-width:900px; margin:60px auto; padding:30px;
-  background:rgba(255,255,255,0.05);
-  border-radius:16px; box-shadow:0 0 20px rgba(0,240,255,.1);
+
+/* Layout */
+.wrapper {
+  max-width:1100px;
+  margin:40px auto 60px;
+  padding:0 16px;
 }
-h1,h2 {text-align:center; color:var(--cyan);}
+
+.hero {
+  display:grid;
+  grid-template-columns:minmax(0,3fr) minmax(0,2.4fr);
+  gap:32px;
+  align-items:center;
+  margin-bottom:40px;
+}
+@media(max-width:900px){
+  .hero {grid-template-columns:1fr;}
+}
+
+/* Hero texts */
+.badge {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 12px;
+  border-radius:999px;
+  border:1px solid rgba(0,240,255,.4);
+  background:rgba(0,240,255,.08);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:#9af4ff;
+  margin-bottom:12px;
+}
+.badge span.em {
+  display:inline-flex;
+  width:7px;height:7px;border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 12px rgba(22,209,138,.9);
+}
+
+h1 {
+  font-size:30px;
+  margin:0 0 8px;
+  background:linear-gradient(90deg,#e5f3ff,#9cdcff);
+  -webkit-background-clip:text;
+  color:transparent;
+  text-shadow:0 0 18px rgba(0,240,255,.3);
+}
+.hero-sub {
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.7;
+}
+
+.hero-bullets {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:10px 22px;
+  margin:18px 0 10px;
+  font-size:13px;
+}
+.hero-bullets div {
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+}
+.hero-bullets span.emoji {font-size:16px;}
+
+/* Buttons */
+.hero-actions {
+  margin-top:16px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
 .btn {
-  display:inline-block; margin:10px; padding:12px 28px;
-  background:var(--cyan); color:#000; border-radius:30px;
-  font-weight:600; text-decoration:none; transition:.3s;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:11px 24px;
+  border-radius:999px;
+  border:none;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.28s;
 }
-.btn:hover {background:#00ffff; transform:scale(1.05);}
+.btn-primary {
+  background:linear-gradient(90deg,var(--cyan),var(--vio));
+  color:#020410;
+  box-shadow:0 0 20px rgba(0,240,255,.45);
+}
+.btn-primary:hover {transform:translateY(-1px) scale(1.03);}
+.btn-outline {
+  background:transparent;
+  border:1px solid var(--border);
+  color:var(--muted);
+}
+.btn-outline:hover {
+  border-color:var(--cyan);
+  color:var(--cyan);
+}
+
+/* Hero right card */
+.hero-card {
+  background:rgba(8,12,48,.9);
+  border-radius:18px;
+  border:1px solid var(--border);
+  padding:20px 20px 16px;
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+}
+.hero-chip-row {
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+  margin-bottom:18px;
+  font-size:11px;
+  color:var(--muted);
+}
+.hero-chip-row .pill {
+  padding:4px 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.03);
+}
+.hero-main-number {
+  font-size:28px;
+  font-weight:700;
+  margin-bottom:4px;
+}
+.hero-main-caption {
+  font-size:11px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.14em;
+}
+.hero-metrics {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:14px;
+  font-size:11px;
+}
+.metric {
+  padding:8px 10px;
+  border-radius:12px;
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.05);
+}
+.metric-label {color:#9aa6e8;text-transform:uppercase;font-size:10px;}
+.metric-value {font-weight:600;margin-top:3px;}
+
+/* DeFi partners */
+.section {
+  margin-top:40px;
+  padding:22px 20px 24px;
+  border-radius:18px;
+  border:1px solid var(--border);
+  background:rgba(5,9,32,.9);
+}
+.section h2 {
+  font-size:18px;
+  margin:0 0 6px;
+}
+.section p {
+  margin:0 0 14px;
+  font-size:13px;
+  color:var(--muted);
+}
+
+.defi-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:14px;
+}
+.defi-card {
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.06);
+  background:rgba(255,255,255,.02);
+  padding:14px 14px 12px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.defi-head {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.defi-head img {
+  width:26px;height:26px;border-radius:8px;object-fit:contain;
+}
+.defi-name {font-size:13px;font-weight:600;}
+.defi-tag {font-size:11px;color:var(--muted);}
+.defi-body {font-size:12px;color:var(--muted);line-height:1.6;}
+.defi-link {
+  margin-top:4px;
+  font-size:11px;
+}
+.defi-link a {
+  color:var(--cyan);
+  text-decoration:none;
+}
+.defi-link a:hover {text-decoration:underline;}
+
+.footer-note {
+  margin-top:18px;
+  font-size:11px;
+  color:var(--muted);
+}
+.footer-note a {color:var(--cyan);text-decoration:none;}
+.footer-note a:hover{text-decoration:underline;}
 </style>
 </head>
 <body>
-<div class="container">
-<h1>⚡ FlashCredit — Teminatsız Kripto Kredi</h1>
-<p><b>FlashCredit</b>, <span style="color:var(--amber)">FlashLoan</span> ve 
-<span style="color:var(--amber)">DeFi protokolleri</span> (dYdX, Aave, Uniswap) üzerinden 
-teminatsız kripto kredi sağlayan bir sistemdir. İşlemler zincir üzerinde otomatik olarak yürütülür.</p>
+<div class="wrapper">
 
-<h2>Kredi Süreci</h2>
-<ol>
-<li>Cüzdanını bağla (MetaMask veya WalletConnect)</li>
-<li>Kredi miktarını ve amacını seç</li>
-<li>Onayla, işlem zincir üzerinde başlasın</li>
-<li>İşlem tamamlanınca TXID ile doğrulama sağlanır</li>
-</ol>
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <div class="badge">
+        <span class="em"></span>
+        <span>On-chain FlashLoan Credit Engine</span>
+      </div>
+      <h1>FlashCredit — DeFi-Powered, Unsecured Digital Credit</h1>
+      <p class="hero-sub">
+        FlashCredit is an unsecured digital credit system powered by FlashLoan mechanisms and integrated
+        with leading DeFi protocols including <b>dYdX</b>, <b>Aave</b> and <b>Uniswap</b>.
+        All credit flows are executed and verified directly on-chain across TRC20, ERC20, BEP20 and BTC networks.
+      </p>
 
-<div style="text-align:center;margin-top:30px;">
-  <a href="credit-step.html" class="btn">KREDİ BAŞLAT</a>
-  <a href="terms.html" class="btn" style="background:var(--amber);">SÖZLEŞME & RİSK</a>
-</div>
+      <div class="hero-bullets">
+        <div><span class="emoji">⚡</span><span>Unsecured, on-chain credit with transparent FlashLoan-style funding and automated repayment tracking.</span></div>
+        <div><span class="emoji">🔗</span><span>Deep DeFi liquidity via dYdX orderbooks, Aave liquidity pools and Uniswap AMM routing.</span></div>
+        <div><span class="emoji">🛡️</span><span>TXIDs, contracts and credit obligations are recorded on blockchain and can be verified anytime.</span></div>
+        <div><span class="emoji">📜</span><span>Formal digital credit agreement with up to 365 days to repay the principal and applicable fees.</span></div>
+      </div>
 
-<h2>Avantajlar</h2>
-<ul>
-<li>⚡ Teminatsız, anında onaylı kredi</li>
-<li>🔗 Zincir üstü şeffaflık (Etherscan / BscScan / TronScan kayıtları)</li>
-<li>💸 Düşük ücret, DeFi likidite erişimi</li>
-<li>🧠 Akıllı sözleşme temelli güvenlik</li>
-</ul>
+      <div class="hero-actions">
+        <a href="credit-process.html" class="btn btn-primary">View Credit Process</a>
+        <a href="credit-terms.html" class="btn btn-outline">View Credit Terms</a>
+      </div>
+    </div>
+
+    <!-- Right side card / stats -->
+    <div class="hero-card">
+      <div class="hero-chip-row">
+        <div class="pill">FLASH USDT • FlashLoan USD Credit</div>
+        <div style="font-size:11px;color:var(--amber);">365-day repayment window</div>
+      </div>
+      <div class="hero-main-number">Unsecured DeFi Credit, On-Chain Verified</div>
+      <div class="hero-main-caption">FLASHCREDIT DIGITAL LOAN ENGINE</div>
+
+      <div class="hero-metrics">
+        <div class="metric">
+          <div class="metric-label">Credit Type</div>
+          <div class="metric-value">Unsecured • FlashLoan</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Funding Source</div>
+          <div class="metric-value">DeFi Liquidity Pools</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Verification</div>
+          <div class="metric-value">TXID • On-chain</div>
+        </div>
+      </div>
+
+      <p style="margin-top:16px;font-size:11px;color:var(--muted);">
+        All credit agreements are bound to a unique Contract ID and a blockchain TXID, and can be exported
+        as a signed PDF agreement from the verification console.
+      </p>
+    </div>
+  </section>
+
+  <!-- DeFi / dYdX / Aave / Uniswap partner section -->
+  <section class="section">
+    <h2>DeFi & Liquidity Integrations</h2>
+    <p>
+      FlashCredit is designed to operate alongside existing DeFi infrastructure rather than replacing it.
+      Liquidity can be sourced and routed through advanced protocols such as <b>dYdX</b> (perpetuals and orderbooks),
+      <b>Aave</b> (lending and borrowing pools) and <b>Uniswap</b> (AMM swaps), depending on strategy and network conditions.
+    </p>
+
+    <div class="defi-grid">
+      <article class="defi-card">
+        <div class="defi-head">
+          <img src="assets/logo-dydx.svg" alt="dYdX" />
+          <div>
+            <div class="defi-name">dYdX</div>
+            <div class="defi-tag">Perpetuals • Orderbook DeFi</div>
+          </div>
+        </div>
+        <div class="defi-body">
+          Institutional-grade derivatives and advanced orderbook infrastructure can be used
+          to structure hedged or leveraged strategies around FlashCredit positions.
+        </div>
+        <div class="defi-link">
+          <a href="https://dydx.exchange" target="_blank" rel="noopener noreferrer">Visit dydx.exchange →</a>
+        </div>
+      </article>
+
+      <article class="defi-card">
+        <div class="defi-head">
+          <img src="assets/logo-aave.svg" alt="Aave" />
+          <div>
+            <div class="defi-name">Aave Protocol</div>
+            <div class="defi-tag">Liquidity Pools • Lending</div>
+          </div>
+        </div>
+        <div class="defi-body">
+          Deep liquidity pools and interest rate markets can be combined with FlashCredit
+          flows to bootstrap, rebalance or hedge digital credit exposures.
+        </div>
+        <div class="defi-link">
+          <a href="https://aave.com" target="_blank" rel="noopener noreferrer">Visit aave.com →</a>
+        </div>
+      </article>
+
+      <article class="defi-card">
+        <div class="defi-head">
+          <img src="assets/logo-uniswap.svg" alt="Uniswap" />
+          <div>
+            <div class="defi-name">Uniswap</div>
+            <div class="defi-tag">AMM Swaps • Liquidity Routing</div>
+          </div>
+        </div>
+        <div class="defi-body">
+          Automated market maker (AMM) pools can be used to route asset conversions
+          required before or after credit disbursement, while staying fully on-chain.
+        </div>
+        <div class="defi-link">
+          <a href="https://uniswap.org" target="_blank" rel="noopener noreferrer">Visit uniswap.org →</a>
+        </div>
+      </article>
+
+      <article class="defi-card">
+        <div class="defi-head">
+          <img src="assets/logo-defi.svg" alt="DeFi Ecosystem" />
+          <div>
+            <div class="defi-name">DeFi Ecosystem</div>
+            <div class="defi-tag">Composability • On-chain Logic</div>
+          </div>
+        </div>
+        <div class="defi-body">
+          FlashCredit remains fully composable with wider DeFi primitives: bridges, routers,
+          oracles and other on-chain automation tools, depending on your strategy.
+        </div>
+        <div class="defi-link">
+          <a href="https://defillama.com" target="_blank" rel="noopener noreferrer">Explore DeFi ecosystem →</a>
+        </div>
+      </article>
+    </div>
+
+    <p class="footer-note">
+      FlashCredit integrates with DeFi infrastructure on a technical level. Any external brands, logos or
+      protocol names remain fully owned by their respective entities.
+    </p>
+  </section>
+
 </div>
 </body>
 </html>
