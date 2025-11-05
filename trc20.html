@@ -339,6 +339,273 @@
   opacity: 0.85;
 }
 
+.verify-states .vstate {
+  transition: all .4s ease;
+}
+.verify-states .vstate:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 10px rgba(0,240,255,.15);
+  background: rgba(0,240,255,.04);
+}
+
+.vmodal {
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(3,6,21,.7);
+  backdrop-filter:blur(12px);
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+  animation:fadeIn .5s ease;
+}
+
+
+.vbox {
+  background:linear-gradient(145deg,rgba(30,40,90,.65),rgba(10,15,40,.85));
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:22px;
+  box-shadow:0 0 30px rgba(0,0,0,.3);
+  width:420px;
+  text-align:center;
+  padding:30px 40px;
+  color:#eef3ff;
+}
+
+
+.vbox h2 {
+  font-size:1.4em;
+  margin-bottom:8px;
+  color:#b7ceff;
+}
+
+.vbox p {
+  font-size:.9em;
+  color:#aab2d8;
+  line-height:1.5em;
+}
+
+.spinner-ring {
+  margin:30px auto;
+  width:80px;
+  height:80px;
+  border:5px solid rgba(255,255,255,.1);
+  border-top:5px solid #00f0ff;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin {100%{transform:rotate(360deg)}}
+@keyframes fadeIn {from{opacity:0}to{opacity:1}}
+
+.vdesc {margin-top:-10px; margin-bottom:25px; color:#ccd3ff;}
+
+.verify-states {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.vstate {
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;
+  padding:12px 0;
+  transition:all .4s ease;
+}
+
+.vstate:hover {
+  transform:translateY(-4px);
+  box-shadow:0 0 10px rgba(0,240,255,.15);
+  background:rgba(0,240,255,.04);
+}
+
+.vicon {font-size:1.3em;}
+.vlabel {font-size:.85em; color:#bfc6e0;}
+
+#closeModal {
+  margin-top:28px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:10px;
+  padding:10px 30px;
+  color:#fff;
+  cursor:pointer;
+  transition:.3s;
+}
+#closeModal:hover {
+  background:rgba(0,240,255,.15);
+}
+
+.instructions-card {
+  transform: scale(0.92);
+  transform-origin: top center;
+  transition: all .4s ease;
+}
+.instructions-card:hover {
+  transform: scale(0.94);
+}
+
+/* === Enhanced Transaction Summary (Final) === */
+.tx-summary.enhanced {
+  background: linear-gradient(180deg, rgba(10,15,40,.9), rgba(5,10,20,.85));
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  box-shadow:
+    0 0 25px rgba(0,240,255,.15),
+    inset 0 0 0 1px rgba(255,255,255,.03);
+  padding: 22px 26px;
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn .6s ease;
+}
+.tx-summary.enhanced::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 25% 20%, rgba(0,240,255,.1), transparent 65%);
+  opacity: .6;
+  pointer-events: none;
+}
+
+.tx-head {
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; margin-bottom:16px;
+}
+.tx-icon {
+  width:42px; height:42px; border-radius:10px;
+  box-shadow:0 0 15px rgba(0,240,255,.25);
+}
+.tx-info { flex:1; }
+.tx-title {
+  margin:0; font-size:18px; font-weight:800;
+  color:#9ee7ff;
+  text-shadow:0 0 10px rgba(0,240,255,.25);
+}
+.tx-sub { font-size:12.5px; color:#9aa7c8; }
+.tx-status-badge {
+  font-size:13px; font-weight:800; padding:6px 10px;
+  border-radius:10px; text-transform:uppercase;
+  background:rgba(255,204,77,.1); color:#ffcc4d;
+  border:1px solid rgba(255,204,77,.25);
+  animation:pulsePending 1.6s infinite;
+}
+.tx-body { border-top:1px dashed rgba(255,255,255,.08); padding-top:12px; }
+.tx-body .kv {
+  display:flex; justify-content:space-between;
+  padding:6px 0; font-size:14px;
+  border-bottom:1px dashed rgba(255,255,255,.05);
+  color:#cfe0ff;
+}
+.tx-body .k { color:#00f0ff; font-weight:600; }
+.tx-footer { margin-top:16px; }
+.tx-progress {
+  height:6px;
+  background:rgba(255,255,255,.05);
+  border-radius:10px;
+  overflow:hidden;
+}
+.tx-progress .tx-bar {
+  height:100%;
+  width:40%;
+  background:linear-gradient(90deg,#00f0ff,#5b2cff);
+  border-radius:10px;
+  animation:progressPulse 4s ease-in-out infinite;
+}
+@keyframes progressPulse {
+  0%,100% {width:40%; opacity:.6;}
+  50% {width:90%; opacity:1;}
+}
+.tx-timestamp {
+  margin-top:8px; font-size:12px; color:#aab2d8;
+  text-align:right;
+}
+/* === Status colors === */
+.tx-summary.enhanced[data-status="pending"] .tx-status-badge {background:rgba(255,204,77,.1);color:#ffcc4d;}
+.tx-summary.enhanced[data-status="processing"] .tx-status-badge {background:rgba(0,240,255,.1);color:#00f0ff;}
+.tx-summary.enhanced[data-status="approved"],
+.tx-summary.enhanced[data-status="delivered"] .tx-status-badge {background:rgba(22,209,138,.1);color:#16d18a;}
+.tx-summary.enhanced[data-status="rejected"] .tx-status-badge {background:rgba(255,75,159,.1);color:#ff4b9f;}
+
+/* === Step6 Düzeni: Product + Transaction yan yana === */
+#step6 > .stage {
+  display: grid !important;
+  grid-template-columns: 1.4fr 1fr; /* Sol geniş */
+  gap: 28px;
+  align-items: start;
+  margin-top: 10px;
+}
+
+/* İç kutular orantılı */
+#step6 .tx-left,
+#step6 .tx-right {
+  min-width: 0;
+}
+
+/* Pay Details (aside) tamamen gizle */
+
+/* Mobilde alt alta */
+@media (max-width: 900px) {
+  #step6 > .stage {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Görsel denge */
+<div class="tx-left">
+#step6 .productDetails,
+</div>
+<div class="tx-right">
+#step6 .tx-summary.enhanced {
+    </div>
+  transform: scale(0.98);
+  transform-origin: top;
+}
+#step6 .productDetails,
+#step6 .tx-summary.enhanced {
+  flex: 1 1 480px;
+  max-width: 520px;
+  width: 100%;
+}
+#step6 > .stage {
+  display: flex !important;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+/* Step6'da layout'u tam ortala ve genişlet */
+#step6 > .stage {
+  display: flex !important;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Kartları genişlet */
+#step6 .productDetails,
+#step6 .tx-summary.enhanced {
+  flex: 1 1 520px;
+  max-width: 560px;
+  width: 100%;
+}
+#step6 .stage {
+  display: flex !important;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 40px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
 
 
   .row{display:flex;justify-content:space-between;gap:10px;color:#cfd6ff;font-size:14px;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
@@ -575,6 +842,111 @@ footer .foot > *{ min-width:0; }
   animation: pulseRejected 1.6s infinite;
 }
 
+.vmodal {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 6, 21, .72);
+  backdrop-filter: blur(14px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  animation: fadeIn .4s ease;
+}
+
+.vbox {
+  background: linear-gradient(145deg, rgba(20, 30, 60, .65), rgba(5, 10, 30, .9));
+  border-radius: 22px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, .4);
+  width: 460px;
+  color: #eef3ff;
+  padding: 40px 50px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, .08);
+}
+
+.vbox h2 {
+  font-size: 1.6rem;
+  margin-bottom: 8px;
+  color: #d9e5ff;
+}
+
+.vbox p {
+  font-size: .95rem;
+  color: #aab2d8;
+  margin-bottom: 25px;
+}
+
+.spinner-ring {
+  width: 90px;
+  height: 90px;
+  border: 6px solid rgba(255, 255, 255, .05);
+  border-top: 6px solid #00f0ff;
+  border-radius: 50%;
+  animation: spin 1.4s linear infinite;
+  margin: 0 auto 25px;
+}
+
+.verify-states {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.verify-states .vstate {
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px;
+  padding: 14px;
+  font-size: .8rem;
+  background: rgba(255,255,255,.03);
+  transition: all .4s ease;
+}
+.verify-states .vstate:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 10px rgba(0,240,255,.15);
+  background: rgba(0,240,255,.04);
+}
+
+/* === Step6 Düzeni: Product + Transaction yan yana === */
+#step6 .stage {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr; /* Sol (Product) biraz geniş */
+  gap: 28px;
+  align-items: start;
+  margin-top: 10px;
+}
+
+/* İç kutular orantılı olsun */
+#step6 .tx-left,
+#step6 .tx-right {
+  min-width: 0;
+}
+
+/* Mobil uyum (alt alta geçsin) */
+@media (max-width: 900px) {
+  #step6 .stage {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* === Payment Details her zaman aktif olsun === */
+#step6 .pay-box,
+#step6 .pay-details,
+#step6 .payment-summary {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  height: auto !important;
+}
+
+
+/* Görsel denge (isteğe bağlı) */
+#step6 .productDetails,
+#step6 .tx-summary.enhanced {
+  transform: scale(0.98);
+  transform-origin: top;
+}
+
 
 
     /* Secure Transaction badge - visual like uploaded image */
@@ -607,6 +979,12 @@ footer .foot > *{ min-width:0; }
   margin-inline: auto;
   border-radius: 18px;
 }
+@media (max-width: 900px) {
+  #step6 .stage {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 /* === MOBILE PERFORMANCE BOOST === */
 @media (max-width: 900px) {
 
@@ -654,6 +1032,7 @@ footer .foot > *{ min-width:0; }
 .spinner-ring { animation-duration: 1.1s !important; }
 .badge-live   { animation-duration: 1.8s !important; }
 .led-dot      { animation-duration: 1.6s !important; }
+
 
 
 </style>
@@ -969,52 +1348,78 @@ footer .foot > *{ min-width:0; }
           </div>
         </div>
       </div>
-      <!-- STEP 6: RESULT SECTION -->
-<div class="card pad" id="step6" style="display:none;">
-  <div class="stage pad grid gap-20">
-    <!-- SOL: ÜRÜN DETAYLARI -->
-    <div class="tx-left">
-        <div class="left-panel">
-  <div class="productDetails" style="
-    border:1px solid rgba(255,255,255,.1);
-    background:rgba(255,255,255,.03);
-    padding:18px;
-    border-radius:14px;
-    font-size:14px;
-    line-height:1.5;
-    color:#cfe0ff;
-    margin-bottom:18px;
-  ">
-    <h3>📦 Product Details</h3>
-    <p>Enter TXID and verify to see details.</p>
-  </div>
-</div>
+<!-- STEP 6: VERIFY RESULT -->
+<div class="card pad" id="step6" style="display:none; max-width:1400px; margin:0 auto;">
+  
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start; width:100%;">
+    
+    <!-- SOL: Product Details -->
+    <div class="productDetails" style="
+      border:1px solid rgba(255,255,255,.1);
+      background:rgba(255,255,255,.03);
+      padding:20px;
+      border-radius:14px;
+      color:#cfe0ff;
+      width:100%;
+    ">
+      <h3 style="margin-top:0;">📦 Product Details</h3>
+      <p>Enter TXID and verify to see details.</p>
+    </div>
 
-      <div class="tx-summary">
-        <h3 class="tx-title">
-          <img src="assets/trc20.png" style="width:24px;height:24px;margin-right:8px;"> Transaction Details
-        </h3>
-        <div class="tx-details">
-          <div class="kv"><span class="k">Product:</span> <span id="detProduct">—</span></div>
-          <div class="kv"><span class="k">Amount:</span> <span id="detAmount">—</span></div>
-          <div class="kv"><span class="k">Price:</span> <span id="detPrice">—</span></div>
-          <div class="kv"><span class="k">Network:</span> <span id="detNetwork">TRC20</span></div>
-          <div class="kv"><span class="k">Your Wallet:</span> <span id="detWallet">—</span></div>
-          <div class="kv"><span class="k">Deposit Address:</span> <span id="detDeposit">—</span></div>
-          <div class="kv"><span class="k">Status:</span> <span id="detStatus">—</span></div>
+    <!-- SAĞ: Transaction Summary -->
+    <div class="tx-summary enhanced" style="margin:0; width:100%;">
+      <div class="tx-head">
+        <img src="assets/trc20.png" alt="token" class="tx-icon">
+        <div class="tx-info">
+          <h3 class="tx-title">Transaction Details</h3>
+          <div class="tx-sub">AES-256 Encrypted • Chain Verified</div>
         </div>
+        <div class="tx-status-badge" id="tx-status-badge">PENDING</div>
+      </div>
+
+      <div class="tx-body">
+        <div class="kv"><span class="k">🪙 Product</span><span id="detProduct">—</span></div>
+        <div class="kv"><span class="k">💰 Amount</span><span id="detAmount">—</span></div>
+        <div class="kv"><span class="k">💵 Price</span><span id="detPrice">—</span></div>
+        <div class="kv"><span class="k">🌐 Network</span><span id="detNetwork">TRC20</span></div>
+        <div class="kv"><span class="k">👛 Your Wallet</span><span id="detWallet">—</span></div>
+        <div class="kv"><span class="k">🏦 Deposit Address</span><span id="detDeposit">—</span></div>
+        <div class="kv"><span class="k">📊 Status</span><span id="detStatus"><span class="status-badge pending">PENDING</span></span></div>
+      </div>
+
+      <div class="tx-footer">
+        <div class="tx-progress"><div class="tx-bar"></div></div>
+        <div class="tx-timestamp"><span id="tx-time">Updated: —</span></div>
       </div>
     </div>
 
-    <!-- SAĞ: TIMELINE -->
-    <div class="tx-right">
-      <div class="timeline">
-        <div class="tstep" id="tl1"><div class="tbadge">STEP 1</div><div class="tcontent"><div class="tname">Transaction Verification</div><div class="tdesc">Awaiting blockchain confirmation.</div></div></div>
-        <div class="tstep" id="tl2"><div class="tbadge">STEP 2</div><div class="tcontent"><div class="tname">Processing</div><div class="tdesc">Preparing secure transfer.</div></div></div>
-        <div class="tstep" id="tl3"><div class="tbadge">STEP 3</div><div class="tcontent"><div class="tname">Wallet Delivery</div><div class="tdesc">USDT delivered to your wallet.</div></div></div>
+  </div>
+
+  <!-- Timeline (altta, tam genişlik) -->
+  <div class="timeline" style="margin-top:24px; width:100%;">
+    <div class="tstep" id="tl1">
+      <div class="tbadge">STEP 1</div>
+      <div class="tcontent">
+        <div class="tname">Transaction Verification</div>
+        <div class="tdesc">Awaiting blockchain confirmation.</div>
+      </div>
+    </div>
+    <div class="tstep" id="tl2">
+      <div class="tbadge">STEP 2</div>
+      <div class="tcontent">
+        <div class="tname">Processing</div>
+        <div class="tdesc">Preparing secure transfer.</div>
+      </div>
+    </div>
+    <div class="tstep" id="tl3">
+      <div class="tbadge">STEP 3</div>
+      <div class="tcontent">
+        <div class="tname">Wallet Transfer</div>
+        <div class="tdesc">USDT delivered to your wallet.</div>
       </div>
     </div>
   </div>
+
 </div>
 
     </section>
@@ -1073,7 +1478,6 @@ footer .foot > *{ min-width:0; }
           <div class="vstate"><div class="vicon">🔎</div><div class="vlabel">Searching blockchain</div></div>
           <div class="vstate"><div class="vicon">⏱️</div><div class="vlabel">Confirming details</div></div>
           <div class="vstate"><div class="vicon">🛡️</div><div class="vlabel">Securing transaction</div></div>
-        </div>
       </div>
       <div class="actions" style="display:flex;justify-content:center;margin-top:12px;">
         <button class="btn ghost" id="vClose1">Close</button>
@@ -1151,12 +1555,50 @@ footer .foot > *{ min-width:0; }
   const $ = s => document.querySelector(s);
   const stage = $('#stage');
   const sideSummary = $('#sideSummary');
-  const steps = ["step1","step2","step3","step4","step5"];
+const steps = ["step1","step2","step3","step4","step5","step6"];
 
-  function showStep(id){
-    steps.forEach(s => { const el = document.getElementById(s); if(el) el.style.display = (s===id)?'block':'none'; });
-    window.scrollTo({top:0, behavior:"smooth"});
+function showStep(id) {
+  steps.forEach(s => {
+    const el = document.getElementById(s);
+    if (el) el.style.display = (s === id) ? 'block' : 'none';
+  });
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
+  const stage = document.querySelector('.stage');
+  let sideSummary = document.getElementById('sideSummary');
+
+  // ✅ Step6'da aside komple DOM'dan kaldır
+  if (id === 'step6') {
+    if (sideSummary) sideSummary.remove();
+    stage.style.display = 'flex';
+    stage.style.justifyContent = 'center';
+    stage.style.alignItems = 'flex-start';
+    stage.style.flexWrap = 'wrap';
+    stage.style.gap = '40px';
+    stage.style.maxWidth = '1200px';
+    stage.style.margin = '0 auto';
+  } 
+  // ✅ Step1–Step5: aside yoksa geri ekle
+  else {
+    if (!document.getElementById('sideSummary')) {
+      const newAside = document.createElement('aside');
+      newAside.id = 'sideSummary';
+      newAside.innerHTML = savedAsideHTML; // ↓ aşağıda tanımlıyoruz
+      stage.appendChild(newAside);
+    }
+
+    stage.style.display = '';
+    stage.style.justifyContent = '';
+    stage.style.alignItems = '';
+    stage.style.flexWrap = '';
+    stage.style.gap = '';
+    stage.style.maxWidth = '';
+    stage.style.margin = '';
   }
+}
+
+
+  
   function ADDRRSafe(net){ return ADDRS[net] || '—'; }
 
   function showPayDetails(show){
@@ -1290,7 +1732,35 @@ document.querySelectorAll('.method[data-method="OXAPAY"]').forEach(m=>{
   const vClose1 = document.getElementById('vClose1');
   const vClose2 = document.getElementById('vClose2');
 
-  function openVerifyProcess(){ vModal.style.display='flex'; vModal.setAttribute('aria-hidden','false'); vProcess.style.display='block'; vPending.style.display='none'; }
+function openVerifyProcess() {
+  vModal.style.display = 'flex';
+  vModal.setAttribute('aria-hidden', 'false');
+  vProcess.style.display = 'block';
+  vPending.style.display = 'none';
+
+  // 4 saniye döner animasyon
+  setTimeout(() => {
+    const spinner = document.querySelector('.spinner-ring');
+    if (spinner) spinner.style.borderTopColor = '#16d18a';
+    const title = document.querySelector('.vbox h3');
+    if (title) title.textContent = 'Verification Complete';
+
+    document.querySelectorAll('.vstate').forEach(v => {
+      v.style.border = '1px solid rgba(22,209,138,.4)';
+      v.style.background = 'rgba(22,209,138,.08)';
+    });
+
+    // ✅ 2 saniye sonra modal kapanır ve step6 görünür
+    setTimeout(() => {
+      vModal.style.display = 'none';
+      vModal.setAttribute('aria-hidden', 'true');
+      showStep('step6'); // step6’yı aç
+      checkStatus(state.txid); // veriyi hemen çek
+    }, 2000);
+  }, 4000);
+}
+
+
   function swapToPending(){ vProcess.style.display='none'; vPending.style.display='block'; }
   function closeVerifyModal(){ vModal.style.display='none'; vModal.setAttribute('aria-hidden','true'); }
   vClose1?.addEventListener('click', closeVerifyModal);
@@ -1391,6 +1861,19 @@ if(!userAddress){
     alert('Save failed. Check console.');
     return;
   }
+  
+  // ✅ Dinamik güncelleme için
+function updateTxStatus(data) {
+  const badge = document.getElementById('tx-status-badge');
+  const box = document.querySelector('.tx-summary.enhanced');
+  const time = document.getElementById('tx-time');
+  if (!badge || !box) return;
+
+  badge.textContent = (data.status || 'pending').toUpperCase();
+  box.setAttribute('data-status', data.status || 'pending');
+  time.textContent = 'Updated: ' + (data.updated_at || new Date().toLocaleString());
+}
+
 
   // 🔄 Modal akışı
   openVerifyProcess();
@@ -1585,10 +2068,11 @@ async function checkStatus(txid) {
 }
 
 
-  // Init
-  showStep('step1');
-  updateSummary();
-  showPayDetails(false); // ilk ekranda gizli
+
+function showVerificationResult() {
+  document.querySelectorAll('.card.pad').forEach(c => c.style.display = 'none');
+  document.getElementById('step6').style.display = 'block';
+}
 
 document.getElementById('navTxid')?.addEventListener('click', (e) => {
   e.preventDefault();
@@ -1600,6 +2084,13 @@ document.getElementById('navTxid')?.addEventListener('click', (e) => {
   document.body.style.opacity = '0';
   setTimeout(() => window.location.href = `verify.html?network=${network}`, 400);
 });
+
+
+  // Init
+  showStep('step1');
+  updateSummary();
+  showPayDetails(false); // ilk ekranda gizli
+
 
 </script>
 </body>
