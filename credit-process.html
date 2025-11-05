@@ -475,8 +475,11 @@ async function queryTxid(txid){
   detailsBox.innerHTML='';
 
   try{
-    const res = await fetch(`verify_status.php?txid=${encodeURIComponent(txid)}&t=${Date.now()}`);
-    const data = await res.json();
+const res = await fetch('payments.json');
+const allData = await res.json();
+const key = Object.keys(allData).find(k => k.toLowerCase() === txid.toLowerCase());
+const data = allData[key];
+
 
     if(!data.ok){
       setStatus('TXID not found. Please check that you have sent your payment and provided the correct hash.', 'err');
