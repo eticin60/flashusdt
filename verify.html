@@ -6,6 +6,24 @@
 <title>FLASH USDT — TXID Verification</title>
 <link rel="icon" type="image/png" href="assets/USDT-2.png" />
 <style>
+/* Sayfanın sağa sola kaymasını engellemek için */
+html, body {
+  overflow-x: hidden; /* Yatay kaymayı engeller */
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  color: var(--text);
+}
+
+/* Mobil uyumlu düzenleme */
+@media (max-width: 768px) {
+  body, html {
+    overflow-x: hidden; /* Yine mobilde de sağa sola kayma engellenir */
+  }
+}
+
+/* Diğer stil kodlarınız burada olacak */
+
 :root {
   --bg1:#030615; --bg2:#0b1130;
   --text:#eef3ff; --muted:#aab2d8;
@@ -461,8 +479,51 @@ footer{
   line-height: 1.6;
 }
 
+
+<!-- ✅ Mobile UI & Safe Area Fix -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#030615">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="msapplication-navbutton-color" content="#030615">
+<meta name="color-scheme" content="dark light">
+<style>
+  html, body {
+    background: #030615 !important;
+    color-scheme: dark;
+    margin: 0;
+    padding: 0;
+  }
+  @media (max-width: 768px) {
+  .container, .wrap, .hero, .section {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 12px !important;
+  }
+
+  .card, .box, .panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 12px 0 !important;
+  }
+
+  .navbar, header {
+    width: 100vw !important;
+    background: #0b1130 !important;
+  }
+}
+</style>
+
+
 </style>
 </head>
+
+<style>
+body {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+</style>
 <body>
 <div class="bg-grid"></div>
 
