@@ -179,5 +179,12 @@ a:hover{text-decoration:underline;}
     </p>
   </section>
 </div>
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.innerHTML = document.body.innerHTML
+    .replace(/:contentReference\[.*?\]\{.*?\}/g, '')
+    .replace(/\{index=\d+\}/g, '');
+});
+</script>
 </body>
 </html>
