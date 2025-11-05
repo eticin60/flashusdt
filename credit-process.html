@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FLASH USDT — FlashCredit Process & TXID Tracking</title>
+<link rel="icon" type="image/png" href="assets/USDT-2.png" />
+
+<style>
+:root{
+  --bg1:#030615; --bg2:#0b1130;
+  --text:#eef3ff; --muted:#aab2d8;
+  --border:rgba(255,255,255,.1);
+  --cyan:#00f0ff; --amber:#ffcc4d; --vio:#5b2cff;
+  --green:#16d18a; --red:#ff4b9f;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  font-family:Poppins,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 0 0,rgba(0,240,255,.16),transparent 55%),
+    radial-gradient(circle at 100% 0,rgba(91,44,255,.16),transparent 60%),
+    linear-gradient(180deg,var(--bg1),var(--bg2));
+}
+
+/* Layout */
+.wrapper{
+  max-width:1100px;
+  margin:40px auto 60px;
+  padding:0 16px;
+}
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  margin-bottom:20px;
+}
+header-left{
+  display:flex;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.brand img{
+  width:30px;height:30px;border-radius:8px;
+}
+.brand-title{
+  font-size:14px;
+  font-weight:700;
+}
+.brand-net{
+  font-size:11px;
+  color:var(--muted);
+}
+header .right-links{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.small-link{
+  font-size:11px;
+  color:var(--muted);
+  text-decoration:none;
+  border-radius:999px;
+  border:1px solid var(--border);
+  padding:5px 10px;
+}
+.small-link:hover{color:var(--cyan);border-color:var(--cyan);}
+
+main-card{
+  display:block;
+}
+.main-card{
+  border-radius:20px;
+  border:1px solid var(--border);
+  background:rgba(5,9,32,.92);
+  padding:24px 20px 22px;
+  box-shadow:0 22px 60px rgba(0,0,0,.65);
+}
+
+/* Title / intro */
+h1{
+  font-size:24px;
+  margin:0 0 4px;
+  background:linear-gradient(90deg,#e5f3ff,#9cdcff);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+.p-sub{
+  margin:0;
+  font-size:13px;
+  color:var(--muted);
+}
+
+/* Grid layout inside card */
+.process-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.5fr) minmax(0,1.3fr);
+  gap:24px;
+  margin-top:20px;
+}
+@media(max-width:900px){
+  .process-grid{grid-template-columns:1fr;}
+}
+
+/* Steps list */
+.steps-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.step-item{
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.06);
+  background:rgba(255,255,255,.02);
+  padding:10px 12px;
+  font-size:12px;
+  display:flex;
+  gap:10px;
+}
+.step-number{
+  width:24px;height:24px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;
+  color:var(--muted);
+}
+.step-content{
+  flex:1;
+}
+.step-title{
+  font-weight:600;
+  margin-bottom:2px;
+}
+.step-status{
+  font-size:11px;
+  color:var(--muted);
+}
+
+/* Status classes */
+.step-item.done{
+  border-color:rgba(22,209,138,.6);
+  box-shadow:0 0 14px rgba(22,209,138,.4);
+}
+.step-item.done .step-number{
+  border-color:var(--green);
+  background:rgba(22,209,138,.16);
+  color:#caffea;
+}
+.step-item.active{
+  border-color:rgba(0,240,255,.7);
+  box-shadow:0 0 16px rgba(0,240,255,.4);
+}
+.step-item.active .step-number{
+  border-color:var(--cyan);
+  background:rgba(0,240,255,.14);
+  color:#d7f8ff;
+}
+.step-item.error{
+  border-color:rgba(255,75,159,.7);
+  box-shadow:0 0 16px rgba(255,75,159,.4);
+}
+.step-item.error .step-number{
+  border-color:var(--red);
+  background:rgba(255,75,159,.16);
+  color:#ffd7eb;
+}
+
+/* TXID block */
+.tx-panel{
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(8,12,50,.95);
+  padding:16px 14px 14px;
+  font-size:12px;
+}
+.tx-panel h2{
+  font-size:14px;
+  margin:0 0 8px;
+}
+.tx-panel p{
+  margin:0 0 10px;
+  color:var(--muted);
+}
+.tx-input-row{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.tx-input-row input{
+  width:100%;
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.04);
+  color:var(--text);
+  font-size:13px;
+}
+.tx-input-row input::placeholder{color:#8c94c5;}
+.tx-input-row input:focus{
+  outline:none;
+  border-color:var(--cyan);
+  box-shadow:0 0 12px rgba(0,240,255,.4);
+}
+.tx-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:8px;
+}
+.btn-sm{
+  border-radius:999px;
+  padding:7px 14px;
+  font-size:11px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+}
+.btn-sm-primary{
+  background:linear-gradient(90deg,var(--cyan),var(--vio));
+  color:#020410;
+}
+.btn-sm-ghost{
+  background:transparent;
+  border:1px solid var(--border);
+  color:var(--muted);
+}
+.btn-sm-ghost:hover{
+  border-color:var(--cyan);color:var(--cyan);
+}
+
+/* Status + details */
+.status-line{
+  margin-top:10px;
+  font-size:12px;
+  color:var(--muted);
+}
+.status-line span.label{
+  font-weight:600;
+  color:#cfe0ff;
+}
+.status-line span.value{
+  font-weight:500;
+}
+.status-line span.ok{color:var(--green);}
+.status-line span.warn{color:var(--amber);}
+.status-line span.err{color:var(--red);}
+
+.details{
+  margin-top:12px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.03);
+  padding:10px 11px;
+  font-size:11px;
+  display:none;
+}
+.detail-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:6px 18px;
+}
+.dg-k{
+  color:#9fb2ff;
+  text-transform:uppercase;
+  font-size:10px;
+  letter-spacing:.08em;
+}
+.dg-v{
+  color:#e5ebff;
+  word-break:break-all;
+}
+
+/* Info below */
+.info-note{
+  margin-top:10px;
+  font-size:11px;
+  color:var(--muted);
+}
+.info-note a{color:var(--cyan);text-decoration:none;}
+.info-note a:hover{text-decoration:underline;}
+
+/* Bottom note */
+.bottom-note{
+  margin-top:16px;
+  font-size:11px;
+  color:var(--muted);
+}
+.bottom-note b{color:#e5f3ff;}
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <header>
+    <div class="brand">
+      <img src="assets/USDT-2.png" alt="FLASH USDT">
+      <div>
+        <div class="brand-title">FLASH USDT — FlashCredit</div>
+        <div class="brand-net">Unsecured Digital Credit • DeFi & FlashLoan powered</div>
+      </div>
+    </div>
+    <div class="right-links">
+      <a href="index.html" class="small-link">← Back to Main</a>
+      <a href="verify.html" class="small-link">Open Advanced TXID Console</a>
+      <a href="credit-terms.html" class="small-link">Credit Terms</a>
+    </div>
+  </header>
+
+  <section class="main-card">
+    <h1>FlashCredit Process & On-Chain Tracking</h1>
+    <p class="p-sub">
+      Follow the full FlashCredit lifecycle and track your on-chain credit status using your payment TXID.
+      All stages below are bound to your FlashLoan-style digital credit agreement and blockchain records.
+    </p>
+
+    <div class="process-grid">
+
+      <!-- LEFT: Steps -->
+      <div>
+        <div class="steps-list" id="stepsList">
+          <div class="step-item" data-step="1">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <div class="step-title">Select your credit package</div>
+              <div class="step-status">You choose the FlashCredit package and notional USDT amount that fits your needs.</div>
+            </div>
+          </div>
+          <div class="step-item" data-step="2">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <div class="step-title">Provide your wallet or exchange address</div>
+              <div class="step-status">You submit your own personal wallet / exchange deposit address to receive the credit.</div>
+            </div>
+          </div>
+          <div class="step-item" data-step="3">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <div class="step-title">Choose network and send payment</div>
+              <div class="step-status">You select the payment network (TRC20 / ERC20 / BEP20 / BTC) and complete the on-chain payment.</div>
+            </div>
+          </div>
+          <div class="step-item" data-step="4">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <div class="step-title">Submit TXID & compliance checks</div>
+              <div class="step-status">You share the TXID; the system verifies it and runs risk, AML and compliance checks.</div>
+            </div>
+          </div>
+          <div class="step-item" data-step="5">
+            <div class="step-number">5</div>
+            <div class="step-content">
+              <div class="step-title">Digital credit agreement & disbursement</div>
+              <div class="step-status">Within up to 48 hours, your agreement is prepared; after acceptance, credit is sent to your wallet.</div>
+            </div>
+          </div>
+          <div class="step-item" data-step="6">
+            <div class="step-number">6</div>
+            <div class="step-content">
+              <div class="step-title">Repayment up to 365 days</div>
+              <div class="step-status">You remain obliged to repay the principal and applicable fees within 365 calendar days from disbursement.</div>
+            </div>
+          </div>
+        </div>
+
+        <p class="bottom-note">
+          <b>Important:</b> The repayment obligation, interest rate and default rules follow the
+          FlashLoan Digital Credit Agreement. Please review the full conditions in the Credit Terms page.
+        </p>
+      </div>
+
+      <!-- RIGHT: TXID tracking panel -->
+      <div>
+        <div class="tx-panel">
+          <h2>Track your FlashCredit via TXID</h2>
+          <p>
+            Enter the blockchain TXID that you provided when you requested your FlashCredit.
+            The system will query the same verification engine used on the main TXID console and reflect the status into the steps on the left.
+          </p>
+
+          <div class="tx-input-row">
+            <input type="text" id="txidInput" placeholder="Paste your payment TXID here..." />
+            <div class="tx-actions">
+              <button class="btn-sm btn-sm-primary" id="checkBtn">Check Status</button>
+              <button class="btn-sm btn-sm-ghost" id="clearBtn" type="button">Clear</button>
+            </div>
+          </div>
+
+          <div class="status-line" id="statusLine">
+            <span class="label">Status:</span>
+            <span class="value">Waiting for TXID…</span>
+          </div>
+
+          <div class="details" id="detailsBox"></div>
+
+          <p class="info-note">
+            Need the full advanced view? You can also open the separate verification console:
+            <a href="verify.html" target="_blank" rel="noopener noreferrer">TXID Verification Page</a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<script>
+// tiny helpers
+function safe(v){ return (v===undefined || v===null || v==="") ? "—" : String(v); }
+
+const statusLine = document.getElementById('statusLine');
+const detailsBox = document.getElementById('detailsBox');
+const stepsEls   = Array.from(document.querySelectorAll('.step-item'));
+
+function setStatus(text, mode){
+  const valSpan = statusLine.querySelector('.value');
+  valSpan.textContent = text;
+  valSpan.classList.remove('ok','warn','err');
+  if(mode) valSpan.classList.add(mode);
+}
+
+function resetSteps(){
+  stepsEls.forEach(el=>{
+    el.classList.remove('done','active','error');
+  });
+}
+
+// Map verify_status.php response.status → visual pipeline
+function applyStatusToSteps(st){
+  resetSteps();
+  st = (st||"").toLowerCase();
+
+  // For any TXID that exists, we can assume steps 1 & 2 happened
+  if (st){
+    stepsEls[0].classList.add('done');
+    stepsEls[1].classList.add('done');
+  }
+
+  if (st === 'pending'){
+    stepsEls[2].classList.add('active'); // payment seen, waiting confirmations
+  } else if (st === 'processing'){
+    stepsEls[2].classList.add('done');
+    stepsEls[3].classList.add('active'); // compliance / agreement in progress
+  } else if (st === 'approved'){
+    stepsEls[2].classList.add('done');
+    stepsEls[3].classList.add('done');
+    stepsEls[4].classList.add('active'); // ready for disbursement
+  } else if (st === 'delivered'){
+    stepsEls[2].classList.add('done');
+    stepsEls[3].classList.add('done');
+    stepsEls[4].classList.add('done');
+    stepsEls[5].classList.add('active'); // credit delivered, repayment phase
+  } else if (st === 'rejected'){
+    stepsEls[1].classList.add('error'); // rejected at payment / compliance stage
+  } else {
+    // Unknown or unhandled: do nothing extra
+  }
+}
+
+async function queryTxid(txid){
+  if(!txid){
+    setStatus('Please enter a TXID first.', 'warn');
+    resetSteps();
+    detailsBox.style.display='none';
+    detailsBox.innerHTML='';
+    return;
+  }
+  setStatus('Checking TXID against verification engine…', 'warn');
+  detailsBox.style.display='none';
+  detailsBox.innerHTML='';
+
+  try{
+    const res = await fetch(`verify_status.php?txid=${encodeURIComponent(txid)}&t=${Date.now()}`);
+    const data = await res.json();
+
+    if(!data.ok){
+      setStatus('TXID not found. Please check that you have sent your payment and provided the correct hash.', 'err');
+      resetSteps();
+      return;
+    }
+
+    // show details
+    const st = data.status || '';
+    const stUpper = st.toUpperCase() || 'UNKNOWN';
+
+    let humanStatus = '';
+    let mode = 'warn';
+    if(st === 'pending'){
+      humanStatus = 'Pending — awaiting on-chain confirmations and internal checks.';
+      mode = 'warn';
+    } else if(st === 'processing'){
+      humanStatus = 'Processing — credit agreement and checks are being prepared.';
+      mode = 'warn';
+    } else if(st === 'approved'){
+      humanStatus = 'Approved — payment verified, credit agreement ready for disbursement.';
+      mode = 'ok';
+    } else if(st === 'delivered'){
+      humanStatus = 'Delivered — funds have been sent to your registered wallet.';
+      mode = 'ok';
+    } else if(st === 'rejected'){
+      humanStatus = 'Rejected — TXID invalid or payment could not be accepted.';
+      mode = 'err';
+    } else {
+      humanStatus = `Status: ${stUpper}`;
+      mode = 'warn';
+    }
+
+    setStatus(humanStatus, mode);
+    applyStatusToSteps(st);
+
+    const html = `
+      <div class="detail-grid">
+        <div>
+          <div class="dg-k">Product</div>
+          <div class="dg-v">${safe(data.product)}</div>
+        </div>
+        <div>
+          <div class="dg-k">Amount</div>
+          <div class="dg-v">${safe(data.amount)}</div>
+        </div>
+        <div>
+          <div class="dg-k">Price</div>
+          <div class="dg-v">${safe(data.price)}</div>
+        </div>
+        <div>
+          <div class="dg-k">Network</div>
+          <div class="dg-v">${safe(data.network)}</div>
+        </div>
+        <div>
+          <div class="dg-k">User Wallet</div>
+          <div class="dg-v">${safe(data.wallet || data.user_address)}</div>
+        </div>
+        <div>
+          <div class="dg-k">Deposit Address</div>
+          <div class="dg-v">${safe(data.deposit_address)}</div>
+        </div>
+        <div>
+          <div class="dg-k">TXID</div>
+          <div class="dg-v">${safe(txid)}</div>
+        </div>
+        <div>
+          <div class="dg-k">Status</div>
+          <div class="dg-v">${stUpper}</div>
+        </div>
+        <div>
+          <div class="dg-k">Last Update</div>
+          <div class="dg-v">${safe(data.updated_at || data.date)}</div>
+        </div>
+      </div>
+      <div style="margin-top:8px;font-size:11px;color:var(--muted);">
+        This TXID is linked to a FlashLoan-style digital credit agreement. You can export the full legal PDF from the main TXID verification console if needed.
+      </div>
+    `;
+    detailsBox.innerHTML = html;
+    detailsBox.style.display = 'block';
+
+  }catch(e){
+    console.error(e);
+    setStatus('Network error — unable to contact verification engine.', 'err');
+    resetSteps();
+    detailsBox.style.display='none';
+    detailsBox.innerHTML='';
+  }
+}
+
+document.getElementById('checkBtn').addEventListener('click', ()=>{
+  const txid = document.getElementById('txidInput').value.trim();
+  queryTxid(txid);
+});
+
+document.getElementById('clearBtn').addEventListener('click', ()=>{
+  document.getElementById('txidInput').value = '';
+  setStatus('Waiting for TXID…', null);
+  resetSteps();
+  detailsBox.style.display='none';
+  detailsBox.innerHTML='';
+});
+
+// If credit-process.html?txid=... is opened, auto-load that TXID
+(function autoFromUrl(){
+  const params = new URLSearchParams(window.location.search);
+  const txid = params.get('txid');
+  if(txid){
+    document.getElementById('txidInput').value = txid;
+    queryTxid(txid);
+  }
+})();
+</script>
+</body>
+</html>
