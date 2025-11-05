@@ -1,0 +1,22 @@
+{
+  "name": "FLASH USDT",
+  "short_name": "FlashUSDT",
+  "description": "Multichain FlashLoan & Tether Platform (TRC20, ERC20, BEP20, BTC)",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#030615",
+  "theme_color": "#030615",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "assets/USDT-2.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/USDT-2.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
